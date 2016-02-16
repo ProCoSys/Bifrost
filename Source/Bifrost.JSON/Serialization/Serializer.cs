@@ -18,6 +18,7 @@
 #endregion
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace Bifrost.JSON.Serialization
     {
         readonly IContainer _container;
 
+        readonly ConcurrentDictionary<ISerializationOptions, JsonSerializer> _cacheAutoTypeName;
+        readonly ConcurrentDictionary<ISerializationOptions, JsonSerializer> _cacheNoneTypeName;
+
         /// <summary>
         /// Initializes a new instance of <see cref="Serializer"/>
         /// </summary>
@@ -46,15 +50,17 @@ namespace Bifrost.JSON.Serialization
         public Serializer(IContainer container)
         {
             _container = container;
+            _cacheAutoTypeName = new ConcurrentDictionary<ISerializationOptions, JsonSerializer>();
+            _cacheNoneTypeName = new ConcurrentDictionary<ISerializationOptions, JsonSerializer>();
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public T FromJson<T>(string json, SerializationOptions options = null)
+        public T FromJson<T>(string json, ISerializationOptions options = null)
         {
             return (T)FromJson(typeof(T), json, options);
         }
 
-        public object FromJson(Type type, string json, SerializationOptions options = null)
+        public object FromJson(Type type, string json, ISerializationOptions options = null)
         {
             var serializer = CreateSerializerForDeserialization(options);
             using (var textReader = new StringReader(json))
@@ -83,7 +89,7 @@ namespace Bifrost.JSON.Serialization
             }
         }
 
-        public void FromJson(object instance, string json, SerializationOptions options = null)
+        public void FromJson(object instance, string json, ISerializationOptions options = null)
         {
             var serializer = CreateSerializerForDeserialization(options);
             using (var textReader = new StringReader(json))
@@ -95,8 +101,7 @@ namespace Bifrost.JSON.Serialization
             }
         }
 
-
-        public string ToJson(object instance, SerializationOptions options = null)
+        public string ToJson(object instance, ISerializationOptions options = null)
         {
             using (var stringWriter = new StringWriter())
             {
@@ -107,7 +112,7 @@ namespace Bifrost.JSON.Serialization
             }
         }
 
-        public Stream ToJsonStream(object instance, SerializationOptions options = null)
+        public Stream ToJsonStream(object instance, ISerializationOptions options = null)
         {
             var serialized = ToJson(instance, options);
 
@@ -140,7 +145,6 @@ namespace Bifrost.JSON.Serialization
                     return _container.Get(type);
             }
         }
-
 
         bool DoesPropertiesMatchConstructor(Type type, string json)
         {
@@ -176,21 +180,39 @@ namespace Bifrost.JSON.Serialization
             return instance;
         }
 
-        JsonSerializer CreateSerializerForDeserialization(SerializationOptions options)
+        JsonSerializer CreateSerializerForDeserialization(ISerializationOptions options)
         {
-            return CreateSerializer(options, TypeNameHandling.Auto);
+            if (options == null)
+            {
+                options = SerializationOptions.Default;
+            }
+
+            return RetrieveSerializer(options, true);
         }
 
-        JsonSerializer CreateSerializerForSerialization(SerializationOptions options)
+        JsonSerializer CreateSerializerForSerialization(ISerializationOptions options)
         {
-            return CreateSerializer(options,
-                options == null ? TypeNameHandling.None :
-                    options.IncludeTypeNames ?
-                        TypeNameHandling.Auto :
-                        TypeNameHandling.None);
+            if (options == null)
+            {
+                options = SerializationOptions.Default;
+            }
+
+            return RetrieveSerializer(options, options.Flags.HasFlag(SerializationOptionsFlags.IncludeTypeNames));
         }
 
-        JsonSerializer CreateSerializer(SerializationOptions options, TypeNameHandling typeNameHandling)
+        JsonSerializer RetrieveSerializer(ISerializationOptions options, bool includeTypeNames)
+        {
+            if (includeTypeNames)
+            {
+                return _cacheAutoTypeName.GetOrAdd(options, _ => CreateSerializer(options, TypeNameHandling.Auto));
+            }
+            else
+            {
+                return _cacheNoneTypeName.GetOrAdd(options, _ => CreateSerializer(options, TypeNameHandling.None));
+            }
+        }
+
+        JsonSerializer CreateSerializer(ISerializationOptions options, TypeNameHandling typeNameHandling)
         {
             var contractResolver = new SerializerContractResolver(_container, options);
 
