@@ -1,4 +1,4 @@
-﻿describe("when asking for extenders in root namespace", function () {
+describe("when asking for extenders in root namespace", function () {
     var initialType = function (anInitialType) { };
     var namespace = null;
     var extenders = null;
@@ -21,7 +21,7 @@
         Bifrost.functionParser = {};
         extenders = null;
     });
-    
+
     it("should return extender on the root level", function () {
         expect(extenders).toContain(Root.RootExtendedType);
     });

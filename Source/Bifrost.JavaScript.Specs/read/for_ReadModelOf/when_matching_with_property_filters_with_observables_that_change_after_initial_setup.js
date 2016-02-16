@@ -1,4 +1,4 @@
-﻿describe("when matching with property filters with observables that change after initial setup", function () {
+describe("when matching with property filters with observables that change after initial setup", function () {
     var propertyFilters = { some: ko.observable("filter") };
     var task = { some: "task" };
     var taskFactory = {
@@ -41,7 +41,7 @@
     it("should create a read model task", function () {
         expect(taskFactory.createReadModel.secondCall.calledWith(readModelOf, expectedPropertyFilters)).toBe(true);
     });
-    
+
     it("should execute task", function () {
         expect(region.tasks.execute.secondCall.calledWith(task)).toBe(true);
     });

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -27,12 +27,12 @@ namespace Bifrost.Testing.Fakes.Entities
     public class EntityContext<T> : IEntityContext<T>
     {
         private readonly List<T> _entities;
-    	readonly List<T> _entitiesToDelete;
+        readonly List<T> _entitiesToDelete;
 
         public EntityContext()
         {
             _entities = new List<T>();
-			_entitiesToDelete = new List<T>();
+            _entitiesToDelete = new List<T>();
         }
 
         public EntityContext(IEnumerable<T> entities) : this()
@@ -63,21 +63,21 @@ namespace Bifrost.Testing.Fakes.Entities
 
         public void Delete(T entity)
         {
-			_entitiesToDelete.Add(entity);
+            _entitiesToDelete.Add(entity);
         }
 
         public void Save(T entity)
         {
-            
+
         }
 
         public bool CommitCalled = false;
         public void Commit()
         {
-			foreach (var entity in _entitiesToDelete)
-				_entities.Remove(entity);
+            foreach (var entity in _entitiesToDelete)
+                _entities.Remove(entity);
 
-        	_entitiesToDelete.Clear();
+            _entitiesToDelete.Clear();
             CommitCalled = true;
         }
 

@@ -1,37 +1,37 @@
 describe("when handling post binding with one element", function() {
-	var root = document.createElement("div");
-	var element = document.createElement("button");
-	
-	var documentService = {
-		traverseObjects: function(callback) {
-			callback(element);
-		}
-	};
+    var root = document.createElement("div");
+    var element = document.createElement("button");
 
-	var visitStub = sinon.stub();
+    var documentService = {
+        traverseObjects: function(callback) {
+            callback(element);
+        }
+    };
 
-	var visitorType = Bifrost.views.PostBindingVisitor.extend(function () {
-		this.visit = visitStub;
-	});
+    var visitStub = sinon.stub();
 
-	beforeEach(function () {
-	    sinon.stub(Bifrost.markup.ElementVisitor, "getExtenders").returns([]);
+    var visitorType = Bifrost.views.PostBindingVisitor.extend(function () {
+        this.visit = visitStub;
+    });
 
-	    sinon.stub(Bifrost.views.PostBindingVisitor, "getExtenders").returns([visitorType]);
+    beforeEach(function () {
+        sinon.stub(Bifrost.markup.ElementVisitor, "getExtenders").returns([]);
 
-		var instance = Bifrost.views.UIManager.createWithoutScope({
-			documentService: documentService
-		})
+        sinon.stub(Bifrost.views.PostBindingVisitor, "getExtenders").returns([visitorType]);
 
-		instance.handlePostBinding(root);
-	});
+        var instance = Bifrost.views.UIManager.createWithoutScope({
+            documentService: documentService
+        })
 
-	afterEach(function () {
-	    Bifrost.markup.ElementVisitor.getExtenders.restore();
-		Bifrost.views.PostBindingVisitor.getExtenders.restore();
-	});
+        instance.handlePostBinding(root);
+    });
 
-	it("should call the visit function of the visitor", function() {
-		expect(visitStub.calledWith(element)).toBe(true);
-	});
+    afterEach(function () {
+        Bifrost.markup.ElementVisitor.getExtenders.restore();
+        Bifrost.views.PostBindingVisitor.getExtenders.restore();
+    });
+
+    it("should call the visit function of the visitor", function() {
+        expect(visitStub.calledWith(element)).toBe(true);
+    });
 });

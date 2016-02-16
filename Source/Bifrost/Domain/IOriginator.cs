@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,21 +18,21 @@
 #endregion
 namespace Bifrost.Domain
 {
-	/// <summary>
-	/// Defines an origin, typically for aggregated roots when needing to create mementos and set them
-	/// </summary>
-	public interface IOriginator
-	{
-		/// <summary>
-		/// Create memento
-		/// </summary>
-		/// <returns>The actual memento</returns>
-		IMemento CreateMemento();
+    /// <summary>
+    /// Defines an origin, typically for aggregated roots when needing to create mementos and set them
+    /// </summary>
+    public interface IOriginator
+    {
+        /// <summary>
+        /// Create memento
+        /// </summary>
+        /// <returns>The actual memento</returns>
+        IMemento CreateMemento();
 
-		/// <summary>
-		/// Set mememoty
-		/// </summary>
-		/// <param name="memento">The actual memento to set</param>
-		void SetMemento(IMemento memento);
-	}
+        /// <summary>
+        /// Set mememoty
+        /// </summary>
+        /// <param name="memento">The actual memento to set</param>
+        void SetMemento(IMemento memento);
+    }
 }

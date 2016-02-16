@@ -1,4 +1,4 @@
-﻿describe("when getting context for a command with security context in namespace", sinon.test(function () {
+describe("when getting context for a command with security context in namespace", sinon.test(function () {
     var securityContext = {
         isAuthorized: ko.observable(false)
     };
@@ -34,7 +34,7 @@
     it("should not create a security context", function () {
         expect(parameters.commandSecurityContextFactory.create.called).toBe(false);
     });
-    
+
     it("should continue the promise with the security context found in namespace", function () {
         expect(securityContextReceived).toBe(securityContext);
     });

@@ -14,7 +14,7 @@ namespace Bifrost.Specs.Commands.for_CommandCoordinator
         static CommandResult result;
         static Mock<AuthorizationResult> authorization_result;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             authorization_result = new Mock<AuthorizationResult>();
             authorization_result.Setup(r => r.IsAuthorized).Returns(false);

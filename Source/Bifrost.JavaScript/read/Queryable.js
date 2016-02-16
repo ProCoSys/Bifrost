@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.read", {
+Bifrost.namespace("Bifrost.read", {
     Queryable: Bifrost.Type.extend(function (query, queryService, region, targetObservable) {
         var self = this;
 
@@ -65,24 +65,24 @@
         };
 
         this.setPageInfo = function (pageSize, pageNumber) {
-            
+
             if (pageSize === self.pageSize() && pageNumber === self.pageNumber()) {
                 return;
             }
-            
+
             self.canExecute = false;
             self.pageSize(pageSize);
             self.pageNumber(pageNumber);
             self.canExecute = true;
             self.execute();
         };
-        
+
         observePropertiesFrom(self.query);
 
         if (self.query.areAllParametersSet()) {
             self.execute();
         }
-      
+
     })
 });
 Bifrost.read.Queryable.new = function (options, region) {

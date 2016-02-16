@@ -48,7 +48,7 @@ Bifrost.namespace("Bifrost.read", {
 
         this.populateCommandOnChanges = function (command) {
             command.populatedExternally();
-            
+
             if (typeof self.instance() !== "undefined" && self.instance() != null) {
                 command.populateFromExternalSource(self.instance());
             }

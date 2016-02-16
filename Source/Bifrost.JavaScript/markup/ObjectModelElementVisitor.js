@@ -1,7 +1,7 @@
 Bifrost.namespace("Bifrost.markup", {
     ObjectModelElementVisitor: Bifrost.markup.ElementVisitor.extend(function (elementNaming, namespaces, objectModelFactory, propertyExpander, UIElementPreparer, attributeValues, bindingContextManager) {
         this.visit = function(element, actions) {
-            // Tags : 
+            // Tags :
             //  - tag names automatically match type names
             //  - due to tag names in HTML elements being without case - they become lower case in the
             //    localname property, we will have to search for type by lowercase
@@ -14,15 +14,15 @@ Bifrost.namespace("Bifrost.markup", {
             //  - multiple types with same name in namespace groupings should throw an exception
             //  - registering a namespace can be done on any tag by adding ns:name="point to JS namespace"
             //  - Wildcard registrations to capture anything in a namespace e.g. ns:controls="Web.Controls.*"
-            //  - If one registers a namespace with a prefix a parent already has and no naming root sits in between, 
+            //  - If one registers a namespace with a prefix a parent already has and no naming root sits in between,
             //    it should add the namespace target on the same definition
-            //  - Naming roots are important - if there occurs a naming root, everything is relative to that and 
+            //  - Naming roots are important - if there occurs a naming root, everything is relative to that and
             //    breaking any "inheritance"
-            // Properties : 
+            // Properties :
             //  - Attributes on an element is a property
             //  - Values in property should always go through type conversion sub system
-            //  - Values with encapsulated in {} should be considered markup extensions, go through 
-            //    markup extension system for resolving them and then pass on the resulting value 
+            //  - Values with encapsulated in {} should be considered markup extensions, go through
+            //    markup extension system for resolving them and then pass on the resulting value
             //    to type conversion sub system
             //  - Properties can be set with tag suffixed with .<name of property> - more than one
             //    '.' in a tag name should throw an exception
@@ -30,13 +30,13 @@ Bifrost.namespace("Bifrost.markup", {
             //  - Any value escaped with {{ }} should be considered a value provider
             // Value Consumer :
             //  - In the opposite end of a value sits a consumer. If the target property is a consumer, pass this
-            //    in to the value provider. If the property is just a regular property, use the default property 
+            //    in to the value provider. If the property is just a regular property, use the default property
             //    value consumer
             // Dependency Properties
             //  - A property type that has the ability of notifying something when it changes
             //    Typically a property gets registered with the ability to offer a callback
             //    Dependency properties needs to be explicitly setup
-            //  - Attached dependency properties - one should be able to attach dependency properties 
+            //  - Attached dependency properties - one should be able to attach dependency properties
             //    Adding new functionality to an existing element through exposing new properties on
             //    existing elements. It does not matter what elements, it could be existing ones.
             //    The attached dependency property defines what it is for by specifying a type. Once
@@ -53,13 +53,13 @@ Bifrost.namespace("Bifrost.markup", {
             //    at the same time should yield an exception
             // Templating :
             //  - If a UIElement is found, it will need to be instantiated
-            //  - If the instance is of a Control type - we will look at the 
+            //  - If the instance is of a Control type - we will look at the
             //    ControlTemplate property for its template and use that to replace content
             //
-            // Example : 
+            // Example :
             // Simple control:
             // <somecontrol property="42"/>
-            // 
+            //
             // Control in different namespace:
             // <ns:somecontrol property="42"/>
             //
@@ -67,7 +67,7 @@ Bifrost.namespace("Bifrost.markup", {
             // <ns:somecontrol>
             //    <ns:somecontrol.property>42</ns:somcontrol.property>
             // </ns:somecontrol>
-            // 
+            //
             // Using a markup extension:
             // <ns:somecontrol somevalue="{{binding property}}">
             // <ns:somecontrol

@@ -15,8 +15,8 @@ namespace Bifrost.Specs.Events.for_EventStoreChangeManager
         static Mock<IEventStore>    event_store_mock;
         static UncommittedEventStream stream_of_events;
 
-        Establish context = () => 
-        { 
+        Establish context = () =>
+        {
             event_store_mock = new Mock<IEventStore>();
             stream_of_events = new UncommittedEventStream(Guid.NewGuid());
             stream_of_events.Append(new SimpleEvent(Guid.NewGuid()));

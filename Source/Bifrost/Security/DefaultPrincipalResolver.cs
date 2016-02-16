@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -16,7 +16,6 @@
 // limitations under the License.
 //
 #endregion
-using System;
 using System.Security.Principal;
 using System.Threading;
 
@@ -30,11 +29,7 @@ namespace Bifrost.Security
 #pragma warning disable 1591 // Xml Comments
         public IPrincipal Resolve()
         {
-#if(SILVERLIGHT)
-            throw new NotImplementedException();
-#else
             return Thread.CurrentPrincipal;
-#endif
         }
 #pragma warning restore 1591 // Xml Comments
     }

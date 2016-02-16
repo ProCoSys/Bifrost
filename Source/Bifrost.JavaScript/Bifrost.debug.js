@@ -782,8 +782,8 @@ Bifrost.namespace("Bifrost.execution", {
 });
 
 Bifrost.execution.Promise.create = function() {
-	var promise = new Bifrost.execution.Promise();
-	return promise;
+    var promise = new Bifrost.execution.Promise();
+    return promise;
 };
 Bifrost.namespace("Bifrost", {
     isObject: function (o) {
@@ -839,8 +839,8 @@ Bifrost.namespace("Bifrost", {
         if (Bifrost.isNullOrUndefined(o)) {
             return false;
         }
-		return typeof o._typeId !== "undefined";
-	}
+        return typeof o._typeId !== "undefined";
+    }
 });
 Bifrost.namespace("Bifrost", {
     functionParser: {
@@ -1158,7 +1158,7 @@ Bifrost.namespace("Bifrost", {
                     return current[name];
                 }
                 if (self.doesNamespaceHaveScriptReference(current, name) ) {
-                    var promise = Bifrost.execution.Promise.create();       
+                    var promise = Bifrost.execution.Promise.create();
                     self.loadScriptReference(current, name, promise);
                     return promise;
                 }
@@ -1342,7 +1342,7 @@ Bifrost.namespace("Bifrost", {
 
         var firstParameter = true;
         var createFunctionString = "Function('definition', 'dependencies','return new definition(";
-            
+
         if( typeof typeDefinition._dependencies !== "undefined" ) {
             typeDefinition._dependencies.forEach(function(dependency, index) {
                 if (!firstParameter) {
@@ -1369,7 +1369,7 @@ Bifrost.namespace("Bifrost", {
     }
 
     function resolve(namespace, dependency, index, instances, typeDefinition, resolvedCallback) {
-        var promise = 
+        var promise =
             Bifrost.dependencyResolver
                 .beginResolve(namespace, dependency)
                 .continueWith(function(result, nextPromise) {
@@ -1445,7 +1445,7 @@ Bifrost.namespace("Bifrost", {
         var dependencyInstances = [];
         if( typeof instanceHash === "object" ) {
             expandInstancesHashToDependencies(typeDefinition, instanceHash, dependencyInstances);
-        } 
+        }
         if( typeof typeDefinition._dependencies !== "undefined" && typeDefinition._dependencies.length > 0 ) {
             if( dependencyInstances.length > 0 ) {
                 resolveDependencyInstancesThatHasNotBeenResolved(dependencyInstances, typeDefinition);
@@ -1521,7 +1521,7 @@ Bifrost.namespace("Bifrost", {
 
     Bifrost.Type.getExtendersIn = function (namespace) {
         var inNamespace = [];
-        
+
         this._extenders.forEach(function (extender) {
             var current = namespace;
             while (current !== window) {
@@ -1536,14 +1536,14 @@ Bifrost.namespace("Bifrost", {
 
                 current = current.parent;
             }
-            
+
         });
         return inNamespace;
     };
 
-  
 
-    Bifrost.Type.extend = function (typeDefinition) {     
+
+    Bifrost.Type.extend = function (typeDefinition) {
         throwIfMissingTypeDefinition(typeDefinition);
         throwIfTypeDefinitionIsObjectLiteral(typeDefinition);
 
@@ -1624,7 +1624,7 @@ Bifrost.namespace("Bifrost", {
             var dependencyInstances = resolveDependencyInstances(instanceHash, this);
             instance = this.createFunction(this, dependencyInstances);
         } else {
-            instance = new actualType();    
+            instance = new actualType();
         }
 
         instance._type = actualType;
@@ -1703,8 +1703,8 @@ Bifrost.namespace("Bifrost", {
         superPromise.continueWith(function(_super, nextPromise) {
             self.prototype = _super;
 
-            if( self._dependencies == null || 
-                typeof self._dependencies === "undefined" || 
+            if( self._dependencies == null ||
+                typeof self._dependencies === "undefined" ||
                 self._dependencies.length === 0) {
                 var instance = self.create(instanceHash);
                 promise.signal(instance);
@@ -1876,7 +1876,7 @@ Bifrost.Exception = (function(global, undefined) {
             throw new Bifrost.MissingName();
         }
     }
-    
+
     function throwIfDefinitionNotAFunction(definition) {
         if (typeof definition !== "function") {
             throw new Bifrost.DefinitionMustBeFunction();
@@ -1890,45 +1890,45 @@ Bifrost.Exception = (function(global, undefined) {
         }
         return name.substr(lastDot+1);
     }
-    
+
     function defineAndGetTargetScope(name) {
         var lastDot = name.lastIndexOf(".");
         if( lastDot === -1 ) {
             return global;
         }
-        
+
         var ns = name.substr(0,lastDot);
         Bifrost.namespace(ns);
-        
+
         var scope = global;
         var parts = ns.split('.');
         parts.forEach(function(part) {
             scope = scope[part];
         });
-        
+
         return scope;
     }
-    
+
     return {
         define: function(name, defaultMessage, definition) {
             throwIfNameMissing(name);
-            
+
             var scope = defineAndGetTargetScope(name);
             var exceptionName = getExceptionName(name);
-            
+
             var exception = function (message) {
                 this.name = exceptionName;
                 this.message = message || defaultMessage;
             };
             exception.prototype = Error.prototype;
-            
+
             if( definition && typeof definition !== "undefined" ) {
                 throwIfDefinitionNotAFunction(definition);
-                
+
                 definition.prototype = Error.prototype;
                 exception.prototype = new definition();
             }
-            
+
             scope[exceptionName] = exception;
         }
     };
@@ -2000,9 +2000,9 @@ Bifrost.Uri = (function(window, undefined) {
         }
 
         return uri;
-    }	
-    
-    
+    }
+
+
     function Uri(location) {
         var self = this;
         this.setLocation = function (location) {
@@ -2028,21 +2028,21 @@ Bifrost.Uri = (function(window, undefined) {
             self.isSameAsOrigin = (window.location.protocol === result.protocol + ":" &&
                 window.location.hostname === self.host);
         };
-        
+
         this.setLocation(location);
     }
-    
+
     function throwIfLocationNotSpecified(location) {
         if (!location || typeof location === "undefined") {
             throw new Bifrost.LocationNotSpecified();
         }
     }
-    
-    
+
+
     return {
         create: function(location) {
             throwIfLocationNotSpecified(location);
-        
+
             var uri = new Uri(location);
             return uri;
         },
@@ -2251,7 +2251,7 @@ Bifrost.namespace("Bifrost", {
                 if (input === null || typeof input === "undefined") {
                     return "";
                 }
-                
+
                 var mapping = self.getMappingFor(input);
                 if (Bifrost.isNullOrUndefined(mapping)) {
                     return "";
@@ -3028,7 +3028,7 @@ Bifrost.namespace("Bifrost.specifications", {
         /// <remarks>
         /// The evaluator can either be a function that gets called with the instance
         /// or an observable. The observable not being a regular function will obviously
-        /// not have the instance passed 
+        /// not have the instance passed
         /// </remarks>
         this.evaluator = null;
 
@@ -3061,7 +3061,7 @@ Bifrost.namespace("Bifrost.specifications", {
         this.and = function (rule) {
             /// <summary>Takes this rule and "ands" it together with another rule</summary>
             /// <param name="rule">
-            /// This can either be the instance of another specific rule, 
+            /// This can either be the instance of another specific rule,
             /// or an evaluator that can be used directly by the default rule implementation
             /// </param>
             /// <returns>A new composed rule</returns>
@@ -3079,7 +3079,7 @@ Bifrost.namespace("Bifrost.specifications", {
         this.or = function (rule) {
             /// <summary>Takes this rule and "ors" it together with another rule</summary>
             /// <param name="rule">
-            /// This can either be the instance of another specific rule, 
+            /// This can either be the instance of another specific rule,
             /// or an evaluator that can be used directly by the default rule implementation
             /// </param>
             /// <returns>A new composed rule</returns>
@@ -3100,7 +3100,7 @@ Bifrost.specifications.Specification.when = function (evaluator) {
     /// <param name="evaluator">
     /// The evaluator can either be a function that gets called with the instance
     /// or an observable. The observable not being a regular function will obviously
-    /// not have the instance passed 
+    /// not have the instance passed
     /// </param>
     /// <returns>A new composed rule</returns>
     var rule = Bifrost.specifications.Specification.create();
@@ -3324,17 +3324,17 @@ Bifrost.namespace("Bifrost.tasks", {
 
             task.promise = Bifrost.execution.Promise.create();
             self.unfiltered.push(task);
-            
+
             var rule = self.canExecuteWhen();
             var canExecute = true;
             if (!Bifrost.isNullOrUndefined(rule)) {
                 canExecute = rule.evaluate(task);
             }
-            
+
             if (canExecute === true) {
                 executeTaskIfNotExecuting(task);
             }
-            
+
             return task.promise;
         };
     })
@@ -4094,7 +4094,7 @@ if (typeof ko !== 'undefined') {
 
                 for (var parameter in parameters ) {
                     var parameterValue = parameters[parameter];
-                    
+
                     if( command.parameters.hasOwnProperty(parameter) &&
                         ko.isObservable(command.parameters[parameter]) ) {
                         command.parameters[parameter](parameterValue);
@@ -4107,24 +4107,24 @@ if (typeof ko !== 'undefined') {
                 command = value;
             }
             ko.applyBindingsToNode(element, { click: function() {
-                // TODO: Investigate further - idea was to support a "context-sensitive" way of dynamically inserting 
+                // TODO: Investigate further - idea was to support a "context-sensitive" way of dynamically inserting
                 // parameters before execution of the command
                 /*
                 if( !contextBound ) {
-                    command.parameters = command.parameters || {};					
+                    command.parameters = command.parameters || {};
                     for( var parameter in command.parameters ) {
                         if( viewModel.hasOwnProperty(parameter) ) {
                             var parameterValue = viewModel[parameter];
                             if( ko.isObservable(command.parameters[parameter]) ) {
                                 command.parameters[parameter](parameterValue);
                             } else {
-                                command.parameters[parameter] = parameterValue;								
+                                command.parameters[parameter] = parameterValue;
                             }
                         }
                     }
                 }
                 */
-    
+
                 command.execute();
             }}, viewModel);
         }
@@ -4378,7 +4378,7 @@ Bifrost.namespace("Bifrost.commands", {
             validatePropertiesFor(command, result);
             return result;
         };
-        
+
         this.validateSilently = function (command) {
             var result = { valid: true };
             validatePropertiesFor(command, result, true);
@@ -4538,7 +4538,7 @@ Bifrost.namespace("Bifrost.commands", {
         this.getProperties = function () {
             var properties = [];
             for (var property in self.targetCommand) {
-                if (self.targetCommand.hasOwnProperty(property) && 
+                if (self.targetCommand.hasOwnProperty(property) &&
                     !(self.hasOwnProperty(property))) {
                     properties.push(property);
                 }
@@ -4701,7 +4701,7 @@ Bifrost.namespace("Bifrost.commands", {
                 }
                 commandValidationService.validateSilently(this);
             }
-            
+
             commandSecurityService.getContextFor(lastDescendant).continueWith(function (securityContext) {
                 lastDescendant.securityContext(securityContext);
 
@@ -5198,7 +5198,7 @@ Bifrost.namespace("Bifrost.interaction", {
                     if (originalEventHandler) {
                         originalEventHandler(e);
                     }
-                    
+
                     self.signal();
                 };
             }
@@ -5563,7 +5563,7 @@ Bifrost.namespace("Bifrost.mapping", {
             }
             return typeAsString;
         }
-        
+
 
 
         function copyProperties(mappedProperties, from, to, map) {
@@ -5573,7 +5573,7 @@ Bifrost.namespace("Bifrost.mapping", {
                 }
 
                 if (!Bifrost.isUndefined(from[property])) {
-                    
+
                     if (Bifrost.isObject(from[property]) && Bifrost.isObject(to[property])) {
                         copyProperties(mappedProperties, from[property], to[property]);
                     } else {
@@ -5749,24 +5749,24 @@ Bifrost.namespace("Bifrost.read", {
         };
 
         this.setPageInfo = function (pageSize, pageNumber) {
-            
+
             if (pageSize === self.pageSize() && pageNumber === self.pageNumber()) {
                 return;
             }
-            
+
             self.canExecute = false;
             self.pageSize(pageSize);
             self.pageNumber(pageNumber);
             self.canExecute = true;
             self.execute();
         };
-        
+
         observePropertiesFrom(self.query);
 
         if (self.query.areAllParametersSet()) {
             self.execute();
         }
-      
+
     })
 });
 Bifrost.read.Queryable.new = function (options, region) {
@@ -5863,7 +5863,7 @@ Bifrost.namespace("Bifrost.read", {
                     self.target[property].extend({ linked: {} });
                 }
             }
-            
+
             self.areAllParametersSet = ko.computed(function () {
                 var isSet = true;
                 var hasParameters = false;
@@ -5963,7 +5963,7 @@ Bifrost.namespace("Bifrost.read", {
 
         this.populateCommandOnChanges = function (command) {
             command.populatedExternally();
-            
+
             if (typeof self.instance() !== "undefined" && self.instance() != null) {
                 command.populateFromExternalSource(self.instance());
             }
@@ -6628,7 +6628,7 @@ Bifrost.namespace("Bifrost.markup", {
 
                                 var value = keyValuePair[0];
                                 handleValue(provider, provider.defaultProperty, value);
-                                
+
                             } else if (keyValuePair.length === 2) {
                                 // Property and value
 
@@ -6660,7 +6660,7 @@ Bifrost.namespace("Bifrost.markup", {
 });
 Bifrost.namespace("Bifrost.markup", {
     objectModelFactory: Bifrost.Singleton(function (dependencyResolver, documentService) {
-        
+
         function tryResolveTargetNamespaces(localName, targets, success, error) {
             function tryResolve(queue) {
                 if (queue.length) {
@@ -6760,7 +6760,7 @@ Bifrost.namespace("Bifrost.markup", {
             }
             if (Bifrost.isNullOrUndefined(element.parentElement) ||
                 element.parentElement.constructor === HTMLHtmlElement) {
-                
+
                 return null;
             }
 
@@ -6916,7 +6916,7 @@ Bifrost.namespace("Bifrost.markup", {
 Bifrost.namespace("Bifrost.markup", {
     ObjectModelElementVisitor: Bifrost.markup.ElementVisitor.extend(function (elementNaming, namespaces, objectModelFactory, propertyExpander, UIElementPreparer, attributeValues, bindingContextManager) {
         this.visit = function(element, actions) {
-            // Tags : 
+            // Tags :
             //  - tag names automatically match type names
             //  - due to tag names in HTML elements being without case - they become lower case in the
             //    localname property, we will have to search for type by lowercase
@@ -6929,15 +6929,15 @@ Bifrost.namespace("Bifrost.markup", {
             //  - multiple types with same name in namespace groupings should throw an exception
             //  - registering a namespace can be done on any tag by adding ns:name="point to JS namespace"
             //  - Wildcard registrations to capture anything in a namespace e.g. ns:controls="Web.Controls.*"
-            //  - If one registers a namespace with a prefix a parent already has and no naming root sits in between, 
+            //  - If one registers a namespace with a prefix a parent already has and no naming root sits in between,
             //    it should add the namespace target on the same definition
-            //  - Naming roots are important - if there occurs a naming root, everything is relative to that and 
+            //  - Naming roots are important - if there occurs a naming root, everything is relative to that and
             //    breaking any "inheritance"
-            // Properties : 
+            // Properties :
             //  - Attributes on an element is a property
             //  - Values in property should always go through type conversion sub system
-            //  - Values with encapsulated in {} should be considered markup extensions, go through 
-            //    markup extension system for resolving them and then pass on the resulting value 
+            //  - Values with encapsulated in {} should be considered markup extensions, go through
+            //    markup extension system for resolving them and then pass on the resulting value
             //    to type conversion sub system
             //  - Properties can be set with tag suffixed with .<name of property> - more than one
             //    '.' in a tag name should throw an exception
@@ -6945,13 +6945,13 @@ Bifrost.namespace("Bifrost.markup", {
             //  - Any value escaped with {{ }} should be considered a value provider
             // Value Consumer :
             //  - In the opposite end of a value sits a consumer. If the target property is a consumer, pass this
-            //    in to the value provider. If the property is just a regular property, use the default property 
+            //    in to the value provider. If the property is just a regular property, use the default property
             //    value consumer
             // Dependency Properties
             //  - A property type that has the ability of notifying something when it changes
             //    Typically a property gets registered with the ability to offer a callback
             //    Dependency properties needs to be explicitly setup
-            //  - Attached dependency properties - one should be able to attach dependency properties 
+            //  - Attached dependency properties - one should be able to attach dependency properties
             //    Adding new functionality to an existing element through exposing new properties on
             //    existing elements. It does not matter what elements, it could be existing ones.
             //    The attached dependency property defines what it is for by specifying a type. Once
@@ -6968,13 +6968,13 @@ Bifrost.namespace("Bifrost.markup", {
             //    at the same time should yield an exception
             // Templating :
             //  - If a UIElement is found, it will need to be instantiated
-            //  - If the instance is of a Control type - we will look at the 
+            //  - If the instance is of a Control type - we will look at the
             //    ControlTemplate property for its template and use that to replace content
             //
-            // Example : 
+            // Example :
             // Simple control:
             // <somecontrol property="42"/>
-            // 
+            //
             // Control in different namespace:
             // <ns:somecontrol property="42"/>
             //
@@ -6982,7 +6982,7 @@ Bifrost.namespace("Bifrost.markup", {
             // <ns:somecontrol>
             //    <ns:somecontrol.property>42</ns:somcontrol.property>
             // </ns:somecontrol>
-            // 
+            //
             // Using a markup extension:
             // <ns:somecontrol somevalue="{{binding property}}">
             // <ns:somecontrol
@@ -7215,7 +7215,7 @@ Bifrost.namespace("Bifrost.views", {
                                 });
                             }
                         }
-                    
+
                         UIManager.handle(body);
                         promise.signal();
                     });
@@ -7503,7 +7503,7 @@ Bifrost.namespace("Bifrost.views", {
             view.load(region).continueWith(function (loadedView) {
                 var wrapper = document.createElement("div");
                 wrapper.innerHTML = loadedView.content;
-                
+
 
                 content = wrapper.innerHTML;
 
@@ -7583,7 +7583,7 @@ Bifrost.namespace("Bifrost.views", {
                 }
             });
 
-            
+
             return renderedTemplateSource;
         };
     })
@@ -7613,7 +7613,7 @@ Bifrost.namespace("Bifrost.views", {
                 if (Bifrost.isFunction(viewModel.deactivated)) {
                     viewModel.deactivated();
                 }
-                
+
             }
         }
 
@@ -8043,7 +8043,7 @@ Bifrost.namespace("Bifrost.views", {
         this.hasChanges = ko.computed(function () {
             var commandsHaveChanges = self.commandsHaveChanges();
 
-            
+
             var childrenHasChanges = false;
             self.children().forEach(function (childRegion) {
                 if (!childRegion.isCommandRoot()) {
@@ -8093,7 +8093,7 @@ Bifrost.namespace("Bifrost.views", {
                     return;
                 }
             });
-            
+
             if (self.tasks.all().length > 0) {
                 isBusy = true;
             }
@@ -8289,7 +8289,7 @@ Bifrost.namespace("Bifrost.interaction", {
     VisualStateManagerElementVisitor: Bifrost.markup.ElementVisitor.extend(function () {
         var visualStateActionTypes = Bifrost.interaction.VisualStateAction.getExtenders();
 
-        
+
 
         function parseActions(namingRoot, stateElement, state) {
             function parseAction(type) {
@@ -8413,7 +8413,7 @@ Bifrost.namespace("Bifrost.navigation", {
         history.Adapter.bind(window, "statechange", function () {
             self.setCurrentUriFromCurrentLocation();
         });
-        
+
         this.configureFor = function (container) {
             self.setCurrentUriFromCurrentLocation();
             self.container = container;
@@ -8968,7 +8968,7 @@ Bifrost.namespace("Bifrost.values", {
                 if (expression[charIndex] == complexExpressionCharacters[complexCharIndex]) return true;
             }
         }
-        
+
         return false;
     }
 

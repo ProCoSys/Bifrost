@@ -34,7 +34,7 @@ describe("when beginning to resolve", function () {
     });
 
 
-	it("should return a promise", function() {
-		expect(result instanceof Bifrost.execution.Promise).toBe(true);
-	});
+    it("should return a promise", function() {
+        expect(result instanceof Bifrost.execution.Promise).toBe(true);
+    });
 });

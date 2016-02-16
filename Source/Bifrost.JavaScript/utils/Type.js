@@ -29,7 +29,7 @@ Bifrost.namespace("Bifrost", {
 
         var firstParameter = true;
         var createFunctionString = "Function('definition', 'dependencies','return new definition(";
-            
+
         if( typeof typeDefinition._dependencies !== "undefined" ) {
             typeDefinition._dependencies.forEach(function(dependency, index) {
                 if (!firstParameter) {
@@ -56,7 +56,7 @@ Bifrost.namespace("Bifrost", {
     }
 
     function resolve(namespace, dependency, index, instances, typeDefinition, resolvedCallback) {
-        var promise = 
+        var promise =
             Bifrost.dependencyResolver
                 .beginResolve(namespace, dependency)
                 .continueWith(function(result, nextPromise) {
@@ -132,7 +132,7 @@ Bifrost.namespace("Bifrost", {
         var dependencyInstances = [];
         if( typeof instanceHash === "object" ) {
             expandInstancesHashToDependencies(typeDefinition, instanceHash, dependencyInstances);
-        } 
+        }
         if( typeof typeDefinition._dependencies !== "undefined" && typeDefinition._dependencies.length > 0 ) {
             if( dependencyInstances.length > 0 ) {
                 resolveDependencyInstancesThatHasNotBeenResolved(dependencyInstances, typeDefinition);
@@ -208,7 +208,7 @@ Bifrost.namespace("Bifrost", {
 
     Bifrost.Type.getExtendersIn = function (namespace) {
         var inNamespace = [];
-        
+
         this._extenders.forEach(function (extender) {
             var current = namespace;
             while (current !== window) {
@@ -223,14 +223,14 @@ Bifrost.namespace("Bifrost", {
 
                 current = current.parent;
             }
-            
+
         });
         return inNamespace;
     };
 
-  
 
-    Bifrost.Type.extend = function (typeDefinition) {     
+
+    Bifrost.Type.extend = function (typeDefinition) {
         throwIfMissingTypeDefinition(typeDefinition);
         throwIfTypeDefinitionIsObjectLiteral(typeDefinition);
 
@@ -311,7 +311,7 @@ Bifrost.namespace("Bifrost", {
             var dependencyInstances = resolveDependencyInstances(instanceHash, this);
             instance = this.createFunction(this, dependencyInstances);
         } else {
-            instance = new actualType();    
+            instance = new actualType();
         }
 
         instance._type = actualType;
@@ -390,8 +390,8 @@ Bifrost.namespace("Bifrost", {
         superPromise.continueWith(function(_super, nextPromise) {
             self.prototype = _super;
 
-            if( self._dependencies == null || 
-                typeof self._dependencies === "undefined" || 
+            if( self._dependencies == null ||
+                typeof self._dependencies === "undefined" ||
                 self._dependencies.length === 0) {
                 var instance = self.create(instanceHash);
                 promise.signal(instance);

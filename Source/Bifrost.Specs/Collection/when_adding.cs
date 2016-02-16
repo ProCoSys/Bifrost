@@ -9,11 +9,11 @@ namespace Bifrost.Specs.Collection
         static IObservableCollection<object> collection_added_to;
         static IEnumerable<object>  items_added;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             object_to_add = new object();
 
-            collection.Added += (c, i) => 
+            collection.Added += (c, i) =>
             {
                 collection_added_to = c;
                 items_added = i;

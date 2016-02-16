@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -26,7 +26,7 @@ namespace Bifrost.RavenDB
     public class EntityContext<T> : IEntityContext<T>
     {
         IEntityContextConnection _connection;
-        
+
         IDocumentSession _session;
         string _indexName;
 
@@ -97,7 +97,7 @@ namespace Bifrost.RavenDB
 
             var keyId = string.Format("{0}/{1}", documentKeyName, id);
             return keyId;
-        } 
+        }
 
         string GetDocumentKeyForType()
         {

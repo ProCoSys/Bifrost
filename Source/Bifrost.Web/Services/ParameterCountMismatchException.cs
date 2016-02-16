@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -22,7 +22,7 @@ namespace Bifrost.Web.Services
 {
     public class ParameterCountMismatchException : ArgumentException
     {
-        public ParameterCountMismatchException(Uri uri, string serviceName, int actual, int expected) 
+        public ParameterCountMismatchException(Uri uri, string serviceName, int actual, int expected)
             : base(string.Format("Expected {0} arguments, but got {1} for {2} with Uri : '{3}'", expected, actual, serviceName, uri))
         {
         }

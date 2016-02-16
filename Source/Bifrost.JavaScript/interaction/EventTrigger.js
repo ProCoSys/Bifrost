@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.interaction", {
+Bifrost.namespace("Bifrost.interaction", {
     EventTrigger: Bifrost.interaction.Trigger.extend(function () {
         var self = this;
 
@@ -20,7 +20,7 @@
                     if (originalEventHandler) {
                         originalEventHandler(e);
                     }
-                    
+
                     self.signal();
                 };
             }

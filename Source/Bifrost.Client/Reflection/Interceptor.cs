@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -25,7 +25,7 @@ using Castle.DynamicProxy;
 namespace Bifrost.Reflection
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IInterceptor"/> that enables 
+    /// Represents an implementation of <see cref="IInterceptor"/> that enables
     /// us to work more easily with invocation interception
     /// </summary>
     public class Interceptor : IInterceptor
@@ -33,7 +33,7 @@ namespace Bifrost.Reflection
         List<ICanHandleInvocations> _invocationHandlers = new List<ICanHandleInvocations>();
 
         /// <summary>
-        /// Add a handler for the given interface and a matching implementation 
+        /// Add a handler for the given interface and a matching implementation
         /// that will act as the handler
         /// </summary>
         /// <typeparam name="TInterface">Interface to add for</typeparam>

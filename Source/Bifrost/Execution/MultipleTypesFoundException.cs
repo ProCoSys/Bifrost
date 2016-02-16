@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,20 +20,20 @@ using System;
 
 namespace Bifrost.Execution
 {
-	/// <summary>
-	/// The exception that is thrown when multiple types are found and not allowed
-	/// </summary>
+    /// <summary>
+    /// The exception that is thrown when multiple types are found and not allowed
+    /// </summary>
     public class MultipleTypesFoundException : ArgumentException
     {
-		/// <summary>
-		/// Initializes an instance of <see cref="MultipleTypesFoundException"/>
-		/// </summary>
+        /// <summary>
+        /// Initializes an instance of <see cref="MultipleTypesFoundException"/>
+        /// </summary>
         public MultipleTypesFoundException() {}
 
-		/// <summary>
-		/// Initializes an instance of <see cref="MultipleTypesFoundException"/>
-		/// </summary>
-		/// <param name="message">Message with details about the exception</param>
+        /// <summary>
+        /// Initializes an instance of <see cref="MultipleTypesFoundException"/>
+        /// </summary>
+        /// <param name="message">Message with details about the exception</param>
         public MultipleTypesFoundException(string message) : base(message) {}
     }
 }

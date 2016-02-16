@@ -1,4 +1,4 @@
-﻿describe("when asking if it can resolve for queryTypes", sinon.test(function () {
+describe("when asking if it can resolve for queryTypes", sinon.test(function () {
 
     var resolver,
         canResolve,
@@ -16,7 +16,7 @@
         canResolve = false;
         propertyToResolve = "queryTypes";
         namespace = {};
-        
+
         canResolve = resolver.canResolve(namespace, propertyToResolve);
     });
 

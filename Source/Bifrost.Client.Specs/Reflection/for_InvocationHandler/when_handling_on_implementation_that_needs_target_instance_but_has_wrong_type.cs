@@ -18,7 +18,7 @@ namespace Bifrost.Client.Specs.Reflection.for_InvocationHandler
 
         static Exception exception;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             interface_mock = new Mock<Interface>();
             implementation_mock = new Mock<ImplementationNeedingTargetInstanceWithWrongType>();

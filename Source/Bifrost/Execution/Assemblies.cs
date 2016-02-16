@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,15 +18,11 @@
 #endregion
 using System.Collections.Generic;
 using System.Linq;
-#if(!SILVERLIGHT)
 using System.Runtime.InteropServices;
-#else
-using _Assembly = System.Reflection.Assembly;
-#endif
 
 namespace Bifrost.Execution
 {
-	/// <summary>
+    /// <summary>
     /// Represents a <see cref="IAssemblies"/>
     /// </summary>
     [Singleton]
@@ -39,7 +35,7 @@ namespace Bifrost.Execution
         /// Initializes a new instance of <see cref="Assemblies"/>
         /// </summary>
         public Assemblies(IAssemblyProvider assemblyProvider)
-        {   
+        {
             _assemblyProvider = assemblyProvider;
             _assemblies = assemblyProvider.GetAll();
         }

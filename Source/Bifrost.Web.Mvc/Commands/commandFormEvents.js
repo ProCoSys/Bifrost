@@ -1,4 +1,4 @@
-﻿var Bifrost = Bifrost || {};
+var Bifrost = Bifrost || {};
 Bifrost.commands = Bifrost.commands || {};
 
 Bifrost.commands.commandFormEvents = {
@@ -14,7 +14,7 @@ Bifrost.commands.commandFormEvents = {
 
         if (data.Invalid === true) {
             var errors = {};
-            
+
             data.ValidationResults.forEach(function (validationResult, validationResultIndex) {
                 validationResult.MemberNames.forEach(function (member, memberIndex) {
                     errors[member] = validationResult.ErrorMessage;

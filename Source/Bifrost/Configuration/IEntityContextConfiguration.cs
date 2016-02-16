@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,19 +21,19 @@ using Bifrost.Entities;
 
 namespace Bifrost.Configuration
 {
-	/// <summary>
-	/// Defines a configuration set for an <see cref="IEntityContext{T}">EntityContext</see> implementation
-	/// </summary>
-	public interface IEntityContextConfiguration
-	{
-		/// <summary>
-		/// Gets the EntityContext type
-		/// </summary>
-		Type EntityContextType { get; }
+    /// <summary>
+    /// Defines a configuration set for an <see cref="IEntityContext{T}">EntityContext</see> implementation
+    /// </summary>
+    public interface IEntityContextConfiguration
+    {
+        /// <summary>
+        /// Gets the EntityContext type
+        /// </summary>
+        Type EntityContextType { get; }
 
-		/// <summary>
-		/// Gets or sets the connection information for the entity context
-		/// </summary>
-		IEntityContextConnection Connection { get; set; }
-	}
+        /// <summary>
+        /// Gets or sets the connection information for the entity context
+        /// </summary>
+        IEntityContextConnection Connection { get; set; }
+    }
 }

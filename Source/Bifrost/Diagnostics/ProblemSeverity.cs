@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -33,7 +33,7 @@ namespace Bifrost.Diagnostics
         /// A warning should be considered something for the developer to really look into and most likely fix
         /// </summary>
         Warning,
-        
+
         /// <summary>
         /// A problem marked as critical is something the developer should give immediate attention
         /// </summary>

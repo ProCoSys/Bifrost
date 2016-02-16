@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,23 +18,23 @@
 #endregion
 namespace Bifrost.Commands
 {
-	/// <summary>
-	/// Invokes a command for a command handler type
-	/// </summary>
-	/// <remarks>
-	/// Typically, the default invoker handles the generic
-	/// <see cref="IHandleCommands">command handlers</see>
-	/// </remarks>
-	public interface ICommandHandlerInvoker
-	{
-		/// <summary>
-		/// Try to handle a command
-		/// 
-		/// If it can handle it, it should handle it - and return true
-		/// if it handled it and false if not
-		/// </summary>
-		/// <param name="command"><see cref="ICommand">Command to handle</see></param>
-		/// <returns>True if it handled it, false if not</returns>
-		bool TryHandle(ICommand command);
-	}
+    /// <summary>
+    /// Invokes a command for a command handler type
+    /// </summary>
+    /// <remarks>
+    /// Typically, the default invoker handles the generic
+    /// <see cref="IHandleCommands">command handlers</see>
+    /// </remarks>
+    public interface ICommandHandlerInvoker
+    {
+        /// <summary>
+        /// Try to handle a command
+        ///
+        /// If it can handle it, it should handle it - and return true
+        /// if it handled it and false if not
+        /// </summary>
+        /// <param name="command"><see cref="ICommand">Command to handle</see></param>
+        /// <returns>True if it handled it, false if not</returns>
+        bool TryHandle(ICommand command);
+    }
 }

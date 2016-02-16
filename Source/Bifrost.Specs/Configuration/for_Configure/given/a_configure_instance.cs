@@ -17,8 +17,8 @@ namespace Bifrost.Specs.Configuration.for_Configure.given
         protected static Mock<IDefaultBindings> default_bindings_mock;
         protected static Mock<IEventsConfiguration> events_configuration_mock;
         protected static Mock<ITasksConfiguration> tasks_configuration_mock;
-    	protected static Mock<ISagasConfiguration> sagas_configuration_mock;
-		protected static Mock<ISerializationConfiguration> serialization_configuration_mock;
+        protected static Mock<ISagasConfiguration> sagas_configuration_mock;
+        protected static Mock<ISerializationConfiguration> serialization_configuration_mock;
         protected static Mock<IViewsConfiguration> views_configuration_mock;
         protected static Mock<IDefaultStorageConfiguration> default_storage_configuration_mock;
         protected static Mock<IFrontendConfiguration> frontend_configuration_mock;
@@ -28,7 +28,7 @@ namespace Bifrost.Specs.Configuration.for_Configure.given
         protected static Mock<ITypeImporter> type_importer_mock;
         protected static Mock<IInstancesOf<ICanConfigure>> configurators_mock;
         protected static Mock<IInstancesOf<IWantToKnowWhenConfigurationIsDone>> after_configuration_callbacks_mock;
-        
+
 
         Establish context = () =>
                                 {
@@ -49,11 +49,11 @@ namespace Bifrost.Specs.Configuration.for_Configure.given
                                     views_configuration_mock = new Mock<IViewsConfiguration>();
                                     container_mock.Setup(c => c.Get<IViewsConfiguration>()).Returns(views_configuration_mock.Object);
 
-									sagas_configuration_mock = new Mock<ISagasConfiguration>();
-                                	container_mock.Setup(c => c.Get<ISagasConfiguration>()).Returns(sagas_configuration_mock.Object);
-			
-									serialization_configuration_mock = new Mock<ISerializationConfiguration>();
-									container_mock.Setup(c => c.Get<ISerializationConfiguration>()).Returns(serialization_configuration_mock.Object);
+                                    sagas_configuration_mock = new Mock<ISagasConfiguration>();
+                                    container_mock.Setup(c => c.Get<ISagasConfiguration>()).Returns(sagas_configuration_mock.Object);
+
+                                    serialization_configuration_mock = new Mock<ISerializationConfiguration>();
+                                    container_mock.Setup(c => c.Get<ISerializationConfiguration>()).Returns(serialization_configuration_mock.Object);
 
                                     default_storage_configuration_mock = new Mock<IDefaultStorageConfiguration>();
                                     container_mock.Setup(c => c.Get<IDefaultStorageConfiguration>()).Returns(default_storage_configuration_mock.Object);
@@ -74,7 +74,7 @@ namespace Bifrost.Specs.Configuration.for_Configure.given
                                     container_mock.Setup(c => c.Get<ITypeImporter>()).Returns(type_importer_mock.Object);
 
                                     configure_instance = Configure.With(container_mock.Object, default_conventions_mock.Object, default_bindings_mock.Object, new AssembliesConfiguration(null));
-                                    
+
                                     configurators_mock = new Mock<IInstancesOf<ICanConfigure>>();
                                     configurators_mock.Setup(c => c.GetEnumerator()).Returns(new List<ICanConfigure>().GetEnumerator());
                                     container_mock.Setup(c => c.Get<IInstancesOf<ICanConfigure>>()).Returns(configurators_mock.Object);

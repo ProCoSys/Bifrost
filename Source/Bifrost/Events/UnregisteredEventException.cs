@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -49,7 +49,6 @@ namespace Bifrost.Events
         public UnregisteredEventException(string message, Exception innerException) : base(message,innerException)
         { }
 
-#if(!SILVERLIGHT && !NETFX_CORE)
         /// <summary>
         /// Initializes a <see cref="UnregisteredEventException"/> for serialization
         /// </summary>
@@ -58,6 +57,5 @@ namespace Bifrost.Events
         protected UnregisteredEventException(SerializationInfo serializationInfo, StreamingContext streamingContext)
             : base(serializationInfo,streamingContext)
         {}
-#endif
     }
 }

@@ -66,6 +66,6 @@ namespace Bifrost.Specs.Concepts.for_Value.given
 
     public class MyInheritedValue : MyValue
     {
-        
+
     }
 }

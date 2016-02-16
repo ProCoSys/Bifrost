@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -26,34 +26,34 @@ namespace Bifrost.Web.Mvc.Commands
     /// Represents a <see cref="MvcForm"/> specific for Commands
     /// </summary>
     /// <typeparam name="T">Type of command the form is for</typeparam>
-	public class CommandForm<T> : MvcForm
-		where T : ICommand, new()
-	{
+    public class CommandForm<T> : MvcForm
+        where T : ICommand, new()
+    {
 
         /// <summary>
         /// Initializes a new instance of <see cref="CommandForm{T}"/>
         /// </summary>
         /// <param name="viewContext"><see cref="ViewContext"/> the <see cref="CommandForm{T}"/> should be in</param>
-		public CommandForm(ViewContext viewContext)
-			: base(viewContext)
-		{
-			var viewDataContainer = new CommandViewDataContainer(viewContext);
+        public CommandForm(ViewContext viewContext)
+            : base(viewContext)
+        {
+            var viewDataContainer = new CommandViewDataContainer(viewContext);
 
-			Command = new T();
-			viewDataContainer.ViewData.Model = Command;
+            Command = new T();
+            viewDataContainer.ViewData.Model = Command;
 
-			Html = new HtmlHelper<T>(viewContext, viewDataContainer);
-		}
+            Html = new HtmlHelper<T>(viewContext, viewDataContainer);
+        }
 
         /// <summary>
         /// Gets the Html helper for the form
         /// </summary>
-		public HtmlHelper<T> Html { get; private set; }
+        public HtmlHelper<T> Html { get; private set; }
 
         /// <summary>
         /// Gets the Command for the form
         /// </summary>
-		public T Command { get; private set; }
+        public T Command { get; private set; }
 
         /// <summary>
         /// Gets or sets the Action for the <see cref="CommandForm"/>
@@ -65,5 +65,5 @@ namespace Bifrost.Web.Mvc.Commands
         /// </summary>
         public string Controller { get; set; }
 
-	}
+    }
 }

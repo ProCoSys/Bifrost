@@ -25,7 +25,7 @@ namespace Bifrost.FluentValidation.Commands
             {
                 var validators = propertyTypesAndValidators[propertyType];
 
-                if (validators == null || !validators.Any()) 
+                if (validators == null || !validators.Any())
                     continue;
 
                 var validator = GetValidator(validators);

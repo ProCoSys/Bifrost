@@ -1,4 +1,4 @@
-﻿describe("when executing with failure", function () {
+describe("when executing with failure", function () {
 
     var url = "somewhere/else";
     var payload = { something: 42 };
@@ -7,7 +7,7 @@
     var server = {
         post: sinon.mock().withArgs(url, payload).returns({
             continueWith: function (callback) {
-                
+
                 return this;
             },
             onFail: function (callback) {
@@ -18,17 +18,17 @@
     };
 
     var error = null;
-    
+
     var task = Bifrost.tasks.HttpPostTask.create({
         url: url,
         payload: payload,
         server: server
     });
-    
+
     task.execute().onFail(function (e) {
         error = e;
     });
-    
+
     it("should fail with the expected error", function () {
         expect(error).toBe(expectedError);
     });

@@ -51,6 +51,6 @@ namespace Web.Concepts.Persons
 
     public class BadlyWrittenValidatorThatValidatesAPrimitive : InputValidator<long>
     {
-        
+
     }
 }

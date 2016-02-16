@@ -2,7 +2,7 @@
 
 namespace Web.Infrastructure
 {
-    public class DummyValueFilter : ICanInterceptValue<string> 
+    public class DummyValueFilter : ICanInterceptValue<string>
     {
         public string Intercept(string value)
         {

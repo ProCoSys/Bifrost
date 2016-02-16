@@ -9,7 +9,7 @@ namespace Bifrost.Specs.Read.for_QueryResult
     {
         static QueryResult result;
 
-        Because of = () => result = new QueryResult { 
+        Because of = () => result = new QueryResult {
             Validation = new QueryValidationResult(new[] { new BrokenRule(null, null, null) }),
             Items = new object[0]
         };

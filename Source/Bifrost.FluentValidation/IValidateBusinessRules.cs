@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -19,7 +19,7 @@
 namespace Bifrost.FluentValidation
 {
     /// <summary>
-    /// Marker interface to identify types that can perform business validation 
+    /// Marker interface to identify types that can perform business validation
     /// </summary>
     public interface IValidateBusinessRules<T>
     { }

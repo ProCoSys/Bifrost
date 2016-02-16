@@ -39,12 +39,12 @@ describe("when resolving asynchronously and system is type", function () {
                 }];
             }
         };
-        
+
         Bifrost.dependencyResolver
-				.beginResolve(ns, "something")
-				.continueWith(function (param, next) {
-				    result = param;
-				});
+                .beginResolve(ns, "something")
+                .continueWith(function (param, next) {
+                    result = param;
+                });
 
         readyCallback();
     });
@@ -55,7 +55,7 @@ describe("when resolving asynchronously and system is type", function () {
     });
 
 
-    // TODO: Fix this, or actually kill it off.. 
+    // TODO: Fix this, or actually kill it off..
     /*
     it("should create instance of type and resolve dependencies", function () {
         expect(result.dependency).toBe("dependency");

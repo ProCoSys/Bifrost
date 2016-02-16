@@ -14,7 +14,7 @@ namespace Bifrost.Client.Specs.Commands.for_CommandForProxies
         protected static Type[] interfaces_mixed_in;
         protected static ProxyType<MyCommand> result;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             command_for_proxies = new CommandForProxies(proxying_mock.Object, proxy_builder_mock.Object, interceptor_mock.Object);
             proxying_mock.Setup(p => p.BuildInterfaceWithPropertiesFrom(typeof(MyCommand))).Returns(typeof(InterfaceForCommand));

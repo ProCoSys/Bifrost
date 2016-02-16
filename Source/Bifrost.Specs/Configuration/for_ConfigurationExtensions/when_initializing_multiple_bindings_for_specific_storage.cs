@@ -16,13 +16,13 @@ namespace Bifrost.Specs.Configuration.for_ConfigurationExtensions
     [Subject(typeof(ConfigurationStorageElement))]
     public class when_initializing_multiple_bindings_for_specific_storage : given.a_configuration_element_with_storage
     {
-        Because of = () => 
+        Because of = () =>
                         {
                             var listOfOperations = new Queue<bool>(new []{false, true, true, true, true, true});
 
-                            container_mock.Setup(c => c.HasBindingFor(typeof(EntityContextConnection))).Returns(() => listOfOperations.Dequeue()); 
+                            container_mock.Setup(c => c.HasBindingFor(typeof(EntityContextConnection))).Returns(() => listOfOperations.Dequeue());
                             configuration.BindEntityContextTo<SomeType>(container_mock.Object);
-                            configuration.BindEntityContextTo<SomeOtherType>(container_mock.Object); 
+                            configuration.BindEntityContextTo<SomeOtherType>(container_mock.Object);
                         };
 
         It should_bind_the_specific_connection_only_once = () => container_mock.Verify(c => c.Bind(typeof(EntityContextConnection), connection), Times.Once());

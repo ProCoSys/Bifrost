@@ -10,7 +10,7 @@ namespace Bifrost.Specs.Execution.for_ExecutionContextManager.given
 
         Establish context = () =>
         {
-            
+
             manager = new ExecutionContextManager(execution_context_factory_mock.Object, call_context_mock.Object);
         };
     }

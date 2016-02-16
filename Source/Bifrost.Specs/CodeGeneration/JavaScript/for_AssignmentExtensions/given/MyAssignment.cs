@@ -8,7 +8,7 @@ namespace Bifrost.Specs.CodeGeneration.JavaScript.for_AssignmentExtensions.given
 
         public override void Write(Bifrost.CodeGeneration.ICodeWriter writer)
         {
-            
+
         }
     }
 }

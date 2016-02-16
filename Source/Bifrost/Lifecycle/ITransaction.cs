@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,19 +21,19 @@ using System;
 
 namespace Bifrost.Lifecycle
 {
-	/// <summary>
-	/// Defines a logical transaction
-	/// </summary>
-	public interface ITransaction : IDisposable
-	{
-		/// <summary>
-		/// Commits the transaction
-		/// </summary>
-		void Commit();
+    /// <summary>
+    /// Defines a logical transaction
+    /// </summary>
+    public interface ITransaction : IDisposable
+    {
+        /// <summary>
+        /// Commits the transaction
+        /// </summary>
+        void Commit();
 
-		/// <summary>
-		/// Rollback to the state before the transaction started
-		/// </summary>
-		void Rollback();
-	}
+        /// <summary>
+        /// Rollback to the state before the transaction started
+        /// </summary>
+        void Rollback();
+    }
 }

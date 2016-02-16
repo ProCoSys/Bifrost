@@ -18,7 +18,6 @@
       <dependency id="Bifrost" version="$version$"/>
       <dependency id="Bifrost.JSON" version="$version$"/>
       <dependency id="Bifrost.Ninject" version="$version$"/>
-      <dependency id="Bifrost.Mimir" version="$version$"/>
       <dependency id="Bifrost.Web" version="$version$"/>
       <dependency id="Bifrost.FluentValidation" version="$version$"/>
     </dependencies>

@@ -1,4 +1,4 @@
-﻿describe("when asking if can map property without any property maps", function () {
+describe("when asking if can map property without any property maps", function () {
     var propertyMapType = null;
     var propertyMapInstance = { something: 42 };
     var result = null;
@@ -10,7 +10,7 @@
 
         var map = Bifrost.mapping.Map.create();
         result = map.canMapProperty("SomeProperty");
-        
+
     });
 
 

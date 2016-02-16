@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using System.Web.Routing;
 using Bifrost.Configuration;
-using Web.Domain.HumanResources.Foos;
-using Bifrost.Web.Services;
 using Bifrost.Read;
+using Bifrost.Web.Services;
+using Web.Domain.HumanResources.Foos;
 using Web.Read.HumanResources.Employees;
 
 namespace Web
@@ -29,7 +29,7 @@ namespace Web
             var queryFor = typeof(IQueryFor<>);
             var allEmployees = typeof(Implementation);
             var interfaces = allEmployees.GetInterfaces();
-            
+
 
 
             configure
@@ -49,7 +49,7 @@ namespace Web
 
                     // For using Azure DocumentDB - install the nuget package : install-package Bifrost.DocumentDB and comment out the .UsingDocumentDB(...) line above and uncomment the line below
                     //.UsingDocumentDB(e => e.WithUrl("").WithDefaultDatabase("QuickStart").UsingAuthorizationKey(""))
-                    
+
                 .DefaultStorage
                     .UsingEntityFramework(e => e.WithConnectionString(@"Data Source=(LocalDB)\v11.0;AttachDbFileName=|DataDirectory|\Database.mdf;Initial Catalog=Database;Integrated Security=True"))
                     //.UsingFiles(entitiesPath)
@@ -91,8 +91,7 @@ namespace Web
                         w.NamespaceMapper.Add(string.Format("{0}.**.", baseNamespace), string.Format("{0}.Domain.**.", baseNamespace));
                         w.NamespaceMapper.Add(string.Format("{0}.**.", baseNamespace), string.Format("{0}.Read.**.", baseNamespace));
                         w.NamespaceMapper.Add(string.Format("{0}.**.", baseNamespace), string.Format("{0}.**.", baseNamespace));
-					})
-                .WithMimir();
+                    });
 
             RouteTable.Routes.AddService<SecuredService>();
         }

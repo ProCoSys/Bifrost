@@ -13,8 +13,8 @@ namespace Bifrost.Specs.Tasks.for_TaskScheduler
 
         public override TaskOperation[] Operations
         {
-            get 
-            { 
+            get
+            {
                 return new TaskOperation[] {
                     FirstOperation,
                     SecondOperation

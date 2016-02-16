@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -90,8 +90,8 @@ namespace Bifrost.Testing
             command_security_manager_mock.Setup(s => s.Authorize(It.IsAny<ICommand>())).Returns(new AuthorizationResult());
 
             command_coordinator = new CommandCoordinator(
-                                        command_handler_manager.Object, 
-                                        command_context_manager, 
+                                        command_handler_manager.Object,
+                                        command_context_manager,
                                         command_security_manager_mock.Object,
                                         command_validators_mock.Object,
                                         localizer.Object);

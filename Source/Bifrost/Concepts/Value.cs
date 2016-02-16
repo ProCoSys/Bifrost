@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -114,19 +114,10 @@ namespace Bifrost.Concepts
 
             while (t != typeof(object))
             {
-#if(NETFX_CORE)
-                var typeInfo = t.GetTypeInfo();
-                
-                fields.AddRange(typeInfo.DeclaredFields.Where(f=>f.IsPublic&&f.IsPrivate&&!f.IsStatic));
-                var fieldInfoCache = typeInfo.DeclaredFields.Single(f => f.Name == "_fields");
-                fields.Remove(fieldInfoCache);
-                t = typeInfo.BaseType;
-#else
                 fields.AddRange(t.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public));
                 var fieldInfoCache = t.GetField("_fields", BindingFlags.Instance | BindingFlags.NonPublic);
                 fields.Remove(fieldInfoCache);
                 t = t.BaseType;
-#endif
             }
             return fields;
         }

@@ -26,7 +26,7 @@ namespace Bifrost.DocumentDB.Mapping
     public static class PropertyMapExtensions
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="propertyMap"></param>
         /// <returns></returns>

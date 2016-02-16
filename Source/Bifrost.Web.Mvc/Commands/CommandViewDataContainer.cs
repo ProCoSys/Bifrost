@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,13 +23,13 @@ namespace Bifrost.Web.Mvc.Commands
     /// <summary>
     /// Represents a <see cref="IViewDataContainer"/> for commands used within a <see cref="CommandForm{T}"/>
     /// </summary>
-	public class CommandViewDataContainer : IViewDataContainer
-	{
-		public CommandViewDataContainer(ViewContext viewContext)
-		{
-			ViewData = viewContext.ViewData;
-		}
+    public class CommandViewDataContainer : IViewDataContainer
+    {
+        public CommandViewDataContainer(ViewContext viewContext)
+        {
+            ViewData = viewContext.ViewData;
+        }
 
-		public ViewDataDictionary ViewData { get; set; }
-	}
+        public ViewDataDictionary ViewData { get; set; }
+    }
 }

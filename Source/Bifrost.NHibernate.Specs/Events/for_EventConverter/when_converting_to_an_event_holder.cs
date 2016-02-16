@@ -14,7 +14,7 @@ namespace Bifrost.NHibernate.Specs.Events.for_EventConverter
         static SimpleEvent @event;
         static EventHolder holder;
 
-        Establish context = () => { 
+        Establish context = () => {
             aggregate_id = Guid.NewGuid();
             @event = new SimpleEvent(aggregate_id);
             @event.CausedBy = caused_by;

@@ -16,7 +16,7 @@
     <NuGetPackageImportStamp>13371b08</NuGetPackageImportStamp>
     <JSLintSkip>
     </JSLintSkip>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,11 +21,11 @@ using Bifrost.Commands;
 using Bifrost.Execution;
 namespace Bifrost.Configuration
 {
-	/// <summary>
-	/// Represents an implementation of <see cref="ICommandsConfiguration"/>
-	/// </summary>
+    /// <summary>
+    /// Represents an implementation of <see cref="ICommandsConfiguration"/>
+    /// </summary>
     public class CommandsConfiguration : ConfigurationStorageElement, ICommandsConfiguration
-	{
+    {
 #pragma warning disable 1591 // Xml Comments
         public Type CommandCoordinatorType { get; set; }
 
@@ -39,7 +39,7 @@ namespace Bifrost.Configuration
                 base.Initialize(container);
             }
         }
-                
+
 #pragma warning restore 1591 // Xml Comments
     }
 }

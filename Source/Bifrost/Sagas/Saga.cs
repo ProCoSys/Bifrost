@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -43,11 +43,7 @@ namespace Bifrost.Sagas
             Partition = GetType().Name;
             Key = Guid.NewGuid().ToString();
             CurrentState = new SagaState();
-#if(NETFX_CORE)
-            ChapterProperties = GetType().GetTypeInfo().DeclaredProperties.Where(p => p.PropertyType.HasInterface<IChapter>()).ToArray();
-#else
             ChapterProperties = GetType().GetProperties().Where(p => p.PropertyType.HasInterface<IChapter>()).ToArray();
-#endif
         }
 
 #pragma warning disable 1591 // Xml Comments
@@ -60,10 +56,10 @@ namespace Bifrost.Sagas
 
         public void SetCurrentChapter<T>() where T : IChapter
         {
-            IChapter chapter = Get<T>();            
-            SetCurrentChapter(chapter); 
+            IChapter chapter = Get<T>();
+            SetCurrentChapter(chapter);
         }
-        
+
         public void SetCurrentChapter(IChapter chapter)
         {
             CurrentChapter = chapter;
@@ -71,7 +67,7 @@ namespace Bifrost.Sagas
                 AddChapter(chapter);
             chapter.OnSetCurrent();
         }
-        
+
 
         public void AddChapter(IChapter chapter)
         {
@@ -155,7 +151,7 @@ namespace Bifrost.Sagas
                 return EventSourceVersion.Zero;
 
             var @event = _aggregatedRootEvents[eventSourceId].OrderByDescending(e => e.Version).FirstOrDefault();
-            if( @event == null ) 
+            if( @event == null )
                 return EventSourceVersion.Zero;
 
             return @event.Version;
@@ -185,7 +181,7 @@ namespace Bifrost.Sagas
         public void Begin()
         {
             CurrentState.TransitionTo(SagaState.BEGUN);
-            OnBegin();   
+            OnBegin();
         }
 
         public void Continue()
@@ -204,17 +200,17 @@ namespace Bifrost.Sagas
         {
             get { return CurrentState.IsNew; }
         }
-        
+
         public bool IsContinuing
         {
             get { return CurrentState.IsContinuing; }
         }
-        
+
         public bool IsBegun
         {
             get { return CurrentState.IsBegun; }
         }
-        
+
         public bool IsConcluded
         {
             get { return CurrentState.IsConcluded; }

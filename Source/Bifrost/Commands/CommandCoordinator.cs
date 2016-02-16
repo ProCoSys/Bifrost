@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,54 +21,53 @@ using System.Reflection;
 using Bifrost.Globalization;
 using Bifrost.Lifecycle;
 using Bifrost.Sagas;
-using Bifrost.Validation;
 
 namespace Bifrost.Commands
 {
-	/// <summary>
-	/// Represents a <see cref="ICommandCoordinator">ICommandCoordinator</see>
-	/// </summary>
-	public class CommandCoordinator : ICommandCoordinator
-	{
-		readonly ICommandHandlerManager _commandHandlerManager;
-		readonly ICommandContextManager _commandContextManager;
-	    readonly ICommandValidators _commandValidationService;
+    /// <summary>
+    /// Represents a <see cref="ICommandCoordinator">ICommandCoordinator</see>
+    /// </summary>
+    public class CommandCoordinator : ICommandCoordinator
+    {
+        readonly ICommandHandlerManager _commandHandlerManager;
+        readonly ICommandContextManager _commandContextManager;
+        readonly ICommandValidators _commandValidationService;
         readonly ICommandSecurityManager _commandSecurityManager;
-		readonly ILocalizer _localizer;
+        readonly ILocalizer _localizer;
 
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CommandCoordinator">CommandCoordinator</see>
-		/// </summary>
-		/// <param name="commandHandlerManager">A <see cref="ICommandHandlerManager"/> for handling commands</param>
-		/// <param name="commandContextManager">A <see cref="ICommandContextManager"/> for establishing a <see cref="CommandContext"/></param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandCoordinator">CommandCoordinator</see>
+        /// </summary>
+        /// <param name="commandHandlerManager">A <see cref="ICommandHandlerManager"/> for handling commands</param>
+        /// <param name="commandContextManager">A <see cref="ICommandContextManager"/> for establishing a <see cref="CommandContext"/></param>
         /// <param name="commandSecurityManager">A <see cref="ICommandSecurityManager"/> for dealing with security and commands</param>
-		/// <param name="commandValidators">A <see cref="ICommandValidators"/> for validating a <see cref="ICommand"/> before handling</param>
-		/// <param name="localizer">A <see cref="ILocalizer"/> to use for controlling localization of current thread when handling commands</param>
-		public CommandCoordinator(
-			ICommandHandlerManager commandHandlerManager,
-			ICommandContextManager commandContextManager,
+        /// <param name="commandValidators">A <see cref="ICommandValidators"/> for validating a <see cref="ICommand"/> before handling</param>
+        /// <param name="localizer">A <see cref="ILocalizer"/> to use for controlling localization of current thread when handling commands</param>
+        public CommandCoordinator(
+            ICommandHandlerManager commandHandlerManager,
+            ICommandContextManager commandContextManager,
             ICommandSecurityManager commandSecurityManager,
             ICommandValidators commandValidators,
-			ILocalizer localizer)
-		{
-			_commandHandlerManager = commandHandlerManager;
-			_commandContextManager = commandContextManager;
+            ILocalizer localizer)
+        {
+            _commandHandlerManager = commandHandlerManager;
+            _commandContextManager = commandContextManager;
             _commandSecurityManager = commandSecurityManager;
-		    _commandValidationService = commandValidators;
-	    	_localizer = localizer;
-		}
+            _commandValidationService = commandValidators;
+            _localizer = localizer;
+        }
 
 #pragma warning disable 1591 // Xml Comments
-		public CommandResult Handle(ISaga saga, ICommand command)
-		{
+        public CommandResult Handle(ISaga saga, ICommand command)
+        {
             return Handle(_commandContextManager.EstablishForSaga(saga,command), command);
-		}
+        }
 
-		public CommandResult Handle(ICommand command)
-		{
-		    return Handle( _commandContextManager.EstablishForCommand(command),command);
-		}
+        public CommandResult Handle(ICommand command)
+        {
+            return Handle( _commandContextManager.EstablishForCommand(command),command);
+        }
 
         CommandResult Handle(ITransaction transaction, ICommand command)
         {
@@ -124,8 +123,8 @@ namespace Bifrost.Commands
                 commandResult.Exception = ex;
             }
 
-            return commandResult;            
+            return commandResult;
         }
 #pragma warning restore 1591 // Xml Comments
-	}
+    }
 }

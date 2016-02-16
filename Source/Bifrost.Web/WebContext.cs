@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -26,29 +26,29 @@ using Bifrost.Web.Configuration;
 
 namespace Bifrost.Web
 {
-	public class WebContext : IWebContext
-	{
-		HttpContext _actualHttpContext;
-		
-		public WebContext (HttpContext actualHttpContext)
-		{
-			_actualHttpContext = actualHttpContext;
-			Request = new Request(actualHttpContext.Request);
-			Routes = RouteTable.Routes;
-		}
+    public class WebContext : IWebContext
+    {
+        HttpContext _actualHttpContext;
 
-		public void RewritePath (string path)
-		{
-			_actualHttpContext.RewritePath(path);
-		}
+        public WebContext (HttpContext actualHttpContext)
+        {
+            _actualHttpContext = actualHttpContext;
+            Request = new Request(actualHttpContext.Request);
+            Routes = RouteTable.Routes;
+        }
 
-		public IWebRequest Request { get; private set; }
-		public RouteCollection Routes { get; private set; }
+        public void RewritePath (string path)
+        {
+            _actualHttpContext.RewritePath(path);
+        }
+
+        public IWebRequest Request { get; private set; }
+        public RouteCollection Routes { get; private set; }
 
 
         public bool HasRouteForCurrentRequest
         {
-            get 
+            get
             {
                 var bundles = BundleTable.Bundles.GetRegisteredBundles();
                 var currentRequestPath = _actualHttpContext.Server.MapPath(_actualHttpContext.Request.Path).ToLowerInvariant();

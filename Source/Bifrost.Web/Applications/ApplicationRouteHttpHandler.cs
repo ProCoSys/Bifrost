@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,8 +20,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Web;
-using Bifrost.Configuration;
-using Bifrost.Web.Assets;
 
 namespace Bifrost.Web.Applications
 {
@@ -92,8 +90,6 @@ namespace Bifrost.Web.Applications
                 context.Response.ContentType = "text/javascript";
             if (url.Contains(".css"))
                 context.Response.ContentType = "text/css";
-            if (url.Contains(".xap"))
-                context.Response.ContentType = "application/x-silverlight-app";
 
             context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
@@ -115,7 +111,7 @@ namespace Bifrost.Web.Applications
                 if (!line.Contains("href=\"#\"") && !line.Contains("href='#'"))
                     actualLine = Replace("href", line, actualLine);
 
-                if( line.Contains("src=") ) 
+                if( line.Contains("src=") )
                     actualLine = Replace("src", line, actualLine);
 
                 actualLines.Append(actualLine);
@@ -132,8 +128,8 @@ namespace Bifrost.Web.Applications
             }
             else
             {
-                if (line.Contains(attribute + "=") && 
-                    !line.Contains(attribute + "=\"http") && 
+                if (line.Contains(attribute + "=") &&
+                    !line.Contains(attribute + "=\"http") &&
                     !line.Contains(attribute + "='http") &&
                     !line.Contains("signalr/hubs") )
                 {

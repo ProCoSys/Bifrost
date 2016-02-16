@@ -10,7 +10,7 @@ namespace Bifrost.Specs.Security.for_SecurityTarget
         static SecurityTarget security_target;
         static Mock<ISecurable> securable_mock;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             security_target = new SecurityTarget(string.Empty);
             securable_mock = new Mock<ISecurable>();

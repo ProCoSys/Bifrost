@@ -55,6 +55,6 @@ Bifrost.namespace("Bifrost.execution", {
 });
 
 Bifrost.execution.Promise.create = function() {
-	var promise = new Bifrost.execution.Promise();
-	return promise;
+    var promise = new Bifrost.execution.Promise();
+    return promise;
 };

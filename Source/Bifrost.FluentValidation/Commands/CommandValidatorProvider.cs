@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -138,7 +138,7 @@ namespace Bifrost.FluentValidation.Commands
                 var validatorTypes = typeAndAssociatedValidatorTypes[key];
                 if (validatorTypes.Any())
                     propertyTypeAndValidatorInstances.Add(key, validatorTypes.Select(v => _container.Get(v) as IValidator).ToArray());
-                    
+
             }
             return Activator.CreateInstance(closedValidatorType, propertyTypeAndValidatorInstances) as ICommandInputValidator;
         }
@@ -206,7 +206,7 @@ namespace Bifrost.FluentValidation.Commands
         {
             var commandType = GetCommandType(typeToRegister);
 
-            if (commandType == null || 
+            if (commandType == null ||
                 commandType.IsInterface ||
                 validatorRegistry.ContainsKey(commandType))
                 return;
@@ -228,7 +228,7 @@ namespace Bifrost.FluentValidation.Commands
             else
             {
                 validatorRegistry.Add(validatedType, new List<Type>() { typeToRegister });
-            }   
+            }
         }
 
         Type GetCommandType(Type typeToRegister)
@@ -255,8 +255,8 @@ namespace Bifrost.FluentValidation.Commands
 
         Type GetGenericParameterType(Type typeToQuery, Type genericInterfaceType)
         {
-            return (from @interface in typeToQuery.GetInterfaces() 
-                    where @interface.IsGenericType && @interface.GetGenericTypeDefinition() == genericInterfaceType 
+            return (from @interface in typeToQuery.GetInterfaces()
+                    where @interface.IsGenericType && @interface.GetGenericTypeDefinition() == genericInterfaceType
                     select @interface.GetGenericArguments()[0]).FirstOrDefault();
         }
     }

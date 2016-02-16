@@ -1,4 +1,4 @@
-﻿given("an object model element visitor", function () {
+given("an object model element visitor", function () {
     this.element_naming = {
         getLocalNameFor: sinon.stub()
     };
@@ -19,7 +19,7 @@
     this.attribute_values = {
         expandFor: sinon.stub()
     };
-    
+
     this.binding_context_manager = {
         ensure: sinon.stub()
     };

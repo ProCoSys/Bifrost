@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -26,7 +26,7 @@ namespace Bifrost.Commands
     /// <typeparam name="T">Type of <see cref="ICommand"/> to represent</typeparam>
     /// <remarks>
     /// This is a bridge interface for being able to use the build in functionality of
-    /// the XAML platform without taking too many dependencies on infrastructure for 
+    /// the XAML platform without taking too many dependencies on infrastructure for
     /// working with <see cref="ICommand">commands</see>
     /// </remarks>
     public interface ICommandFor<T> : System.Windows.Input.ICommand, ICommandProcess

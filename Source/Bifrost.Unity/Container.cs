@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -148,7 +148,7 @@ namespace Bifrost.Unity
             {
                 case BindingLifecycle.Singleton:
                     return new ContainerControlledLifetimeManager();
-                case BindingLifecycle.Thread : 
+                case BindingLifecycle.Thread :
                     return new PerThreadLifetimeManager();
                 case BindingLifecycle.Transient:
                     return new TransientLifetimeManager();

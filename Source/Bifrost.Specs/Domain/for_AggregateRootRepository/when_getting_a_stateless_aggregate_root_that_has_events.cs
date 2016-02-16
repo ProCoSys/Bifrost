@@ -32,6 +32,6 @@ namespace Bifrost.Specs.Domain.for_AggregateRootRepository
                                                                             command_context_mock.Verify(e => e.GetLastCommittedVersion(Moq.It.IsAny<EventSource>(), aggregated_root_id), Moq.Times.Once());
                                                                             stateless_aggregated_root.Version.ShouldEqual(expected_version);
                                                                         };
-        It should_register_the_aggregate_root_for_tracking_within_this_context = () => command_context_mock.Verify(cc => cc.RegisterForTracking(stateless_aggregated_root));        
+        It should_register_the_aggregate_root_for_tracking_within_this_context = () => command_context_mock.Verify(cc => cc.RegisterForTracking(stateless_aggregated_root));
     }
 }

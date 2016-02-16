@@ -14,7 +14,7 @@ namespace Bifrost.Web.Specs.Services.for_RestServiceMethodInvoker.given
 
         Establish context = () =>
         {
-            serializer_mock = new Mock<ISerializer>(); 
+            serializer_mock = new Mock<ISerializer>();
             json_interceptor_mock = new Mock<IJsonInterceptor>();
             json_interceptor_mock.Setup(m => m.Intercept(Moq.It.IsAny<string>())).Returns<string>(json => json);
             json_interceptor_mock.Setup(m => m.Intercept(Moq.It.IsAny<string>())).Returns<string>(json => json);

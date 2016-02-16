@@ -111,7 +111,7 @@ Bifrost.namespace("Bifrost.commands", {
         this.getProperties = function () {
             var properties = [];
             for (var property in self.targetCommand) {
-                if (self.targetCommand.hasOwnProperty(property) && 
+                if (self.targetCommand.hasOwnProperty(property) &&
                     !(self.hasOwnProperty(property))) {
                     properties.push(property);
                 }
@@ -274,7 +274,7 @@ Bifrost.namespace("Bifrost.commands", {
                 }
                 commandValidationService.validateSilently(this);
             }
-            
+
             commandSecurityService.getContextFor(lastDescendant).continueWith(function (securityContext) {
                 lastDescendant.securityContext(securityContext);
 

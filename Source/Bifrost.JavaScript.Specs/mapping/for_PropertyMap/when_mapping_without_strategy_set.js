@@ -1,4 +1,4 @@
-﻿describe("when mapping without strategy set", function () {
+describe("when mapping without strategy set", function () {
     var propertyMap = Bifrost.mapping.PropertyMap.create({
         sourceProperty: "Source",
         typeConverters: {}
@@ -11,7 +11,7 @@
         missingPropertyStrategy = Bifrost.mapping.MissingPropertyStrategy;
         Bifrost.mapping.MissingPropertyStrategy = Bifrost.Type.extend(function () { });
 
-        
+
         try {
             propertyMap.map({}, {});
         } catch (e) {

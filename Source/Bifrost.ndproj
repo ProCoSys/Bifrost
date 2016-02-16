@@ -5,14 +5,10 @@
     <Name>Bifrost</Name>
     <Name>Bifrost.Autofac</Name>
     <Name>Bifrost.CommonServiceLocator</Name>
-    <Name>Bifrost.Content</Name>
     <Name>Bifrost.DocumentDB</Name>
     <Name>Bifrost.FluentValidation</Name>
     <Name>Bifrost.JavaScript</Name>
     <Name>Bifrost.JSON</Name>
-    <Name>Bifrost.Mimir.Domain</Name>
-    <Name>Bifrost.Mimir.Events</Name>
-    <Name>Bifrost.Mimir.EventViewer</Name>
     <Name>Bifrost.MongoDB</Name>
     <Name>Bifrost.MSpec</Name>
     <Name>Bifrost.NHibernate</Name>
@@ -75,7 +71,6 @@
   </FrameworkAssemblies>
   <Dirs>
     <Dir>C:\Windows\Microsoft.NET\Framework\v4.0.30319</Dir>
-    <Dir>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF</Dir>
     <Dir>C:\Projects\Bifrost\Source\NDependOut\bin</Dir>
   </Dirs>
   <Report Kind="0" SectionsEnabled="45055" XslPath="" Flags="64512" />

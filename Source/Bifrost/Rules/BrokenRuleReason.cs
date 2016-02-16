@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -40,7 +40,7 @@ namespace Bifrost.Rules
         /// <param name="id">Unique identifier of the reason - this has to be a valid Guid in string format</param>
         /// <returns>A <see cref="BrokenRuleReason"/> instance</returns>
         /// <remarks>
-        /// The format of the Guid has to be : 
+        /// The format of the Guid has to be :
         /// 00000000-0000-0000-0000-000000000000
         /// </remarks>
         public static BrokenRuleReason  Create(string id)

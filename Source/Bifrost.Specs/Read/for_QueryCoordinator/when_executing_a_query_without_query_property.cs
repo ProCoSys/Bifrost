@@ -10,7 +10,7 @@ namespace Bifrost.Specs.Read.for_QueryCoordinator
         static PagingInfo paging;
         static Exception exception;
 
-        Establish   context = () => 
+        Establish   context = () =>
         {
             query = new QueryWithoutProperty();
             paging = new PagingInfo();

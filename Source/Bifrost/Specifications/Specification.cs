@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -25,10 +25,10 @@ using System.Text;
 namespace Bifrost.Specifications
 {
     /// <summary>
-    /// Base class for expressing a complex rule in code.  Utilising the Specification pattern. 
+    /// Base class for expressing a complex rule in code.  Utilising the Specification pattern.
     /// </summary>
     /// <typeparam name="T">Type that the rule applies to</typeparam>
-    /// <remarks>Based on http://bloggingabout.net/blogs/dries/archive/2011/09/29/specification-pattern-continued.aspx 
+    /// <remarks>Based on http://bloggingabout.net/blogs/dries/archive/2011/09/29/specification-pattern-continued.aspx
     /// </remarks>
     public abstract class Specification<T>
     {

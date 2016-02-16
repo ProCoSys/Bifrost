@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.specifications", {
+Bifrost.namespace("Bifrost.specifications", {
     Specification: Bifrost.Type.extend(function () {
         /// <summary>Represents a rule based on the specification pattern</summary>
         var self = this;
@@ -10,7 +10,7 @@
         /// <remarks>
         /// The evaluator can either be a function that gets called with the instance
         /// or an observable. The observable not being a regular function will obviously
-        /// not have the instance passed 
+        /// not have the instance passed
         /// </remarks>
         this.evaluator = null;
 
@@ -43,7 +43,7 @@
         this.and = function (rule) {
             /// <summary>Takes this rule and "ands" it together with another rule</summary>
             /// <param name="rule">
-            /// This can either be the instance of another specific rule, 
+            /// This can either be the instance of another specific rule,
             /// or an evaluator that can be used directly by the default rule implementation
             /// </param>
             /// <returns>A new composed rule</returns>
@@ -61,7 +61,7 @@
         this.or = function (rule) {
             /// <summary>Takes this rule and "ors" it together with another rule</summary>
             /// <param name="rule">
-            /// This can either be the instance of another specific rule, 
+            /// This can either be the instance of another specific rule,
             /// or an evaluator that can be used directly by the default rule implementation
             /// </param>
             /// <returns>A new composed rule</returns>
@@ -82,7 +82,7 @@ Bifrost.specifications.Specification.when = function (evaluator) {
     /// <param name="evaluator">
     /// The evaluator can either be a function that gets called with the instance
     /// or an observable. The observable not being a regular function will obviously
-    /// not have the instance passed 
+    /// not have the instance passed
     /// </param>
     /// <returns>A new composed rule</returns>
     var rule = Bifrost.specifications.Specification.create();

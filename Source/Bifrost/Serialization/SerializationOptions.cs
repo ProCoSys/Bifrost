@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,12 +23,12 @@ namespace Bifrost.Serialization
     /// <summary>
     /// Represents the options for serialization
     /// </summary>
-	public class SerializationOptions
-	{
+    public class SerializationOptions
+    {
         /// <summary>
-        /// A func that gets called during serialization of properties to decide 
+        /// A func that gets called during serialization of properties to decide
         /// </summary>
-		public Func<Type, string, bool>	ShouldSerializeProperty = (t, p) => true;
+        public Func<Type, string, bool>    ShouldSerializeProperty = (t, p) => true;
 
         /// <summary>
         /// Gets or sets wether or not to use camel case for naming of properties
@@ -39,5 +39,5 @@ namespace Bifrost.Serialization
         /// Gets or sets wether or not to include type names during serialization
         /// </summary>
         public bool IncludeTypeNames { get; set; }
-	}
+    }
 }

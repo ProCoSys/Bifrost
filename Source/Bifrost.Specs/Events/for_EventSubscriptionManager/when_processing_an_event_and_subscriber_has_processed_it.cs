@@ -19,7 +19,7 @@ namespace Bifrost.Specs.Events.for_EventSubscriptionManager
             @event = new SomeEvent(Guid.NewGuid());
             @event.Id = 1;
             @event.EventSource = event_source;
-            
+
             event_subscriptions_mock.Setup(e => e.Save(Moq.It.IsAny<EventSubscription>())).Callback((EventSubscription s) => actual_subscription = s);
             event_subscriber = new SomeEventSubscriber();
             container_mock.Setup(c => c.Get(typeof(SomeEventSubscriber))).Returns(event_subscriber);

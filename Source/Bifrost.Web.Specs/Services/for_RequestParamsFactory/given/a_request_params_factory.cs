@@ -16,7 +16,7 @@ namespace Bifrost.Web.Specs.Services.for_RequestParamsFactory.given
         protected const string FROM_INPUTSTREAM = "from inputstream";
         protected const string FROM_COOKIES = "from cookies";
         protected const string FROM_SERVERVARIABLES = "from server variables";
-        
+
         protected const string IN_ALL = "ALL";
         protected const string IN_QUERY_STRING_ONLY = "Querystring";
         protected const string IN_FORM_ONLY = "Form";
@@ -31,7 +31,7 @@ namespace Bifrost.Web.Specs.Services.for_RequestParamsFactory.given
         protected static IRequestParamsFactory request_params_factory;
         protected static IDictionary<string, string> input_stream_params;
         protected static Mock<HttpRequestBase> http_request_base_mock;
-        
+
         Establish context = () =>
                                 {
                                     var querystringParams = new NameValueCollection
@@ -54,7 +54,7 @@ namespace Bifrost.Web.Specs.Services.for_RequestParamsFactory.given
                                                                 {IN_FORMS_INPUT_STREAM_COOKIES_AND_SERVER_VARIABLES, FROM_INPUTSTREAM },
                                                                 {IN_INPUT_STREAM_COOKIES_AND_SERVER_VARIABLES,FROM_INPUTSTREAM}
                                                             };
-                                                                
+
                                      var cookiesParams = new HttpCookieCollection()
                                                             {
                                                                 new HttpCookie(IN_ALL, FROM_COOKIES),
@@ -83,9 +83,9 @@ namespace Bifrost.Web.Specs.Services.for_RequestParamsFactory.given
                                     http_request_base_mock.Setup(r => r.InputStream).Returns(new MemoryStream(input_stream));
                                     http_request_base_mock.Setup(r => r.Cookies).Returns(cookiesParams);
                                     http_request_base_mock.Setup(r => r.ServerVariables).Returns(serverVariablesParams);
-                                    
+
                                     request_params_factory = new RequestParamsFactory(serializer_mock.Object);
                                 };
-        
+
         }
 }

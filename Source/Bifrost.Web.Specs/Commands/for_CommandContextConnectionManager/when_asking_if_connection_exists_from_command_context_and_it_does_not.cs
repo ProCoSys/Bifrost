@@ -10,7 +10,7 @@ namespace Bifrost.Web.Specs.Commands.for_CommandContextConnectionManager
 
         static CommandContextConnectionManager manager;
         static bool result;
-        
+
 
         Establish context = () => manager = new CommandContextConnectionManager();
 

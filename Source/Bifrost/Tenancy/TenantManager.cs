@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -28,7 +28,7 @@ namespace Bifrost.Tenancy
 #pragma warning disable 1591 // Xml Comments
         public ITenant Current
         {
-            get 
+            get
             {
                 return null;
             }

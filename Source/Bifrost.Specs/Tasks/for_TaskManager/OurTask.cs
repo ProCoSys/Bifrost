@@ -7,7 +7,7 @@ namespace Bifrost.Specs.Tasks.for_TaskManager
     {
         public override TaskOperation[] Operations
         {
-            get 
+            get
             {
                 return new TaskOperation[] {
                     FirstOperation,

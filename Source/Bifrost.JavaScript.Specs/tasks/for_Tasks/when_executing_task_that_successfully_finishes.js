@@ -1,4 +1,4 @@
-﻿describe("when executing task that successfully finishes", function () {
+describe("when executing task that successfully finishes", function () {
     var result = { some: "result" };
     var successfulCallback = null;
     var task = {
@@ -25,7 +25,7 @@
 
     var isBusyTimeline = [];
     var taskWasAdded = false;
-    
+
     tasks.all.subscribe(function (newValue) {
         if (newValue[0] == task) taskWasAdded = true;
     });

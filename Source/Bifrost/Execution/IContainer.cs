@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -28,7 +28,7 @@ namespace Bifrost.Execution
     {
         /// <summary>
         /// Gets or sets the <see cref="BindingLifecycle"/> for objects.
-        /// This property usually guides the implementing container for default bindings it may create for types that 
+        /// This property usually guides the implementing container for default bindings it may create for types that
         /// does not have an explicit binding and is not abstract or an interface
         /// </summary>
         BindingLifecycle DefaultLifecycle { get; set; }
@@ -71,14 +71,14 @@ namespace Bifrost.Execution
         IEnumerable<T> GetAll<T>();
 
         /// <summary>
-        /// Gets wether or not a specific service has a binding 
+        /// Gets wether or not a specific service has a binding
         /// </summary>
         /// <param name="type">Type of service to check</param>
         /// <returns>True if service has binding, false if not</returns>
         bool HasBindingFor(Type type);
 
         /// <summary>
-        /// Gets wether or not a specific service has a binding 
+        /// Gets wether or not a specific service has a binding
         /// </summary>
         /// <typeparam name="T">Type of service to check</typeparam>
         /// <returns>True if service has binding, false if not</returns>
@@ -91,7 +91,7 @@ namespace Bifrost.Execution
         /// <param name="type">Type to get instances for</param>
         /// <returns>Instances of the type</returns>
         IEnumerable<object> GetAll(Type type);
-        
+
         /// <summary>
         /// Get all services that have been bound
         /// </summary>
@@ -161,14 +161,14 @@ namespace Bifrost.Execution
 
 
         /// <summary>
-        /// Bind a service to a specific type 
+        /// Bind a service to a specific type
         /// </summary>
         /// <typeparam name="T">Service to bind</typeparam>
         /// <param name="type">Target type to bind to</param>
         void Bind<T>(Type type);
 
         /// <summary>
-        /// Bind a service to a specific type 
+        /// Bind a service to a specific type
         /// </summary>
         /// <param name="service">Service to bind</param>
         /// <param name="type">Target type to bind to</param>

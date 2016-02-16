@@ -17,7 +17,7 @@ namespace Bifrost.FluentValidation.Specs.for_PropertyValidatorWithDynamicState
                 validator = new MyValidator();
                 model = new Model { TheString = expected };
                 validator_context = new PropertyValidatorContext(
-                    new ValidationContext(model), 
+                    new ValidationContext(model),
                     PropertyRule.Create((Model m) => m.TheString),
                     "TheString");
                 validator.AddExpression<Model>(v => v.TheString);

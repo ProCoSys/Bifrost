@@ -25,7 +25,7 @@ namespace Bifrost.Specs.Events.for_EventStream.given
         /// </summary>
         public bool HasEvents
         {
-            get { return this.Count() > 0; } 
+            get { return this.Count() > 0; }
         }
 
         /// <summary>

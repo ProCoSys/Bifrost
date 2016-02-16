@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,9 +23,9 @@ namespace Bifrost.Execution
     /// <summary>
     /// Represents a manager for managing the dispatcher in an application
     /// </summary>
-	public class DispatcherManager
-	{
-		static IDispatcher _current;
+    public class DispatcherManager
+    {
+        static IDispatcher _current;
 
         /// <summary>
         /// Gets wether or not the dispatcher has been set
@@ -39,20 +39,20 @@ namespace Bifrost.Execution
         /// <remarks>
         /// Throws an <see cref="ArgumentException"/> when getting and no <see cref="IDispatcher"/> has been set
         /// </remarks>
-		public static IDispatcher Current
-		{
-			get
-			{
-				if( null == _current )
-				{
-					throw new ArgumentException("Current Dispatcher has not been set in DispatcherManager");
-				}
-				return _current;
-			}
-			set
-			{
-				_current = value;
-			}
-		}
-	}
+        public static IDispatcher Current
+        {
+            get
+            {
+                if( null == _current )
+                {
+                    throw new ArgumentException("Current Dispatcher has not been set in DispatcherManager");
+                }
+                return _current;
+            }
+            set
+            {
+                _current = value;
+            }
+        }
+    }
 }

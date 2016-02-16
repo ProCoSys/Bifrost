@@ -14,6 +14,6 @@ namespace Bifrost.Specs.Views
 
     public class SimpleObjectWithoutId
     {
-        
+
     }
 }

@@ -36,14 +36,6 @@
     <RegisterForComInterop>false</RegisterForComInterop>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mono|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Mono</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <NoWarn>0169, 0108, 0414</NoWarn>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CoreDev|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\CoreDev\</OutputPath>

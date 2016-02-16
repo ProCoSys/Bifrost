@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -24,26 +24,26 @@ using Bifrost.Execution;
 
 namespace Bifrost.Values
 {
-	
 
-	public static class NotificationExtensions
-	{
-		public static void Notify(this PropertyChangedEventHandler eventHandler, Expression<Func<object>> expression)
-		{
+
+    public static class NotificationExtensions
+    {
+        public static void Notify(this PropertyChangedEventHandler eventHandler, Expression<Func<object>> expression)
+        {
             if (eventHandler == null || !DispatcherManager.HasBeenSet ) return;
-			var lambda = expression as LambdaExpression;
-			MemberExpression memberExpression;
-			if (lambda.Body is UnaryExpression)
-			{
-				var unaryExpression = lambda.Body as UnaryExpression;
-				memberExpression = unaryExpression.Operand as MemberExpression;
-			}
-			else
-			{
-				memberExpression = lambda.Body as MemberExpression;
-			}
-			var constantExpression = memberExpression.Expression as ConstantExpression;
-			var propertyInfo = memberExpression.Member as PropertyInfo;
+            var lambda = expression as LambdaExpression;
+            MemberExpression memberExpression;
+            if (lambda.Body is UnaryExpression)
+            {
+                var unaryExpression = lambda.Body as UnaryExpression;
+                memberExpression = unaryExpression.Operand as MemberExpression;
+            }
+            else
+            {
+                memberExpression = lambda.Body as MemberExpression;
+            }
+            var constantExpression = memberExpression.Expression as ConstantExpression;
+            var propertyInfo = memberExpression.Member as PropertyInfo;
 
 
             Bifrost.Execution.DispatcherManager.Current.BeginInvoke(
@@ -62,47 +62,47 @@ namespace Bifrost.Values
                     });
         }
 
-		public static void SubscribeToChange<T>(this T objectThatNotifies, Expression<Func<object>> expression, PropertyChangedHandler<T> handler)
-			where T : INotifyPropertyChanged
-		{
-			objectThatNotifies.PropertyChanged +=
-				(s, e) =>
-					{
-						var lambda = expression as LambdaExpression;
-						MemberExpression memberExpression;
-						if (lambda.Body is UnaryExpression)
-						{
-							var unaryExpression = lambda.Body as UnaryExpression;
-							memberExpression = unaryExpression.Operand as MemberExpression;
-						}
-						else
-						{
-							memberExpression = lambda.Body as MemberExpression;
-						}
-						var propertyInfo = memberExpression.Member as PropertyInfo;
+        public static void SubscribeToChange<T>(this T objectThatNotifies, Expression<Func<object>> expression, PropertyChangedHandler<T> handler)
+            where T : INotifyPropertyChanged
+        {
+            objectThatNotifies.PropertyChanged +=
+                (s, e) =>
+                    {
+                        var lambda = expression as LambdaExpression;
+                        MemberExpression memberExpression;
+                        if (lambda.Body is UnaryExpression)
+                        {
+                            var unaryExpression = lambda.Body as UnaryExpression;
+                            memberExpression = unaryExpression.Operand as MemberExpression;
+                        }
+                        else
+                        {
+                            memberExpression = lambda.Body as MemberExpression;
+                        }
+                        var propertyInfo = memberExpression.Member as PropertyInfo;
 
-						if (e.PropertyName.Equals(propertyInfo.Name))
-						{
-							handler(objectThatNotifies);
-						}
-					};
-		}
+                        if (e.PropertyName.Equals(propertyInfo.Name))
+                        {
+                            handler(objectThatNotifies);
+                        }
+                    };
+        }
 
-		public static void SubscribeToChange(this INotifyPropertyChanged objectThatNotifies, Expression<Func<object>> expression, PropertyChangedHandler<INotifyPropertyChanged> handler)
-		{
-			SubscribeToChange<INotifyPropertyChanged>(objectThatNotifies, expression, handler);
-		}
+        public static void SubscribeToChange(this INotifyPropertyChanged objectThatNotifies, Expression<Func<object>> expression, PropertyChangedHandler<INotifyPropertyChanged> handler)
+        {
+            SubscribeToChange<INotifyPropertyChanged>(objectThatNotifies, expression, handler);
+        }
 
-		public static void SubscribeToChange(this INotifyPropertyChanged objectThatNotifies, string propertyName, PropertyChangedHandler<INotifyPropertyChanged> handler)
-		{
-			objectThatNotifies.PropertyChanged +=
-				(s, e) =>
-					{
-						if (e.PropertyName.Equals(propertyName))
-						{
-							handler(objectThatNotifies);
-						}
-					};
-		}
-	}
+        public static void SubscribeToChange(this INotifyPropertyChanged objectThatNotifies, string propertyName, PropertyChangedHandler<INotifyPropertyChanged> handler)
+        {
+            objectThatNotifies.PropertyChanged +=
+                (s, e) =>
+                    {
+                        if (e.PropertyName.Equals(propertyName))
+                        {
+                            handler(objectThatNotifies);
+                        }
+                    };
+        }
+    }
 }

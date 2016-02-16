@@ -28,7 +28,7 @@ describe("when resolving asynchronous and resolver returns a system", function()
                 }];
             }
         };
-        
+
         Bifrost.dependencyResolver
             .beginResolve(ns, "something")
             .continueWith(function (parameter, nextPromise) {
@@ -43,7 +43,7 @@ describe("when resolving asynchronous and resolver returns a system", function()
         Bifrost.configure = configure;
     });
 
-	it("should continue with system from resolver as parameter", function() {
-		expect(result).toBe("The result");
-	});
+    it("should continue with system from resolver as parameter", function() {
+        expect(result).toBe("The result");
+    });
 });

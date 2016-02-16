@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.views", {
+Bifrost.namespace("Bifrost.views", {
     Region: function(messengerFactory, operationsFactory, tasksFactory) {
         /// <summary>Represents a region in the visual composition on a page</summary>
         var self = this;
@@ -130,7 +130,7 @@
         this.hasChanges = ko.computed(function () {
             var commandsHaveChanges = self.commandsHaveChanges();
 
-            
+
             var childrenHasChanges = false;
             self.children().forEach(function (childRegion) {
                 if (!childRegion.isCommandRoot()) {
@@ -180,7 +180,7 @@
                     return;
                 }
             });
-            
+
             if (self.tasks.all().length > 0) {
                 isBusy = true;
             }

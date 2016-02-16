@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -27,31 +27,30 @@ namespace Bifrost.Events
     /// </summary>
     public class DuplicateInEventMigrationHierarchyException : Exception
     {
-		/// <summary>
-		/// Initializes an instance of <see cref="DuplicateInEventMigrationHierarchyException"/>
-		/// </summary>
+        /// <summary>
+        /// Initializes an instance of <see cref="DuplicateInEventMigrationHierarchyException"/>
+        /// </summary>
         public DuplicateInEventMigrationHierarchyException()
         {}
 
-		/// <summary>
-		/// Initializes an instance of <see cref="DuplicateInEventMigrationHierarchyException"/>
-		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception</param>
-		public DuplicateInEventMigrationHierarchyException(string message)
-			: base(message)
-		{
-		}
+        /// <summary>
+        /// Initializes an instance of <see cref="DuplicateInEventMigrationHierarchyException"/>
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception</param>
+        public DuplicateInEventMigrationHierarchyException(string message)
+            : base(message)
+        {
+        }
 
-		/// <summary>
-		/// Initializes an instance of <see cref="DuplicateInEventMigrationHierarchyException"/>
-		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception</param>
-		/// <param name="innerException">The inner exception that is causing the exception</param>
-		public DuplicateInEventMigrationHierarchyException(string message, Exception innerException)
-			: base(message, innerException)
+        /// <summary>
+        /// Initializes an instance of <see cref="DuplicateInEventMigrationHierarchyException"/>
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception</param>
+        /// <param name="innerException">The inner exception that is causing the exception</param>
+        public DuplicateInEventMigrationHierarchyException(string message, Exception innerException)
+            : base(message, innerException)
         { }
 
-#if(!SILVERLIGHT && !NETFX_CORE)
         /// <summary>
         /// Initializes an instance of <see cref="DuplicateInEventMigrationHierarchyException"/> for serialization
         /// </summary>
@@ -60,6 +59,5 @@ namespace Bifrost.Events
         protected DuplicateInEventMigrationHierarchyException(SerializationInfo serializationInfo, StreamingContext streamingContext)
             : base(serializationInfo,streamingContext)
         {}
-#endif
     }
 }

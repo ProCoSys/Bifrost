@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,14 +20,14 @@ using System;
 
 namespace Bifrost.Views
 {
-	/// <summary>
-	/// Defines the behavior of having an Id - typically used by objects during querying
-	/// </summary>
+    /// <summary>
+    /// Defines the behavior of having an Id - typically used by objects during querying
+    /// </summary>
     public interface IHaveId
     {
-		/// <summary>
-		/// Get the Id of the object
-		/// </summary>
+        /// <summary>
+        /// Get the Id of the object
+        /// </summary>
         Guid Id { get; }
     }
 }

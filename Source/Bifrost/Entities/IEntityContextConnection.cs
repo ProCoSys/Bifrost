@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,15 +20,15 @@ using Bifrost.Execution;
 
 namespace Bifrost.Entities
 {
-	/// <summary>
-	/// Marker interface for connection configuration for <see cref="IEntityContext{T}">entity contexts</see>
-	/// </summary>
-	public interface IEntityContextConnection
-	{
+    /// <summary>
+    /// Marker interface for connection configuration for <see cref="IEntityContext{T}">entity contexts</see>
+    /// </summary>
+    public interface IEntityContextConnection
+    {
         /// <summary>
         /// Initialize the specific EntityContextConnection
         /// </summary>
         /// <param name="container">Container</param>
         void Initialize(IContainer container);
-	}
+    }
 }

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,11 +23,11 @@ using Bifrost.Execution;
 
 namespace Bifrost.Configuration
 {
-	/// <summary>
-	/// Represents a <see cref="ISagasConfiguration"/> implementation
-	/// </summary>
-	public class SagasConfiguration : ConfigurationStorageElement, ISagasConfiguration
-	{
+    /// <summary>
+    /// Represents a <see cref="ISagasConfiguration"/> implementation
+    /// </summary>
+    public class SagasConfiguration : ConfigurationStorageElement, ISagasConfiguration
+    {
 
         /// <summary>
         /// Initializes a new instance of <see cref="SagasConfiguration"/>
@@ -38,12 +38,12 @@ namespace Bifrost.Configuration
         }
 
 #pragma warning disable 1591 // Xml Comments
-		public Type LibrarianType { get; set; }
+        public Type LibrarianType { get; set; }
 
-		public override void Initialize(IContainer container)
-		{
-			if( LibrarianType != null )
-				container.Bind<ISagaLibrarian>(LibrarianType);
+        public override void Initialize(IContainer container)
+        {
+            if( LibrarianType != null )
+                container.Bind<ISagaLibrarian>(LibrarianType);
 
 
             if (EntityContextConfiguration != null)
@@ -53,8 +53,8 @@ namespace Bifrost.Configuration
             }
 
             base.Initialize(container);
-		}
+        }
 #pragma warning restore 1591 // Xml Comments
 
-	}
+    }
 }

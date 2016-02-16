@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -27,9 +27,9 @@ namespace Bifrost.Entities.Files
     public class Document : DynamicObject
     {
         Dictionary<string, object> _hash = new Dictionary<string, object>();
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="binder"></param>
         /// <param name="value"></param>
@@ -41,7 +41,7 @@ namespace Bifrost.Entities.Files
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="binder"></param>
         /// <param name="result"></param>

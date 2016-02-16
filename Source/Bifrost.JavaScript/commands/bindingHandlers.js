@@ -12,7 +12,7 @@ if (typeof ko !== 'undefined') {
 
                 for (var parameter in parameters ) {
                     var parameterValue = parameters[parameter];
-                    
+
                     if( command.parameters.hasOwnProperty(parameter) &&
                         ko.isObservable(command.parameters[parameter]) ) {
                         command.parameters[parameter](parameterValue);
@@ -25,24 +25,24 @@ if (typeof ko !== 'undefined') {
                 command = value;
             }
             ko.applyBindingsToNode(element, { click: function() {
-                // TODO: Investigate further - idea was to support a "context-sensitive" way of dynamically inserting 
+                // TODO: Investigate further - idea was to support a "context-sensitive" way of dynamically inserting
                 // parameters before execution of the command
                 /*
                 if( !contextBound ) {
-                    command.parameters = command.parameters || {};					
+                    command.parameters = command.parameters || {};
                     for( var parameter in command.parameters ) {
                         if( viewModel.hasOwnProperty(parameter) ) {
                             var parameterValue = viewModel[parameter];
                             if( ko.isObservable(command.parameters[parameter]) ) {
                                 command.parameters[parameter](parameterValue);
                             } else {
-                                command.parameters[parameter] = parameterValue;								
+                                command.parameters[parameter] = parameterValue;
                             }
                         }
                     }
                 }
                 */
-    
+
                 command.execute();
             }}, viewModel);
         }

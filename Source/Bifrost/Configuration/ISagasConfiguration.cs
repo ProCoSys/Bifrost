@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,14 +21,14 @@ using System;
 
 namespace Bifrost.Configuration
 {
-	/// <summary>
-	/// Defines the configuration for sagas
-	/// </summary>
-	public interface ISagasConfiguration : IConfigurationElement, IHaveStorage
-	{
-		/// <summary>
-		/// Gets or sets the type of librarian to use for sagas
-		/// </summary>
-		Type LibrarianType { get; set; }
-	}
+    /// <summary>
+    /// Defines the configuration for sagas
+    /// </summary>
+    public interface ISagasConfiguration : IConfigurationElement, IHaveStorage
+    {
+        /// <summary>
+        /// Gets or sets the type of librarian to use for sagas
+        /// </summary>
+        Type LibrarianType { get; set; }
+    }
 }

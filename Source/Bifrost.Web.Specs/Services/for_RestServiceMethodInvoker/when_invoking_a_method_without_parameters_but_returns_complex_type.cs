@@ -18,10 +18,10 @@ namespace Bifrost.Web.Specs.Services.for_RestServiceMethodInvoker
         {
             uri = new Uri(string.Format("http://localhost/{0}/{1}", base_url, ServiceWithMethods.NoInputComplexOutputMethod));
 
-            
+
             json = string.Format("{{ IntValue : {0}, StringValue : {1}, DoubleValue : {2}}}",
                             expected_int, expected_string, expected_double);
-            
+
             expected_result = new ComplexType
             {
                 IntValue = expected_int,

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -46,7 +46,7 @@ namespace Bifrost.Web.Read
             var queryType = _typeDiscoverer.GetQueryTypeByName(descriptor.GeneratedFrom);
             var query = _container.Get(queryType) as IQuery;
 
-			PopulateProperties (descriptor, queryType, query);
+            PopulateProperties (descriptor, queryType, query);
 
             var result = _queryCoordinator.Execute(query, paging);
             if( result.Success ) AddClientTypeInformation(result);
@@ -69,16 +69,16 @@ namespace Bifrost.Web.Read
             result.Items = items;
         }
 
-		void PopulateProperties (QueryDescriptor descriptor, Type queryType, object instance)
-		{
-			foreach (var key in descriptor.Parameters.Keys) {
-				var propertyName = key.ToPascalCase ();
-				var property = queryType.GetProperty (propertyName);
-				if (property != null) {
+        void PopulateProperties (QueryDescriptor descriptor, Type queryType, object instance)
+        {
+            foreach (var key in descriptor.Parameters.Keys) {
+                var propertyName = key.ToPascalCase ();
+                var property = queryType.GetProperty (propertyName);
+                if (property != null) {
                     var value = descriptor.Parameters[key].ToString().ParseTo(property.PropertyType);
-					property.SetValue (instance, value, null);
-				}
-			}
-		}
+                    property.SetValue (instance, value, null);
+                }
+            }
+        }
     }
 }

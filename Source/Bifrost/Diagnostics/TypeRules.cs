@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -39,9 +39,9 @@ namespace Bifrost.Diagnostics
         /// <param name="problemsFactory"><see cref="IProblemsFactory"/> used for creating problems</param>
         /// <param name="problemsReporter"><see cref="IProblemsReporter">Reporter</see> to use for reporting back any problems</param>
         public TypeRules(
-                    ITypeDiscoverer typeDiscoverer, 
-                    IContainer container, 
-                    IProblemsFactory problemsFactory, 
+                    ITypeDiscoverer typeDiscoverer,
+                    IContainer container,
+                    IProblemsFactory problemsFactory,
                     IProblemsReporter problemsReporter)
         {
             _typeDiscoverer = typeDiscoverer;

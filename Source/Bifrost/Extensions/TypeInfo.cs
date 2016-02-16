@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -17,9 +17,6 @@
 //
 #endregion
 using System;
-#if(NETFX_CORE)
-using System.Reflection;
-#endif
 
 namespace Bifrost.Extensions
 {
@@ -36,15 +33,8 @@ namespace Bifrost.Extensions
 
         TypeInfo()
         {
-            var type = typeof(T); 
-            HasDefaultConstructor = 
-#if(NETFX_CORE)
-                type.GetTypeInfo().IsValueType ||
-                type.HasDefaultConstructor();
-#else
-                type.IsValueType ||
-                type.GetConstructor(new Type[0]) != null ;
-#endif
+            var type = typeof(T);
+            HasDefaultConstructor = type.IsValueType || type.GetConstructor(new Type[0]) != null ;
         }
 
 #pragma warning disable 1591 // Xml Comments

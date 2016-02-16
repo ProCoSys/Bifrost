@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -224,7 +224,7 @@ namespace Bifrost.CodeGeneration.JavaScript
 
             return assignment;
         }
-        
+
         /// <summary>
         /// Assign the default value of a given Type
         /// </summary>
@@ -241,7 +241,7 @@ namespace Bifrost.CodeGeneration.JavaScript
 
             var defaultValue = Activator.CreateInstance(type);
             assignment.WithLiteral(string.Format("{0}", defaultValue));
-            
+
             return assignment;
         }
 

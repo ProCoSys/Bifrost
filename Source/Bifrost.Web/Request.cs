@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,16 +20,16 @@ using System.Web;
 
 namespace Bifrost.Web
 {
-	public class Request : IWebRequest
-	{
-		HttpRequest	_actualRequest;
-		
-		public Request(HttpRequest actualRequest)
-		{
-			_actualRequest = actualRequest;
-		}
-		
-		public string Path { get { return _actualRequest.Path; } }
-	}
+    public class Request : IWebRequest
+    {
+        HttpRequest    _actualRequest;
+
+        public Request(HttpRequest actualRequest)
+        {
+            _actualRequest = actualRequest;
+        }
+
+        public string Path { get { return _actualRequest.Path; } }
+    }
 }
 

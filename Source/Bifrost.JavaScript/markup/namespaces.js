@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.markup", {
+Bifrost.namespace("Bifrost.markup", {
     namespaces: Bifrost.Singleton(function (namespaceDefinitions, elementNaming) {
         var self = this;
         var ns = "ns:";
@@ -21,7 +21,7 @@
             }
             if (Bifrost.isNullOrUndefined(element.parentElement) ||
                 element.parentElement.constructor === HTMLHtmlElement) {
-                
+
                 return null;
             }
 

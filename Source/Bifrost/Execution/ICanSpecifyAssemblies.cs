@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -24,7 +24,7 @@ namespace Bifrost.Execution
     /// Specifies what assemblies to include
     /// </summary>
     /// <remarks>
-    /// Typically used by implementations of <see cref="IAssemblies"/> to 
+    /// Typically used by implementations of <see cref="IAssemblies"/> to
     /// get the correct assemblies located for things like implementations of
     /// <see cref="ITypeDiscoverer"/> which relies on knowing about assemblies
     /// to be able to discover types.

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -49,8 +49,8 @@ namespace Bifrost.Read
         /// <param name="validator"><see cref="IQueryValidator"/> to use for validating <see cref="IQuery">queries</see></param>
         /// <param name="filters"><see cref="IReadModelFilters">Filters</see> used to filter any of the read models coming back after a query</param>
         public QueryCoordinator(
-            ITypeDiscoverer typeDiscoverer, 
-            IContainer container, 
+            ITypeDiscoverer typeDiscoverer,
+            IContainer container,
             IFetchingSecurityManager fetchingSecurityManager,
             IQueryValidator validator,
             IReadModelFilters filters)
@@ -86,7 +86,7 @@ namespace Bifrost.Read
                     result.Items = new object[0];
                     return result;
                 }
-                
+
 
                 var property = GetQueryPropertyFromQuery(query);
                 var actualQuery = property.GetValue(query, null);

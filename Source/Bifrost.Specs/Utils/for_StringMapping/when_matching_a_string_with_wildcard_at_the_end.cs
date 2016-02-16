@@ -1,6 +1,6 @@
 ﻿using Machine.Specifications;
 
-namespace Bifrost.Utils.for_StringMapping   
+namespace Bifrost.Utils.for_StringMapping
 {
     public class when_matching_a_string_with_wildcard_at_the_end
     {

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -22,10 +22,6 @@ using System.Linq;
 using Bifrost.Entities;
 using Bifrost.Execution;
 using Bifrost.Extensions;
-
-#if(NETFX_CORE)
-using System.Reflection;
-#endif
 
 namespace Bifrost.Tasks
 {
@@ -112,11 +108,7 @@ namespace Bifrost.Tasks
             var targetType = target.GetType();
             foreach (var key in source.State.Keys)
             {
-#if(NETFX_CORE)
-                var property = targetType.GetTypeInfo().GetDeclaredProperty(key);
-#else
                 var property = targetType.GetProperty(key);
-#endif
                 if (property != null)
                 {
                     var value = Convert.ChangeType(source.State[key], property.PropertyType, null);
@@ -127,7 +119,7 @@ namespace Bifrost.Tasks
 
         TaskEntity ToTaskEntity(Task task, TaskEntity taskEntity = null)
         {
-            if( taskEntity == null ) 
+            if( taskEntity == null )
                 taskEntity = new TaskEntity();
 
             taskEntity.Id = task.Id;
@@ -141,13 +133,8 @@ namespace Bifrost.Tasks
         {
             var sourceType = source.GetType();
             var taskType = typeof(Task);
-#if(NETFX_CORE)
-            var taskProperties = taskType.GetTypeInfo().DeclaredProperties;
-            var declaringTypeProperties = sourceType.GetTypeInfo().DeclaredProperties.Where(p => p.DeclaringType == sourceType);
-#else
             var taskProperties = taskType.GetProperties();
             var declaringTypeProperties = sourceType.GetProperties().Where(p => p.DeclaringType == sourceType);
-#endif
 
             var sourceProperties = declaringTypeProperties.Where(p=>!taskProperties.Any(pp=>pp.Name == p.Name));
             var sourcePropertiesDictionary = sourceProperties.ToDictionary(p => p.Name, p => p.GetValue(source, null).ToString());

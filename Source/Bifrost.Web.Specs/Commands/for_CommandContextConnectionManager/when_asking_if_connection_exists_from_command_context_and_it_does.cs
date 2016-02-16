@@ -10,9 +10,9 @@ namespace Bifrost.Web.Specs.Commands.for_CommandContextConnectionManager
 
         static CommandContextConnectionManager manager;
         static bool result;
-        
 
-        Establish context = () => 
+
+        Establish context = () =>
         {
             manager = new CommandContextConnectionManager();
             manager.Register("Blah", command_context);

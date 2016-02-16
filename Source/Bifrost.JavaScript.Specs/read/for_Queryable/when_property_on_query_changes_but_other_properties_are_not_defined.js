@@ -1,4 +1,4 @@
-﻿describe("when property on query changes but other properties are not set", function () {
+describe("when property on query changes but other properties are not set", function () {
 
     var query = {
         someProperty: ko.observable(),
@@ -44,7 +44,7 @@
     afterEach(function () {
         Bifrost.read.PagingInfo = pagingInfoType;
     });
-    
+
 
     it("should not execute the query on the query service", function () {
         expect(queryService.execute.verify()).toBe(true);

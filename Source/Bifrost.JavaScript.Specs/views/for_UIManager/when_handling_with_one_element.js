@@ -1,37 +1,37 @@
 describe("when handling with one element", function() {
-	var root = document.createElement("div");
-	var element = document.createElement("button");
-	
-	var documentService = {
-		traverseObjects: function(callback) {
-			callback(element);
-		}
-	};
+    var root = document.createElement("div");
+    var element = document.createElement("button");
 
-	var visitStub = sinon.stub();
+    var documentService = {
+        traverseObjects: function(callback) {
+            callback(element);
+        }
+    };
 
-	var visitorType = Bifrost.markup.ElementVisitor.extend(function() {
-		this.visit = visitStub;
-	});
-	var actions = { some: "actions" };
+    var visitStub = sinon.stub();
 
-	beforeEach(function() {
-	    sinon.stub(Bifrost.markup.ElementVisitor, "getExtenders").returns([visitorType]);
-	    sinon.stub(Bifrost.markup.ElementVisitorResultActions, "create").returns(actions);
+    var visitorType = Bifrost.markup.ElementVisitor.extend(function() {
+        this.visit = visitStub;
+    });
+    var actions = { some: "actions" };
 
-	    var instance = Bifrost.views.UIManager.createWithoutScope({
-			documentService: documentService
-		})
+    beforeEach(function() {
+        sinon.stub(Bifrost.markup.ElementVisitor, "getExtenders").returns([visitorType]);
+        sinon.stub(Bifrost.markup.ElementVisitorResultActions, "create").returns(actions);
 
-		instance.handle(root);
-	});
+        var instance = Bifrost.views.UIManager.createWithoutScope({
+            documentService: documentService
+        })
 
-	afterEach(function() {
-	    Bifrost.markup.ElementVisitor.getExtenders.restore();
-	    Bifrost.markup.ElementVisitorResultActions.create.restore();
-	});
+        instance.handle(root);
+    });
 
-	it("should call the visit function of the visitor", function() {
-		expect(visitStub.calledWith(element, actions)).toBe(true);
-	});
+    afterEach(function() {
+        Bifrost.markup.ElementVisitor.getExtenders.restore();
+        Bifrost.markup.ElementVisitorResultActions.create.restore();
+    });
+
+    it("should call the visit function of the visitor", function() {
+        expect(visitStub.calledWith(element, actions)).toBe(true);
+    });
 });

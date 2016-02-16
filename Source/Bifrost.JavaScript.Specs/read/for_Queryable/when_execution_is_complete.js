@@ -1,4 +1,4 @@
-﻿describe("when execution is complete", function () {
+describe("when execution is complete", function () {
     var items = [
         { firstItem: 1 },
         { secondItem: 2 }
@@ -38,7 +38,7 @@
             execute: function () {
                 return {
                     continueWith: function (callback) {
-                        
+
                         callback({
                             items: items,
                             totalItems: 4

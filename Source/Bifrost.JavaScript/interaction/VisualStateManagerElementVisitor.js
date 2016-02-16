@@ -2,7 +2,7 @@ Bifrost.namespace("Bifrost.interaction", {
     VisualStateManagerElementVisitor: Bifrost.markup.ElementVisitor.extend(function () {
         var visualStateActionTypes = Bifrost.interaction.VisualStateAction.getExtenders();
 
-        
+
 
         function parseActions(namingRoot, stateElement, state) {
             function parseAction(type) {

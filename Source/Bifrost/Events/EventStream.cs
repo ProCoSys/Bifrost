@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -29,15 +29,15 @@ namespace Bifrost.Events
     /// </summary>
     public class EventStream : IEnumerable<IEvent>
     {
-		/// <summary>
-		/// Gets a list of all the events in the stream
-		/// </summary>
+        /// <summary>
+        /// Gets a list of all the events in the stream
+        /// </summary>
         protected readonly List<IEvent> Events = new List<IEvent>();
 
-		/// <summary>
-		/// Initializes a new <see cref="EventStream">EventStream</see>
-		/// </summary>
-		/// <param name="eventSourceId">Id of the event source - typically an <see cref="AggregateRoot">AggregatedRoot</see></param>
+        /// <summary>
+        /// Initializes a new <see cref="EventStream">EventStream</see>
+        /// </summary>
+        /// <param name="eventSourceId">Id of the event source - typically an <see cref="AggregateRoot">AggregatedRoot</see></param>
         public EventStream(Guid eventSourceId)
         {
             EventSourceId = eventSourceId;
@@ -53,7 +53,7 @@ namespace Bifrost.Events
         /// </summary>
         public bool HasEvents
         {
-            get { return this.Count()  > 0; } 
+            get { return this.Count()  > 0; }
         }
 
         /// <summary>

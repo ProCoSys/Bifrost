@@ -1,4 +1,4 @@
-﻿describe("when executing task that fails", function () {
+describe("when executing task that fails", function () {
     var error = "Some error";
 
     var failedCallback = null;
@@ -27,7 +27,7 @@
 
     var isBusyTimeline = [];
     var taskWasAdded = false;
-    
+
     tasks.all.subscribe(function (newValue) {
         if (newValue[0] == task) taskWasAdded = true;
     });

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,15 +21,15 @@ using Bifrost.Execution;
 
 namespace Bifrost.Configuration.Defaults
 {
-	/// <summary>
-	/// Defines a system that sets up default bindings
-	/// </summary>
+    /// <summary>
+    /// Defines a system that sets up default bindings
+    /// </summary>
     public interface IDefaultBindings
     {
-		/// <summary>
-		/// Initialize the bindings with the given container
-		/// </summary>
-		/// <param name="container">The <see cref="IContainer"/> to define the bindings with</param>
+        /// <summary>
+        /// Initialize the bindings with the given container
+        /// </summary>
+        /// <param name="container">The <see cref="IContainer"/> to define the bindings with</param>
         void Initialize(IContainer container);
     }
 }

@@ -1,4 +1,4 @@
-﻿describe("when requested dependency is a valid script in namespace, but not registered in Bifrost namespace", function () {
+describe("when requested dependency is a valid script in namespace, but not registered in Bifrost namespace", function () {
     var resolver = new Bifrost.DefaultDependencyResolver();
     var ns;
     var resolved = null;
@@ -15,7 +15,7 @@
     var file = {
         some: "file"
     };
-    
+
     var fileFactoryMock = {
         create: sinon.mock().withArgs("/Someplace/On/Server/something.js", Bifrost.io.fileType.javaScript).returns(file)
     };
@@ -43,7 +43,7 @@
         Bifrost.io.fileManager = {
             create: sinon.stub().returns(fileManagerMock)
         }
-        
+
         canResolve = resolver.canResolve(ns, "something");
         resolved = resolver.resolve(ns, "something");
         resolved.continueWith(function (arg, nextPromise) {

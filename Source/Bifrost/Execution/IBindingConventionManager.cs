@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,34 +20,34 @@ using System;
 
 namespace Bifrost.Execution
 {
-	/// <summary>
-	/// Defines a manager for binding conventions
-	/// </summary>
+    /// <summary>
+    /// Defines a manager for binding conventions
+    /// </summary>
     public interface IBindingConventionManager
     {
-		/// <summary>
-		/// Add a convention by type
-		/// </summary>
-		/// <param name="type">Type of convention to add</param>
-		/// <remarks>
-		/// The type must implement the <see cref="IBindingConvention"/>
-		/// </remarks>
+        /// <summary>
+        /// Add a convention by type
+        /// </summary>
+        /// <param name="type">Type of convention to add</param>
+        /// <remarks>
+        /// The type must implement the <see cref="IBindingConvention"/>
+        /// </remarks>
         void Add(Type type);
 
-		/// <summary>
-		/// Add a convention by type generically
-		/// </summary>
-		/// <typeparam name="T">Type of convention to add</typeparam>
+        /// <summary>
+        /// Add a convention by type generically
+        /// </summary>
+        /// <typeparam name="T">Type of convention to add</typeparam>
         void Add<T>() where T : IBindingConvention;
 
-		/// <summary>
-		/// Initialize system
-		/// </summary>
+        /// <summary>
+        /// Initialize system
+        /// </summary>
         void Initialize();
 
-		/// <summary>
-		/// Discover bindings and initialize
-		/// </summary>
+        /// <summary>
+        /// Discover bindings and initialize
+        /// </summary>
         void DiscoverAndInitialize();
     }
 }

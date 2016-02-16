@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,12 +20,12 @@ using System;
 
 namespace Bifrost.Execution
 {
-	/// <summary>
-	/// Indicates that a class is Singleton and should be treated as such
-	/// for any factory creating an instance of a class marked with this
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-	public class SingletonAttribute : Attribute
-	{
-	}
+    /// <summary>
+    /// Indicates that a class is Singleton and should be treated as such
+    /// for any factory creating an instance of a class marked with this
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class SingletonAttribute : Attribute
+    {
+    }
 }

@@ -204,7 +204,7 @@ namespace Bifrost.Web.Mvc.Commands
 
             var idKey = "id";
             var formId = builder.Attributes.ContainsKey(idKey) ? builder.Attributes["id"] : Guid.NewGuid().ToString();
-            
+
             ajaxOptions = ajaxOptions ?? new AjaxOptions();
 
             ajaxOptions.OnSuccess = string.IsNullOrEmpty(ajaxOptions.OnSuccess) ? "Bifrost.commands.commandFormEvents.onSuccess('#" + formId + "', data)" : ajaxOptions.OnSuccess;
@@ -212,7 +212,7 @@ namespace Bifrost.Web.Mvc.Commands
 
             if (ajaxHelper.ViewContext.UnobtrusiveJavaScriptEnabled)
                 builder.MergeAttributes<string, object>(ajaxOptions.ToUnobtrusiveHtmlAttributes());
-            
+
             ajaxHelper.ViewContext.Writer.Write(builder.ToString(TagRenderMode.StartTag));
             var form = new CommandForm<T>(ajaxHelper.ViewContext);
             form.Action = action;

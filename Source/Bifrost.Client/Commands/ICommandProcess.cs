@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace Bifrost.Commands
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface ICommandProcess
     {
         /// <summary>
-        /// Add a <see cref="CommandSucceeded"/> callback that gets called 
+        /// Add a <see cref="CommandSucceeded"/> callback that gets called
         /// when the command is successfully handled
         /// </summary>
         /// <param name="callback"><see cref="CommandSucceeded">Callback</see> to add</param>
         void Succeeded(CommandSucceeded callback);
 
         /// <summary>
-        /// Add a <see cref="CommandFailed"/> callback that gets called 
+        /// Add a <see cref="CommandFailed"/> callback that gets called
         /// when the command fails during handling
         /// </summary>
         /// <param name="callback"><see cref="CommandFailed">Callback</see> to add</param>

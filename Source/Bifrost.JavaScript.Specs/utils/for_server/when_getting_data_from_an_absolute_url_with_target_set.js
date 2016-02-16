@@ -1,11 +1,11 @@
-﻿describe("when getting data from an absolute url with target set", function () {
+describe("when getting data from an absolute url with target set", function () {
     var url = "http://wwww.db.no/Somewhere/With?query=value";
     var data = { something: 42 };
 
     var target = "http://www.vg.no";
     var server = Bifrost.server.create();
     server.target = target;
-    
+
     beforeEach(function() {
         sinon.stub($, "ajax")
         server.get(url, data);

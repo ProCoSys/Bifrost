@@ -1,4 +1,4 @@
-﻿describe("when populating from external source with property values", function () {
+describe("when populating from external source with property values", function () {
     var parameters = {
         commandCoordinator: {
         },
@@ -54,5 +54,5 @@
     it("should clear any validation messages", function () {
         expect(parameters.commandValidationService.clearValidationMessagesFor.calledWith(command)).toBe(true);
     });
-    
+
 });

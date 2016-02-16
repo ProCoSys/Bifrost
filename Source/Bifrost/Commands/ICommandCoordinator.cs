@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,30 +20,30 @@ using Bifrost.Sagas;
 
 namespace Bifrost.Commands
 {
-	/// <summary>
-	/// Defines a coordinator for coordinating commands coming into the system
-	/// </summary>
-	public partial interface ICommandCoordinator
-	{
-		/// <summary>
-		/// Handle a command in the context of a saga
-		/// </summary>
-		/// <param name="saga"><see cref="ISaga"/> to handle in context of</param>
-		/// <param name="command"><see cref="ICommand">command</see> to handle</param>
-		/// <returns>
-		/// Result from the handle.
-		/// Within the result one can check if the handling was success or not
-		/// </returns>
-		CommandResult Handle(ISaga saga, ICommand command);
+    /// <summary>
+    /// Defines a coordinator for coordinating commands coming into the system
+    /// </summary>
+    public partial interface ICommandCoordinator
+    {
+        /// <summary>
+        /// Handle a command in the context of a saga
+        /// </summary>
+        /// <param name="saga"><see cref="ISaga"/> to handle in context of</param>
+        /// <param name="command"><see cref="ICommand">command</see> to handle</param>
+        /// <returns>
+        /// Result from the handle.
+        /// Within the result one can check if the handling was success or not
+        /// </returns>
+        CommandResult Handle(ISaga saga, ICommand command);
 
-		/// <summary>
-		/// Handle a command
-		/// </summary>
-		/// <param name="command"><see cref="ICommand">command</see> to handle</param>
-		/// <returns>
-		/// Result from the handle.
-		/// Within the result one can check if the handling was success or not
-		/// </returns>
-		CommandResult Handle(ICommand command);
-	}
+        /// <summary>
+        /// Handle a command
+        /// </summary>
+        /// <param name="command"><see cref="ICommand">command</see> to handle</param>
+        /// <returns>
+        /// Result from the handle.
+        /// Within the result one can check if the handling was success or not
+        /// </returns>
+        CommandResult Handle(ICommand command);
+    }
 }

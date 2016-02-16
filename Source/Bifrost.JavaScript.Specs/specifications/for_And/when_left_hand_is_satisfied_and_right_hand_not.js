@@ -1,5 +1,5 @@
-﻿describe("when left hand is satisfied and right hand not", function () {
-    
+describe("when left hand is satisfied and right hand not", function () {
+
     var leftHandSideEvaluator = sinon.stub().returns(true);
     var leftHandSide = Bifrost.specifications.Specification.create()
     leftHandSide.evaluator = leftHandSideEvaluator;

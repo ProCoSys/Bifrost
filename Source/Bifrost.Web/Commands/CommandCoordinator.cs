@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -56,8 +56,8 @@ namespace Bifrost.Web.Commands
             }
             catch (Exception ex)
             {
-                return new CommandResult { 
-                    Exception = ex, 
+                return new CommandResult {
+                    Exception = ex,
                     ExceptionMessage = string.Format("Exception occured of type '{0}' with message '{1}'. StackTrace : {2}",ex.GetType().Name,ex.Message,ex.StackTrace)
                 };
             }

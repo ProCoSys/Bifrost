@@ -15,7 +15,7 @@ namespace Bifrost.Specs.Configuration.for_SagasConfiguration
     [Subject(typeof(SagasConfiguration))]
     public class when_initializing_without_storage : given.a_sagas_configuration_and_container_object
     {
-        
+
         Because of = () => sagas_configuration.Initialize(container_mock.Object);
 
         It should_be_initialized = () => sagas_configuration.ShouldNotBeNull();

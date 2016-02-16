@@ -39,7 +39,7 @@ namespace Bifrost.DocumentDB.Events
         Database _database;
         DocumentCollection _collection;
         ISerializer _serializer;
-        
+
         StoredProcedure _insertEventStoredProcedure;
         StoredProcedure _getLastCommittedVersionStoredProcedure;
 
@@ -55,7 +55,7 @@ namespace Bifrost.DocumentDB.Events
 
             Initialize(configuration);
             InitializeCollection();
-            
+
             InitializeStoredProcedures();
         }
 
@@ -79,7 +79,7 @@ namespace Bifrost.DocumentDB.Events
 
                 committedEventStream.Append(@event);
             }
-            
+
             return committedEventStream;
         }
 
@@ -121,7 +121,7 @@ namespace Bifrost.DocumentDB.Events
                 _collection = new DocumentCollection { Id = collectionName };
                 _client
                     .CreateDocumentCollectionAsync(_database.SelfLink, _collection)
-                    
+
                     .ContinueWith(r => _collection = r.Result.Resource)
                     .Wait();
             }

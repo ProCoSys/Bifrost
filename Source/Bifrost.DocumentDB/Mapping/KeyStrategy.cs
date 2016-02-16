@@ -27,7 +27,7 @@ namespace Bifrost.DocumentDB.Mapping
     public class KeyStrategy : IPropertyMappingStrategy
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="mappingTarget"></param>
         /// <param name="target"></param>

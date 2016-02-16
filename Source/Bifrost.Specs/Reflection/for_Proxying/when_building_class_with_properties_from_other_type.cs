@@ -8,7 +8,7 @@ namespace Bifrost.Specs.Reflection.for_Proxying
     public class when_building_class_with_properties_from_other_type
     {
         static Proxying proxying;
-        static Type result; 
+        static Type result;
 
         Establish context = () => proxying = new Proxying();
 

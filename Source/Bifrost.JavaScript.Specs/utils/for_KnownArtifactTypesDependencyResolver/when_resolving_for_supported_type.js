@@ -1,4 +1,4 @@
-﻿describe("when resolving for supported type", sinon.test(function () {
+describe("when resolving for supported type", sinon.test(function () {
 
     var resolver,
         resolvedTypes,
@@ -15,7 +15,7 @@
         resolver = new Bifrost.KnownArtifactTypesDependencyResolver();
         propertyToResolve = "commandTypes";
         namespace = {};
-        
+
         resolvedTypes = resolver.resolve(namespace, propertyToResolve);
     });
 

@@ -7,7 +7,7 @@ namespace Bifrost.Client.Specs.Reflection.for_InvocationHandler
 {
     public class when_handling_getting_property_value : given.an_invocation
     {
-        Establish context = () => 
+        Establish context = () =>
         {
             method_name = "get_Something";
 

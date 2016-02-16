@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -66,10 +66,10 @@ namespace Bifrost.Commands
         {
             var type = GetProxyTypeFor<T>();
 
-            var proxied = Activator.CreateInstance(type, new[] { 
-                new IInterceptor[] { 
+            var proxied = Activator.CreateInstance(type, new[] {
+                new IInterceptor[] {
                     _interceptor,
-                } 
+                }
             }) as ICommandFor<T>;
 
             ((IHoldCommandInstance)proxied).CommandInstance = instance;
@@ -87,14 +87,14 @@ namespace Bifrost.Commands
 
                 ProxyTypePerCommand<T>.ProxyType = _proxyBuilder.CreateClassProxyType(
                     typeof(CommandProxyInstance),
-                    new[] { 
-                    typeof(ICommandFor<T>), 
-                    interfaceForCommandType, 
+                    new[] {
+                    typeof(ICommandFor<T>),
+                    interfaceForCommandType,
                     typeof(ICommandProcess),
                     typeof(ICanProcessCommandProcess),
-                    typeof(System.Windows.Input.ICommand), 
+                    typeof(System.Windows.Input.ICommand),
                     typeof(INotifyDataErrorInfo),
-                    typeof(IHoldCommandInstance) 
+                    typeof(IHoldCommandInstance)
                 }, options);
             }
             return ProxyTypePerCommand<T>.ProxyType;

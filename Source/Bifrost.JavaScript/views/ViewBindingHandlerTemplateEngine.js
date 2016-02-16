@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.views", {
+Bifrost.namespace("Bifrost.views", {
     ViewBindingHandlerTemplateEngine: Bifrost.Type.extend(function (viewModelManager, regionManager, UIManager) {
         var self = this;
         this.renderTemplate = function (template, bindingContext, options) {
@@ -54,7 +54,7 @@
                 }
             });
 
-            
+
             return renderedTemplateSource;
         };
     })

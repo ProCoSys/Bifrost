@@ -10,7 +10,7 @@ namespace Bifrost.Specs.Execution.for_BindingConventionManager.given
         protected static BindingConventionManager manager;
         protected static Mock<IContainer> container_mock;
         protected static Mock<ITypeDiscoverer> type_discoverer_mock;
-        
+
 
         Establish context = () =>
                                 {

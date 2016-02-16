@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.values", {
+Bifrost.namespace("Bifrost.values", {
     valuePipeline: Bifrost.Singleton(function (typeConverters, stringFormatter) {
         this.getValueForView = function (element, value) {
             if (Bifrost.isNullOrUndefined(value)) {
@@ -87,7 +87,7 @@
                 if (expression[charIndex] == complexExpressionCharacters[complexCharIndex]) return true;
             }
         }
-        
+
         return false;
     }
 

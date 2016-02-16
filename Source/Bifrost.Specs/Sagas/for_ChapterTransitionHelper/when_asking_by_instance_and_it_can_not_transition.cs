@@ -4,7 +4,7 @@ using Machine.Specifications;
 
 namespace Bifrost.Specs.Sagas.for_ChapterTransitionHelper
 {
-    public class when_asking_by_instance_and_it_can_not_transition 
+    public class when_asking_by_instance_and_it_can_not_transition
     {
         static TransitionalChapter _transitionalChapter;
         static NonTransitionalChapter _nonTransitionalChapter;
@@ -16,7 +16,7 @@ namespace Bifrost.Specs.Sagas.for_ChapterTransitionHelper
                                     _nonTransitionalChapter = new NonTransitionalChapter();
                                 };
 
-		Because of = () => can_transition = ChapterTransitionHelper.CanTransition(_nonTransitionalChapter, _transitionalChapter);
+        Because of = () => can_transition = ChapterTransitionHelper.CanTransition(_nonTransitionalChapter, _transitionalChapter);
 
         It should_be_able_to_transition = () => can_transition.ShouldBeFalse();
     }

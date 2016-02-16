@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -26,7 +26,7 @@ namespace Bifrost.Security
     /// </summary>
     public class AuthorizeTargetResult
     {
-        readonly List<AuthorizeSecurableResult> _authorizationFailures = new List<AuthorizeSecurableResult>(); 
+        readonly List<AuthorizeSecurableResult> _authorizationFailures = new List<AuthorizeSecurableResult>();
 
         /// <summary>
         /// Instantiates an instance of <see cref="AuthorizeTargetResult"/> for the specificed <see cref="ISecurityTarget"/>
@@ -49,7 +49,7 @@ namespace Bifrost.Security
         {
             get { return _authorizationFailures.AsEnumerable(); }
         }
-        
+
         /// <summary>
         /// Indicates if the action instance has been authorized by the <see cref="ISecurityTarget"/>
         /// </summary>

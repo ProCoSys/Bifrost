@@ -19,7 +19,7 @@ namespace Bifrost.Web.Specs.Events.for_EventStoreChangeNotifier
         static UncommittedEventStream   events;
 
 
-        Establish   context = () => 
+        Establish   context = () =>
         {
             event_store_mock = new Mock<IEventStore>();
             command_coordinator_events_mock = new Mock<ICommandCoordinatorEvents>();

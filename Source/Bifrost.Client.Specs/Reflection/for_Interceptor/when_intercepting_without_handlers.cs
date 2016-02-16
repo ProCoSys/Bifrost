@@ -10,7 +10,7 @@ namespace Bifrost.Client.Specs.Reflection.for_Interceptor
         static Mock<IInvocation>    invocation_mock;
         static InterceptorWithoutHandlers interceptor;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             invocation_mock = new Mock<IInvocation>();
             interceptor = new InterceptorWithoutHandlers();

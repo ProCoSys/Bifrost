@@ -1,4 +1,4 @@
-﻿describe("when executing", function () {
+describe("when executing", function () {
     var task = {
         some:"task"
     };
@@ -9,7 +9,7 @@
             }
         })
     };
-    
+
     var query = {
         _name: "Its a query",
         _generatedFrom: "Something",
@@ -24,7 +24,7 @@
             tasks: tasks
         }
     };
-    
+
     var mapper = {};
     var queryForTask = null;
     var payloadForTask = null;
@@ -37,19 +37,19 @@
             return task;
         }
     };
-    
+
     var instance = Bifrost.read.queryService.createWithoutScope({
         mapper: mapper,
         taskFactory: taskFactory
     });
-   
+
     var paging = {
         size: 2,
         number: 5
     };
-    
+
     var promise = instance.execute(query, paging);
-    
+
     it("should create a query task", function () {
         expect(taskFactory.createQuery.called).toBe(true);
     });

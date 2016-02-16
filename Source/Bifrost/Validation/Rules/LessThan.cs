@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -29,7 +29,7 @@ namespace Bifrost.Validation.Rules
         where T : IComparable<T>
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="LessThan"/> 
+        /// Initializes a new instance of <see cref="LessThan"/>
         /// </summary>
         /// <param name="property"><see cref="PropertyInfo">Property</see> the rule is for</param>
         /// <param name="value">Value that the input value must be less than</param>

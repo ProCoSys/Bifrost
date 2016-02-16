@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -19,9 +19,6 @@
 using System;
 using System.Collections.Generic;
 using Bifrost.Execution;
-#if(NETFX_CORE)
-using System.Reflection;
-#endif
 
 namespace Bifrost.Events
 {
@@ -52,23 +49,17 @@ namespace Bifrost.Events
 
         public void NotifyChanges(IEventStore eventStore, EventStream streamOfEvents)
         {
-            foreach( var notifierType in _notifiers ) 
+            foreach( var notifierType in _notifiers )
             {
                 var notifier = _container.Get(notifierType) as IEventStoreChangeNotifier;
                 notifier.Notify(eventStore, streamOfEvents);
-            }  
+            }
         }
 #pragma warning restore 1591 // Xml Comments
 
         void ThrowIfTypeIsNotANotifier(Type type)
         {
-            if (!typeof(IEventStoreChangeNotifier)
-#if(NETFX_CORE)
-                .GetTypeInfo().IsAssignableFrom(type.GetTypeInfo())
-#else
-                .IsAssignableFrom(type)
-#endif                
-                )
+            if (!typeof(IEventStoreChangeNotifier).IsAssignableFrom(type))
                 throw new ArgumentException(string.Format("Type '{0}' must implement '{1}'", type.Name, typeof(IEventStoreChangeNotifier).Name));
         }
     }

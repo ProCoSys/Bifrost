@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -22,7 +22,7 @@ using System.Collections.Generic;
 namespace Bifrost.Collections
 {
     /// <summary>
-    /// Defines a collection that enables observing 
+    /// Defines a collection that enables observing
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IObservableCollection<T> : ICollection<T>, IEnumerable<T>, IEnumerable

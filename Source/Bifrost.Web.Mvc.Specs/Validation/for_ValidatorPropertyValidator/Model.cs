@@ -10,7 +10,7 @@ namespace Bifrost.Web.Mvc.Specs.Validation.for_ValidatorPropertyValidator
         public bool TheStringSetCalled = false;
 
         string _theString;
-        public string TheString 
+        public string TheString
         {
             get
             {

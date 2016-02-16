@@ -21,7 +21,7 @@ using System.Reflection;
 namespace Bifrost.Mapping
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IPropertyMappingStrategy"/> that supports mapping to 
+    /// Represents an implementation of <see cref="IPropertyMappingStrategy"/> that supports mapping to
     /// a specified property
     /// </summary>
     public class TargetPropertyMappingStrategy : IPropertyMappingStrategy

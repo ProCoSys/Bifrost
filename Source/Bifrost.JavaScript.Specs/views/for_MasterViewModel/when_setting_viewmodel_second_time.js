@@ -1,4 +1,4 @@
-﻿describe("when setting viewmodel second time", function () {
+describe("when setting viewmodel second time", function () {
 
     var firstViewModel = {
         _type: {
@@ -23,7 +23,7 @@
 
     var element = {
     };
-    
+
 
     var viewModelName = "myNamespace.myType";
 

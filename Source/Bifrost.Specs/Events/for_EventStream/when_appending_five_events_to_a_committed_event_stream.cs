@@ -19,7 +19,7 @@ namespace Bifrost.Specs.Events.for_EventStream
                     {
                         Events.Add(new SimpleEvent(EventSourceId) { Version = version });
                         version = version.NextSequence();
-                    } 
+                    }
                 };
 
         private Because of = () => EventStream.Append(Events);

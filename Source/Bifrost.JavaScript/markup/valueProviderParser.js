@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.markup", {
+Bifrost.namespace("Bifrost.markup", {
     valueProviderParser: Bifrost.Singleton(function (valueProviders, valueConsumers, typeConverters) {
         var self = this;
         var regex = new RegExp("{{([a-z ,:{{}}}]*)}}", "g");
@@ -58,7 +58,7 @@
 
                                 var value = keyValuePair[0];
                                 handleValue(provider, provider.defaultProperty, value);
-                                
+
                             } else if (keyValuePair.length === 2) {
                                 // Property and value
 

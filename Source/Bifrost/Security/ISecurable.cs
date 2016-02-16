@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -39,7 +39,7 @@ namespace Bifrost.Security
         IEnumerable<ISecurityActor> Actors { get; }
 
         /// <summary>
-        /// Indicates whether this securable can authorize the action 
+        /// Indicates whether this securable can authorize the action
         /// </summary>
         /// <param name="actionToAuthorize">Instance of an action to be authorized</param>
         /// <returns>True for can authorize, False for cannot</returns>
@@ -55,6 +55,6 @@ namespace Bifrost.Security
         /// <summary>
         /// Gets a description of the Securable.
         /// </summary>
-        string Description { get; } 
+        string Description { get; }
     }
 }

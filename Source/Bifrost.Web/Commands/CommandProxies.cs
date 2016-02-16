@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -48,7 +48,7 @@ namespace Bifrost.Web.Commands
             _typeDiscoverer = typeDiscoverer;
             _typeImporter = typeImporter;
             _codeGenerator = codeGenerator;
-            
+
             _configuration = configuration;
         }
 
@@ -68,11 +68,11 @@ namespace Bifrost.Web.Commands
                     currentNamespace = _codeGenerator.Namespace(_configuration.NamespaceMapper.GetClientNamespaceFrom(@namespace.Key));
                 else
                     currentNamespace = globalCommands;
-                
+
                 foreach (var type in @namespace)
                 {
                     if (type.IsGenericType) continue;
-                    
+
                     var name = type.Name.ToCamelCase();
                     currentNamespace.Content.Assign(name)
                         .WithType(t =>
@@ -94,7 +94,7 @@ namespace Bifrost.Web.Commands
                     result.Append(_codeGenerator.GenerateFrom(currentNamespace));
             }
             result.Append(_codeGenerator.GenerateFrom(globalCommands));
-            
+
             return result.ToString();
         }
     }

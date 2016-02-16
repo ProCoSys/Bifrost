@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,7 +23,7 @@ namespace Bifrost.CodeGeneration.JavaScript
     /// <summary>
     /// Provide methods for working with <see cref="Scope"/>
     /// </summary>
-    public static class ScopeExtensions 
+    public static class ScopeExtensions
     {
         /// <summary>
         /// Specify a <see cref="FunctionCall"/> for the <see cref="Scope"/>

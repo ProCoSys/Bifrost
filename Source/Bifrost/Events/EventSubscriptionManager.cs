@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,10 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Bifrost.Execution;
 using Bifrost.Globalization;
-
-#if(NETFX_CORE)
-using System.Reflection;
-#endif
 
 namespace Bifrost.Events
 {
@@ -51,7 +47,7 @@ namespace Bifrost.Events
         /// <param name="localizer">A <see cref="ILocalizer"/> for controlling localization while executing subscriptions</param>
         public EventSubscriptionManager(
             IEventSubscriptions subscriptions,
-            ITypeDiscoverer typeDiscoverer, 
+            ITypeDiscoverer typeDiscoverer,
             IContainer container,
             ILocalizer localizer)
         {
@@ -168,20 +164,12 @@ namespace Bifrost.Events
 
             foreach (var eventSubscriberType in eventSubscriberTypes)
             {
-                var subscriptions = (from m in 
-#if(NETFX_CORE)
-                                       eventSubscriberType.GetTypeInfo().DeclaredMethods
-#else
+                var subscriptions = (from m in
                                        eventSubscriberType.GetMethods()
-#endif
                                   where m.Name == ProcessMethodInvoker.ProcessMethodName &&
                                         m.GetParameters().Length == 1 &&
                                         typeof(IEvent)
-#if(NETFX_CORE)
-                                            .GetTypeInfo().IsAssignableFrom(m.GetParameters()[0].ParameterType.GetTypeInfo())
-#else
                                             .IsAssignableFrom(m.GetParameters()[0].ParameterType)
-#endif
                                   select new EventSubscription
                                   {
                                       Id = Guid.Empty,

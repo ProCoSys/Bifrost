@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -112,12 +112,12 @@ namespace Bifrost.Sagas
         /// <param name="state"><see cref="string"/> containing state - see remarks</param>
         /// <returns><see cref="SagaState"/> for the state string</returns>
         /// <remarks>
-        /// Supported strings : 
+        /// Supported strings :
         /// new
         /// begun
         /// continuing
         /// concluded
-        /// 
+        ///
         /// Any other strings will cause a <see cref="UnknownSagaStateException"/>
         /// </remarks>
         public static implicit operator SagaState(string state)

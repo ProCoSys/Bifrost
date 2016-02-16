@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -25,7 +25,7 @@ using Bifrost.Extensions;
 namespace Bifrost.Read.Validation
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IQueryValidationDescriptors"/> 
+    /// Represents an implementation of <see cref="IQueryValidationDescriptors"/>
     /// </summary>
     [Singleton]
     public class QueryValidationDescriptors : IQueryValidationDescriptors
@@ -49,7 +49,7 @@ namespace Bifrost.Read.Validation
 #pragma warning disable 1591 // Xml Comments
         public bool HasDescriptorFor<TQuery>() where TQuery : IQuery
         {
-            return _descriptors.ContainsKey(typeof(TQuery)); 
+            return _descriptors.ContainsKey(typeof(TQuery));
         }
 
         public IQueryValidationDescriptor GetDescriptorFor<TQuery>() where TQuery : IQuery

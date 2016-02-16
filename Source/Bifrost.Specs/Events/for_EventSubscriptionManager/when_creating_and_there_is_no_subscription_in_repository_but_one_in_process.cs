@@ -19,7 +19,7 @@ namespace Bifrost.Specs.Events.for_EventSubscriptionManager
         static EventSubscription    expected_subscription;
         static EventSubscription    actual_subscription;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             event_subscriptions_mock = new Moq.Mock<IEventSubscriptions>();
             type_discoverer_mock = new Moq.Mock<ITypeDiscoverer>();
@@ -29,7 +29,7 @@ namespace Bifrost.Specs.Events.for_EventSubscriptionManager
 
             event_subscriptions_mock.Setup(s=>s.Save(Moq.It.IsAny<EventSubscription>())).Callback((EventSubscription s)=>actual_subscription=s);
             type_discoverer_mock.Setup(s=>s.FindMultiple<IProcessEvents>()).Returns(new[] { typeof(SomeEventSubscriber)});
-            expected_subscription = new EventSubscription 
+            expected_subscription = new EventSubscription
             {
                 Owner = typeof(SomeEventSubscriber),
                 Method = typeof(SomeEventSubscriber).GetMethod(ProcessMethodInvoker.ProcessMethodName, new[] { typeof(SomeEvent) }),

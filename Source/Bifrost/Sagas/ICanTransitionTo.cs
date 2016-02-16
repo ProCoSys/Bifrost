@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,12 +18,12 @@
 #endregion
 namespace Bifrost.Sagas
 {
-	/// <summary>
-	/// Defines a marker interface to allow transitions between chapters
-	/// </summary>
-	/// <typeparam name="T">Type of <see cref="IChapter"/> that can be transitioned to</typeparam>
+    /// <summary>
+    /// Defines a marker interface to allow transitions between chapters
+    /// </summary>
+    /// <typeparam name="T">Type of <see cref="IChapter"/> that can be transitioned to</typeparam>
     public interface ICanTransitionTo<T> where T:IChapter
     {
-        
+
     }
 }

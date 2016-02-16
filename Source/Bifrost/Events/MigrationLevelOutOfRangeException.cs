@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -24,7 +24,7 @@ namespace Bifrost.Events
     /// <summary>
     /// Represents an exception situation where a <see cref="EventMigrationHierarchy">EventMigrationHierarchy</see> is
     /// asked for a concrete type at a level that does not exist.
-    /// 
+    ///
     /// This could be a level less than 0, or a level greater than the hierarchy depth.
     /// </summary>
     public class MigrationLevelOutOfRangeException : Exception
@@ -50,7 +50,6 @@ namespace Bifrost.Events
         public MigrationLevelOutOfRangeException(string message, Exception innerException) : base(message,innerException)
         { }
 
-#if(!SILVERLIGHT && !NETFX_CORE)
         /// <summary>
         /// Initializes a <see cref="MigrationLevelOutOfRangeException">MigrationLevelOutOfRangeException</see> for serialization
         /// </summary>
@@ -59,6 +58,5 @@ namespace Bifrost.Events
         protected MigrationLevelOutOfRangeException(SerializationInfo serializationInfo, StreamingContext streamingContext)
             : base(serializationInfo,streamingContext)
         {}
-#endif
     }
 }

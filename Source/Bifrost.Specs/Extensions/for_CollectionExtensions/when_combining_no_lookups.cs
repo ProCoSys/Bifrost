@@ -8,7 +8,7 @@ namespace Bifrost.Specs.Extensions.for_CollectionExtensions
     [Subject(typeof(CollectionsExtensions))]
     public class when_combining_no_lookups
     {
-        static IEnumerable<ILookup<string, int>> lookups; 
+        static IEnumerable<ILookup<string, int>> lookups;
         static ILookup<string, int> result;
 
         Establish context = () =>

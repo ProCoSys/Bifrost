@@ -13,7 +13,7 @@ namespace Bifrost.Specs.Tasks.for_TaskScheduler
         Establish context = () =>
         {
             task = new TaskWithTwoOperations(false) { CurrentOperation = 1 };
-            scheduler_mock.Setup(s => 
+            scheduler_mock.Setup(s =>
                 s.Start<Task>(Moq.It.IsAny<Action<Task>>(), task, Moq.It.IsAny<Action<Task>>())).Callback((Action<Task> a, Task t,Action<Task> d) => a(t));
         };
 

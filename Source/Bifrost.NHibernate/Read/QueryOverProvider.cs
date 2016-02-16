@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -34,13 +34,13 @@ namespace Bifrost.NHibernate.Read
 
                 query.RootCriteria.SetFirstResult(paging.Size * paging.Number);
                 query.RootCriteria.SetMaxResults(paging.Size);
-                
+
             }
             result.Items = query.RootCriteria.List();
 
             // For Total Items - idea
             // http://ayende.com/blog/2334/paged-data-count-with-nhibernate-the-really-easy-way
-            
+
 
             return result;
         }

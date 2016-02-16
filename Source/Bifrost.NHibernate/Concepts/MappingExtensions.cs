@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -74,7 +74,7 @@ namespace Bifrost.NHibernate.Concepts
         /// </summary>
         /// <typeparam name="T">Concrete type of the concept, that inherits from <see cref="ConceptAs{Guid}"/></typeparam>
         /// <param name="identityPart">Fluent NHibernate PropertyPart</param>
-        /// <returns>Fluent NHibernate PropertyPart</returns> 
+        /// <returns>Fluent NHibernate PropertyPart</returns>
         public static PropertyPart ConceptAsOracleGuid<T>(this PropertyPart propertyPart)
             where T : ConceptAs<Guid>
         {

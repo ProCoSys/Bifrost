@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.views", {
+Bifrost.namespace("Bifrost.views", {
     MasterViewModel: Bifrost.Type.extend(function (documentService) {
         var self = this;
 
@@ -7,7 +7,7 @@
                 if (Bifrost.isFunction(viewModel.deactivated)) {
                     viewModel.deactivated();
                 }
-                
+
             }
         }
 

@@ -6,7 +6,7 @@ using It = Machine.Specifications.It;
 
 namespace Bifrost.Specs.Rules.for_RuleContext
 {
-    public class when_failing_with_two_callbacks_registered 
+    public class when_failing_with_two_callbacks_registered
     {
         static RuleContext rule_context;
         static Mock<IRule> rule_mock;

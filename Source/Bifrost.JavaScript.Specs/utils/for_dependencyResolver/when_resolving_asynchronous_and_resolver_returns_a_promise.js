@@ -1,53 +1,53 @@
 describe("when resolving asynchronous and resolver returns a promise", function() {
-	var ns = {};
-	var innerPromise = Bifrost.execution.Promise.create();
-	var result = null;
+    var ns = {};
+    var innerPromise = Bifrost.execution.Promise.create();
+    var result = null;
 
-	var readyCallback;
-	var configure = null;
-	var dependencyResolvers;
+    var readyCallback;
+    var configure = null;
+    var dependencyResolvers;
 
-	beforeEach(function () {
-	    configure = Bifrost.configure;
-	    Bifrost.configure = {
-	        ready: function (callback) {
-	            readyCallback = callback;
-	        }
-	    };
+    beforeEach(function () {
+        configure = Bifrost.configure;
+        Bifrost.configure = {
+            ready: function (callback) {
+                readyCallback = callback;
+            }
+        };
 
-	    dependencyResolvers = Bifrost.dependencyResolvers;
-	    Bifrost.dependencyResolvers = {
-	        getAll: function () {
-	            return [{
-	                canResolve: function () {
-	                    return true;
-	                },
-	                resolve: function () {
-	                    return innerPromise;
-	                }
-	            }];
-	        }
-	    };
+        dependencyResolvers = Bifrost.dependencyResolvers;
+        Bifrost.dependencyResolvers = {
+            getAll: function () {
+                return [{
+                    canResolve: function () {
+                        return true;
+                    },
+                    resolve: function () {
+                        return innerPromise;
+                    }
+                }];
+            }
+        };
 
-	    
-	    Bifrost.dependencyResolver
+
+        Bifrost.dependencyResolver
             .beginResolve(ns, "something")
             .continueWith(function (arg, nextPromise) {
                 result = arg;
 
             });
-	    innerPromise.signal("Hello");
+        innerPromise.signal("Hello");
 
-	    readyCallback();
-	});
+        readyCallback();
+    });
 
-	afterEach(function () {
-	    Bifrost.dependencyResolvers = dependencyResolvers;
-	    Bifrost.configure = configure;
-	});
+    afterEach(function () {
+        Bifrost.dependencyResolvers = dependencyResolvers;
+        Bifrost.configure = configure;
+    });
 
 
-	it("should continue with inner promise parameter when inner promise continues", function() {
-		expect(result).toBe("Hello");
-	});
+    it("should continue with inner promise parameter when inner promise continues", function() {
+        expect(result).toBe("Hello");
+    });
 });

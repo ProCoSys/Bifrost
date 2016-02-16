@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,24 +23,24 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace Bifrost.CommonServiceLocator
 {
-	/// <summary>
-	/// Represents a <see cref="IServiceLocator"/> that works with the generic <see cref="IContainer"/>
-	/// </summary>
+    /// <summary>
+    /// Represents a <see cref="IServiceLocator"/> that works with the generic <see cref="IContainer"/>
+    /// </summary>
     public class ContainerServiceLocator : IServiceLocator
     {
         readonly IContainer _container;
 
-		/// <summary>
-		/// Initializes an instance of <see cref="ContainerServiceLocator"/>
-		/// </summary>
-		/// <param name="container"><see cref="IContainer"/> to use</param>
+        /// <summary>
+        /// Initializes an instance of <see cref="ContainerServiceLocator"/>
+        /// </summary>
+        /// <param name="container"><see cref="IContainer"/> to use</param>
         public ContainerServiceLocator(IContainer container)
         {
             _container = container;
         }
 
 #pragma warning disable 1591 // Xml Comments
-		public object GetService(Type serviceType)
+        public object GetService(Type serviceType)
         {
             return _container.Get(serviceType);
         }
@@ -73,8 +73,8 @@ namespace Bifrost.CommonServiceLocator
         public IEnumerable<TService> GetAllInstances<TService>()
         {
             return _container.GetAll<TService>();
-		}
+        }
 #pragma warning restore 1591 // Xml Comments
 
-	}
+    }
 }

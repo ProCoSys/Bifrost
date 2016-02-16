@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -41,12 +41,8 @@ namespace Bifrost.Concepts
 
         static Type GetPrimitiveType(Type type)
         {
-#if(NETFX_CORE)
-            var typeProperty = type.GetTypeInfo().GetRuntimeProperty("UnderlyingType");
-#else
             var typeProperty = type.GetProperty("UnderlyingType",
                 BindingFlags.Static | BindingFlags.FlattenHierarchy | BindingFlags.Public);
-#endif
             return typeProperty != null ? (Type) typeProperty.GetValue(null) : null;
         }
     }

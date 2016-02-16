@@ -10,7 +10,7 @@ namespace Bifrost.Commands
     public static class TypeDiscovererExtensions
     {
         /// <summary>
-        /// Get the type of the command matching the fullname.  This can be in any loaded assembly and does not require the 
+        /// Get the type of the command matching the fullname.  This can be in any loaded assembly and does not require the
         /// </summary>
         /// <param name="typeDiscoverer">instance of <see cref="ITypeDiscoverer"/> being extended</param>
         /// <param name="fullName">The full name of the type</param>

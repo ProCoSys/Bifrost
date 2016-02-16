@@ -4,7 +4,7 @@ using Machine.Specifications;
 
 namespace Bifrost.Specs.Commands.for_CommandResult
 {
-    public class when_containing_one_command_validation_message 
+    public class when_containing_one_command_validation_message
     {
         static CommandResult result;
         static string error_message = "Something went wrong";

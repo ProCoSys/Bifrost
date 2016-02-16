@@ -8,11 +8,11 @@ namespace Bifrost.Specs.Collection
     {
         static IObservableCollection<object> collection_cleared;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             collection.Add(new object());
 
-            collection.Cleared += (c) => 
+            collection.Cleared += (c) =>
             {
                 collection_cleared = c;
             };

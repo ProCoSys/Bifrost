@@ -1,4 +1,4 @@
-﻿describe("when getting value for property with type specified", function () {
+describe("when getting value for property with type specified", function () {
     var typeConverters = {
         convertFrom: sinon.stub().returns("42")
     };
@@ -15,7 +15,7 @@
     value._typeAsString = "SomeType";
 
     var result = pipeline.getValueForProperty(value, value());
-    
+
     it("should try to convert type", function () {
         expect(typeConverters.convertFrom.calledWith(42)).toBe(true);
     });

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -30,7 +30,7 @@ namespace Bifrost.Utils
         const string WildcardExpression = "\\*{2}[//||\\.]";
         const string CombinedExpression = "(" + PlaceholderExpression + ")*(" + WildcardExpression + ")*";
 
-		//static Regex PlaceholderRegex = new Regex(PlaceholderExpression);
+        //static Regex PlaceholderRegex = new Regex(PlaceholderExpression);
         static Regex WildcardRegex = new Regex(WildcardExpression);
         static Regex CombinedRegex = new Regex(CombinedExpression);
 
@@ -98,7 +98,7 @@ namespace Bifrost.Utils
             var result = MappedFormat;
             var wildcardOffset = 0;
 
-            for( var componentIndex=0; componentIndex<_components.Length; componentIndex++ ) 
+            for( var componentIndex=0; componentIndex<_components.Length; componentIndex++ )
             {
                 var component = _components[componentIndex];
                 var value = matches[componentIndex+1].Value;

@@ -11,8 +11,8 @@
 namespace Bifrost {
     using System;
     using System.Reflection;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -24,15 +24,15 @@ namespace Bifrost {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ExceptionStrings {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal ExceptionStrings() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -46,7 +46,7 @@ namespace Bifrost {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -60,7 +60,7 @@ namespace Bifrost {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Multiple implementations of ICanCreateContainer was found.
         /// </summary>
@@ -69,7 +69,7 @@ namespace Bifrost {
                 return ResourceManager.GetString("AmbiguousContainerCreationException", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t discover an implementation of &quot;ICanCreateContainer&quot;.
         /// </summary>
@@ -78,7 +78,7 @@ namespace Bifrost {
                 return ResourceManager.GetString("CanCreateContainerNotFoundException", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You cannot fast forward an event source that is not the initial version..
         /// </summary>
@@ -87,7 +87,7 @@ namespace Bifrost {
                 return ResourceManager.GetString("CannotFastForwardEventSourceThatIsNotInitialVersion", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You cannot fast forward a stateful event source.  You need to replay events to restore state..
         /// </summary>
@@ -96,7 +96,7 @@ namespace Bifrost {
                 return ResourceManager.GetString("CannotFastForwardStatefulEventSource", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Command has not been established.
         /// </summary>
@@ -105,7 +105,7 @@ namespace Bifrost {
                 return ResourceManager.GetString("CommandNotEstablished", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Type &apos;{0}&apos; is missing a default constructor and one is required.
         /// </summary>
@@ -114,7 +114,7 @@ namespace Bifrost {
                 return ResourceManager.GetString("MissingDefaultConstructorException", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Command of type &apos;{0}&apos; was not handled.
         /// </summary>

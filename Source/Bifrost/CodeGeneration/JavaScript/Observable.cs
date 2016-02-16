@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -34,7 +34,7 @@ namespace Bifrost.CodeGeneration.JavaScript
         public Observable(object defaultValue = null)
         {
             Function = "ko.observable";
-            if( defaultValue != null ) 
+            if( defaultValue != null )
                 Parameters = new Literal[] { new Literal(defaultValue) };
 
             _extensions = new List<ObservableExtension>();
@@ -64,7 +64,7 @@ namespace Bifrost.CodeGeneration.JavaScript
         public override void Write(ICodeWriter writer)
         {
             base.Write(writer);
-            if( _extensions.Count > 0 ) 
+            if( _extensions.Count > 0 )
             {
                 writer.Newline();
                 IndentMultiple(writer, 3);
@@ -74,7 +74,7 @@ namespace Bifrost.CodeGeneration.JavaScript
 
                 foreach (var extension in _extensions)
                 {
-                    if (extension != _extensions[0]) 
+                    if (extension != _extensions[0])
                     {
                         writer.Write(",");
                         writer.Newline();

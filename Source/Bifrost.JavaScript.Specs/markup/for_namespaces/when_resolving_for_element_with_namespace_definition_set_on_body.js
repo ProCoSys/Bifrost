@@ -1,4 +1,4 @@
-﻿describe("when resolving for element with namespace definition set on body", given("a namespaces instance", function () {
+describe("when resolving for element with namespace definition set on body", given("a namespaces instance", function () {
     var context = this;
     var prefix = "controls";
     var name = "mycontrol";
@@ -9,7 +9,7 @@
     var parent = null;
 
     beforeEach(function () {
-        body = document.body; 
+        body = document.body;
         body.__namespaces = [
             { prefix: "something", targets: ["some.other.namespace"] },
             { prefix: prefix, targets: [namespace] }

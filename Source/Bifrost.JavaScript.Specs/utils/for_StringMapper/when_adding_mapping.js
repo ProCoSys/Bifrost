@@ -1,4 +1,4 @@
-﻿describe("when adding mapping", function () {
+describe("when adding mapping", function () {
     var mappings = [{
         something: 42
     }, {
@@ -8,7 +8,7 @@
 
     var format = "Something";
     var mappedFormat = "else";
-    
+
     var stringMappingFactory = {
         create: function () { }
     };

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -89,18 +89,18 @@ namespace Bifrost.Events
             Version = Version.PreviousCommit();
         }
 
-		public void Dispose()
-		{
-			Commit();
-		}
+        public void Dispose()
+        {
+            Commit();
+        }
 
-        
+
 
 #pragma warning restore 1591 // Xml Comments
         /// <summary>
         /// Get the event source type
         /// </summary>
-		protected virtual Type EventSourceType { get { return GetType(); } }
+        protected virtual Type EventSourceType { get { return GetType(); } }
 
 
         void ReApply(IEvent @event)
@@ -112,7 +112,7 @@ namespace Bifrost.Events
         {
             if (isNew)
             {
-            	@event.EventSource = EventSourceType.AssemblyQualifiedName;
+                @event.EventSource = EventSourceType.AssemblyQualifiedName;
                 UncommittedEvents.Append(@event);
                 Version = Version.NextSequence();
                 @event.Version = Version;

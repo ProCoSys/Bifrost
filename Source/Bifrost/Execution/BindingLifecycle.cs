@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,29 +18,29 @@
 #endregion
 namespace Bifrost.Execution
 {
-	/// <summary>
-	/// Scope for activation
-	/// </summary>
-	public enum BindingLifecycle
-	{
-		/// <summary>
-		/// Scoped as a singleton within the Ninject kernel
-		/// </summary>
-		Singleton,
+    /// <summary>
+    /// Scope for activation
+    /// </summary>
+    public enum BindingLifecycle
+    {
+        /// <summary>
+        /// Scoped as a singleton within the Ninject kernel
+        /// </summary>
+        Singleton,
 
-		/// <summary>
-		/// Scoped as per request - tied into the current WebRequest
-		/// </summary>
-		Request,
+        /// <summary>
+        /// Scoped as per request - tied into the current WebRequest
+        /// </summary>
+        Request,
 
-		/// <summary>
-		/// Scoped to null
-		/// </summary>
-		Transient,
+        /// <summary>
+        /// Scoped to null
+        /// </summary>
+        Transient,
 
-		/// <summary>
-		/// Scoped to per thread 
-		/// </summary>
-		Thread
-	}
+        /// <summary>
+        /// Scoped to per thread
+        /// </summary>
+        Thread
+    }
 }

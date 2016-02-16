@@ -12,7 +12,7 @@ namespace Bifrost.Specs.Validation.Rules.for_LessThan
         static LessThan<double> rule;
         static Mock<IRuleContext> rule_context_mock;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             rule = new LessThan<double>(null, value);
             rule_context_mock = new Mock<IRuleContext>();

@@ -1,4 +1,4 @@
-﻿describe("when asking for extenders in root namespace", function () {
+describe("when asking for extenders in root namespace", function () {
     var initialType = function (anInitialType) { };
     var namespace = null;
     var extenders = null;
@@ -25,11 +25,11 @@
     it("should return extender on the sub level", function () {
         expect(extenders).toContain(Root.RootExtendedType);
     });
-    
+
     it("should return extender on the root level", function () {
         expect(extenders).toContain(Root.RootExtendedType);
     });
-    
+
     it("should only return 2 extenders", function () {
         expect(extenders.length).toBe(2);
     });

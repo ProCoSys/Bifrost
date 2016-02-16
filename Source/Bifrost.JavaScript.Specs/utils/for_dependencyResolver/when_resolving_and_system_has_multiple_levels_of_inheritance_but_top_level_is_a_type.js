@@ -10,43 +10,43 @@ describe("when resolving and system has multiple levels of inheritance but top l
         this.hello = "world";
     });
 
-	var type = Bifrost.Type.extend(function(dependency) {
-		this.something = "Hello";
-		this.dependency = dependency;
-	});
+    var type = Bifrost.Type.extend(function(dependency) {
+        this.something = "Hello";
+        this.dependency = dependency;
+    });
 
-	var result = null;
-	var ns = {};
+    var result = null;
+    var ns = {};
 
-	var dependencyResolvers;
+    var dependencyResolvers;
 
-	beforeEach(function () {
-	    dependencyResolvers = Bifrost.dependencyResolvers;
-	    Bifrost.dependencyResolvers = {
-	        getAll: function () {
-	            return [{
-	                canResolve: function () {
-	                    return true;
-	                },
-	                resolve: function (namespace, name) {
-	                    if (name == "dependency") {
-	                        return dependencyType;
-	                    }
-	                    return type;
-	                }
-	            }];
-	        }
-	    };
+    beforeEach(function () {
+        dependencyResolvers = Bifrost.dependencyResolvers;
+        Bifrost.dependencyResolvers = {
+            getAll: function () {
+                return [{
+                    canResolve: function () {
+                        return true;
+                    },
+                    resolve: function (namespace, name) {
+                        if (name == "dependency") {
+                            return dependencyType;
+                        }
+                        return type;
+                    }
+                }];
+            }
+        };
 
-	    result = Bifrost.dependencyResolver.resolve(ns, "something");
-	});
+        result = Bifrost.dependencyResolver.resolve(ns, "something");
+    });
 
-	afterEach(function () {
-	    Bifrost.dependencyResolvers = dependencyResolvers;
-	});
-	
+    afterEach(function () {
+        Bifrost.dependencyResolvers = dependencyResolvers;
+    });
 
-	it("should create instance of type and resolve dependencies", function() {
-	    expect(result.dependency instanceof dependencyType).toBe(true);
-	});
+
+    it("should create instance of type and resolve dependencies", function() {
+        expect(result.dependency instanceof dependencyType).toBe(true);
+    });
 });

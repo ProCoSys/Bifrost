@@ -14,7 +14,7 @@ namespace Bifrost.Client.Specs.Commands.for_CommandInvocationHandler
         static Command command;
         static CommandResult result;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             command_mock = new Mock<ICommand>();
 

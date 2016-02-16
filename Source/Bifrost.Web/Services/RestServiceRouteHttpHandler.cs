@@ -30,7 +30,7 @@ using Bifrost.Services;
 
 namespace Bifrost.Web.Services
 {
-    // Todo : add async support - performance gain! 
+    // Todo : add async support - performance gain!
     public class RestServiceRouteHttpHandler : IHttpHandler, IRequiresSessionState // IHttpAsyncHandler
     {
         Type _type;
@@ -40,7 +40,7 @@ namespace Bifrost.Web.Services
         IContainer _container;
         private readonly ISecurityManager _securityManager;
 
-        public RestServiceRouteHttpHandler(Type type, string url) 
+        public RestServiceRouteHttpHandler(Type type, string url)
             : this(
                 type,
                 url,

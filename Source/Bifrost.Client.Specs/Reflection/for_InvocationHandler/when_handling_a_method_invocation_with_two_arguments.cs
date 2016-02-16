@@ -7,7 +7,7 @@ namespace Bifrost.Client.Specs.Reflection.for_InvocationHandler
 {
     public class when_handling_a_method_invocation_with_two_arguments : given.an_invocation
     {
-        Establish context = () => 
+        Establish context = () =>
         {
             method_name = "DoSomething";
             arguments = new object[] {42, "Fourty Two"};

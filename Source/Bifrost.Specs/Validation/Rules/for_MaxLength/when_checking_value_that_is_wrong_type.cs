@@ -14,7 +14,7 @@ namespace Bifrost.Specs.Validation.Rules.for_MaxLength
         static Mock<IRuleContext> rule_context_mock;
         static Exception exception;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             rule = new MaxLength(null, 42);
             rule_context_mock = new Mock<IRuleContext>();

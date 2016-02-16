@@ -16,7 +16,7 @@ namespace Bifrost.Specs.Execution.for_InstancesOf
         static OneImplementation one_implementation_instance;
         static SecondImplementation second_implemenation_instance;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             type_discoverer_mock = new Mock<ITypeDiscoverer>();
             type_discoverer_mock.Setup(t => t.FindMultiple<IAmAnInterface>()).Returns(new Type[] {
@@ -33,6 +33,6 @@ namespace Bifrost.Specs.Execution.for_InstancesOf
         Because of = () => instances = new InstancesOf<IAmAnInterface>(type_discoverer_mock.Object, container_mock.Object).ToArray();
 
         It should_get_the_implementations = () => instances.ShouldContainOnly(one_implementation_instance, second_implemenation_instance);
-             
+
     }
 }

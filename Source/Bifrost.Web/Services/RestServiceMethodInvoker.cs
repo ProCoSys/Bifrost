@@ -93,7 +93,7 @@ namespace Bifrost.Web.Services
 
 
         object HandleValue(ParameterInfo parameter, string input)
-        {            
+        {
             if (parameter.ParameterType == typeof(string))
                 return input;
 

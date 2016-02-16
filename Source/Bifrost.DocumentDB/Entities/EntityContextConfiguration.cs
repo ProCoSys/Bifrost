@@ -33,7 +33,7 @@ namespace Bifrost.DocumentDB.Entities
         public string Url { get; set; }
 
         /// <summary>
-        /// Gets or sets the database id 
+        /// Gets or sets the database id
         /// </summary>
         public string DatabaseId { get; set; }
 

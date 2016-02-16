@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.read", {
+Bifrost.namespace("Bifrost.read", {
     Query: Bifrost.Type.extend(function (queryableFactory, region) {
         var self = this;
         this.target = this;
@@ -72,7 +72,7 @@
                     self.target[property].extend({ linked: {} });
                 }
             }
-            
+
             self.areAllParametersSet = ko.computed(function () {
                 var isSet = true;
                 var hasParameters = false;

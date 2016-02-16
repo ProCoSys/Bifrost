@@ -1,4 +1,4 @@
-﻿var contextsByName = {};
+var contextsByName = {};
 
 function given(name, context) {
     /*
@@ -8,7 +8,7 @@ function given(name, context) {
         print("Yes we can");
     });*/
 
-    
+
     if (contextsByName.hasOwnProperty(name)) {
         function weaved() {
             contextsByName[name].prototype = this;
@@ -22,5 +22,5 @@ function given(name, context) {
         contextsByName[name] = context;
     }
 
-    return context;    
+    return context;
 }

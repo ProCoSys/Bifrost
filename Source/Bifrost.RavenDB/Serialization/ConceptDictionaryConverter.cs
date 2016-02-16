@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -29,7 +29,7 @@ namespace Bifrost.RavenDB.Serialization
     {
         public override bool CanConvert(Type objectType)
         {
-            if (objectType.HasInterface(typeof(IDictionary<,>)) && objectType.IsGenericType ) 
+            if (objectType.HasInterface(typeof(IDictionary<,>)) && objectType.IsGenericType )
             {
                 var keyType = objectType.GetGenericArguments()[0].BaseType;
                 if (keyType.IsGenericType)

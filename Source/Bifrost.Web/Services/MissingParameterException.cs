@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -22,7 +22,7 @@ namespace Bifrost.Web.Services
 {
     public class MissingParameterException : ArgumentException
     {
-        public MissingParameterException(string parameter, string serviceName, Uri uri) : 
+        public MissingParameterException(string parameter, string serviceName, Uri uri) :
             base(string.Format("Parameter '{0}' is missing for '{1}' in the request '{2}",parameter, serviceName, uri))
         {
         }

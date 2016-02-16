@@ -12,7 +12,7 @@ namespace Bifrost.Specs.Execution.for_DefaultConvention
         static DefaultConvention convention = new DefaultConvention();
         static bool result = true;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             container_mock.Setup(c => c.HasBindingFor(typeof(ISomethingWithMultipleImplementations))).Returns(false);
             container_mock.Setup(c => c.HasBindingFor(typeof(SomethingWithMultipleImplementations))).Returns(false);

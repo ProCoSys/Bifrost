@@ -10,7 +10,7 @@ namespace Bifrost.Specs.Sagas.for_SagaState
     {
         static Exception exception_when_transitioning_to_an_invalid_state;
         static Exception exception_when_transitioning_to_a_valid_state;
-        
+
         static bool can_transition_to_new;
         static bool can_transition_to_begun;
         static bool can_transition_to_continuing;

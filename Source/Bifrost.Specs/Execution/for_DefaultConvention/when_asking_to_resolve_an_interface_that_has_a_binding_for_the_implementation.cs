@@ -12,7 +12,7 @@ namespace Bifrost.Specs.Execution.for_DefaultConvention
         static Mock<IContainer>  container_mock = new Mock<IContainer>();
         static DefaultConvention convention = new DefaultConvention();
         static bool result = true;
-             
+
         Establish context = () => container_mock.Setup(c => c.HasBindingFor(typeof(Something))).Returns(true);
 
         Because of = () => result = convention.CanResolve(container_mock.Object, typeof(ISomething));

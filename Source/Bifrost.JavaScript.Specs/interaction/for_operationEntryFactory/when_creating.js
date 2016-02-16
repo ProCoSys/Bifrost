@@ -1,4 +1,4 @@
-﻿describe("when creating", function () {
+describe("when creating", function () {
     var existingOperationEntryType = null;
 
     var operationEntry = {
@@ -36,7 +36,7 @@
     afterEach(function () {
         Bifrost.interaction.OperationEntry = existingOperationEntryType;
     });
-    
+
     it("should create a new instance", function () {
         expect(operationEntryType.create.called).toBe(true);
     });

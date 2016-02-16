@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,19 +20,19 @@ using System;
 
 namespace Bifrost.Domain
 {
-	/// <summary>
-	/// The exception that is thrown when there is something invalid with
-	/// an <see cref="AggregateRoot">AggregatedRoot</see>
-	/// </summary>
-	public class InvalidAggregateException : ArgumentException
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="InvalidAggregateException">InvalidAggregateException</see> class
-		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception</param>
-		public InvalidAggregateException(string message)
-			: base(message)
-		{
-		}
-	}
+    /// <summary>
+    /// The exception that is thrown when there is something invalid with
+    /// an <see cref="AggregateRoot">AggregatedRoot</see>
+    /// </summary>
+    public class InvalidAggregateException : ArgumentException
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvalidAggregateException">InvalidAggregateException</see> class
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception</param>
+        public InvalidAggregateException(string message)
+            : base(message)
+        {
+        }
+    }
 }

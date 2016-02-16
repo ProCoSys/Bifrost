@@ -9,7 +9,7 @@ namespace Bifrost.Specs.Execution.for_BindingConventionManager
     public class when_initializing_with_one_convention : given.a_binding_convention_manager
     {
         static Type convention_type;
-        
+
         Establish context = () =>
                                 {
                                     var convention_mock = new Mock<IBindingConvention>();

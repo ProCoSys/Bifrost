@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -29,7 +29,7 @@ namespace Bifrost.Events
         /// Register a <see cref="IEventStoreChangeNotifier"/> that can be notified when changes occur in an event store
         /// </summary>
         /// <param name="type">Type of notifier to register, it must however implement the <see cref="IEventStoreChangeNotifier"/> interface</param>
-        void Register(Type type); 
+        void Register(Type type);
 
         /// <summary>
         /// Notify changes for a given <see cref="IEventStore"/>

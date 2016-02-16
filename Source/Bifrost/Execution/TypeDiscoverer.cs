@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -26,7 +26,7 @@ namespace Bifrost.Execution
 {
     /// <summary>
     /// Represents a <see cref="ITypeDiscoverer">ITypeDiscoverer</see>
-    /// 
+    ///
     /// Uses the current AppDomain / Deployment and discoveres all types loaded
     /// </summary>
     [Singleton]
@@ -87,10 +87,6 @@ namespace Bifrost.Execution
         void CollectTypes()
         {
             var assemblies = _assemblies.GetAll();
-#if(SILVERLIGHT)
-            foreach (var assembly in assemblies)
-                _contractToImplementorsMap.Feed(assembly.GetTypes());
-#else
             Parallel.ForEach(assemblies, assembly =>
             {
                 try
@@ -103,7 +99,6 @@ namespace Bifrost.Execution
                         Debug.WriteLine(string.Format("Failed to load: {0} {1}", loaderException.Source, loaderException.Message));
                 }
             });
-#endif
         }
     }
 }

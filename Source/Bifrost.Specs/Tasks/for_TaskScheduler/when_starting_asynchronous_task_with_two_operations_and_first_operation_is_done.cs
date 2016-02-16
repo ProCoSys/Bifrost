@@ -19,7 +19,7 @@ namespace Bifrost.Specs.Tasks.for_TaskScheduler
                     a(t);
                     d(t);
                 });
-            
+
         };
 
         Because of = () => task_scheduler.Start(task, t=>done_called=true);

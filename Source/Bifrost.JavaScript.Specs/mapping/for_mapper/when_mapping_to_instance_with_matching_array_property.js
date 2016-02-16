@@ -5,28 +5,28 @@ describe("when mapping to type with matching array property", function () {
         typeConverters: {},
         maps: { hasMapFor: sinon.stub().returns(false) }
     };
-	
-	var type = Bifrost.Type.extend(function () {
+
+    var type = Bifrost.Type.extend(function () {
         var self = this;
 
         this.stringProperty = "s";
         this.numberProperty = 0;
         this.arrayProperty = [];
         this.objectProperty = {
-        	objectProperty : ""
+            objectProperty : ""
         };
     });
 
-	var mappedInstance = type.create();
+    var mappedInstance = type.create();
 
-	(function becauseOf(){
-	    var mapper = Bifrost.mapping.mapper.create(parameters);
-	    mapper.mapToInstance(type, data, mappedInstance);
-	})();
+    (function becauseOf(){
+        var mapper = Bifrost.mapping.mapper.create(parameters);
+        mapper.mapToInstance(type, data, mappedInstance);
+    })();
 
 
-	it("should map the corresponding arrayProperty value", function(){
-		expect(mappedInstance.arrayProperty).toEqual(data.arrayProperty);
-	});
+    it("should map the corresponding arrayProperty value", function(){
+        expect(mappedInstance.arrayProperty).toEqual(data.arrayProperty);
+    });
 
 });

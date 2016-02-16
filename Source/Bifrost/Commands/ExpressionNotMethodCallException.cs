@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,15 +20,15 @@ using System;
 
 namespace Bifrost.Commands
 {
-	/// <summary>
-	/// The exception that is thrown when an expression is not a method call
-	/// </summary>
+    /// <summary>
+    /// The exception that is thrown when an expression is not a method call
+    /// </summary>
     public class ExpressionNotMethodCallException : Exception
     {
-		/// <summary>
-		/// Initializes a new instance of <see cref="ExpressionNotMethodCallException"/>
-		/// </summary>
-		/// <param name="message">Message with details for the exception</param>
+        /// <summary>
+        /// Initializes a new instance of <see cref="ExpressionNotMethodCallException"/>
+        /// </summary>
+        /// <param name="message">Message with details for the exception</param>
         public ExpressionNotMethodCallException(string message) : base(message) {}
     }
 }

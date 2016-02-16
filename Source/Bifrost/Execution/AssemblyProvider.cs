@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -53,7 +53,7 @@ namespace Bifrost.Execution
         /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of the relationship between contracts and implementors</param>
         public AssemblyProvider(
             IEnumerable<ICanProvideAssemblies> assemblyProviders,
-            IAssemblyFilters assemblyFilters, 
+            IAssemblyFilters assemblyFilters,
             IAssemblyUtility assemblyUtility,
             IAssemblySpecifiers assemblySpecifiers,
             IContractToImplementorsMap contractToImplementorsMap)
@@ -94,8 +94,8 @@ namespace Bifrost.Execution
             foreach (var provider in _assemblyProviders)
             {
                 var assembliesToInclude = provider.AvailableAssemblies.Where(
-                    a => 
-                        _assemblyFilters.ShouldInclude(a.FileName) && 
+                    a =>
+                        _assemblyFilters.ShouldInclude(a.FileName) &&
                         _assemblyUtility.IsAssembly(a)
                     );
                 assembliesToInclude.Select(provider.Get).ForEach(AddAssembly);

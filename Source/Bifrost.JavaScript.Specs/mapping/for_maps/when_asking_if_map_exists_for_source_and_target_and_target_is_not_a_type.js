@@ -1,4 +1,4 @@
-﻿describe("when asking if map exists for source and target and source is not a type", function () {
+describe("when asking if map exists for source and target and source is not a type", function () {
 
     var mapType = null;
     var result = null;
@@ -8,7 +8,7 @@
         Bifrost.mapping.Map = Bifrost.Type.extend(function () { });
 
         var maps = Bifrost.mapping.maps.createWithoutScope();
-        var sourceType = Bifrost.Type.extend(function () { }); 
+        var sourceType = Bifrost.Type.extend(function () { });
         var targetType = {};
 
         result = maps.hasMapFor(sourceType, targetType);

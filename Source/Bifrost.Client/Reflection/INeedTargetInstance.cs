@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,7 +23,7 @@ namespace Bifrost.Reflection
     /// </summary>
     /// <remarks>
     /// This is a marker interface. By convention the system will look for a property
-    /// called TargetInstance matching the type expected and then set the 
+    /// called TargetInstance matching the type expected and then set the
     /// value on it
     /// </remarks>
     public interface INeedTargetInstance

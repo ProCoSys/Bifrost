@@ -35,7 +35,7 @@ namespace Bifrost.RavenDB
             DocumentStore.Conventions.FindIdentityProperty = prop => configuration.IdPropertyRegister.IsIdProperty(prop.DeclaringType, prop) || originalFindIdentityProperty(prop);
             DocumentStore.Conventions.IdentityTypeConvertors.AddRange(configuration.IdPropertyRegister.GetTypeConvertersForConceptIds());
 
-            // TODO : THIS IS NO GOOD!  Working around or camouflaging problems within Bifrost - good thing Raven told me it was a problem.. :) 
+            // TODO : THIS IS NO GOOD!  Working around or camouflaging problems within Bifrost - good thing Raven told me it was a problem.. :)
             DocumentStore.Conventions.MaxNumberOfRequestsPerSession = 4096;
         }
 

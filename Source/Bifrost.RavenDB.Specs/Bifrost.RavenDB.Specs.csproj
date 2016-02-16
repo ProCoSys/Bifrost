@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bifrost.RavenDB.Specs</RootNamespace>
     <AssemblyName>Bifrost.RavenDB.Specs</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Solutions\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="for_ConceptTypeConverter\when_converting_from_json_to_concept_as_long.cs" />
     <Compile Include="for_ConceptTypeConverter\when_converting_from_json_to_concept_as_string.cs" />
     <Compile Include="for_ConceptTypeConverter\when_converting_from_json_to_concept_as_guid.cs" />

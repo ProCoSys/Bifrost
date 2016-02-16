@@ -30,9 +30,9 @@ Bifrost.Uri = (function(window, undefined) {
         }
 
         return uri;
-    }	
-    
-    
+    }
+
+
     function Uri(location) {
         var self = this;
         this.setLocation = function (location) {
@@ -58,21 +58,21 @@ Bifrost.Uri = (function(window, undefined) {
             self.isSameAsOrigin = (window.location.protocol === result.protocol + ":" &&
                 window.location.hostname === self.host);
         };
-        
+
         this.setLocation(location);
     }
-    
+
     function throwIfLocationNotSpecified(location) {
         if (!location || typeof location === "undefined") {
             throw new Bifrost.LocationNotSpecified();
         }
     }
-    
-    
+
+
     return {
         create: function(location) {
             throwIfLocationNotSpecified(location);
-        
+
             var uri = new Uri(location);
             return uri;
         },

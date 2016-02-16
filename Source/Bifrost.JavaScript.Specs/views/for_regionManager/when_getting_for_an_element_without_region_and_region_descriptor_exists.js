@@ -1,4 +1,4 @@
-﻿describe("when getting for an element without region and region descriptor exists", function () {
+describe("when getting for an element without region and region descriptor exists", function () {
     var region = {
         existing: "region",
         children: []
@@ -68,10 +68,10 @@
             operationsFactory: operationsFactory,
             tasksFactory: tasksFactory
         });
-        
+
         regionReturned = instance.getFor(view);
     });
-    
+
     afterEach(function () {
         Bifrost.views.Region = regionType;
     });
@@ -79,7 +79,7 @@
     it("should set region on the element", function () {
         expect(regionSet).toBe(regionReturned);
     });
-    
+
     it("should create a new region", function () {
         expect(regionReturned).not.toBeNull();
     });

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -54,7 +54,7 @@ namespace Bifrost.Tasks
             }
 
             if (!_tasks.Contains(task))
-                _tasks.Add(task);            
+                _tasks.Add(task);
 
             if (task.CanRunOperationsAsynchronously)
                 ScheduleOperations(task, taskDone);
@@ -96,7 +96,7 @@ namespace Bifrost.Tasks
                 task.CurrentOperation = currentOperationIndex + 1;
                 operationsDone[currentOperationIndex] = true;
 
-                if( taskDone != null ) 
+                if( taskDone != null )
                     if (!operationsDone.Any(b => b == false))
                         taskDone(task);
             });

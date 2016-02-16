@@ -1,4 +1,4 @@
-﻿describe("when creating from an extended command with properties", function () {
+describe("when creating from an extended command with properties", function () {
     var commandAppliedTo = null;
     var command = null;
 
@@ -47,14 +47,14 @@
         ko.extenders.hasChanges = function (target, options) {
             target.hasChanges = ko.observable(true);
         };
-    
+
         command = commandType.create(parameters);
     });
 
     afterEach(function () {
         ko.extenders.hasChanges = hasChangesExtender;
     });
-    
+
 
     it("should make the integer property as an observable", function () {
         expect(ko.isObservable(command.integer)).toBe(true);

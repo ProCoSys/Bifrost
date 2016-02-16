@@ -3,6 +3,6 @@ Bifrost.namespace("Bifrost", {
         if (Bifrost.isNullOrUndefined(o)) {
             return false;
         }
-		return typeof o._typeId !== "undefined";
-	}
+        return typeof o._typeId !== "undefined";
+    }
 });

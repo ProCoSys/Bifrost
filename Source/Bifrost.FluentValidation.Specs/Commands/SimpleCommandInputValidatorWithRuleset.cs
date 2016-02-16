@@ -16,7 +16,7 @@ namespace Bifrost.FluentValidation.Specs.Commands
             {
                 RuleFor(asc => asc.SomeInt).GreaterThanOrEqualTo(1);
             });
-            
+
         }
     }
 }

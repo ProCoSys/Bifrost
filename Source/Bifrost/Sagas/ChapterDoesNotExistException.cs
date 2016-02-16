@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,11 +20,11 @@ using System;
 
 namespace Bifrost.Sagas
 {
-	/// <summary>
-	/// The exception that is thrown if a <see cref="IChapter"/> does not exist in a <see cref="ISaga"/>
-	/// </summary>
-	public class ChapterDoesNotExistException : Exception
-	{
-		
-	}
+    /// <summary>
+    /// The exception that is thrown if a <see cref="IChapter"/> does not exist in a <see cref="ISaga"/>
+    /// </summary>
+    public class ChapterDoesNotExistException : Exception
+    {
+
+    }
 }

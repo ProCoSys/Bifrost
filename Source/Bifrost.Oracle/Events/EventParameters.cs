@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -54,17 +54,17 @@ namespace Bifrost.Oracle.Events
             _eventProperties = typeof(IEvent).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             Parameters = new[]
                              {
-                                 new EventParameter(COMMANDCONTEXT,OracleDbType.Raw,16), 
+                                 new EventParameter(COMMANDCONTEXT,OracleDbType.Raw,16),
                                  new EventParameter(NAME,OracleDbType.NVarchar2,512),
-                                 new MetaDataEventParameter(LOGICALNAME, OracleDbType.NVarchar2, 512, m => m.LogicalName), 
-                                 new EventParameter(EVENTSOURCEID,OracleDbType.Raw,16), 
+                                 new MetaDataEventParameter(LOGICALNAME, OracleDbType.NVarchar2, 512, m => m.LogicalName),
+                                 new EventParameter(EVENTSOURCEID,OracleDbType.Raw,16),
                                  new EventParameter(EVENTSOURCE,OracleDbType.NVarchar2,512),
                                  new MetaDataEventParameter(GENERATION, OracleDbType.Int32, m => m.Generation),
-                                 new DataEventParameter(GetDataProperties, d => _serializer.ToJson(d,null)), 
-                                 new EventParameter(CAUSEDBY,OracleDbType.NVarchar2,512), 
-                                 new EventParameter(ORIGIN,OracleDbType.NVarchar2,512), 
+                                 new DataEventParameter(GetDataProperties, d => _serializer.ToJson(d,null)),
+                                 new EventParameter(CAUSEDBY,OracleDbType.NVarchar2,512),
+                                 new EventParameter(ORIGIN,OracleDbType.NVarchar2,512),
                                  new EventParameter(OCCURED,OracleDbType.Date),
-                                 new EventParameter(VERSION,OracleDbType.Double), 
+                                 new EventParameter(VERSION,OracleDbType.Double),
                                  new IdEventParameter()
                              };
         }

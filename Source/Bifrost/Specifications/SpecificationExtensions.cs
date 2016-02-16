@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -46,10 +46,10 @@ namespace Bifrost.Specifications
         /// <param name="lhs">The rule being extended</param>
         /// <param name="rhs">The second rule to be merged into the first</param>
         /// <returns>An And{T} rule"></returns>
-		public static Specification<T> And<T>(this Specification<T> rhs, Specification<T> lhs)
-		{
-			return new And<T>(rhs, lhs);
-		}
+        public static Specification<T> And<T>(this Specification<T> rhs, Specification<T> lhs)
+        {
+            return new And<T>(rhs, lhs);
+        }
 
 
         /// <summary>
@@ -71,10 +71,10 @@ namespace Bifrost.Specifications
         /// <param name="lhs">The rule being extended</param>
         /// <param name="rhs">The second rule to be merged into the first</param>
         /// <returns>An Or{T} rule"></returns>
-		public static Specification<T> Or<T>(this Specification<T> rhs, Specification<T> lhs)
-		{
-			return new Or<T>(rhs, lhs);
-		}
+        public static Specification<T> Or<T>(this Specification<T> rhs, Specification<T> lhs)
+        {
+            return new Or<T>(rhs, lhs);
+        }
 
         /// <summary>
         /// Combines two rules into an Or, where the second rule is negated.

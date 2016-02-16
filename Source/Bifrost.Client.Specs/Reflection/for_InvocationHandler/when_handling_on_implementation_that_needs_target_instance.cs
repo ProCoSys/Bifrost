@@ -15,7 +15,7 @@ namespace Bifrost.Client.Specs.Reflection.for_InvocationHandler
         static Mock<Interface> interface_mock;
         static Mock<MethodInfo> method_mock;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             interface_mock = new Mock<Interface>();
             implementation_mock = new Mock<ImplementationNeedingTargetInstance>();

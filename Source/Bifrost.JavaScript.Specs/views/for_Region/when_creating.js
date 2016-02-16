@@ -1,4 +1,4 @@
-﻿describe("when creating", function () {
+describe("when creating", function () {
 
     var messenger = {
         local:"messenger"
@@ -26,7 +26,7 @@
     var tasksFactory = {
         create: sinon.stub().returns(tasks)
     };
-    
+
     var instance = new Bifrost.views.Region(
         messengerFactory,
         operationsFactory,

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,14 +18,14 @@
 #endregion
 namespace Bifrost.Configuration.Defaults
 {
-	/// <summary>
-	/// Defines the default conventions setup
-	/// </summary>
+    /// <summary>
+    /// Defines the default conventions setup
+    /// </summary>
     public interface IDefaultConventions
     {
-		/// <summary>
-		/// Initialize the default conventions
-		/// </summary>
+        /// <summary>
+        /// Initialize the default conventions
+        /// </summary>
         void Initialize();
     }
 }

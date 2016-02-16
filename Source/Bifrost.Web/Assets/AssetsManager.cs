@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -32,7 +32,7 @@ namespace Bifrost.Web.Assets
     {
         Dictionary<string, List<string>> _assetsByExtension = new Dictionary<string, List<string>>();
         private WebConfiguration _webConfiguration;
-        
+
         public AssetsManager(WebConfiguration webConfiguration)
         {
             _webConfiguration = webConfiguration;
@@ -76,8 +76,8 @@ namespace Bifrost.Web.Assets
             foreach (var file in files)
             {
                 var relativePath = FormatPath(file.Replace(root, string.Empty));
-                
-                if (!_webConfiguration.Assets.PathsToExclude.Any(relativePath.StartsWith)) { 
+
+                if (!_webConfiguration.Assets.PathsToExclude.Any(relativePath.StartsWith)) {
                     AddAsset(relativePath);
                 }
             }

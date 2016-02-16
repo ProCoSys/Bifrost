@@ -1,6 +1,6 @@
 Bifrost.namespace("Bifrost.markup", {
     objectModelFactory: Bifrost.Singleton(function (dependencyResolver, documentService) {
-        
+
         function tryResolveTargetNamespaces(localName, targets, success, error) {
             function tryResolve(queue) {
                 if (queue.length) {

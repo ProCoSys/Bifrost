@@ -1,4 +1,4 @@
-﻿describe("when executing", function () {
+describe("when executing", function () {
         var query = {
             areAllParametersSet: function () {
                 return true;
@@ -8,7 +8,7 @@
         var queryService = null;
 
         var pagingInfoType = null;
-        
+
         var returnValue = null;
         var queryable = null;
         var region = {};

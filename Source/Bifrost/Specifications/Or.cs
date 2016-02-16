@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -26,10 +26,10 @@ namespace Bifrost.Specifications
     /// <typeparam name="T">Type that the rule is to be evaluated for.</typeparam>
     /// <remarks>Based on http://bloggingabout.net/blogs/dries/archive/2011/09/29/specification-pattern-continued.aspx </remarks>
     internal class Or<T> : Specification<T>
-	{
-		internal Or(Specification<T> lhs, Specification<T> rhs)
-		{
-			Predicate = lhs.Compose(rhs, Expression.Or).Predicate;
-		}
-	}
+    {
+        internal Or(Specification<T> lhs, Specification<T> rhs)
+        {
+            Predicate = lhs.Compose(rhs, Expression.Or).Predicate;
+        }
+    }
 }

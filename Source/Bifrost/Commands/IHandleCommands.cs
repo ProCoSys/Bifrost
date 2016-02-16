@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,18 +18,18 @@
 #endregion
 namespace Bifrost.Commands
 {
-	/// <summary>
-	/// Marker interface for command handlers
-	/// </summary>
-	/// <remarks>
-	/// A command handler must then implement a Handle method that takes the
-	/// specific <see cref="ICommand">command</see> you want to be handled.
-	/// 
-	/// The system will automatically detect your command handlers and methods
-	/// and call it automatically when a <see cref="ICommand">command</see>
-	/// comes into the system
-	/// </remarks>
-	public interface IHandleCommands
-	{
-	}
+    /// <summary>
+    /// Marker interface for command handlers
+    /// </summary>
+    /// <remarks>
+    /// A command handler must then implement a Handle method that takes the
+    /// specific <see cref="ICommand">command</see> you want to be handled.
+    ///
+    /// The system will automatically detect your command handlers and methods
+    /// and call it automatically when a <see cref="ICommand">command</see>
+    /// comes into the system
+    /// </remarks>
+    public interface IHandleCommands
+    {
+    }
 }

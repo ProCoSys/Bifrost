@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -22,33 +22,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-
-#if(SILVERLIGHT)
-using System.Windows;
-using _Assembly = System.Reflection.Assembly;
-#else
 using System.Runtime.InteropServices;
-#endif
-
-
-#if(NETFX_CORE)
-using Windows.Storage;
-#endif
 using System.Threading.Tasks;
+using Bifrost.Configuration.Assemblies;
 using Bifrost.Configuration.Defaults;
+using Bifrost.Diagnostics;
 using Bifrost.Execution;
 using Bifrost.Extensions;
-using Bifrost.Diagnostics;
-using Bifrost.Configuration.Assemblies;
-
-
 
 namespace Bifrost.Configuration
 {
     /// <summary>
     /// Represents the default <see cref="IConfigure"/> type
     /// </summary>
-	public class Configure : IConfigure
+    public class Configure : IConfigure
     {
         static readonly object InstanceLock = new object();
 
@@ -71,7 +58,7 @@ namespace Bifrost.Configuration
 
             defaultBindings.Initialize(Container);
             defaultConventions.Initialize();
-            
+
             InitializeProperties();
         }
 
@@ -79,22 +66,12 @@ namespace Bifrost.Configuration
         /// Configure by letting Bifrost discover anything that implements the discoverable configuration interfaces
         /// </summary>
         /// <returns></returns>
-#if (SILVERLIGHT)
-        public static Configure DiscoverAndConfigure(Action<AssembliesConfigurationBuilder> assembliesConfigurationBuilderCallback=null)
-#else
         public static Configure DiscoverAndConfigure(Action<AssembliesConfigurationBuilder> assembliesConfigurationBuilderCallback = null, IEnumerable<ICanProvideAssemblies> additionalAssemblyProviders = null)
-#endif
         {
             IContractToImplementorsMap contractToImplementorsMap;
             var assembliesConfigurationBuilder = BuildAssembliesConfigurationIfCallbackDefined(assembliesConfigurationBuilderCallback);
 
             contractToImplementorsMap = new ContractToImplementorsMap();
-#if (SILVERLIGHT)
-            var assemblyProvider = new AssemblyProvider();
-            var assembliesConfiguration = new AssembliesConfiguration(assembliesConfigurationBuilder.RuleBuilder);
-#else
-
-
             var executingAssembly = Assembly.GetExecutingAssembly();
             contractToImplementorsMap.Feed(executingAssembly.GetTypes());
             var assemblySpecifiers = new AssemblySpecifiers(contractToImplementorsMap, new TypeFinder(), assembliesConfigurationBuilder.RuleBuilder);
@@ -111,13 +88,12 @@ namespace Bifrost.Configuration
             var assembliesConfiguration = new AssembliesConfiguration(assembliesConfigurationBuilder.RuleBuilder);
             var assemblyProvider = new AssemblyProvider(
                 assemblyProviders,
-                new AssemblyFilters(assembliesConfiguration), 
+                new AssemblyFilters(assembliesConfiguration),
                 new AssemblyUtility(),
                 assemblySpecifiers,
                 contractToImplementorsMap);
-#endif
-            var assemblies = assemblyProvider.GetAll(); 
-            
+            var assemblies = assemblyProvider.GetAll();
+
             var canCreateContainerType = DiscoverCanCreateContainerType(assemblies);
             ThrowIfCanCreateContainerNotFound(canCreateContainerType);
             ThrowIfCanCreateContainerDoesNotHaveDefaultConstructor(canCreateContainerType);
@@ -212,18 +188,18 @@ namespace Bifrost.Configuration
         public ITasksConfiguration Tasks { get; private set; }
         public IViewsConfiguration Views { get; private set; }
         public IBindingConventionManager ConventionManager { get; private set; }
-		public ISagasConfiguration Sagas { get; private set; }
-		public ISerializationConfiguration Serialization { get; private set; }
+        public ISagasConfiguration Sagas { get; private set; }
+        public ISerializationConfiguration Serialization { get; private set; }
         public IFrontendConfiguration Frontend { get; private set; }
         public ICallContextConfiguration CallContext { get; private set; }
         public IExecutionContextConfiguration ExecutionContext { get; private set; }
         public ISecurityConfiguration Security { get; private set; }
         public AssembliesConfiguration Assemblies { get; private set; }
         public IQualityAssurance QualityAssurance { get; private set; }
-		public CultureInfo Culture { get; set; }
-		public CultureInfo UICulture { get; set; }
+        public CultureInfo Culture { get; set; }
+        public CultureInfo UICulture { get; set; }
 
-        public BindingLifecycle DefaultLifecycle 
+        public BindingLifecycle DefaultLifecycle
         {
             get { return Container.DefaultLifecycle; }
             set { Container.DefaultLifecycle = value; }
@@ -233,7 +209,7 @@ namespace Bifrost.Configuration
         {
             ConfigureFromCanConfigurables();
             InitializeCulture();
-            
+
             var initializers = new Action[] {
                 () => Serialization.Initialize(Container),
                 () => Commands.Initialize(Container),
@@ -248,11 +224,7 @@ namespace Bifrost.Configuration
                 () => DefaultStorage.Initialize(Container)
             };
 
-#if (SILVERLIGHT)
-            initializers.ForEach(initializer => initializer());
-#else
             Parallel.ForEach(initializers, initializator => initializator());
-#endif
             ConfigurationDone();
         }
 #pragma warning restore 1591 // Xml Comments
@@ -265,8 +237,8 @@ namespace Bifrost.Configuration
             Tasks = Container.Get<ITasksConfiguration>();
             Views = Container.Get<IViewsConfiguration>();
             ConventionManager = Container.Get<IBindingConventionManager>();
-        	Sagas = Container.Get<ISagasConfiguration>();
-			Serialization = Container.Get<ISerializationConfiguration>();
+            Sagas = Container.Get<ISagasConfiguration>();
+            Serialization = Container.Get<ISerializationConfiguration>();
             DefaultStorage = Container.Get<IDefaultStorageConfiguration>();
             Frontend = Container.Get<IFrontendConfiguration>();
             CallContext = Container.Get<ICallContextConfiguration>();
@@ -275,13 +247,13 @@ namespace Bifrost.Configuration
             QualityAssurance = Container.Get<IQualityAssurance>();
         }
 
-		void InitializeCulture()
-		{
-			if (Culture == null)
-				Culture = CultureInfo.InvariantCulture;
-			if (UICulture == null)
-				UICulture = CultureInfo.InvariantCulture;
-		}
+        void InitializeCulture()
+        {
+            if (Culture == null)
+                Culture = CultureInfo.InvariantCulture;
+            if (UICulture == null)
+                UICulture = CultureInfo.InvariantCulture;
+        }
 
         void ConfigureFromCanConfigurables()
         {
@@ -300,13 +272,8 @@ namespace Bifrost.Configuration
             Type createContainerType = null;
             foreach (var assembly in assemblies.ToArray())
             {
-#if (NETFX_CORE)
-                var type = assembly.DefinedTypes.Select(t => t.AsType()).Where(t => t.HasInterface(typeof(ICanCreateContainer))).SingleOrDefault();
-#else
                 var types = assembly.GetTypes().Where(t => t.HasInterface(typeof(ICanCreateContainer)));
                 var type = types.SingleOrDefault();
-                var a = types.ToArray();
-#endif
                 if (type != null)
                 {
                     ThrowIfAmbiguousMatchFoundForCanCreateContainer(createContainerType);
@@ -325,7 +292,7 @@ namespace Bifrost.Configuration
             return builder;
         }
 
-        
+
         static void ThrowIfAmbiguousMatchFoundForCanCreateContainer(Type createContainerType)
         {
             if (createContainerType != null)

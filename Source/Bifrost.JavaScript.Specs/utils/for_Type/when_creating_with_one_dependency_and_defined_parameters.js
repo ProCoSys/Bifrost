@@ -28,7 +28,7 @@ describe("when creating with one dependency and defined parameters", function ()
     it("should resolve the first dependency", function () {
         expect(result.first).toBe("first");
     });
-    
+
     it("should pass along the options", function () {
         expect(result.options.value).toBe("Hello");
     });

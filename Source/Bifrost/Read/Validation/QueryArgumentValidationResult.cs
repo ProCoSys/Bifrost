@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -25,7 +25,7 @@ namespace Bifrost.Read.Validation
     /// <summary>
     /// Represents the result of query argument validation, typically done by <see cref="IQueryValidator"/>
     /// </summary>
-    public class QueryArgumentValidationResult 
+    public class QueryArgumentValidationResult
     {
         /// <summary>
         /// Initializes an instance of <see cref="QueryArgumentValidationResult"/>

@@ -11,7 +11,7 @@ namespace Bifrost.Specs.Commands.for_CommandSecurityExtensions
         static Mock<ISecurityDescriptorBuilder> security_descriptor_builder_mock;
         static Mock<ISecurityDescriptor> security_descriptor_mock;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             security_descriptor_builder_mock = new Mock<ISecurityDescriptorBuilder>();
             security_descriptor_mock = new Mock<ISecurityDescriptor>();

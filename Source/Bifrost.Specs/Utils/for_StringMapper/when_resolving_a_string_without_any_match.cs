@@ -13,7 +13,7 @@ namespace Bifrost.Specs.Utils.for_StringMapper
         static Mock<IStringMapping> second_mapping_mock;
         static string result;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             first_mapping_mock = new Mock<IStringMapping>();
             first_mapping_mock.Setup(f => f.Matches(input)).Returns(false);

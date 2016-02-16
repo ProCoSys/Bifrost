@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -48,7 +48,7 @@ namespace Bifrost.CodeGeneration
         void Write(string format, params object[] args);
 
         /// <summary>
-        /// Add a newline 
+        /// Add a newline
         /// </summary>
         void Newline();
     }

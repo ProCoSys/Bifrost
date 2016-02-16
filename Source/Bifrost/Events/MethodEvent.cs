@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,28 +21,28 @@ using System.Reflection;
 
 namespace Bifrost.Events
 {
-	/// <summary>
-	/// Represents an event that represents a method on a domain object
-	/// </summary>
-	public class MethodEvent : Event
-	{
-		private readonly MethodInfo _methodInfo;
+    /// <summary>
+    /// Represents an event that represents a method on a domain object
+    /// </summary>
+    public class MethodEvent : Event
+    {
+        private readonly MethodInfo _methodInfo;
 
-		/// <summary>
-		/// Constructs a MethodEvent based upon a MethodInfo
-		/// </summary>
-		/// <param name="eventSourceId">Id of the event source</param>
-		/// <param name="methodInfo"></param>
-		public MethodEvent(Guid eventSourceId, MethodInfo methodInfo) : base(eventSourceId)
-		{
-			_methodInfo = methodInfo;
-			Name = _methodInfo.Name;
-			Arguments = new MethodEventArguments();
-		}
+        /// <summary>
+        /// Constructs a MethodEvent based upon a MethodInfo
+        /// </summary>
+        /// <param name="eventSourceId">Id of the event source</param>
+        /// <param name="methodInfo"></param>
+        public MethodEvent(Guid eventSourceId, MethodInfo methodInfo) : base(eventSourceId)
+        {
+            _methodInfo = methodInfo;
+            Name = _methodInfo.Name;
+            Arguments = new MethodEventArguments();
+        }
 
-		/// <summary>
-		/// Gets the arguments for the method
-		/// </summary>
-		public dynamic Arguments { get; private set; }
-	}
+        /// <summary>
+        /// Gets the arguments for the method
+        /// </summary>
+        public dynamic Arguments { get; private set; }
+    }
 }

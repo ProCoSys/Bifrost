@@ -16,7 +16,7 @@ namespace Bifrost.Specs.Mapping.for_TargetPropertyMappingStrategy
         static PropertyInfo property;
 
 
-        Establish context = () => 
+        Establish context = () =>
         {
             property = typeof(Target).GetProperty(property_name);
             strategy = new TargetPropertyMappingStrategy(property);

@@ -6,9 +6,7 @@ obj
 *.user
 Source/Documentation/DocumentX/*
 Documentation/build/**/*
-current_version.txt
 lastbuild.txt
-version.txt
 *.version
 _ReSharper.*
 packages
@@ -29,6 +27,7 @@ Source/Bifrost.QuickStart/App_Data
 *.cache
 TestResults/*
 NDependOut
+Source/Solutions/.vs/*
 
 # OS generated files #
 ######################

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,24 +23,24 @@ using NHibernate.Persister.Entity;
 
 namespace Bifrost.NHibernate.Events
 {
-	public class EventHolderClassMap : ClassMap<EventHolder>
-	{
-		public EventHolderClassMap()
-		{
-			Table("Events");
+    public class EventHolderClassMap : ClassMap<EventHolder>
+    {
+        public EventHolderClassMap()
+        {
+            Table("Events");
 
             Id(p => p.Id).GeneratedBy.Increment();
             Map(p => p.Name);
             Map(p => p.CommandName);
-			Map(p => p.AggregateId);
-			Map(p => p.LogicalEventName);
-		    Map(p => p.Generation);
-			Map(p => p.EventSource);
-			Map(p => p.SerializedEvent);
-			Map(p => p.CausedBy);
-			Map(p => p.Origin);
-		    Map(p => p.Occured);
-		    Map(p => p.Version);
-		}
-	}
+            Map(p => p.AggregateId);
+            Map(p => p.LogicalEventName);
+            Map(p => p.Generation);
+            Map(p => p.EventSource);
+            Map(p => p.SerializedEvent);
+            Map(p => p.CausedBy);
+            Map(p => p.Origin);
+            Map(p => p.Occured);
+            Map(p => p.Version);
+        }
+    }
 }

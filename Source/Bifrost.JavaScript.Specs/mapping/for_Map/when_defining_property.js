@@ -1,4 +1,4 @@
-﻿describe("when defining property", function () {
+describe("when defining property", function () {
     var propertyMapType = null;
     var propertyMapInstance = { something: 42 };
     var propertyMap = null;
@@ -24,5 +24,5 @@
     it("should return the created property map", function () {
         expect(propertyMap).toBe(propertyMapInstance);
     });
-    
+
 });

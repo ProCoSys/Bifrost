@@ -55,7 +55,7 @@ namespace Bifrost.DocumentDB
                     null,
                     genericMethod
                     ,
-                new Expression[] { 
+                new Expression[] {
                     queryable.Expression,
                     Expression.Quote(expression)
 

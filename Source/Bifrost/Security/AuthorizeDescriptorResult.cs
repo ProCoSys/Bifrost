@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -34,12 +34,12 @@ namespace Bifrost.Security
         public IEnumerable<AuthorizeActionResult> AuthorizationFailures
         {
             get { return _authorizationFailures.AsEnumerable(); }
-        } 
+        }
 
         /// <summary>
         /// Gets the result of the Authorization attempt for this action and <see cref="ISecurityDescriptor"/>
         /// </summary>
-        public virtual bool IsAuthorized 
+        public virtual bool IsAuthorized
         {
             get { return !_authorizationFailures.Any(); }
         }

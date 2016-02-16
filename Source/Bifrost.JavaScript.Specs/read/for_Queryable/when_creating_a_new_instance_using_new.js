@@ -1,4 +1,4 @@
-﻿describe("when creating a new instance using new", function () {
+describe("when creating a new instance using new", function () {
     var region = {};
     var options = {
         region: region,
@@ -7,7 +7,7 @@
         },
         queryService: {},
     };
-    
+
     var instance = Bifrost.read.Queryable.new(options, region);
     var queryable = Bifrost.read.Queryable.create(options);
 

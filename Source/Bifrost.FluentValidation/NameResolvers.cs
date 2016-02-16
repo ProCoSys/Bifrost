@@ -34,7 +34,7 @@ namespace Bifrost.FluentValidation
 
             if (memberInfo != null)
             {
-                return (IsModelRule(memberInfo) || IsConcept(memberInfo)) 
+                return (IsModelRule(memberInfo) || IsConcept(memberInfo))
                     ? string.Empty : memberInfo.Name;
             }
 

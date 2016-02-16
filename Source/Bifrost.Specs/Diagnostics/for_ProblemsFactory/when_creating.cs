@@ -3,7 +3,7 @@ using Machine.Specifications;
 
 namespace Bifrost.Specs.Diagnostics.for_ProblemsFactory
 {
-    public class when_creating 
+    public class when_creating
     {
         static ProblemsFactory factory;
         static IProblems result;

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,11 +20,11 @@ using System;
 
 namespace Bifrost.Domain
 {
-	/// <summary>
-	/// The exception that is thrown when an AggregatedRoot is missing
-	/// </summary>
-	public class MissingAggregateRootException : ArgumentException
-	{
-		
-	}
+    /// <summary>
+    /// The exception that is thrown when an AggregatedRoot is missing
+    /// </summary>
+    public class MissingAggregateRootException : ArgumentException
+    {
+
+    }
 }

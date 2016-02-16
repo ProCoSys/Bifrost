@@ -1,4 +1,4 @@
-﻿describe("when creating", function () {
+describe("when creating", function () {
     var commandAskedForSecurityContext = null;
 
     var securityContext = "SecurityContext";
@@ -40,7 +40,7 @@
     it("should get validators", function () {
         expect(parameters.commandValidationService.getValidatorsFor.called).toBe(true);
     });
-    
+
     it("should validate silently", function () {
         expect(parameters.commandValidationService.validateSilently.called).toBe(true);
     });

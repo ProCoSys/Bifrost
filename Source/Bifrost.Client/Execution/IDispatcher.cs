@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,25 +23,25 @@ namespace Bifrost.Execution
     /// <summary>
     /// Defines a dispatcher to be used for checking for thread access on the UI thread and invoking things in the UI thread
     /// </summary>
-	public interface IDispatcher
-	{
+    public interface IDispatcher
+    {
         /// <summary>
         /// Determines wether or not the calling thread is the UI thread
         /// </summary>
         /// <returns>True if the calling thread is the UI thread, false if not</returns>
-		bool CheckAccess();
+        bool CheckAccess();
 
         /// <summary>
         /// Executes asynchronously the delegate on the UI thread
         /// </summary>
         /// <param name="del">Delegate to execute</param>
         /// <param name="arguments">Parameters to pass to the delegate</param>
-		void BeginInvoke(Delegate del, params object[] arguments);
+        void BeginInvoke(Delegate del, params object[] arguments);
 
         /// <summary>
         /// Executes asynchronously the action on the UI thread
         /// </summary>
         /// <param name="a">Action to execute</param>
-		void BeginInvoke(Action a);
-	}
+        void BeginInvoke(Action a);
+    }
 }

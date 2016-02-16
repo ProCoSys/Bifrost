@@ -9,9 +9,9 @@
 *.rtf	diff=astextplain
 *.RTF	diff=astextplain
 
-*.jpg  	binary
-*.png 	binary
-*.gif 	binary
+*.jpg   binary
+*.png   binary
+*.gif   binary
 
 *.cs text=auto diff=csharp 
 *.vb text=auto

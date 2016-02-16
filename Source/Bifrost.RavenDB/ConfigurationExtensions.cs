@@ -29,7 +29,7 @@ namespace Bifrost.Configuration
         {
             eventsConfiguration.EventStoreType = typeof(EventStore);
             eventsConfiguration.EventSubscriptionsType = typeof(EventSubscriptions);
-            
+
             var configuration = new RegularEventStoreConfiguration();
             configureCallback(configuration);
             Configure.Instance.Container.Bind<IEventStoreConfiguration>(configuration);

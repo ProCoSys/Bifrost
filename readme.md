@@ -1,30 +1,18 @@
-[![NuGet](https://img.shields.io/nuget/v/Bifrost.svg)]() ![Image of build status](https://ci.appveyor.com/api/projects/status/0gh6jddpkh2h8n4e?svg=true)
-[![Join the chat at https://gitter.im/dolittle/Bifrost](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dolittle/Bifrost?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Bifrost is an application development framework promoting good development practices.
 
-
-
-Issues are being tracked for status over at [Huboard](https://huboard.com/dolittle/Bifrost/)
-
-Bifrost is an application development framework promoting good development practices. 
 The backend development is focused on CQRS (Command Query Responsibility Segregation) for promoting Domain Driven Design.
 
 The fronted development is focused on MVVM (Model View ViewModel) for promoting better separation.
 
+Originally developed by [dolittle](http://bifrost.dolittle.com), the project was forked after
+[development stopped](http://www.ingebrigtsen.info/2016/02/11/bifrost-end-of-the-line/) in February 2016.
+
 To get an idea of how the framework will help you get up and running fast, have a look here : http://vimeo.com/30971308
 
-# Sponsors
-
-[![alt tag](https://raw.github.com/dolittle/Bifrost-Site/master/Sponsors/NDepend.png)](http://www.ndepend.com)
-
-# Site
-For more details, samples, documentation, please go to the official [site](http://bifrost.dolittle.com)
-
 # Contributing
-### We'd love to accept your pull-request! 
-Check out the github [issue-list](https://github.com/dolittle/Bifrost/issues) to see if there's anything you could contribute to. Also, look into the coding standard section below if you're interested in contributing.
 
 ### Coding standard
-Try to follow the general style of naming and structure that's already in place in the solution. For a more extensive guide, have a look at our [contributing page](http://bifrost.dolittle.com/tutorials)
+Try to follow the general style of naming and structure that's already in place in the solution.
 
 ### Testing
 We expect any code going through to a pull request to be tested.

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -22,10 +22,10 @@ namespace Bifrost.Configuration
 {
     public static class ConfigurationExtensions
     {
-		public static IConfigure UsingJson(this ISerializationConfiguration serializationConfiguration) 
-		{
-			serializationConfiguration.SerializerType = typeof(Serializer);
-			return Configure.Instance;
-		}
+        public static IConfigure UsingJson(this ISerializationConfiguration serializationConfiguration)
+        {
+            serializationConfiguration.SerializerType = typeof(Serializer);
+            return Configure.Instance;
+        }
     }
 }

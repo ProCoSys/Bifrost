@@ -10,7 +10,7 @@ namespace Bifrost.FluentValidation.Specs.for_DynamicState
         public bool TheStringSetCalled = false;
 
         string _theString;
-        public string TheString 
+        public string TheString
         {
             get
             {

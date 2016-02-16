@@ -10,7 +10,7 @@ namespace Bifrost.NHibernate.Transformers
     [Serializable]
     public class ConceptAwareAliasToBeanResultTransformer : IResultTransformer
     {
-        
+
         const BindingFlags _bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
         readonly Type _resultClass;
         ISetter[] _setters;
@@ -27,7 +27,7 @@ namespace Bifrost.NHibernate.Transformers
 
             _constructor = resultClass.GetConstructor(_bindingFlags, null, Type.EmptyTypes, null);
 
-            // if resultClass is a ValueType (struct), GetConstructor will return null... 
+            // if resultClass is a ValueType (struct), GetConstructor will return null...
             // in that case, we'll use Activator.CreateInstance instead of the ConstructorInfo to create instances
             if (_constructor == null && resultClass.IsClass)
             {

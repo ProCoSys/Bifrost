@@ -10,12 +10,12 @@ namespace Bifrost.Specs.Collection
         static IObservableCollection<object> collection_removed_from;
         static IEnumerable<object>  items_removed;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             object_to_add_and_remove = new object();
             collection.Add(object_to_add_and_remove);
 
-            collection.Removed += (c, i) => 
+            collection.Removed += (c, i) =>
             {
                 collection_removed_from = c;
                 items_removed = i;

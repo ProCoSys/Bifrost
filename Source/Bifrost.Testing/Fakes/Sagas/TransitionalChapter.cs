@@ -4,8 +4,8 @@ namespace Bifrost.Testing.Fakes.Sagas
 {
     public class TransitionalChapter : Chapter, ICanTransitionTo<NonTransitionalChapter>
     {
-		public string Something { get; set; }
-		public int AnInteger { get; set; }
+        public string Something { get; set; }
+        public int AnInteger { get; set; }
 
         public bool OnCreatedWasCalled;
 
@@ -26,6 +26,6 @@ namespace Bifrost.Testing.Fakes.Sagas
         {
             base.OnTransitionedTo();
             OnTransitionedToCalled++;
-        }    
+        }
     }
 }

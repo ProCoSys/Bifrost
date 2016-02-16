@@ -1,36 +1,36 @@
 describe("when creating with dependencies", function() {
-	
-	var somethingDependency;
-	var system = {
-		blah : "something"
-	};
 
-	var type = null; 
+    var somethingDependency;
+    var system = {
+        blah : "something"
+    };
 
-	var instance = null;
+    var type = null;
 
-	beforeEach(function() {
-		Bifrost.dependencyResolver = {
-			getDependenciesFor: function() {
-				return ["something"];
-			},
-			resolve : function(name) {
-				return system;
-			}
-		};
+    var instance = null;
 
-		type = Bifrost.Type.extend(function(something) {
-			somethingDependency = something;
-		});		
+    beforeEach(function() {
+        Bifrost.dependencyResolver = {
+            getDependenciesFor: function() {
+                return ["something"];
+            },
+            resolve : function(name) {
+                return system;
+            }
+        };
 
-		instance = type.create();
-	});
+        type = Bifrost.Type.extend(function(something) {
+            somethingDependency = something;
+        });
 
-	afterEach(function() {
-		Bifrost.functionParser = {};
-	});
+        instance = type.create();
+    });
 
-	it("should create with resolved dependencies", function() {
-		expect(somethingDependency).toBe(system);
-	});
+    afterEach(function() {
+        Bifrost.functionParser = {};
+    });
+
+    it("should create with resolved dependencies", function() {
+        expect(somethingDependency).toBe(system);
+    });
 });

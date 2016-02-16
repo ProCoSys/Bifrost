@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -24,9 +24,9 @@ using Bifrost.Extensions;
 
 namespace Bifrost.Execution
 {
-	/// <summary>
-	/// Represents a <see cref="IBindingConventionManager"/>
-	/// </summary>
+    /// <summary>
+    /// Represents a <see cref="IBindingConventionManager"/>
+    /// </summary>
     [Singleton]
     public class BindingConventionManager : IBindingConventionManager
     {
@@ -34,11 +34,11 @@ namespace Bifrost.Execution
         readonly ITypeDiscoverer _typeDiscoverer;
         readonly List<Type> _conventions;
 
-		/// <summary>
-		/// Initializes a new instance <see cref="BindingConventionManager"/>
-		/// </summary>
-		/// <param name="container">The <see cref="IContainer"/> that bindings are resolved to</param>
-		/// <param name="typeDiscoverer"><see cref="ITypeDiscoverer"/> to discover binding conventions with</param>
+        /// <summary>
+        /// Initializes a new instance <see cref="BindingConventionManager"/>
+        /// </summary>
+        /// <param name="container">The <see cref="IContainer"/> that bindings are resolved to</param>
+        /// <param name="typeDiscoverer"><see cref="ITypeDiscoverer"/> to discover binding conventions with</param>
         public BindingConventionManager(IContainer container, ITypeDiscoverer typeDiscoverer)
         {
             _container = container;
@@ -47,7 +47,7 @@ namespace Bifrost.Execution
         }
 
 #pragma warning disable 1591 // Xml Comments
-		public void Add(Type type)
+        public void Add(Type type)
         {
             if( !_conventions.Contains(type))
                 _conventions.Add(type);
@@ -96,7 +96,7 @@ namespace Bifrost.Execution
                 Add(conventionType);
 
             Initialize();
-		}
+        }
 #pragma warning restore 1591 // Xml Comments
-	}
+    }
 }

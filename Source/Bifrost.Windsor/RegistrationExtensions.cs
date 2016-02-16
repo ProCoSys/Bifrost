@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,26 +23,26 @@ using Castle.Core;
 
 namespace Bifrost.Windsor
 {
-	public static class RegistrationExtensions
-	{
-		public static ComponentRegistration<T> WithLifecycle<T>(this ComponentRegistration<T> registration, BindingLifecycle lifecycle)
-		{
+    public static class RegistrationExtensions
+    {
+        public static ComponentRegistration<T> WithLifecycle<T>(this ComponentRegistration<T> registration, BindingLifecycle lifecycle)
+        {
             switch (lifecycle)
             {
-                case BindingLifecycle.Singleton: 
+                case BindingLifecycle.Singleton:
                     return registration.LifeStyle.Is(LifestyleType.Singleton);
-				
-                case BindingLifecycle.Thread : 
-					return registration.LifeStyle.Is(LifestyleType.Thread);
+
+                case BindingLifecycle.Thread :
+                    return registration.LifeStyle.Is(LifestyleType.Thread);
 
                 case BindingLifecycle.Transient:
                     return registration.LifeStyle.Is(LifestyleType.Transient);
-				
-				case BindingLifecycle.Request:
-					return registration.LifeStyle.Is(LifestyleType.PerWebRequest);
+
+                case BindingLifecycle.Request:
+                    return registration.LifeStyle.Is(LifestyleType.PerWebRequest);
             }
-			 
-			return registration;
-		}
-	}
+
+            return registration;
+        }
+    }
 }

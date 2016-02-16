@@ -23,7 +23,7 @@ namespace Bifrost.Specs.Execution.for_ExecutionContextFactory
         static IExecutionContext instance;
         static IPrincipal principal;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("nb-NO");
 

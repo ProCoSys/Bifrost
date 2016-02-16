@@ -11,7 +11,7 @@
     <AssemblyName>Bifrost.JSON.Specs</AssemblyName>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Solutions\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -66,7 +66,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="..\Common\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\for_ConceptConverter\given\a_concept_converter.cs" />
     <Compile Include="Serialization\for_ConceptConverter\when_checking_can_convert_on_a_concept.cs" />
     <Compile Include="Serialization\for_ConceptConverter\when_checking_can_convert_on_a_non_concept.cs" />
@@ -93,10 +96,6 @@
     <ProjectReference Include="..\Bifrost.JSON\Bifrost.JSON.csproj">
       <Project>{DB77EB6A-DB79-4839-AB30-90593BCE470F}</Project>
       <Name>Bifrost.JSON</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bifrost.MSpec\Bifrost.MSpec.csproj">
-      <Project>{FFE4E208-67F2-47B5-AA92-BA35AB3F4730}</Project>
-      <Name>Bifrost.MSpec</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bifrost.Testing\Bifrost.Testing.csproj">
       <Project>{47835DE6-FA79-4888-83B6-F6891891CBB0}</Project>

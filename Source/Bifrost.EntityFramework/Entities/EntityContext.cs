@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -38,7 +38,7 @@ namespace Bifrost.EntityFramework.Entities
     {
         EntityContextConnection _connection;
         IEntityTypeConfigurations _entityTypeConfigurations;
-        
+
         /// <summary>
         /// Initializes a new instance of <see cref="EntityContext{T}"/>
         /// </summary>
@@ -58,7 +58,7 @@ namespace Bifrost.EntityFramework.Entities
 #pragma warning disable 1591 // Xml Comments
         public IQueryable<T> Entities
         {
-            get 
+            get
             {
                 var orderable = this.Ordered(DbSet);
                 return orderable;
@@ -125,10 +125,10 @@ namespace Bifrost.EntityFramework.Entities
                 i++;
             });*/
 
-            //ComplexTypeConfiguration<object> 
+            //ComplexTypeConfiguration<object>
             //modelBuilder.ComplexType<object>().Property()
             //modelBuilder.ComplexType<Something>().Property(s=>s.Number).
-            
+
             var configuration = _entityTypeConfigurations.GetFor<T>();
             modelBuilder.Configurations.Add(configuration);
         }

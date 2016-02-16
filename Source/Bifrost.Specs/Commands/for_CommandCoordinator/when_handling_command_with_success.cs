@@ -9,7 +9,7 @@ namespace Bifrost.Specs.Commands.for_CommandCoordinator
     public class when_handling_command_with_success : given.a_command_coordinator
     {
         static CommandResult Result;
- 
+
         Establish context = () =>
                                 {
                                     var validation_results = new CommandValidationResult();

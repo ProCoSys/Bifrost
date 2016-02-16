@@ -19,7 +19,7 @@ Bifrost.namespace("Bifrost.mapping", {
             }
             return typeAsString;
         }
-        
+
 
 
         function copyProperties(mappedProperties, from, to, map) {
@@ -29,7 +29,7 @@ Bifrost.namespace("Bifrost.mapping", {
                 }
 
                 if (!Bifrost.isUndefined(from[property])) {
-                    
+
                     if (Bifrost.isObject(from[property]) && Bifrost.isObject(to[property])) {
                         copyProperties(mappedProperties, from[property], to[property]);
                     } else {

@@ -10,6 +10,6 @@ namespace Bifrost.NHibernate
         /// <summary>
         /// Gets an instance of ISessionFactory
         /// </summary>
-       ISessionFactory SessionFactory { get; } 
+       ISessionFactory SessionFactory { get; }
     }
 }

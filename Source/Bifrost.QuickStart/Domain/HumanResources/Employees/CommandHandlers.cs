@@ -17,8 +17,8 @@ namespace Web.Domain.HumanResources.Employees
         {
             var employee = _repository.Get(Guid.NewGuid());
             employee.Register(
-                command.SocialSecurityNumber, 
-                command.FirstName, 
+                command.SocialSecurityNumber,
+                command.FirstName,
                 command.LastName,
                 command.EmployedFrom
             );

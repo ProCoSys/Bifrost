@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,48 +18,40 @@
 #endregion
 
 using System;
-#if(NETFX_CORE)
-using System.Linq;
-using System.Reflection;
-#endif
 
 namespace Bifrost.Execution
 {
-	/// <summary>
-	/// Defines a base abstract class for Binding conventions for any <see cref="IContainer"/>
-	/// </summary>
-	public abstract class BaseConvention : IBindingConvention
-	{
-		/// <summary>
-		/// Gets or sets the <see cref="BindingLifecycle">ActivationScope</see> that will be used as default
-		/// </summary>
-		public BindingLifecycle DefaultScope { get; set; }
+    /// <summary>
+    /// Defines a base abstract class for Binding conventions for any <see cref="IContainer"/>
+    /// </summary>
+    public abstract class BaseConvention : IBindingConvention
+    {
+        /// <summary>
+        /// Gets or sets the <see cref="BindingLifecycle">ActivationScope</see> that will be used as default
+        /// </summary>
+        public BindingLifecycle DefaultScope { get; set; }
 
 #pragma warning disable 1591 // Xml Comments
-		public abstract bool CanResolve(IContainer container, Type service);
-		public abstract void Resolve(IContainer container, Type service);
+        public abstract bool CanResolve(IContainer container, Type service);
+        public abstract void Resolve(IContainer container, Type service);
 #pragma warning restore 1591 // Xml Comments
 
 
-		/// <summary>
-		/// Handle scope for a target type
-		/// </summary>
-		/// <param name="targetType">Target type</param>
-		/// <returns><see cref="BindingLifecycle"/> for the target type</returns>
-		/// <remarks>
-		/// If the target is marked with the <see cref="SingletonAttribute">Singleton</see> attribute, it will use
-		/// that scope instead, as that is a explicit implementation information.
-		/// 
-		/// Otherwise it will use the DefaultScope
-		/// </remarks>
+        /// <summary>
+        /// Handle scope for a target type
+        /// </summary>
+        /// <param name="targetType">Target type</param>
+        /// <returns><see cref="BindingLifecycle"/> for the target type</returns>
+        /// <remarks>
+        /// If the target is marked with the <see cref="SingletonAttribute">Singleton</see> attribute, it will use
+        /// that scope instead, as that is a explicit implementation information.
+        ///
+        /// Otherwise it will use the DefaultScope
+        /// </remarks>
         protected BindingLifecycle GetScopeForTarget(Type targetType)
-		{
-#if(NETFX_CORE)
-            var attributes = targetType.GetTypeInfo().GetCustomAttributes(typeof(SingletonAttribute), false).ToArray();
-#else
+        {
             var attributes = targetType.GetCustomAttributes(typeof(SingletonAttribute), false);
-#endif
             return attributes.Length == 1 ? BindingLifecycle.Singleton : DefaultScope;
-		}
-	}
+        }
+    }
 }

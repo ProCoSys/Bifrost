@@ -31,7 +31,7 @@ namespace Bifrost.DocumentDB.Entities
     public class EntityContextConnection : IEntityContextConnection
     {
         EntityContextConfiguration _configuration;
-        
+
 
         /// <summary>
         /// Initializes a new instance of <see cref="EntityContextConnection"/>
@@ -91,14 +91,14 @@ namespace Bifrost.DocumentDB.Entities
         {
             DocumentCollection collection = null;
 
-            
+
 
             Client.ReadDocumentCollectionFeedAsync(Database.SelfLink)
                 .ContinueWith(f => {
                     var collections = f.Result.ToArray();
                     var cc = collections.Where(c => c.Id == name).SingleOrDefault();
                     collection = cc;
-                        
+
                 })
                 .Wait();
 

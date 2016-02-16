@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -40,7 +40,7 @@ namespace Bifrost.RavenDB
         {
             _documentStore = documentStore;
         }
-        
+
 
         public long NextFor<T>()
         {
@@ -57,7 +57,7 @@ namespace Bifrost.RavenDB
                             {
                                 PutDocument<T>(new JsonDocument
                                 {
-                                    Etag = Guid.Empty, 
+                                    Etag = Guid.Empty,
                                     Metadata = new RavenJObject(),
                                     DataAsJson = RavenJObject.FromObject(new { Current = 1 }),
                                     Key = GetDocumentPathFor<T>()

@@ -17,7 +17,7 @@ namespace Bifrost.Specs.Read.for_QueryableProvider
         static string[] second_page;
         static string[] third_page;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             provider = new QueryableProvider();
             paging = new PagingInfo

@@ -1,4 +1,4 @@
-﻿describe("when converting from with type without supporting converter for type", function () {
+describe("when converting from with type without supporting converter for type", function () {
 
     var convertedValue = 42;
     var typeConverter = {
@@ -10,7 +10,7 @@
     var converted = null;
     var input = "42";
     beforeEach(function () {
-       
+
         typeConverterBefore = Bifrost.values.TypeConverter;
         Bifrost.values.TypeConverter = {
             getExtenders: function () {

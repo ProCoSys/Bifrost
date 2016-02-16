@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -17,17 +17,12 @@
 //
 #endregion
 using System.Reflection;
-#if(!SILVERLIGHT)
-using System.Runtime.InteropServices;
-#else
-using _Assembly = System.Reflection.Assembly;
-#endif
 using Bifrost.Specifications;
 
 namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
-    /// Represents a <see cref="Specification{T}">rule</see> specific to <see cref="Assembly">assemblies</see> 
+    /// Represents a <see cref="Specification{T}">rule</see> specific to <see cref="Assembly">assemblies</see>
     /// and used for the <see cref="Assemblies"/>
     /// </summary>
     public class IncludeAllRule : Specification<string>

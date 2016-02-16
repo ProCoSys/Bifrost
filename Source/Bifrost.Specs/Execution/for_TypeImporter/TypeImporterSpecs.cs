@@ -5,66 +5,66 @@ using NUnit.Framework;
 
 namespace Bifrost.Specs.Execution.for_TypeImporter
 {
-	[TestFixture]
-	public class TypeImporterSpecs
-	{
-		[Test]
-		public void ImportingMultipleShouldReturnAllInstances()
-		{
-		    var containerMock = new Mock<IContainer>();
-			var typeDiscovererMock = new Mock<ITypeDiscoverer>();
+    [TestFixture]
+    public class TypeImporterSpecs
+    {
+        [Test]
+        public void ImportingMultipleShouldReturnAllInstances()
+        {
+            var containerMock = new Mock<IContainer>();
+            var typeDiscovererMock = new Mock<ITypeDiscoverer>();
 
             containerMock.Setup(c => c.Get(typeof(FirstMultipleClass))).Returns(new FirstMultipleClass());
             containerMock.Setup(c => c.Get(typeof(SecondMultipleClass))).Returns(new SecondMultipleClass());
-			typeDiscovererMock.Setup(t => t.FindMultiple<IMultipleInterface>()).Returns(new[]
-			                                                                            	{
-																								typeof(FirstMultipleClass),
-																								typeof(SecondMultipleClass)
-			                                                                            	});
-			var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
-			var instances = typeImporter.ImportMany<IMultipleInterface>();
-			Assert.That(instances.Length, Is.EqualTo(2));
-			Assert.That(instances[0], Is.InstanceOf<FirstMultipleClass>());
-			Assert.That(instances[1], Is.InstanceOf<SecondMultipleClass>());
-		}
+            typeDiscovererMock.Setup(t => t.FindMultiple<IMultipleInterface>()).Returns(new[]
+                                                                                            {
+                                                                                                typeof(FirstMultipleClass),
+                                                                                                typeof(SecondMultipleClass)
+                                                                                            });
+            var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
+            var instances = typeImporter.ImportMany<IMultipleInterface>();
+            Assert.That(instances.Length, Is.EqualTo(2));
+            Assert.That(instances[0], Is.InstanceOf<FirstMultipleClass>());
+            Assert.That(instances[1], Is.InstanceOf<SecondMultipleClass>());
+        }
 
-		[Test]
-		public void ImportingMultipleAndThereIsOnlyOneShouldReturnThatInstance()
-		{
+        [Test]
+        public void ImportingMultipleAndThereIsOnlyOneShouldReturnThatInstance()
+        {
             var containerMock = new Mock<IContainer>();
-			var typeDiscovererMock = new Mock<ITypeDiscoverer>();
+            var typeDiscovererMock = new Mock<ITypeDiscoverer>();
 
             containerMock.Setup(c => c.Get(typeof(SingleClass))).Returns(new SingleClass());
 
-			typeDiscovererMock.Setup(t => t.FindMultiple<ISingleInterface>()).Returns(new[]
-			                                                                            	{
-																								typeof(SingleClass),
-			                                                                            	});
-			var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
-			var instances = typeImporter.ImportMany<ISingleInterface>();
-			Assert.That(instances.Length, Is.EqualTo(1));
-			Assert.That(instances[0], Is.InstanceOf<SingleClass>());
-		}
+            typeDiscovererMock.Setup(t => t.FindMultiple<ISingleInterface>()).Returns(new[]
+                                                                                            {
+                                                                                                typeof(SingleClass),
+                                                                                            });
+            var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
+            var instances = typeImporter.ImportMany<ISingleInterface>();
+            Assert.That(instances.Length, Is.EqualTo(1));
+            Assert.That(instances[0], Is.InstanceOf<SingleClass>());
+        }
 
-		[Test, ExpectedException(typeof(ArgumentException))]
-		public void ImportingMultipleAndDiscovererReturnsNullShouldCauseAnArgumentException()
-		{
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ImportingMultipleAndDiscovererReturnsNullShouldCauseAnArgumentException()
+        {
             var containerMock = new Mock<IContainer>();
-			var typeDiscovererMock = new Mock<ITypeDiscoverer>();
-			typeDiscovererMock.Setup(t => t.FindMultiple<IMultipleInterface>()).Returns((Type[])null);
-			var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
-			typeImporter.ImportMany<IMultipleInterface>();
-		}
+            var typeDiscovererMock = new Mock<ITypeDiscoverer>();
+            typeDiscovererMock.Setup(t => t.FindMultiple<IMultipleInterface>()).Returns((Type[])null);
+            var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
+            typeImporter.ImportMany<IMultipleInterface>();
+        }
 
-		[Test, ExpectedException(typeof(ArgumentException))]
-		public void ImportingMultipleAndDiscovererThrowExceptionShouldCauseAnArgumentException()
-		{
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ImportingMultipleAndDiscovererThrowExceptionShouldCauseAnArgumentException()
+        {
             var containerMock = new Mock<IContainer>();
-			var typeDiscovererMock = new Mock<ITypeDiscoverer>();
-			typeDiscovererMock.Setup(t => t.FindMultiple<IMultipleInterface>()).Throws(new ArgumentException());
+            var typeDiscovererMock = new Mock<ITypeDiscoverer>();
+            typeDiscovererMock.Setup(t => t.FindMultiple<IMultipleInterface>()).Throws(new ArgumentException());
 
-			var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
-			typeImporter.ImportMany<IMultipleInterface>();
-		}
-	}
+            var typeImporter = new TypeImporter(containerMock.Object, typeDiscovererMock.Object);
+            typeImporter.ImportMany<IMultipleInterface>();
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿describe("when getting context for a command", sinon.test(function () {
+describe("when getting context for a command", sinon.test(function () {
     var securityContext = {
         isAuthorized: ko.observable(false)
     };
@@ -43,7 +43,7 @@
     it("should create a security context", function () {
         expect(createCalled).toBe(true);
     });
-    
+
     it("should continue the promise with the security context", function () {
         expect(securityContextReceived).toBe(securityContext);
     });

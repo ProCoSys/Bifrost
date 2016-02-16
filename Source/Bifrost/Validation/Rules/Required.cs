@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -29,7 +29,7 @@ namespace Bifrost.Validation.Rules
     public class Required : ValueRule
     {
         /// <summary>
-        /// When a value is null, this is the reason given 
+        /// When a value is null, this is the reason given
         /// </summary>
         public static BrokenRuleReason ValueIsNull = BrokenRuleReason.Create("712D26C6-A40F-4A3D-8C69-1475E761A1CF");
 

@@ -1,4 +1,4 @@
-﻿describe("when all properties are set and they already was", function () {
+describe("when all properties are set and they already was", function () {
     var query = {
         foo: ko.observable(1),
         areAllParametersSet: ko.observable(true)
@@ -35,7 +35,7 @@
     afterEach(function () {
         Bifrost.read.PagingInfo = pagingInfoType;
     });
-    
+
     it("should not execute the query on the query service", function () {
         expect(queryService.execute.calledOnce).toBe(true);
     });

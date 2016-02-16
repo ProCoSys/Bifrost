@@ -11,7 +11,7 @@ namespace Bifrost.Specs.Diagnostics.for_ProblemsReporter
         static Mock<IProblems> problems_mock;
         static ProblemsReporter reporter;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             problems_mock = new Mock<IProblems>();
             reporter = new ProblemsReporter();

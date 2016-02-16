@@ -1,4 +1,4 @@
-﻿describe("when validating", function () {
+describe("when validating", function () {
     var command = {
         name: "something",
         something: ko.observable("somethingObservable"),
@@ -30,7 +30,7 @@
         expect(command.something.validator.validate.called).toBe(true);
     });
 
-    it("should call validate with the actual top level value", function () { 
+    it("should call validate with the actual top level value", function () {
         expect(command.something.validator.validate.calledWith("somethingObservable")).toBe(true);
     });
 

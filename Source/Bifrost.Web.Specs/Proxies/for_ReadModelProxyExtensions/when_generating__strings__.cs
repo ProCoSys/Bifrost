@@ -28,5 +28,5 @@ namespace Bifrost.Web.Specs.Proxies.for_ReadModelProxyExtensions
         It should_write__property_value = () => writer_mock.Verify(w => w.Write("\"\"", Moq.It.IsAny<Object[]>()));
 
     }
-    
+
 }

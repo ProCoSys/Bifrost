@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -21,11 +21,11 @@ using Bifrost.Commands;
 
 namespace Bifrost.Sagas
 {
-	/// <summary>
-	/// Represents the conclusion of a saga
-	/// </summary>
-	public class SagaConclusion : CommandResult
-	{
-		
-	}
+    /// <summary>
+    /// Represents the conclusion of a saga
+    /// </summary>
+    public class SagaConclusion : CommandResult
+    {
+
+    }
 }

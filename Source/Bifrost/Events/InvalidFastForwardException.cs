@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -22,7 +22,7 @@ using System.Runtime.Serialization;
 namespace Bifrost.Events
 {
     /// <summary>
-    /// Represents an exceptional situation where an <see cref="IEventSource">EventSource</see> is stateful 
+    /// Represents an exceptional situation where an <see cref="IEventSource">EventSource</see> is stateful
     /// but there has been an attempt to retrieve it without restoring state by replaying events (fast-forwarding)
     /// </summary>
     public class InvalidFastForwardException : Exception
@@ -52,7 +52,6 @@ namespace Bifrost.Events
         {
         }
 
-#if(!SILVERLIGHT && !NETFX_CORE)
         /// <summary>
         /// Initializes an <see cref="InvalidFastForwardException">InvalidFastForwardException</see> for serialization
         /// </summary>
@@ -62,6 +61,5 @@ namespace Bifrost.Events
             : base(info, context)
         {
         }
-#endif
     }
 }

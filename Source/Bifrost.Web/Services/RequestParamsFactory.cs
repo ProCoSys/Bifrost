@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -43,7 +43,7 @@ namespace Bifrost.Web.Services
             var form = request.Form;
             var requestBody = BuildFormFromInputStream(request.InputStream);
 
-            var requestParams = new RequestParams {queystring, form, requestBody }; 
+            var requestParams = new RequestParams {queystring, form, requestBody };
 
             return requestParams;
         }
@@ -63,7 +63,7 @@ namespace Bifrost.Web.Services
                 foreach (var key in inputDictionary.Keys)
                     inputStreamParams[key] = inputDictionary[key];
             }
-            
+
             return inputStreamParams;
         }
     }

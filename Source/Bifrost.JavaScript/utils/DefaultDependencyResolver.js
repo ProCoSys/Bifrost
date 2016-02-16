@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost", {
+Bifrost.namespace("Bifrost", {
     DefaultDependencyResolver: function () {
         var self = this;
 
@@ -74,7 +74,7 @@
                     return current[name];
                 }
                 if (self.doesNamespaceHaveScriptReference(current, name) ) {
-                    var promise = Bifrost.execution.Promise.create();       
+                    var promise = Bifrost.execution.Promise.create();
                     self.loadScriptReference(current, name, promise);
                     return promise;
                 }

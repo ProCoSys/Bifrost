@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,14 +20,14 @@ using System;
 
 namespace Bifrost.Commands
 {
-	/// <summary>
-	/// Defines the basic command
-	/// </summary>
-	public partial interface ICommand
-	{
-		/// <summary>
-		/// Gets or sets the Id of the object the command will apply to
-		/// </summary>
+    /// <summary>
+    /// Defines the basic command
+    /// </summary>
+    public partial interface ICommand
+    {
+        /// <summary>
+        /// Gets or sets the Id of the object the command will apply to
+        /// </summary>
         Guid Id { get; set; }
-	}
+    }
 }

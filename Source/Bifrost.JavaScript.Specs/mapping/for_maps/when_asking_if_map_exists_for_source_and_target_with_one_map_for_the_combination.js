@@ -1,4 +1,4 @@
-﻿describe("when asking if map exists for source and target with one map for the combination", function () {
+describe("when asking if map exists for source and target with one map for the combination", function () {
 
     var mapType = null;
     var result = null;
@@ -18,7 +18,7 @@
 
         result = maps.hasMapFor(sourceType, targetType);
     });
-    
+
     afterEach(function () {
         Bifrost.mapping.Map = mapType;
     });

@@ -97,7 +97,7 @@ namespace Bifrost.DocumentDB.Entities
 
         public void Delete(T entity)
         {
-            
+
         }
 
         public void Save(T entity)

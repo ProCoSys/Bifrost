@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.tasks", {
+Bifrost.namespace("Bifrost.tasks", {
     Tasks: Bifrost.Type.extend(function (taskHistory) {
         /// <summary>Represents an aggregation of tasks</summary>
         var self = this;
@@ -73,17 +73,17 @@
 
             task.promise = Bifrost.execution.Promise.create();
             self.unfiltered.push(task);
-            
+
             var rule = self.canExecuteWhen();
             var canExecute = true;
             if (!Bifrost.isNullOrUndefined(rule)) {
                 canExecute = rule.evaluate(task);
             }
-            
+
             if (canExecute === true) {
                 executeTaskIfNotExecuting(task);
             }
-            
+
             return task.promise;
         };
     })

@@ -12,7 +12,7 @@ namespace Bifrost.Specs.Security.for_Securable
         static Securable security_target;
         static Mock<ISecurityActor> security_actor_mock;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             security_target = new NamespaceSecurable("Bifrost.Security");
             security_actor_mock = new Mock<ISecurityActor>();

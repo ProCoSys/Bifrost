@@ -7,7 +7,7 @@ namespace Bifrost.Specs.Extensions.for_DynamicHelpers
     public class when_populating_from_anonymous_object
     {
         static dynamic  target;
-        static object source; 
+        static object source;
 
         Establish context = () => {
             target = new ExpandoObject();

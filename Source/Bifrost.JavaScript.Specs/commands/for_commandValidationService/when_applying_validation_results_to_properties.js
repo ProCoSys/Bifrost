@@ -1,4 +1,4 @@
-﻿describe("when applying validation results to properties", function () {
+describe("when applying validation results to properties", function () {
     var command = {
         name: "something",
         something: ko.observable(),
@@ -44,7 +44,7 @@
     it("should add the validation message to the top level property", function () {
         expect(command.something.validator.message()).toBe(validationResults[0].errorMessage);
     });
-        
+
     it("should invalidate the deep property", function () {
         expect(command.deep.property.validator.isValid()).toBe(false);
     });

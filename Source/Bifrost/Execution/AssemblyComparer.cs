@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -17,29 +17,25 @@
 //
 #endregion
 using System.Collections.Generic;
-#if(!SILVERLIGHT)
 using System.Runtime.InteropServices;
-#else
-using _Assembly = System.Reflection.Assembly;
-#endif
 
 namespace Bifrost.Execution
 {
-	/// <summary>
-	/// Represents a comparer for comparing assemblies, typically used in Distinct() 
-	/// </summary>
-	public class AssemblyComparer : IEqualityComparer<_Assembly>
-	{
+    /// <summary>
+    /// Represents a comparer for comparing assemblies, typically used in Distinct()
+    /// </summary>
+    public class AssemblyComparer : IEqualityComparer<_Assembly>
+    {
 #pragma warning disable 1591 // Xml Comments
-		public bool Equals(_Assembly x, _Assembly y)
-		{
-			return x.FullName == y.FullName;
-		}
+        public bool Equals(_Assembly x, _Assembly y)
+        {
+            return x.FullName == y.FullName;
+        }
 
-		public int GetHashCode(_Assembly obj)
-		{
-			return obj.GetHashCode();
-		}
+        public int GetHashCode(_Assembly obj)
+        {
+            return obj.GetHashCode();
+        }
 #pragma warning restore 1591 // Xml Comments
-	}
+    }
 }

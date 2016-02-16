@@ -23,7 +23,7 @@ namespace Bifrost.Client.Specs.Reflection.for_InvocationHandler.given
             handler = new InvocationHandler<Interface, Implementation>(implementation_mock.Object);
             method_mock = new Mock<MethodInfo>();
             method_mock.SetupGet(m => m.Name).Returns(() => method_name);
-            
+
             invocation_mock = new Mock<IInvocation>();
             invocation_mock.SetupGet(i=>i.Method).Returns(method_mock.Object);
             invocation_mock.SetupGet(i => i.Arguments).Returns(() => arguments);
@@ -38,6 +38,6 @@ namespace Bifrost.Client.Specs.Reflection.for_InvocationHandler.given
                ).Returns(() => return_value);
         };
 
-        
+
     }
 }

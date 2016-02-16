@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -25,16 +25,16 @@ namespace Bifrost.Configuration
     /// <summary>
     /// Represents an implementation of <see cref="ISerializationConfiguration"/>
     /// </summary>
-	public class SerializationConfiguration : ISerializationConfiguration
+    public class SerializationConfiguration : ISerializationConfiguration
     {
 #pragma warning disable 1591 // Xml Comments
         public Type SerializerType { get; set; }
 
         public void Initialize (IContainer container)
-		{
-			if( SerializerType != null )
-				container.Bind<ISerializer>(SerializerType, BindingLifecycle.Singleton);
-		}
+        {
+            if( SerializerType != null )
+                container.Bind<ISerializer>(SerializerType, BindingLifecycle.Singleton);
+        }
 #pragma warning restore 1591 // Xml Comments
     }
 }

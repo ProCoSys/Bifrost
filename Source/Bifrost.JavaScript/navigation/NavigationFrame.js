@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.navigation", {
+Bifrost.namespace("Bifrost.navigation", {
     NavigationFrame: Bifrost.Type.extend(function (home, uriMapper, history) {
         var self = this;
 
@@ -45,7 +45,7 @@
         history.Adapter.bind(window, "statechange", function () {
             self.setCurrentUriFromCurrentLocation();
         });
-        
+
         this.configureFor = function (container) {
             self.setCurrentUriFromCurrentLocation();
             self.container = container;

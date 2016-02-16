@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -23,15 +23,15 @@ namespace Bifrost.Commands
     /// <summary>
     /// The exception that is thrown when a command is not known by its name in the system
     /// </summary>
-	public class UnknownCommandException : ArgumentException
-	{
+    public class UnknownCommandException : ArgumentException
+    {
         /// <summary>
         /// Initializes a new instance of <see cref="UnknownCommandException"/>
         /// </summary>
         /// <param name="name"></param>
-		public UnknownCommandException (string name) : base("There is no command called : "+name)
-		{
-		}
-	}
+        public UnknownCommandException (string name) : base("There is no command called : "+name)
+        {
+        }
+    }
 }
 

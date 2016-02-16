@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,24 +18,24 @@
 #endregion
 namespace Bifrost.Sagas
 {
-	/// <summary>
-	/// Defines a chapter in a <see cref="ISaga"/>
-	/// </summary>
+    /// <summary>
+    /// Defines a chapter in a <see cref="ISaga"/>
+    /// </summary>
     public interface IChapter
-	{
+    {
         /// <summary>
         /// Lifecycle method for a <see cref="IChapter"/>, gets called when the <see cref="IChapter"/> is created
         /// </summary>
-	    void OnCreated();
+        void OnCreated();
 
         /// <summary>
         /// Lifecycle method for a <see cref="IChapter"/>, gets called when the <see cref="IChapter"/> is set as current
         /// </summary>
-	    void OnSetCurrent();
+        void OnSetCurrent();
 
         /// <summary>
         /// Lifecycle method for a <see cref="IChapter"/>, gets called when the <see cref="IChapter"/> is transitioned to
         /// </summary>
-	    void OnTransitionedTo();
-	}
+        void OnTransitionedTo();
+    }
 }

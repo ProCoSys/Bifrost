@@ -20,6 +20,6 @@
   </metadata>
   <files>
     <file src="bin\debug\Bifrost.CommonServiceLocator.*" target="lib\net451"/>
-	<file src="**\*.cs" target="src" />
+    <file src="**\*.cs" target="src" />
   </files>
 </package>

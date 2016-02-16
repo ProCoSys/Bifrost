@@ -7,7 +7,7 @@ namespace Bifrost.Specs.Mapping.for_MappingTargets
     {
         protected override void SetValue(string target, MemberInfo member, object value)
         {
-            
+
         }
     }
 }

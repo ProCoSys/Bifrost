@@ -23,7 +23,7 @@ using Microsoft.Azure.Documents;
 namespace Bifrost.DocumentDB
 {
     /// <summary>
-    /// Represents an implementation of <see cref="ICollectionStrategy"/> that 
+    /// Represents an implementation of <see cref="ICollectionStrategy"/> that
     /// deals with entities sitting in one collection called Entities
     /// </summary>
     public class MultipleEntitiesInOneCollection : ICollectionStrategy

@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.views", {
+Bifrost.namespace("Bifrost.views", {
     viewManager: Bifrost.Singleton(function (viewFactory, pathResolvers, regionManager, UIManager, viewModelManager, viewModelLoader, viewModelTypes, documentService) {
         var self = this;
 
@@ -53,7 +53,7 @@
                                 });
                             }
                         }
-                    
+
                         UIManager.handle(body);
                         promise.signal();
                     });

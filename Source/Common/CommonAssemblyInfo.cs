@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -8,9 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © 2008-2015 Dolittle")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.0.0.31")]
-[assembly: AssemblyFileVersion("1.0.0.31")]
+[assembly: AssemblyVersion("2.0.0")]
+[assembly: AssemblyInformationalVersion("2.0.0")]
 
 [assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
-

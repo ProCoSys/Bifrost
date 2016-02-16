@@ -1,5 +1,5 @@
-﻿describe("when both sides are not satisfied but right becomes satisfied", function () {
-    
+describe("when both sides are not satisfied but right becomes satisfied", function () {
+
     var leftHandSideEvaluator = ko.observable(false);
     var leftHandSide = Bifrost.specifications.Specification.create()
     leftHandSide.evaluator = leftHandSideEvaluator;

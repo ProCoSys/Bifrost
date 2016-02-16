@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost.commands", {
+Bifrost.namespace("Bifrost.commands", {
     commandValidationService: Bifrost.Singleton(function () {
         var self = this;
 
@@ -126,7 +126,7 @@
             validatePropertiesFor(command, result);
             return result;
         };
-        
+
         this.validateSilently = function (command) {
             var result = { valid: true };
             validatePropertiesFor(command, result, true);

@@ -14,7 +14,7 @@ namespace Bifrost.FluentValidation.Specs.Commands.for_ComposedCommandInputValida
         protected static MySimpleCommand valid_command;
         protected static MySimpleCommand command_with_invalid_string;
         protected static MySimpleCommand command_with_invalid_long;
-            
+
         Establish context = () =>
             {
                 valid_command = new MySimpleCommand

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -33,7 +33,7 @@ namespace Bifrost.Commands
         /// </summary>
         /// <param name="first">The existing command - first discovered</param>
         /// <param name="second">The second command discovered that has the same name</param>
-        public AmbiguousCommandException(Type first, Type second) 
+        public AmbiguousCommandException(Type first, Type second)
             : base
                 (
                     string.Format

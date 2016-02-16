@@ -36,7 +36,7 @@ namespace Bifrost.Mapping
         /// <param name="maps"><see cref="IMaps"/> for getting <see cref="IMap"/></param>
         /// <param name="mappingTargets"><see cref=" IMappingTargets"/> to use for getting <see cref="IMappingTarget"/></param>
         public Mapper(IMaps maps, IMappingTargets mappingTargets)
-        {   
+        {
             _maps = maps;
             _mappingTargets = mappingTargets;
         }

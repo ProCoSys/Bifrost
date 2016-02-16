@@ -15,7 +15,7 @@ namespace Bifrost.Specs.Events.for_EventSource.given
         protected static Guid second_event_source_id;
         protected static SimpleEvent simple_event;
         protected static AnotherSimpleEvent another_simple_event;
-        
+
         Establish context = () =>
                                 {
                                     event_source_id = Guid.NewGuid();

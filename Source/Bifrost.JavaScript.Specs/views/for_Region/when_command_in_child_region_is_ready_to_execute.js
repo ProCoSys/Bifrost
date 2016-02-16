@@ -1,4 +1,4 @@
-﻿describe("when command in child region is ready to execute", function () {
+describe("when command in child region is ready to execute", function () {
 
     var tasks = {
         all: ko.observableArray()
@@ -32,7 +32,7 @@
         isReadyToExecute = newValue;
     });
 
-    var childRegion = new Bifrost.views.Region( 
+    var childRegion = new Bifrost.views.Region(
         messengerFactory,
         operationsFactory,
         tasksFactory

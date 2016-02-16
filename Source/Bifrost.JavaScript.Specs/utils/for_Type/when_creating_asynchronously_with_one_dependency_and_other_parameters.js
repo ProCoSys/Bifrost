@@ -32,7 +32,7 @@ describe("when creating asynchronously with one dependency and other parameters"
     });
 
     it("should pass along the options", function () {
-        
+
         expect(result.options.value).toBe("Hello");
     });
 });

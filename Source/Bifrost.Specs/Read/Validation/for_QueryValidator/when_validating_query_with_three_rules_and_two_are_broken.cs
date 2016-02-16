@@ -23,7 +23,7 @@ namespace Bifrost.Specs.Read.Validation.for_QueryValidator
         static BrokenRuleReason first_broken_rule_second_reason;
         static BrokenRuleReason third_broken_rule_reason;
 
-        
+
 
         Establish context = () =>
         {
@@ -67,14 +67,14 @@ namespace Bifrost.Specs.Read.Validation.for_QueryValidator
             var callbacks = new List<RuleFailed>();
 
             rule_context_mock.Setup(r => r.OnFailed(Moq.It.IsAny<RuleFailed>())).Callback((RuleFailed c) => callbacks.Add(c));
-            rule_context_mock.Setup(r => 
+            rule_context_mock.Setup(r =>
                 r.Fail(Moq.It.IsAny<IRule>(), Moq.It.IsAny<object>(), Moq.It.IsAny<BrokenRuleReason>()))
                 .Callback((IRule rule, object instance, BrokenRuleReason reason) =>
                 {
                     callbacks.ForEach(c => c(rule, instance, reason));
                 });
 
-            
+
         };
 
         Because of = () => result = query_validator.Validate(query);

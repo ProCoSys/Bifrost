@@ -13,7 +13,7 @@ namespace Bifrost.Specs.Events.for_EventStream
         Establish context =
             () =>
                 {
-                    Event = new SimpleEvent(EventSourceId) { Version = new EventSourceVersion(1, 0) }; 
+                    Event = new SimpleEvent(EventSourceId) { Version = new EventSourceVersion(1, 0) };
                 };
 
         Because of = () => EventStream.Append(new List<IEvent>() { Event });

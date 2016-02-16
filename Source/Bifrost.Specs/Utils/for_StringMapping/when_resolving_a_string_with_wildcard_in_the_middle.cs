@@ -1,6 +1,6 @@
 ﻿using Machine.Specifications;
 
-namespace Bifrost.Utils.for_StringMapping   
+namespace Bifrost.Utils.for_StringMapping
 {
     public class when_resolving_a_string_with_wildcard_in_the_middle
     {

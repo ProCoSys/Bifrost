@@ -11,17 +11,17 @@ namespace Bifrost.Specs.Configuration.for_EventsConfiguration
     [Subject(typeof(EventsConfiguration))]
     public class when_initializing_with_storage: given.an_events_configuration_and_container_object
     {
-        static IEntityContextConfiguration entity_context_configuration; 
+        static IEntityContextConfiguration entity_context_configuration;
 
-        Establish context = () => 
+        Establish context = () =>
                                 {
                                     entity_context_configuration = new EntityContextConfiguration
                                                                         {
                                                                             Connection = new EntityContextConnection(),
                                                                             EntityContextType = typeof(EntityContext<>)
                                                                         };
-                                    events_configuration.EntityContextConfiguration = entity_context_configuration; 
-                                    
+                                    events_configuration.EntityContextConfiguration = entity_context_configuration;
+
                                 };
 
         Because of = () => events_configuration.Initialize(container_mock.Object);

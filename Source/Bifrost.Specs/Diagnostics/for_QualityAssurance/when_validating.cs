@@ -10,7 +10,7 @@ namespace Bifrost.Specs.Diagnostics.for_QualityAssurance
         static Mock<ITypeRules> type_rules_mock;
         static QualityAssurance quality_assurance;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             type_rules_mock = new Mock<ITypeRules>();
             quality_assurance = new QualityAssurance(type_rules_mock.Object);

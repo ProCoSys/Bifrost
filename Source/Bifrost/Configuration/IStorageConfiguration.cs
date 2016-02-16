@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,9 +18,9 @@
 #endregion
 namespace Bifrost.Configuration
 {
-	/// <summary>
-	/// Defines a generic storage configuration
-	/// </summary>
+    /// <summary>
+    /// Defines a generic storage configuration
+    /// </summary>
     public interface IStorageConfiguration
     {
         /// <summary>

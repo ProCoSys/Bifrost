@@ -9,7 +9,7 @@ namespace Bifrost.Client.Specs.Execution.for_Promise
         const string data = "Some Data";
         static object data_passed;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             promise = new Promise();
             promise.ContinueWith((p,d) => data_passed = d);

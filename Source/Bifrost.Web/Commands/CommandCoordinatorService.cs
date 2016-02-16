@@ -33,7 +33,7 @@ namespace Bifrost.Web.Commands
         readonly ISagaLibrarian _sagaLibrarian;
 
         public CommandCoordinatorService(
-            ICommandCoordinator commandCoordinator, 
+            ICommandCoordinator commandCoordinator,
             ISerializer serializer,
             ITypeDiscoverer typeDiscoverer,
             ISagaLibrarian sagaLibrarian)
@@ -65,7 +65,7 @@ namespace Bifrost.Web.Commands
                     commandInstance = GetCommandFromDescriptor(commandDescriptor);
                     if (commandInstance == null)
                         results.Add(new CommandResult { Exception = new UnknownCommandException(commandDescriptor.Name) });
-                    else 
+                    else
                         results.Add(_commandCoordinator.Handle(commandInstance));
                 }
                 catch (Exception ex)
@@ -85,7 +85,7 @@ namespace Bifrost.Web.Commands
             var results = new List<CommandResult>();
             var saga = _sagaLibrarian.Get(sagaId);
 
-            // Todo : IMPORTANT : We need to treat this as a unit of work with rollbacks if one or more commands fail and some succeed!!!!!!!!!!! 
+            // Todo : IMPORTANT : We need to treat this as a unit of work with rollbacks if one or more commands fail and some succeed!!!!!!!!!!!
             foreach (var commandDescriptor in commandDescriptors)
             {
                 ICommand commandInstance = null;

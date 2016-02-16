@@ -1,4 +1,4 @@
-﻿Bifrost.namespace("Bifrost", {
+Bifrost.namespace("Bifrost", {
     StringMapper: Bifrost.Type.extend(function (stringMappingFactory) {
         var self = this;
 
@@ -43,7 +43,7 @@
                 if (input === null || typeof input === "undefined") {
                     return "";
                 }
-                
+
                 var mapping = self.getMappingFor(input);
                 if (Bifrost.isNullOrUndefined(mapping)) {
                     return "";

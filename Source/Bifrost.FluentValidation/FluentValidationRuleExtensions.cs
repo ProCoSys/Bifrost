@@ -4,12 +4,12 @@ using FluentValidation;
 namespace Bifrost.FluentValidation
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class FluentValidationRuleExtensions
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="ruleBuilder"></param>

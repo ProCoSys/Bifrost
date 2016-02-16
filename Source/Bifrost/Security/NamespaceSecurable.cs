@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -45,11 +45,7 @@ namespace Bifrost.Security
         public override bool CanAuthorize(object actionToAuthorize)
         {
             return actionToAuthorize != null && actionToAuthorize.GetType().Namespace.StartsWith(Namespace,
-#if(NETFX_CORE)
-                StringComparison.Ordinal);
-#else
                 StringComparison.InvariantCulture);
-#endif
         }
 #pragma warning restore 1591
     }

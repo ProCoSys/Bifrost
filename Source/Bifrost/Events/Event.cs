@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -20,9 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bifrost.Time;
-#if(NETFX_CORE)
-using System.Reflection;
-#endif
 
 namespace Bifrost.Events
 {
@@ -31,23 +28,19 @@ namespace Bifrost.Events
     /// </summary>
     public abstract class Event : IEvent
     {
-#if(NETFX_CORE)
-        static readonly IEnumerable<string> PropertiesToIgnore = typeof(IEvent).GetTypeInfo().DeclaredProperties.Select(p => p.Name);
-#else
         static readonly IEnumerable<string> PropertiesToIgnore = typeof(IEvent).GetProperties().Select(p => p.Name);
-#endif
 
 #pragma warning disable 1591 // Xml Comments
         public long Id { get; set; }
         public Guid CommandContext { get; set; }
         public string Name { get; set; }
-		public string CommandName { get; set; }
+        public string CommandName { get; set; }
         public Guid EventSourceId { get; set; }
-    	public string EventSource { get; set; }
-    	public EventSourceVersion Version { get; set; }
+        public string EventSource { get; set; }
+        public EventSourceVersion Version { get; set; }
         public string CausedBy { get; set; }
         public string Origin { get; set; }
-		public DateTime Occured { get; set; }
+        public DateTime Occured { get; set; }
 #pragma warning restore 1591 // Xml Comments
 
         /// <summary>
@@ -64,7 +57,7 @@ namespace Bifrost.Events
             Id = id;
             EventSourceId = eventSourceId;
             Name = GetType().Name;
-        	Occured = SystemClock.GetCurrentTime();
+            Occured = SystemClock.GetCurrentTime();
         }
 
         /// <summary>
@@ -81,11 +74,7 @@ namespace Bifrost.Events
             if (obj == null || obj.GetType() != type )
                 return false;
 
-#if(NETFX_CORE)
-            var properties = type.GetTypeInfo().DeclaredProperties.Where(t => !PropertiesToIgnore.Contains(t.Name));
-#else
             var properties = type.GetProperties().Where(t=>!PropertiesToIgnore.Contains(t.Name));
-#endif
             foreach( var property in properties )
             {
                 var value = property.GetValue(this, null);
@@ -98,11 +87,11 @@ namespace Bifrost.Events
         }
 
 #pragma warning disable 1591 // Xml Comments
-		public override int GetHashCode()
-		{
-			return base.GetHashCode();
-		}
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 #pragma warning restore 1591 // Xml Comments
 
-	}
+    }
 }

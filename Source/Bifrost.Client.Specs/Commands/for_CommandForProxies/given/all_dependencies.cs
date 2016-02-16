@@ -6,7 +6,7 @@ using Moq;
 
 namespace Bifrost.Client.Specs.Commands.for_CommandForProxies.given
 {
-    public class all_dependencies 
+    public class all_dependencies
     {
         protected static Mock<IProxying> proxying_mock;
         protected static Mock<IProxyBuilder> proxy_builder_mock;

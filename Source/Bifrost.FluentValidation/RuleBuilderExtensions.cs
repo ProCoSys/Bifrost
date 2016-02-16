@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -29,7 +29,7 @@ namespace Bifrost.FluentValidation
     public static class RuleBuilderExtensions
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TProperty"></typeparam>
@@ -54,7 +54,7 @@ namespace Bifrost.FluentValidation
                     string.Format("Dynamic state is only supported on a property validator that inherits from {0}",
                         typeof(PropertyValidatorWithDynamicState))
                 );
-               
+
         }
 
         static void ThrowIfNotCorrectRuleBuilder<T, TProperty>(IRuleBuilderOptions<T, TProperty> builder)

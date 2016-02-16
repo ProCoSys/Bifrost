@@ -14,7 +14,7 @@ namespace Bifrost.Specs.Execution.for_BindingConventionManager
         Establish context = () =>
                                 {
                                     convention_mock = new Mock<IBindingConvention>();
-            
+
                                     convention_type = convention_mock.Object.GetType();
                                     container_mock.Setup(c => c.Get(convention_type)).Returns(convention_mock.Object);
                                 };

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -54,7 +54,6 @@ namespace Bifrost.Sagas.Exceptions
         {
         }
 
-#if(!SILVERLIGHT && !NETFX_CORE)
         /// <summary>
         /// Initializes an <see cref="InvalidSagaStateTransitionException">InvalidSagaStateTransitionException</see> for serialization
         /// </summary>
@@ -64,6 +63,5 @@ namespace Bifrost.Sagas.Exceptions
             : base(info, context)
         {
         }
-#endif
     }
 }

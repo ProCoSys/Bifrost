@@ -8,7 +8,7 @@ namespace Bifrost.FluentValidation.Specs.for_DynamicState
         static dynamic state;
         static string result;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             model = new Model();
             state = new DynamicState(model, new[] { Model.TheStringProperty });

@@ -61,6 +61,6 @@ namespace Bifrost.Specs.Commands.for_CommandResult
                                         target.AllValidationMessages.ShouldContain(expected_combined_command_error_messages);
                                         target.AllValidationMessages.ShouldContain( expected_combined_validation_results.Select(vr => vr.ErrorMessage));
                                     };
-                                           
+
     }
 }

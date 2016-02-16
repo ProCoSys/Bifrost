@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -28,7 +28,7 @@ using Bifrost.Values;
 namespace Bifrost.Interaction
 {
     /// <summary>
-    /// Represents an implementation of <see cref="ICommand"/> for a method on a target, 
+    /// Represents an implementation of <see cref="ICommand"/> for a method on a target,
     /// typically a ViewModel
     /// </summary>
     public class CommandForMethod : ICommand, IDisposable
@@ -48,7 +48,7 @@ namespace Bifrost.Interaction
         /// <param name="canExecuteWhen">Optionally a reference to either a property or method that gets called to check if the command can execute</param>
         /// <param name="parameterConverter">Optionally a <see cref="IValueConverter"/> that will be used for converting value to the method</param>
         /// <remarks>
-        /// The canExecuteWhen parameter can take the name of a property or a method. If it is 
+        /// The canExecuteWhen parameter can take the name of a property or a method. If it is
         /// a property and the declaring type implements <see cref="INotifyPropertyChanged"/>,
         /// it will honor that and actually fire off the CanExecuteChanged if the property changes
         /// state. The property needs to be of type boolean, and a method can take one parameter,
@@ -77,7 +77,7 @@ namespace Bifrost.Interaction
         {
             var parameters = _method.GetParameters();
             if( parameters.Length == 0 ) _method.Invoke(_target,new object[0]);
-            else _method.Invoke(_target, new object[] { 
+            else _method.Invoke(_target, new object[] {
                 ConvertParameterIfValueConverterSpecified(parameters[0], parameter)
             });
         }
@@ -123,7 +123,7 @@ namespace Bifrost.Interaction
             ThrowIfReturnTypeNotBoolean(type, method, method.ReturnType);
             var parameters = method.GetParameters();
             ThrowIfMoreThanOneParameter(parameters, method.Name, type);
-            if (parameters.Length == 1) _canExecuteFunc = (t, p) => (bool)method.Invoke(t, new object[] { 
+            if (parameters.Length == 1) _canExecuteFunc = (t, p) => (bool)method.Invoke(t, new object[] {
                 ConvertParameterIfValueConverterSpecified(parameters[0], p)
             });
             else _canExecuteFunc = (t, p) => (bool)method.Invoke(t, new object[0]);

@@ -10,7 +10,7 @@ namespace Bifrost.Specs.Diagnostics.for_Problems
         const string data = "Some data";
         static ProblemType type = ProblemType.Create(Guid.NewGuid().ToString(), "Something", ProblemSeverity.Warning);
         static Problems problems;
-        
+
 
         Establish context = () => problems = new Problems();
 

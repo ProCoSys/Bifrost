@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -18,12 +18,7 @@
 #endregion
 
 using System.Collections.Generic;
-using System.Reflection;
-#if(!SILVERLIGHT)
 using System.Runtime.InteropServices;
-#else
-using _Assembly = System.Reflection.Assembly;
-#endif
 
 namespace Bifrost.Execution
 {
@@ -39,7 +34,7 @@ namespace Bifrost.Execution
         IEnumerable<_Assembly> GetAll();
 
         /// <summary>
-        /// Gets an assembly for the current application by its fully qualified name 
+        /// Gets an assembly for the current application by its fully qualified name
         /// </summary>
         /// <param name="fullName">Fully qualified name of the assembly</param>
         /// <returns>Instance of the assembly, null if it was not found</returns>

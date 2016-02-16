@@ -1,4 +1,4 @@
-﻿describe("when executing", function () {
+describe("when executing", function () {
     var commandHandled = null;
     var validatedCommand = null;
     var commandResultReceived = null;
@@ -67,7 +67,7 @@
 
     command.firstProperty.setInitialValue = sinon.mock().withArgs(43).once();
     command.secondProperty.setInitialValue = sinon.mock().withArgs("44").once();
-    
+
     command.execute();
     continueWithCallback("Result");
 

@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -19,9 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-#if(NETFX_CORE)
-using System.Reflection;
-#endif
 
 namespace Bifrost.Events
 {
@@ -32,22 +29,22 @@ namespace Bifrost.Events
     {
         private readonly List<Type> _migrationLevels;
 
-		/// <summary>
-		/// Gets the logical event type
-		/// </summary>
+        /// <summary>
+        /// Gets the logical event type
+        /// </summary>
         public Type LogicalEvent { get; private set; }
 
-		/// <summary>
-		/// Gets the migration level of the hierarchy
-		/// </summary>
+        /// <summary>
+        /// Gets the migration level of the hierarchy
+        /// </summary>
         public int MigrationLevel
         {
             get { return _migrationLevels.Count - 1; }
         }
 
-		/// <summary>
-		/// Gets the types in the migration hierarchy
-		/// </summary>
+        /// <summary>
+        /// Gets the types in the migration hierarchy
+        /// </summary>
         public IEnumerable<Type> MigratedTypes { get { return _migrationLevels.ToArray(); } }
 
         /// <summary>
@@ -133,45 +130,19 @@ namespace Bifrost.Events
 
         static Type GetMigrationFromType(Type migrationType)
         {
-            var types = from interfaceType in migrationType
-#if(NETFX_CORE)
-                                    .GetTypeInfo().ImplementedInterfaces
-#else
-                                    .GetInterfaces()
-#endif
-                        where interfaceType
-#if(NETFX_CORE)
-                                    .GetTypeInfo().IsGenericType
-#else
-                                    .IsGenericType
-#endif
+            var types = from interfaceType in migrationType.GetInterfaces()
+                        where interfaceType.IsGenericType
                         let baseInterface = interfaceType.GetGenericTypeDefinition()
                         where baseInterface == typeof(IAmNextGenerationOf<>)
-                        select interfaceType
-#if(NETFX_CORE)
-                                    .GetTypeInfo().GenericTypeParameters
-#else
-                                    .GetGenericArguments()
-#endif
-                            .First();
+                        select interfaceType.GetGenericArguments().First();
 
             return types.Last();
         }
 
         static bool ImplementsMigrationInterface(Type migrationType)
         {
-            var types = from interfaceType in migrationType
-#if(NETFX_CORE)
-                                    .GetTypeInfo().ImplementedInterfaces
-#else
-                                    .GetInterfaces()
-#endif
-                        where interfaceType
-#if(NETFX_CORE)
-                                    .GetTypeInfo().IsGenericType
-#else
-                                    .IsGenericType
-#endif
+            var types = from interfaceType in migrationType.GetInterfaces()
+                        where interfaceType.IsGenericType
                         let baseInterface = interfaceType.GetGenericTypeDefinition()
                         where baseInterface == typeof(IAmNextGenerationOf<>)
                         select interfaceType;

@@ -1,4 +1,4 @@
-﻿describe("when posting data to a url that returns an array of elements", sinon.test(function () {
+describe("when posting data to a url that returns an array of elements", sinon.test(function () {
     var url = "/Somewhere/With?query=value";
     var fakeServer = sinon.fakeServer.create();
     var data = { something: 42 };
@@ -18,7 +18,7 @@
 
     fakeServer.respond();
 
-    
+
     it("should deserialize the data coming back", function () {
         expect(response).toEqual([
             { somethingElse: 43 },

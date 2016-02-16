@@ -5,7 +5,7 @@
 // Licensed under the MIT License (http://opensource.org/licenses/MIT)
 //
 // You may not use this file except in compliance with the License.
-// You may obtain a copy of the license at 
+// You may obtain a copy of the license at
 //
 //   http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt
 //
@@ -25,15 +25,15 @@ using Bifrost.Execution;
 
 namespace Bifrost.Windsor
 {
-	public class DefaultTypeLoader : ILazyComponentLoader
-	{
-		public IRegistration Load (string key, Type service, IDictionary arguments)
-		{         
-			if( !service.IsInterface && !service.IsAbstract ) {
-				return Component.For (service).WithLifecycle(Container.DefaultBindingLifecycle);
-			}
-			return null;
-		}
-	}
+    public class DefaultTypeLoader : ILazyComponentLoader
+    {
+        public IRegistration Load (string key, Type service, IDictionary arguments)
+        {
+            if( !service.IsInterface && !service.IsAbstract ) {
+                return Component.For (service).WithLifecycle(Container.DefaultBindingLifecycle);
+            }
+            return null;
+        }
+    }
 }
 
