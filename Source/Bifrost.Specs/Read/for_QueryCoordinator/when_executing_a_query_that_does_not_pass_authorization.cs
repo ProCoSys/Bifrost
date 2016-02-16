@@ -1,5 +1,4 @@
-﻿using System;
-using Bifrost.Read;
+﻿using Bifrost.Read;
 using Bifrost.Security;
 using Machine.Specifications;
 
@@ -11,7 +10,7 @@ namespace Bifrost.Specs.Read.for_QueryCoordinator
         static PagingInfo paging;
         static QueryResult result;
 
-        Establish   context = () =>
+        Establish context = () =>
         {
             query = new QueryForKnownProvider();
             paging = new PagingInfo();
@@ -29,7 +28,9 @@ namespace Bifrost.Specs.Read.for_QueryCoordinator
             authorizeDescriptorResult.ProcessAuthorizeActionResult(authorizeActionResult);
             authorizationResult.ProcessAuthorizeDescriptorResult(authorizeDescriptorResult);
 
-            fetching_security_manager_mock.Setup(f => f.Authorize(Moq.It.IsAny<IQuery>())).Returns(authorizationResult);
+            GetMock<IFetchingSecurityManager>()
+                .Setup(f => f.Authorize(Moq.It.IsAny<IQuery>()))
+                .Returns(authorizationResult);
         };
 
         Because of = () => result = coordinator.Execute(query, paging);
