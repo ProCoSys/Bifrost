@@ -1,5 +1,5 @@
-﻿using Bifrost.Testing.Fakes.Sagas;
-using Bifrost.Sagas;
+﻿using Bifrost.Sagas;
+using Bifrost.Testing.Fakes.Sagas;
 using Machine.Specifications;
 
 namespace Bifrost.Specs.Sagas.for_SagaNarrator
@@ -12,11 +12,11 @@ namespace Bifrost.Specs.Sagas.for_SagaNarrator
         static SagaWithOneChapterProperty saga;
 
         Establish context = () =>
-                                {
-                                    first_chapter = new TransitionalChapter();
-                                    second_chapter = new SimpleChapter();
-                                    saga = new SagaWithOneChapterProperty(first_chapter, second_chapter);
-                                };
+        {
+            first_chapter = new TransitionalChapter();
+            second_chapter = new SimpleChapter();
+            saga = new SagaWithOneChapterProperty(first_chapter, second_chapter);
+        };
 
         Because of = () => narrator.TransitionTo<TransitionalChapter>(saga);
 

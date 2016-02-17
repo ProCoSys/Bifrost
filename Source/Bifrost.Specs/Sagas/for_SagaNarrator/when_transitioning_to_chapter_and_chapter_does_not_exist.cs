@@ -1,5 +1,6 @@
-﻿using Bifrost.Testing.Fakes.Sagas;
+﻿using Bifrost.Execution;
 using Bifrost.Sagas;
+using Bifrost.Testing.Fakes.Sagas;
 using Machine.Specifications;
 
 namespace Bifrost.Specs.Sagas.for_SagaNarrator
@@ -11,12 +12,12 @@ namespace Bifrost.Specs.Sagas.for_SagaNarrator
         static TransitionalChapter chapter;
 
         Establish context = () =>
-                                {
-                                    saga = new Saga();
-                                    chapter = new TransitionalChapter();
+        {
+            saga = new Saga();
+            chapter = new TransitionalChapter();
 
-                                    container_mock.Setup(c => c.Get<TransitionalChapter>()).Returns(chapter);
-                                };
+            GetMock<IContainer>().Setup(c => c.Get<TransitionalChapter>()).Returns(chapter);
+        };
 
         Because of = () => narrator.TransitionTo<TransitionalChapter>(saga);
 

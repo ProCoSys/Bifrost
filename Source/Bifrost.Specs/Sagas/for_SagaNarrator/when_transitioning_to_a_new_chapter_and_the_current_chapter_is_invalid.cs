@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Bifrost.Testing.Fakes.Sagas;
 using Bifrost.Sagas;
+using Bifrost.Testing.Fakes.Sagas;
 using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
@@ -21,12 +21,14 @@ namespace Bifrost.Specs.Sagas.for_SagaNarrator
             saga = new Saga();
             saga.SetCurrentChapter(current_chapter);
 
-            chapter_validation_service_mock.Setup(v => v.Validate(current_chapter)).Returns(new List<ValidationResult>() { new ValidationResult("Test") });
+            GetMock<IChapterValidationService>()
+                .Setup(v => v.Validate(current_chapter))
+                .Returns(new List<ValidationResult> {new ValidationResult("Test")});
         };
 
         Because of = () => chapter_transition = narrator.TransitionTo<AnotherTransitionalChapter>(saga);
 
-        It should_not_record_saga = () => librarian_mock.Verify(a => a.Catalogue(saga), Times.Never());
+        It should_not_record_saga = () => GetMock<ISagaLibrarian>().Verify(a => a.Catalogue(saga), Times.Never());
         It should_return_an_invalid_result = () => chapter_transition.Invalid.ShouldBeTrue();
         It should_not_transition_the_chapter = () => saga.CurrentChapter.ShouldEqual(current_chapter);
     }
