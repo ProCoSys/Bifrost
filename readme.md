@@ -9,6 +9,8 @@ Originally developed by [dolittle](http://bifrost.dolittle.com), the project was
 
 To get an idea of how the framework will help you get up and running fast, have a look here : http://vimeo.com/30971308
 
+### [Release Notes](releasenotes.md)
+
 # Contributing
 
 ### Coding standard
