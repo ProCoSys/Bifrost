@@ -1,4 +1,5 @@
 ﻿using System;
+using Bifrost.Exceptions;
 using Bifrost.Read;
 using Machine.Specifications;
 using It = Machine.Specifications.It;
@@ -29,5 +30,7 @@ namespace Bifrost.Specs.Read.for_QueryCoordinator
         Because of = () => result = coordinator.Execute(query, paging);
 
         It should_set_the_exception_on_the_result = () => result.Exception.ShouldEqual(exception_thrown);
+
+        It should_publish_the_exception = () => GetMock<IExceptionPublisher>().Verify(m => m.Publish(exception_thrown));
     }
 }

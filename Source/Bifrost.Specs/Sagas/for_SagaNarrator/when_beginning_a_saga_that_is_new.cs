@@ -1,5 +1,6 @@
-﻿using Bifrost.Testing.Fakes.Sagas;
+﻿using Bifrost.Execution;
 using Bifrost.Sagas;
+using Bifrost.Testing.Fakes.Sagas;
 using Machine.Specifications;
 
 namespace Bifrost.Specs.Sagas.for_SagaNarrator
@@ -11,12 +12,15 @@ namespace Bifrost.Specs.Sagas.for_SagaNarrator
         static SimpleChapter simple_chapter;
 
         Establish context = () =>
-                                {
-                                    simple_chapter = new SimpleChapter();
-                                    container_mock.Setup(c => c.Get<SagaWithOneChapterProperty>()).Returns(new SagaWithOneChapterProperty());
-                                    container_mock.Setup(c => c.Get(typeof (SimpleChapter))).Returns(
-                                        simple_chapter);
-                                };
+        {
+            simple_chapter = new SimpleChapter();
+            GetMock<IContainer>()
+                .Setup(c => c.Get<SagaWithOneChapterProperty>())
+                .Returns(new SagaWithOneChapterProperty());
+            GetMock<IContainer>()
+                .Setup(c => c.Get(typeof (SimpleChapter)))
+                .Returns(simple_chapter);
+        };
 
         Because of = () => saga = narrator.Begin<SagaWithOneChapterProperty>();
 

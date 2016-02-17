@@ -1,6 +1,7 @@
 using System;
-using Bifrost.Testing.Fakes.Sagas;
+using Bifrost.Execution;
 using Bifrost.Sagas;
+using Bifrost.Testing.Fakes.Sagas;
 using Machine.Specifications;
 
 namespace Bifrost.Specs.Sagas.for_SagaNarrator
@@ -13,15 +14,15 @@ namespace Bifrost.Specs.Sagas.for_SagaNarrator
         static ISaga returned_saga;
 
         Establish context = () =>
-                                {
-                                    saga_id = Guid.NewGuid();
-                                    saga = new SagaWithOneChapterProperty();
-                                    container_mock.Setup(c => c.Get<SagaWithOneChapterProperty>()).Returns(saga);
-                                    container_mock.Setup(c => c.Get(typeof(SimpleChapter))).Returns(new SimpleChapter());
-                                    saga = narrator.Begin<SagaWithOneChapterProperty>();
-                                    librarian_mock.Setup(a => a.Get(saga_id)).Returns(saga);
-                                    saga.Continue();
-                                };
+        {
+            saga_id = Guid.NewGuid();
+            saga = new SagaWithOneChapterProperty();
+            GetMock<IContainer>().Setup(c => c.Get<SagaWithOneChapterProperty>()).Returns(saga);
+            GetMock<IContainer>().Setup(c => c.Get(typeof (SimpleChapter))).Returns(new SimpleChapter());
+            saga = narrator.Begin<SagaWithOneChapterProperty>();
+            GetMock<ISagaLibrarian>().Setup(a => a.Get(saga_id)).Returns(saga);
+            saga.Continue();
+        };
 
         Because of = () => returned_saga = narrator.Continue(saga_id);
 

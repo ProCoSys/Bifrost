@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Bifrost.Exceptions;
 using Bifrost.Execution;
 using Bifrost.Read.Validation;
 
@@ -34,11 +35,12 @@ namespace Bifrost.Read
         const string ExecuteMethodName = "Execute";
 
         Dictionary<Type, Type> _queryProviderTypesPerTargetType;
-        ITypeDiscoverer _typeDiscoverer;
-        IContainer _container;
-        IReadModelFilters _filters;
-        IQueryValidator _validator;
-        IFetchingSecurityManager _fetchingSecurityManager;
+        readonly ITypeDiscoverer _typeDiscoverer;
+        readonly IContainer _container;
+        readonly IFetchingSecurityManager _fetchingSecurityManager;
+        readonly IQueryValidator _validator;
+        readonly IReadModelFilters _filters;
+        readonly IExceptionPublisher _exceptionPublisher;
 
         /// <summary>
         /// Initializes a new instance of <see cref="QueryCoordinator"/>
@@ -48,18 +50,21 @@ namespace Bifrost.Read
         /// <param name="fetchingSecurityManager"><see cref="IFetchingSecurityManager"/> to use for securing <see cref="IQuery">queries</see></param>
         /// <param name="validator"><see cref="IQueryValidator"/> to use for validating <see cref="IQuery">queries</see></param>
         /// <param name="filters"><see cref="IReadModelFilters">Filters</see> used to filter any of the read models coming back after a query</param>
+        /// <param name="exceptionPublisher">An <see cref="IExceptionPublisher"/> to send exceptions to</param>
         public QueryCoordinator(
             ITypeDiscoverer typeDiscoverer,
             IContainer container,
             IFetchingSecurityManager fetchingSecurityManager,
             IQueryValidator validator,
-            IReadModelFilters filters)
+            IReadModelFilters filters,
+            IExceptionPublisher exceptionPublisher)
         {
             _typeDiscoverer = typeDiscoverer;
             _container = container;
+            _fetchingSecurityManager = fetchingSecurityManager;
             _validator = validator;
             _filters = filters;
-            _fetchingSecurityManager = fetchingSecurityManager;
+            _exceptionPublisher = exceptionPublisher;
             DiscoverQueryTypesPerTargetType();
         }
 
@@ -98,10 +103,12 @@ namespace Bifrost.Read
             }
             catch (TargetInvocationException ex)
             {
+                _exceptionPublisher.Publish(ex.InnerException);
                 result.Exception = ex.InnerException;
             }
             catch (Exception ex)
             {
+                _exceptionPublisher.Publish(ex);
                 result.Exception = ex;
             }
 

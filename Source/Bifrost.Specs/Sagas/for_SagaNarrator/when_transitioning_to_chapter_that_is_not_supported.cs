@@ -1,6 +1,6 @@
 ﻿using System;
-using Bifrost.Testing.Fakes.Sagas;
 using Bifrost.Sagas;
+using Bifrost.Testing.Fakes.Sagas;
 using Machine.Specifications;
 
 namespace Bifrost.Specs.Sagas.for_SagaNarrator
@@ -11,12 +11,11 @@ namespace Bifrost.Specs.Sagas.for_SagaNarrator
         static Saga saga;
         static Exception exception;
 
-
         Establish context = () =>
-                                {
-                                    saga = new Saga();
-                                    saga.SetCurrentChapter(new NonTransitionalChapter());
-                                };
+        {
+            saga = new Saga();
+            saga.SetCurrentChapter(new NonTransitionalChapter());
+        };
 
         Because of = () => exception = Catch.Exception(() => narrator.TransitionTo<TransitionalChapter>(saga));
 
