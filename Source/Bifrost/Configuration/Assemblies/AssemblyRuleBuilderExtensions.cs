@@ -16,30 +16,36 @@
 // limitations under the License.
 //
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bifrost.Specifications;
 
 namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
-    /// Provides extensions for <see cref="IAssemblyRuleBuilder"/>
+    /// Provides extensions for <see cref="IAssemblyRuleBuilder"/>.
     /// </summary>
     public static class AssemblyRuleBuilderExtensions
     {
-
         /// <summary>
-        /// Excludes specified assemblies
+        /// Excludes specified assemblies.
         /// </summary>
-        /// <param name="assemblyBuilder"><see cref="IAssemblyBuilder"/> to build upon</param>
-        /// <param name="names">Names that assemblies should not be starting with</param>
-        /// <returns>Chained <see cref="IAssemblyBuilder"/></returns>
+        /// <param name="assemblyBuilder"><see cref="IAssemblyBuilder"/> to build upon.</param>
+        /// <param name="names">Names that assemblies should not be starting with.</param>
+        /// <returns>Chained <see cref="IAssemblyBuilder"/>.</returns>
         public static IAssemblyRuleBuilder ExcludeAssembliesStartingWith(this IAssemblyRuleBuilder assemblyBuilder, params string[] names)
         {
             assemblyBuilder.Specification = assemblyBuilder.Specification.And(new ExceptAssembliesStartingWith(names));
+            return assemblyBuilder;
+        }
+
+        /// <summary>
+        /// Includes specified assemblies.
+        /// </summary>
+        /// <param name="assemblyBuilder"><see cref="IAssemblyBuilder"/> to build upon.</param>
+        /// <param name="names">Names that assemblies should be starting with.</param>
+        /// <returns>Chained <see cref="IAssemblyBuilder"/>.</returns>
+        public static IAssemblyRuleBuilder IncludeAssembliesStartingWith(this IAssemblyRuleBuilder assemblyBuilder, params string[] names)
+        {
+            assemblyBuilder.Specification = assemblyBuilder.Specification.Or(new AssembliesStartingWith(names));
             return assemblyBuilder;
         }
     }

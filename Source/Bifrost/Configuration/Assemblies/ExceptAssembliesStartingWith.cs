@@ -23,17 +23,17 @@ namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
     /// Rule representing an exception for <see cref="IncludeAllRule"/>,
-    /// excluding assembies starting with
+    /// excluding assemblies in files starting with any of the given names.
     /// </summary>
     public class ExceptAssembliesStartingWith : Specification<string>
     {
         /// <summary>
-        /// Initializes an instance of <see cref="ExceptAssembliesStartingWith"/>
+        /// Initializes an instance of <see cref="ExceptAssembliesStartingWith"/>.
         /// </summary>
-        /// <param name="names"></param>
+        /// <param name="names">List of assembly name prefixes.</param>
         public ExceptAssembliesStartingWith(params string[] names)
         {
-            Predicate = a => !names.Any(n => a.StartsWith(n));
+            Predicate = a => !names.Any(a.StartsWith);
         }
     }
 }

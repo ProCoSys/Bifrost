@@ -22,12 +22,12 @@ namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
     /// Represents the <see cref="IAssemblyRuleBuilder">builder</see> for building the <see cref="IncludeAllRule"/> and
-    /// possible exceptions
+    /// possible exceptions.
     /// </summary>
     public class IncludeAll : IAssemblyRuleBuilder
     {
         /// <summary>
-        /// Initializes an instance of <see cref="IncludeAll"/>
+        /// Initializes an instance of <see cref="IncludeAll"/>.
         /// </summary>
         public IncludeAll()
         {
@@ -35,7 +35,7 @@ namespace Bifrost.Configuration.Assemblies
         }
 
         /// <summary>
-        /// Gets the <see cref="IncludeAllRule"/>
+        /// Gets the <see cref="IncludeAllRule"/>.
         /// </summary>
         public Specification<string> Specification { get; set; }
     }

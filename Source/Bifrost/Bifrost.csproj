@@ -127,9 +127,13 @@
     <Compile Include="Configuration\Assemblies\AssembliesConfiguration.cs" />
     <Compile Include="Configuration\Assemblies\AssembliesConfigurationBuilder.cs" />
     <Compile Include="Configuration\Assemblies\AssemblyRuleBuilderExtensions.cs" />
+    <Compile Include="Configuration\Assemblies\AssembliesStartingWith.cs" />
     <Compile Include="Configuration\Assemblies\ExceptAssembliesStartingWith.cs" />
     <Compile Include="Configuration\Assemblies\IAssemblyRuleBuilder.cs" />
+    <Compile Include="Configuration\Assemblies\IncludeNone.cs" />
     <Compile Include="Configuration\Assemblies\IncludeAll.cs" />
+    <Compile Include="Configuration\Assemblies\IncludeNoneExtensions.cs" />
+    <Compile Include="Configuration\Assemblies\IncludeNoneRule.cs" />
     <Compile Include="Configuration\Assemblies\IncludeAllRule.cs" />
     <Compile Include="Configuration\Assemblies\IncludeAllExtensions.cs" />
     <Compile Include="Exceptions\ExceptionPublisher.cs" />

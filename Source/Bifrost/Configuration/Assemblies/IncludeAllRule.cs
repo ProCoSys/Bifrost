@@ -23,12 +23,12 @@ namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
     /// Represents a <see cref="Specification{T}">rule</see> specific to <see cref="Assembly">assemblies</see>
-    /// and used for the <see cref="Assemblies"/>
+    /// that matches all assemblies.
     /// </summary>
     public class IncludeAllRule : Specification<string>
     {
         /// <summary>
-        /// Initializes an instance of <see cref="IncludeAllRule"/>
+        /// Initializes an instance of <see cref="IncludeAllRule"/>.
         /// </summary>
         public IncludeAllRule()
         {

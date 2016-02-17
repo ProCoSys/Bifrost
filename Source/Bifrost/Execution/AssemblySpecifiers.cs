@@ -29,9 +29,9 @@ namespace Bifrost.Execution
     /// </summary>
     public class AssemblySpecifiers : IAssemblySpecifiers
     {
-        ITypeFinder _typeFinder;
-        IContractToImplementorsMap _contractToImplementorsMap;
-        IAssemblyRuleBuilder _assemblyRuleBuilder;
+        readonly ITypeFinder _typeFinder;
+        readonly IContractToImplementorsMap _contractToImplementorsMap;
+        readonly IAssemblyRuleBuilder _assemblyRuleBuilder;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssemblySpecifiers"/>
