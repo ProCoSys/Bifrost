@@ -15,6 +15,7 @@ _Breaking changes_
 * Client side proxies will now be generated for dynamic input validators [dolittle#670](https://github.com/dolittle/Bifrost/issues/670)
 * Correct `.NotNull` client side proxy for input validators [dolittle#671](https://github.com/dolittle/Bifrost/issues/671)
 * All classes in Bifrost.Execution now works on `Assembly` instead of `_Assembly`
+* Assembly specification is now opt-in (using `IncludeAssembliesStartingWith`) instead of opt-out (previously using `ExcludeAssembliesStartingWith`) [#6](https://github.com/ProCoSys/Bifrost/issues/6)
 
 _Other changes_
 * Projects upgraded to .NET 4.6
