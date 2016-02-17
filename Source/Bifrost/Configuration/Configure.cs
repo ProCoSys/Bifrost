@@ -171,7 +171,7 @@ namespace Bifrost.Configuration
         /// <param name="container"><see cref="IContainer"/> to configure with</param>
         /// <param name="defaultConventions"><see cref="IDefaultConventions"/> to use</param>
         /// <param name="defaultBindings"><see cref="IDefaultBindings"/> to use</param>
-        /// <param name="assembliesConfiguration"><see cref="AssembliesConfiIAssembliesConfigurationguration"/> to use</param>
+        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use</param>
         /// <returns></returns>
         public static Configure With(
             IContainer container,
