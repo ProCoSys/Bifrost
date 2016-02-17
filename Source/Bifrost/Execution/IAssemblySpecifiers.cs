@@ -16,8 +16,8 @@
 // limitations under the License.
 //
 #endregion
-using System.Runtime.InteropServices;
-using Bifrost.Configuration.Assemblies;
+
+using System.Reflection;
 
 namespace Bifrost.Execution
 {
@@ -27,9 +27,9 @@ namespace Bifrost.Execution
     public interface IAssemblySpecifiers
     {
         /// <summary>
-        /// Specifies using specifiers found in a specific <see cref="_Assembly"/>
+        /// Specifies using specifiers found in a specific <see cref="Assembly"/>
         /// </summary>
-        /// <param name="assembly"><see cref="_Assembly"/> to find specifiers from</param>
-        void SpecifyUsingSpecifiersFrom(_Assembly assembly);
+        /// <param name="assembly"><see cref="Assembly"/> to find specifiers from</param>
+        void SpecifyUsingSpecifiersFrom(Assembly assembly);
     }
 }

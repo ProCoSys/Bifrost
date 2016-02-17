@@ -18,8 +18,6 @@
 #endregion
 using System;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace Bifrost.Execution
 {
@@ -94,13 +92,6 @@ namespace Bifrost.Execution
             {
                 fs.Close();
             }
-        }
-
-        public bool IsAssemblyDynamic(_Assembly assembly)
-        {
-            var module = assembly.GetModules().FirstOrDefault();
-            if (module != null && module.GetType().Name == "InternalModuleBuilder") return true;
-            return false;
         }
 #pragma warning restore 1591 // Xml Comments
     }
