@@ -19,7 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace Bifrost.Execution
 {
@@ -55,7 +55,7 @@ namespace Bifrost.Execution
             }
         }
 
-        public _Assembly Get(AssemblyInfo assemblyInfo)
+        public Assembly Get(AssemblyInfo assemblyInfo)
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                 .Where(assembly =>

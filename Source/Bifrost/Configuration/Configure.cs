@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Bifrost.Configuration.Assemblies;
 using Bifrost.Configuration.Defaults;
@@ -267,7 +266,7 @@ namespace Bifrost.Configuration
             callbacks.ForEach(c => c.Configured(this));
         }
 
-        static Type DiscoverCanCreateContainerType(IEnumerable<_Assembly> assemblies)
+        static Type DiscoverCanCreateContainerType(IEnumerable<Assembly> assemblies)
         {
             Type createContainerType = null;
             foreach (var assembly in assemblies.ToArray())
