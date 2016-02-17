@@ -112,14 +112,6 @@ namespace Bifrost.Execution
             _assemblySpecifiers.SpecifyUsingSpecifiersFrom(assembly);
         }
 
-        void ReapplyFilter()
-        {
-            _assemblies
-                .Where(a => !_assemblyFilters.ShouldInclude(a.GetName().Name))
-                .ToList()
-                .ForEach(a => _assemblies.Remove(a));
-        }
-
         void AddAssembly(Assembly assembly)
         {
             lock (LockObject)
@@ -129,8 +121,6 @@ namespace Bifrost.Execution
                     _assemblies.Add(assembly);
                     _contractToImplementorsMap.Feed(assembly.GetTypes());
                     SpecifyRules(assembly);
-                    // TODO: This is not needed when assemblies become opt-in
-                    ReapplyFilter();
                 }
             }
         }

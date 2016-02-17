@@ -29,11 +29,7 @@ namespace Bifrost
 #pragma warning disable 1591 // Xml Comments
         public void Specify(IAssemblyRuleBuilder builder)
         {
-            builder.ExcludeAssembliesStartingWith(
-                "System",
-                "mscorlib",
-                "Microsoft"
-            );
+            builder.IncludeAssembliesStartingWith("Bifrost");
         }
 #pragma warning disable 1591 // Xml Comments
     }
