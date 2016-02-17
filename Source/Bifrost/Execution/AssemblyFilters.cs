@@ -16,25 +16,23 @@
 // limitations under the License.
 //
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Reflection;
+
 using Bifrost.Configuration.Assemblies;
 
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IAssemblyFilters"/>
+    /// Represents an implementation of <see cref="IAssemblyFilters"/>.
     /// </summary>
     public class AssemblyFilters : IAssemblyFilters
     {
-        AssembliesConfiguration _assembliesConfiguration;
+        readonly IAssembliesConfiguration _assembliesConfiguration;
 
         /// <summary>
-        /// Initializes an instance of <see cref="AssemblyFilters"/>
+        /// Initializes an instance of <see cref="AssemblyFilters"/>.
         /// </summary>
         /// <param name="assembliesConfiguration"></param>
-        public AssemblyFilters(AssembliesConfiguration assembliesConfiguration)
+        public AssemblyFilters(IAssembliesConfiguration assembliesConfiguration)
         {
             _assembliesConfiguration = assembliesConfiguration;
         }

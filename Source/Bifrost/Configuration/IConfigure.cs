@@ -16,7 +16,7 @@
 // limitations under the License.
 //
 #endregion
-using System;
+
 using System.Globalization;
 using System.Reflection;
 using Bifrost.Configuration.Assemblies;
@@ -110,7 +110,7 @@ namespace Bifrost.Configuration
         /// <summary>
         /// Gets the configuration for assemblies and how they are treated
         /// </summary>
-        AssembliesConfiguration Assemblies { get; }
+        IAssembliesConfiguration Assemblies { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="CultureInfo">culture</see> to use in Bifrost

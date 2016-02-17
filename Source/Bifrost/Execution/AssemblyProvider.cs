@@ -31,16 +31,16 @@ namespace Bifrost.Execution
     [Singleton]
     public class AssemblyProvider : IAssemblyProvider
     {
-        static object _lockObject = new object();
+        static readonly object LockObject = new object();
 
-        AssemblyComparer comparer = new AssemblyComparer();
+        readonly AssemblyComparer _comparer = new AssemblyComparer();
 
-        IEnumerable<ICanProvideAssemblies> _assemblyProviders;
-        IAssemblyFilters _assemblyFilters;
-        IAssemblyUtility _assemblyUtility;
-        IAssemblySpecifiers _assemblySpecifiers;
-        IContractToImplementorsMap _contractToImplementorsMap;
-        ObservableCollection<Assembly> _assemblies = new ObservableCollection<Assembly>();
+        readonly IEnumerable<ICanProvideAssemblies> _assemblyProviders;
+        readonly IAssemblyFilters _assemblyFilters;
+        readonly IAssemblyUtility _assemblyUtility;
+        readonly IAssemblySpecifiers _assemblySpecifiers;
+        readonly IContractToImplementorsMap _contractToImplementorsMap;
+        readonly ObservableCollection<Assembly> _assemblies = new ObservableCollection<Assembly>();
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssemblyProvider"/>
@@ -76,28 +76,34 @@ namespace Bifrost.Execution
         void HookUpAssemblyAddedForProviders()
         {
             foreach (var provider in _assemblyProviders)
+            {
                 provider.AssemblyAdded += AssemblyLoaded;
+            }
         }
 
         void AssemblyLoaded(Assembly assembly)
         {
-            if (assembly.IsDynamic) return;
+            if (assembly.IsDynamic)
+            {
+                return;
+            }
 
             var assemblyFile = new FileInfo(assembly.Location);
-            if (!_assemblyFilters.ShouldInclude(assemblyFile.Name)) return;
-            AddAssembly(assembly);
+            if (_assemblyFilters.ShouldInclude(assemblyFile.Name))
+            {
+                AddAssembly(assembly);
+            }
         }
 
         void Populate()
         {
             foreach (var provider in _assemblyProviders)
             {
-                var assembliesToInclude = provider.AvailableAssemblies.Where(
-                    a =>
-                        _assemblyFilters.ShouldInclude(a.FileName) &&
-                        _assemblyUtility.IsAssembly(a)
-                    );
-                assembliesToInclude.Select(provider.Get).ForEach(AddAssembly);
+                provider.AvailableAssemblies
+                    .Where(a => _assemblyFilters.ShouldInclude(a.FileName))
+                    .Where(_assemblyUtility.IsAssembly)
+                    .Select(provider.Get)
+                    .ForEach(AddAssembly);
             }
         }
 
@@ -106,35 +112,17 @@ namespace Bifrost.Execution
             _assemblySpecifiers.SpecifyUsingSpecifiersFrom(assembly);
         }
 
-        void ReapplyFilter()
-        {
-            var assembliesToRemove = _assemblies.Where(a => !_assemblyFilters.ShouldInclude(a.GetName().Name)).ToArray();
-            assembliesToRemove.ForEach((a) =>_assemblies.Remove(a));
-        }
-
         void AddAssembly(Assembly assembly)
         {
-            lock (_lockObject)
+            lock (LockObject)
             {
-                if (!_assemblies.Contains(assembly, comparer) && !assembly.IsDynamic)
+                if (!_assemblies.Contains(assembly, _comparer) && !assembly.IsDynamic)
                 {
                     _assemblies.Add(assembly);
-
-                    if (assembly.FullName.Contains("Web"))
-                    {
-                        var i = 0;
-                        i++;
-                    }
                     _contractToImplementorsMap.Feed(assembly.GetTypes());
                     SpecifyRules(assembly);
-                    ReapplyFilter();
                 }
             }
-        }
-
-        bool Matches(AssemblyName a, AssemblyName b)
-        {
-            return a.ToString() == b.ToString();
         }
     }
 }

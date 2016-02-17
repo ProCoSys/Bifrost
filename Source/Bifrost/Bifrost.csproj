@@ -124,14 +124,11 @@
     <Compile Include="Concurrency\IScheduler.cs" />
     <Compile Include="Concurrency\Scheduler.cs" />
     <Compile Include="Configuration\AmbiguousContainerCreationException.cs" />
-    <Compile Include="Configuration\Assemblies\AssembliesConfiguration.cs" />
-    <Compile Include="Configuration\Assemblies\AssembliesConfigurationBuilder.cs" />
-    <Compile Include="Configuration\Assemblies\AssemblyRuleBuilderExtensions.cs" />
-    <Compile Include="Configuration\Assemblies\ExceptAssembliesStartingWith.cs" />
-    <Compile Include="Configuration\Assemblies\IAssemblyRuleBuilder.cs" />
-    <Compile Include="Configuration\Assemblies\IncludeAll.cs" />
-    <Compile Include="Configuration\Assemblies\IncludeAllRule.cs" />
-    <Compile Include="Configuration\Assemblies\IncludeAllExtensions.cs" />
+    <Compile Include="Configuration\Assemblies\AssemblyConfigurationExtensions.cs" />
+    <Compile Include="Configuration\Assemblies\AssembliesStartingWith.cs" />
+    <Compile Include="Configuration\Assemblies\IAssembliesConfigurationBuilder.cs" />
+    <Compile Include="Configuration\Assemblies\IncludeNone.cs" />
+    <Compile Include="Configuration\Assemblies\IncludeNoneRule.cs" />
     <Compile Include="Exceptions\ExceptionPublisher.cs" />
     <Compile Include="Exceptions\IExceptionPublisher.cs" />
     <Compile Include="Exceptions\IExceptionSubscriber.cs" />
@@ -149,7 +146,6 @@
     <Compile Include="Configuration\ExecutionContextConfiguration.cs" />
     <Compile Include="Configuration\FrontendConfiguration.cs" />
     <Compile Include="Execution\ContractToImplementorsMap.cs" />
-    <Compile Include="Execution\DefaultAssemblySpecifier.cs" />
     <Compile Include="Execution\FileSystemAssemblyProvider.cs" />
     <Compile Include="Execution\IAssemblySpecifiers.cs" />
     <Compile Include="Configuration\ICallContextConfiguration.cs" />

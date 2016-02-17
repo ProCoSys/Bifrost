@@ -21,7 +21,7 @@ using Bifrost.Configuration.Assemblies;
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Specifies what assemblies to include
+    /// Specifies what assemblies to include or not.
     /// </summary>
     /// <remarks>
     /// Typically used by implementations of <see cref="IAssemblies"/> to
@@ -32,9 +32,9 @@ namespace Bifrost.Execution
     public interface ICanSpecifyAssemblies
     {
         /// <summary>
-        /// Method that gets called for specifying which assemblies to include or not
+        /// Method that gets called for specifying which assemblies to include or not.
         /// </summary>
-        /// <param name="builder"><see cref="IAssemblyRuleBuilder"/> object to build specification on</param>
-        void Specify(IAssemblyRuleBuilder builder);
+        /// <param name="configuration"><see cref="IAssembliesConfiguration"/> object to build specification on.</param>
+        void Specify(IAssembliesConfiguration configuration);
     }
 }

@@ -16,23 +16,19 @@
 // limitations under the License.
 //
 #endregion
-using Bifrost.Configuration.Assemblies;
-using Bifrost.Execution;
 
-namespace Bifrost.RavenDB
+using Bifrost.Specifications;
+
+namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
-    /// Reperesents an <see cref="ICanSpecifyAssemblies">assembly specifier</see> for client aspects
+    /// Defines a configuration for how to include or exclude assemblies.
     /// </summary>
-    public class AssemblySpecifier : ICanSpecifyAssemblies
+    public interface IAssembliesConfiguration
     {
-#pragma warning disable 1591 // Xml Comments
-        public void Specify(IAssemblyRuleBuilder builder)
-        {
-            builder.ExcludeAssembliesStartingWith(
-                "Raven"
-            );
-        }
-#pragma warning disable 1591 // Xml Comments
+        /// <summary>
+        /// Get the specification to use.
+        /// </summary>
+        Specification<string> Specification { get; set; }
     }
 }
