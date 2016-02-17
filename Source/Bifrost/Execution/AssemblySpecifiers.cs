@@ -25,24 +25,28 @@ using Bifrost.Extensions;
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IAssemblySpecifiers"/>
+    /// Represents an implementation of <see cref="IAssemblySpecifiers"/>.
     /// </summary>
     public class AssemblySpecifiers : IAssemblySpecifiers
     {
         readonly ITypeFinder _typeFinder;
         readonly IContractToImplementorsMap _contractToImplementorsMap;
-        readonly IAssemblyRuleBuilder _assemblyRuleBuilder;
+        readonly IAssembliesConfiguration _assembliesConfiguration;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="AssemblySpecifiers"/>
+        /// Initializes a new instance of <see cref="AssemblySpecifiers"/>.
         /// </summary>
-        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of the relationship between contracts and implementors</param>
+        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of the
+        /// relationship between contracts and implementors</param>
         /// <param name="typeFinder"><see cref="ITypeFinder"/> to use for finding types</param>
-        /// <param name="assemblyRuleBuilder"><see cref="IAssemblyRuleBuilder"/> used for building the rules for assemblies</param>
-        public AssemblySpecifiers(IContractToImplementorsMap contractToImplementorsMap, ITypeFinder typeFinder, IAssemblyRuleBuilder assemblyRuleBuilder)
+        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> for specifying the assemblies</param>
+        public AssemblySpecifiers(
+            IContractToImplementorsMap contractToImplementorsMap,
+            ITypeFinder typeFinder,
+            IAssembliesConfiguration assembliesConfiguration)
         {
             _typeFinder = typeFinder;
-            _assemblyRuleBuilder = assemblyRuleBuilder;
+            _assembliesConfiguration = assembliesConfiguration;
             _contractToImplementorsMap = contractToImplementorsMap;
         }
 
@@ -56,7 +60,7 @@ namespace Bifrost.Execution
                 .ForEach(type =>
                 {
                     var specifier = Activator.CreateInstance(type) as ICanSpecifyAssemblies;
-                    specifier.Specify(_assemblyRuleBuilder);
+                    specifier.Specify(_assembliesConfiguration);
                 });
         }
 #pragma warning restore 1591 // Xml Comments

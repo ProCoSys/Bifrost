@@ -16,29 +16,19 @@
 // limitations under the License.
 //
 #endregion
+
 using Bifrost.Specifications;
 
 namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
-    /// Represents the configuration for Assemblies.
+    /// Defines a configuration for how to include or exclude assemblies.
     /// </summary>
-    public class AssembliesConfiguration
+    public interface IAssembliesConfiguration
     {
-        readonly IAssemblyRuleBuilder _assemblyRuleBuilder;
-
         /// <summary>
-        /// Initializes a new instance of <see cref="AssembliesConfiguration"/>.
+        /// Get the specification to use.
         /// </summary>
-        /// <param name="assemblyRuleBuilder"><see cref="IAssemblyRuleBuilder"/> that builds the rules.</param>
-        public AssembliesConfiguration(IAssemblyRuleBuilder assemblyRuleBuilder)
-        {
-            _assemblyRuleBuilder = assemblyRuleBuilder;
-        }
-
-        /// <summary>
-        /// Gets the specification used to specifying which assemblies to include.
-        /// </summary>
-        public Specification<string> Specification => _assemblyRuleBuilder.Specification;
+        Specification<string> Specification { get; set; }
     }
 }
