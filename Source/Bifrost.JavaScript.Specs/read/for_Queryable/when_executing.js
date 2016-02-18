@@ -32,10 +32,9 @@ describe("when executing", function () {
 
             queryable = Bifrost.read.Queryable.new({
                 query: query,
-                region: region,
                 queryService: queryService,
                 targetObservable: observable
-            });
+            }, region);
 
             returnValue = queryable.execute();
 

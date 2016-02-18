@@ -1,0 +1,7 @@
+{
+  "InheritFromParent": true,
+  "EnableTestFileBatching": true,
+  "References": [
+    { "Path": "../../Bifrost.JavaScript/tasks", "Includes": [ "*.js" ] }
+  ]
+}

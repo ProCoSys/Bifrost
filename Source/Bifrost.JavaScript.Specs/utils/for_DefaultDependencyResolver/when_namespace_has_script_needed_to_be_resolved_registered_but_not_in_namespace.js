@@ -16,16 +16,7 @@ describe("when requested dependency is a valid script in namespace, but not regi
         some: "file"
     };
 
-    var fileFactoryMock = {
-        create: sinon.mock().withArgs("/Someplace/On/Server/something.js", Bifrost.io.fileType.javaScript).returns(file)
-    };
-    var fileManagerMock = {
-        load: sinon.mock().withArgs([file]).returns({
-            continueWith: function (callback) {
-                callback([systemResolved]);
-            }
-        })
-    };
+    var fileFactoryMock;
 
     beforeEach(function () {
         ns = {
@@ -35,6 +26,17 @@ describe("when requested dependency is a valid script in namespace, but not regi
 
         fileFactory = Bifrost.io.fileFactory;
         fileManager = Bifrost.io.fileManager;
+
+        fileFactoryMock = {
+            create: sinon.mock().withArgs("/Someplace/On/Server/something.js", Bifrost.io.fileType.javaScript).returns(file)
+        };
+        var fileManagerMock = {
+            load: sinon.mock().withArgs([file]).returns({
+                continueWith: function (callback) {
+                    callback([systemResolved]);
+                }
+            })
+        };
 
         Bifrost.io.fileFactory = {
             create: sinon.stub().returns(fileFactoryMock)

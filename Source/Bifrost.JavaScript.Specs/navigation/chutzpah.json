@@ -1,0 +1,7 @@
+{
+  "InheritFromParent": true,
+  "EnableTestFileBatching": false,
+  "References": [
+    { "Path": "../../Bifrost.JavaScript/navigation", "Includes": [ "*.js" ] }
+  ]
+}

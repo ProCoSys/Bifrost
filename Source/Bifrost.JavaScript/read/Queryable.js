@@ -56,9 +56,11 @@ Bifrost.namespace("Bifrost.read", {
                 number: self.pageNumber()
             });
             self.queryService.execute(query, paging).continueWith(function (result) {
-                self.totalItems(result.totalItems);
-                self.target(result.items);
-                self.onCompleted(result.items);
+                if (!Bifrost.isNullOrUndefined(result)) {
+                    self.totalItems(result.totalItems);
+                    self.target(result.items);
+                    self.onCompleted(result.items);
+                }
             });
 
             return self.target;

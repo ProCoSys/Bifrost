@@ -94,7 +94,7 @@
     <Content Include="commands\for_hasChanges\when_initial_value_is_not_set_with_value_on_observable.js" />
     <Content Include="commands\for_hasChanges\when_initial_value_is_not_set.js" />
     <Content Include="commands\for_hasChanges\when_initial_value_is_set_with_value_on_observable_differing.js" />
-    <Content Include="extensions\for_HTMLElementExtensions\when_asking_custom_element_if_its_known.js" />
+    <Content Include="given.js" />
     <Content Include="interaction\for_CommandOperation\when_creating_command_of_type_with_command_created_callback.js" />
     <Content Include="interaction\for_CommandOperation\when_creating_command_of_type.js" />
     <Content Include="mapping\for_mapper\when_mapping_to_instance_with_map_with_objectproperty.js" />
@@ -183,6 +183,8 @@
     <Content Include="specifications\for_Specification\when_specification_with_observable_evaluator_gets_changed.js" />
     <Content Include="specifications\for_Specification\when_specification_has_not_been_evaluated_against_an_instance.js" />
     <Content Include="specifications\for_Specification\when_specification_is_evaluated_against_an_instance.js" />
+    <Content Include="types\for_TypeInfo\when_creating_from_instance_with_no_properties.js" />
+    <Content Include="types\for_TypeInfo\when_creating_from_instance_with_properties_of_different_types.js" />
     <Content Include="Utils\for_isObject\when_asking_if_undefined_is_object.js" />
     <Content Include="Utils\for_isObject\when_asking_if_object_literal_is_object.js" />
     <Content Include="Utils\for_isObject\when_asking_if_string_is_object.js" />
@@ -271,17 +273,6 @@
     <Content Include="navigation\for_navigationManager\when_hooking_up_with_two_anchor_tags.js" />
     <Content Include="navigation\for_observableQueryParameter\when_default_value_is_specified_and_query_parameter_does_not_exist.js" />
     <Content Include="navigation\for_observableQueryParameter\when_default_value_is_specified_but_query_parameter_exist_as_well.js" />
-    <Content Include="navigation\for_UriMapper\when_adding_mapping.js" />
-    <Content Include="navigation\for_UriMapper\when_asking_for_all_mappings_and_no_mappings_have_been_registered.js" />
-    <Content Include="navigation\for_UriMapper\when_resolving_an_empty_uri_that_has_match.js" />
-    <Content Include="navigation\for_UriMapper\when_resolving_a_uri_that_should_match_a_uri_with_expansion.js" />
-    <Content Include="navigation\for_UriMapper\when_resolving_a_uri_without_any_expansion.js" />
-    <Content Include="navigation\for_UriMapping\when_resolving_a_uri_with_wildcard_at_the_end.js" />
-    <Content Include="navigation\for_UriMapping\when_matching_a_uri_with_wildcard_at_the_end.js" />
-    <Content Include="navigation\for_UriMapping\when_creating_with_parameters.js" />
-    <Content Include="navigation\for_UriMapping\when_matching_a_uri_that_should_match.js" />
-    <Content Include="navigation\for_UriMapping\when_matching_a_uri_that_should_not_match.js" />
-    <Content Include="navigation\for_UriMapping\when_resolving_a_uri.js" />
     <Content Include="read\for_PagingInfo\when_creating_with_values.js" />
     <Content Include="read\for_Queryable\when_all_properties_are_set_and_they_already_was.js" />
     <Content Include="read\for_Queryable\when_all_properties_are_set.js" />
@@ -382,7 +373,6 @@
     <Content Include="Utils\for_functionParser\when_function_has_two_arguments.js" />
     <Content Include="Utils\for_guid\when_generating_guid.js" />
     <Content Include="Utils\for_guid\when_getting_an_empty_guid.js" />
-    <Content Include="Utils\for_Import\when_creating.js" />
     <Content Include="Utils\for_isArray\when_checking_an_array.js" />
     <Content Include="Utils\for_isArray\when_checking_an_object.js" />
     <Content Include="Utils\for_isArray\when_checking_a_function.js" />
@@ -632,9 +622,7 @@
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="features\for_FeatureState\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Utils\for_Singleton\when_creating_instance_of_two_definitions.js" />
   </ItemGroup>
@@ -658,6 +646,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="markup\for_ObjectModelElementVisitor\when_visiting_known_element.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="chutzpah.json" />
+    <None Include="commands\chutzpah.json" />
+    <None Include="execution\chutzpah.json" />
+    <None Include="extensions\chutzpah.json" />
+    <None Include="for_documentService\chutzpah.json" />
+    <None Include="for_Event\chutzpah.json" />
+    <None Include="for_linked\chutzpah.json" />
+    <None Include="interaction\chutzpah.json" />
+    <None Include="mapping\chutzpah.json" />
+    <None Include="markup\chutzpah.json" />
+    <None Include="messaging\chutzpah.json" />
+    <None Include="navigation\chutzpah.json" />
+    <None Include="read\chutzpah.json" />
+    <None Include="specifications\chutzpah.json" />
+    <None Include="tasks\chutzpah.json" />
+    <None Include="types\chutzpah.json" />
+    <None Include="Utils\chutzpah.json" />
+    <None Include="validation\chutzpah.json" />
+    <None Include="values\chutzpah.json" />
+    <None Include="views\chutzpah.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

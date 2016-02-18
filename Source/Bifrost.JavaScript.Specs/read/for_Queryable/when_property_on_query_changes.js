@@ -24,7 +24,9 @@ describe("when property on query changes", function () {
         };
 
         queryService = {
-            execute: sinon.mock().withArgs(query, paging).once()
+            execute: sinon.mock().withArgs(query, paging).once().returns({
+                continueWith: function () { }
+            })
         };
 
         var instance = Bifrost.read.Queryable.create({

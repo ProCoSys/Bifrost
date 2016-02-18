@@ -28,6 +28,7 @@ Source/Bifrost.QuickStart/App_Data
 TestResults/*
 NDependOut
 Source/Solutions/.vs/*
+_Chutzpah*.html
 
 # OS generated files #
 ######################

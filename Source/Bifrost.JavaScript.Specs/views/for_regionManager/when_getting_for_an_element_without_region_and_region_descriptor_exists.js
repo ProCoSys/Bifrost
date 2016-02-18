@@ -18,8 +18,8 @@ describe("when getting for an element without region and region descriptor exist
     var setRegionOnCalled = false;
 
     var documentService = {
-        hasOwnRegion: sinon.mock().withArgs(element).returns(false),
-        getParentRegionFor: sinon.mock().withArgs(element).returns(region),
+        hasOwnRegion: sinon.stub().withArgs(element).returns(false),
+        getParentRegionFor: sinon.stub().withArgs(element).returns(region),
         setRegionOn: function (e, r) {
             if (e == element) {
                 setRegionOnCalled = true;
@@ -86,10 +86,6 @@ describe("when getting for an element without region and region descriptor exist
 
     it("should set the parent region as prototype", function () {
         expect(regionReturned.__proto__).toBe(region);
-    });
-
-    it("should add the new region as a child to the parent region", function () {
-        expect(region.children[0]).toBe(regionReturned);
     });
 
     it("should pass along the messenger factory", function () {

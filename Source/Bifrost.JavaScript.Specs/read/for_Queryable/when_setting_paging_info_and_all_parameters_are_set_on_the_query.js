@@ -26,7 +26,9 @@
         };
 
         queryService = {
-            execute: sinon.mock().withArgs(query, paging).once()
+            execute: sinon.mock().withArgs(query, paging).twice().returns({
+                continueWith: function () { }
+            })
         };
 
         var instance = Bifrost.read.Queryable.create({

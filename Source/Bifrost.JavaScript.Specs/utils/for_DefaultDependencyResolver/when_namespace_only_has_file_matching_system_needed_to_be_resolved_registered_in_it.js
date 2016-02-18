@@ -14,17 +14,7 @@ describe("when namespace only has file matching system needed to be resolved reg
         some: "file"
     };
 
-    var fileFactoryMock = {
-        create: sinon.mock().withArgs("/Someplace/On/Server/something.js", Bifrost.io.fileType.javaScript).returns(file)
-    };
-    var fileManagerMock = {
-        load: sinon.mock().withArgs([file]).returns({
-            continueWith: function (callback) {
-                ns.something = "Hello";
-                callback([systemResolved]);
-            }
-        })
-    };
+    var fileFactoryMock;
 
     beforeEach(function () {
         ns = {
@@ -34,6 +24,18 @@ describe("when namespace only has file matching system needed to be resolved reg
 
         fileFactory = Bifrost.io.fileFactory;
         fileManager = Bifrost.io.fileManager;
+
+        fileFactoryMock = {
+            create: sinon.mock().withArgs("/Someplace/On/Server/something.js", Bifrost.io.fileType.javaScript).returns(file)
+        };
+        var fileManagerMock = {
+            load: sinon.mock().withArgs([file]).returns({
+                continueWith: function (callback) {
+                    ns.something = "Hello";
+                    callback([systemResolved]);
+                }
+            })
+        };
 
         Bifrost.io.fileFactory = {
             create: sinon.stub().returns(fileFactoryMock)

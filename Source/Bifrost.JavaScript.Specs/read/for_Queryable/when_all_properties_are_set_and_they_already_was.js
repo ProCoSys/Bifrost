@@ -3,6 +3,7 @@ describe("when all properties are set and they already was", function () {
         foo: ko.observable(1),
         areAllParametersSet: ko.observable(true)
     };
+
     var paging = {
         size : 0,
         number : 0
@@ -11,7 +12,9 @@ describe("when all properties are set and they already was", function () {
     var region = {};
     var pagingInfoType = null;
     var queryService = {
-        execute: sinon.stub()
+        execute: sinon.stub().returns({
+            continueWith: function () { }
+        })
     };
 
     beforeEach(function () {

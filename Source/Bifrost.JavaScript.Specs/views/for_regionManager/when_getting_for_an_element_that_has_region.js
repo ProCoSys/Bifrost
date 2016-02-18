@@ -15,8 +15,8 @@
     };
 
     var documentService = {
-        hasOwnRegion: sinon.mock().withArgs(element).returns(true),
-        getRegionFor: sinon.mock().withArgs(element).returns(region)
+        hasOwnRegion: sinon.stub().withArgs(element).returns(true),
+        getRegionFor: sinon.stub().withArgs(element).returns(region)
     };
 
     var regionDescriptorManager = {

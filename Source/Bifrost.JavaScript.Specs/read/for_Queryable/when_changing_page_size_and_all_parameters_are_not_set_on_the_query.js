@@ -36,7 +36,7 @@
             targetObservable: {}
         });
 
-        instance.size(5);
+        instance.pageSize(5);
     });
 
     afterEach(function () {

@@ -1,0 +1,14 @@
+{
+  "InheritFromParent": true,
+  "EnableTestFileBatching": true,
+  "References": [
+    { "Path": "../../Bifrost.JavaScript/values/ValueConsumer.js" },
+    { "Path": "../../Bifrost.JavaScript/markup/NamingRoot.js" },
+    { "Path": "../../Bifrost.JavaScript/markup/UIElement.js" },
+    { "Path": "../../Bifrost.JavaScript/markup", "Includes": [ "*.js" ] },
+    { "Includes": ["*given*"] }
+  ],
+  "Tests": [
+    { "Excludes": ["*given*"] }
+  ]
+}

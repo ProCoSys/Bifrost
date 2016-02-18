@@ -14,8 +14,8 @@ describe("when getting for an element without region and parent not having regio
 
 
     var documentService = {
-        hasOwnRegion: sinon.mock().withArgs(element).returns(false),
-        getParentRegionFor: sinon.mock().withArgs(element).returns(null),
+        hasOwnRegion: sinon.stub().withArgs(element).returns(false),
+        getParentRegionFor: sinon.stub().withArgs(element).returns(null),
         setRegionOn: function (e, r) {
             if (e == element) {
                 setRegionOnCalled = true;
