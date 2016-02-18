@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Dolittle")]
+[assembly: AssemblyCompany("Statoil")]
 [assembly: AssemblyProduct("Bifrost")]
 [assembly: AssemblyCopyright("Copyright © 2008-2015 Dolittle")]
 [assembly: AssemblyTrademark("")]

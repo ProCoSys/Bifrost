@@ -1,26 +1,25 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Bifrost.AutoFac</id>
+    <id>$id$</id>
     <version>$version$</version>
-    <title>Bifrost AutoFac support</title>
-    <authors>Dolittle</authors>
-    <owners>Dolittle</owners>
-    <licenseUrl>http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt</licenseUrl>
-    <projectUrl>http://bifrost.dolittle.com</projectUrl>
+    <title>$id$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://github.com/ProCoSys/Bifrost/blob/master/MIT-LICENSE.txt</licenseUrl>
+    <projectUrl>http://github.com/ProCoSys/Bifrost/</projectUrl>
     <iconUrl>http://bifrost.dolittle.com/img/bifrost-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Support for AutoFac for Bifrost</description>
-    <releaseNotes>http://bifr.st/ReleaseNotes</releaseNotes>
-    <copyright>Copyright 2008 - 2015</copyright>
+    <releaseNotes>https://github.com/ProCoSys/Bifrost/blob/master/releasenotes.md</releaseNotes>
+    <copyright>Copyright 2008 - 2016</copyright>
     <tags>MVVM LOB CQRS</tags>
     <dependencies>
       <dependency id="Autofac" version="3.5.2" />
-      <dependency id="Bifrost" version="$version$" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\debug\Bifrost.AutoFac.*" target="lib\net451"/>
-    <file src="**\*.cs" target="src" />
+    <file src="bin\$configuration$\$id$.*" target="lib\net46"/>
+    <file src="**\*.cs" exclude="bin\**\*.*;obj\**\*.*" target="src\" />
   </files>
 </package>

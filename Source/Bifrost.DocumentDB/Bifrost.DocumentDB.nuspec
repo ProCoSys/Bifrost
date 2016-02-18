@@ -1,28 +1,26 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
-    <id>Bifrost.DocumentDB</id>
-    <version>$version$</version>
-    <title>Bifrost support for Azure DocumentDB</title>
-    <authors>Dolittle</authors>
-    <owners>Dolittle</owners>
-    <licenseUrl>http://github.com/dolittle/Bifrost/blob/master/MIT-LICENSE.txt</licenseUrl>
-    <projectUrl>http://bifrost.dolittle.com</projectUrl>
+    <id>$id$</id>
+    <version>$version$-rc2</version>
+    <title>$id$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://github.com/ProCoSys/Bifrost/blob/master/MIT-LICENSE.txt</licenseUrl>
+    <projectUrl>http://github.com/ProCoSys/Bifrost/</projectUrl>
     <iconUrl>http://bifrost.dolittle.com/img/bifrost-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Support for Azure DocumentDB for Bifrost</description>
-    <releaseNotes>http://bifr.st/ReleaseNotes</releaseNotes>
-    <copyright>Copyright 2008 - 2015</copyright>
+    <releaseNotes>https://github.com/ProCoSys/Bifrost/blob/master/releasenotes.md</releaseNotes>
+    <copyright>Copyright 2008 - 2016</copyright>
     <tags>MVVM LOB CQRS</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="6.0.8" />
       <dependency id="Microsoft.Azure.Documents.Client" version="0.9.2-preview" />
-      <dependency id="Bifrost" version="$version$" />
-      <dependency id="Bifrost.JSON" version="$version$" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\debug\Bifrost.DocumentDB.*" target="lib\net451"/>
-    <file src="**\*.cs" target="src" />
+    <file src="bin\$configuration$\$id$.*" target="lib\net46"/>
+    <file src="**\*.cs" exclude="bin\**\*.*;obj\**\*.*" target="src\" />
   </files>
 </package>

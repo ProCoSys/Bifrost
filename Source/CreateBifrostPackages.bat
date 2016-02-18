@@ -1,26 +1,57 @@
 @echo off
-set nuget=solutions\.nuget\nuget.exe
+setlocal EnableDelayedExpansion
 
-set version=%1
+REM === Exctract version from version.txt ===
+for /f "tokens=* delims= " %%a in (..\version.txt) do set line=%%a
+for /f %%a in ("!line!") do set version=%%a
+echo Version is %version%.
+echo.
 
-%nuget% pack Bifrost\Bifrost.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.FluentValidation\Bifrost.FluentValidation.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.CommonServiceLocator\Bifrost.CommonServiceLocator.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.Client\Bifrost.Client.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.JSON\Bifrost.JSON.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.AutoFac\Bifrost.AutoFac.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.Ninject\Bifrost.Ninject.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.SimpleInjector\Bifrost.SimpleInjector.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.StructureMap\Bifrost.StructureMap.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.Unity\Bifrost.Unity.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.Windsor\Bifrost.Windsor.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.JavaScript\Bifrost.JS.nuspec -Version %version%
-%nuget% pack Bifrost.Web\Bifrost.Web.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.Web.Mvc\Bifrost.Web.Mvc.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.RavenDB\Bifrost.RavenDB.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.MongoDB\Bifrost.MongoDB.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.DocumentDB\Bifrost.DocumentDB.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.NHibernate\Bifrost.NHibernate.nuspec -Symbols -Version %version%
-%nuget% pack Bifrost.Default\Bifrost.Default.nuspec -Version %version%
-%nuget% pack Bifrost.QuickStart\Bifrost.QuickStart.nuspec -Version %version%
-%nuget% pack Bifrost.MSpec\Bifrost.MSpec.nuspec -Version %version%
+
+REM === Setup configuration ===
+set configuration=%2
+if "%configuration%"=="" (
+  set configuration=Debug
+)
+
+REM === Setup path to NuGet ===
+set nuget=%3
+if "%nuget%"=="" (
+  set nuget=NuGet.exe
+)
+
+REM === Setup output directory ===
+set outputDirectory=..\NuGet\Packages\%configuration%
+mkdir %~dp0\%outputDirectory%\
+del %~dp0\%outputDirectory%\*.nupkg /F
+
+REM === Creating project packages ===
+%nuget% pack "%~dp0\Bifrost\Bifrost.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+%nuget% pack "%~dp0\Bifrost.FluentValidation\Bifrost.FluentValidation.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+%nuget% pack "%~dp0\Bifrost.CommonServiceLocator\Bifrost.CommonServiceLocator.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.Client\Bifrost.Client.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+%nuget% pack "%~dp0\Bifrost.JSON\Bifrost.JSON.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.AutoFac\Bifrost.AutoFac.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.Ninject\Bifrost.Ninject.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.SimpleInjector\Bifrost.SimpleInjector.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.StructureMap\Bifrost.StructureMap.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.Unity\Bifrost.Unity.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.Windsor\Bifrost.Windsor.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+%nuget% pack "%~dp0\Bifrost.Web\Bifrost.Web.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+%nuget% pack "%~dp0\Bifrost.Web.Mvc\Bifrost.Web.Mvc.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.RavenDB\Bifrost.RavenDB.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.MongoDB\Bifrost.MongoDB.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+REM %nuget% pack "%~dp0\Bifrost.DocumentDB\Bifrost.DocumentDB.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+%nuget% pack "%~dp0\Bifrost.NHibernate\Bifrost.NHibernate.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
+
+REM === Creating other packages ===
+%nuget% pack "%~dp0\Bifrost.JavaScript\Bifrost.JS.nuspec" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -Version %version% -NonInteractive
+
+REM === Copy to package source ===
+if "%1"=="Publish" (
+  copy "%~dp0\%outputDirectory%\*%version%*.nupkg" \\st-w761\nuget\%configuration%
+)
+
+echo.
+echo Finished
+echo.

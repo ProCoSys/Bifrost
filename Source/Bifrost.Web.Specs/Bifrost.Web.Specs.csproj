@@ -175,5 +175,4 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>
