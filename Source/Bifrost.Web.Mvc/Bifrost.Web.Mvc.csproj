@@ -133,7 +133,7 @@
     <EmbeddedResource Include="Commands\commandFormEvents.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Validation\Bifrost.jQuery.validation.validators.js" />
+    <None Include="Validation\Bifrost.jQuery.validation.validators.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

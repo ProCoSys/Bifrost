@@ -25,7 +25,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\$configuration$\$id$.*" target="lib\net451"/>
+    <file src="bin\$configuration$\$id$.pdb" target="lib\net451"/>
+    <file src="bin\$configuration$\$id$*.config" target="lib\net451"/>
     <file src="**\*.cs" exclude="bin\**\*.*;obj\**\*.*" target="src\" />
   </files>
 </package>

@@ -16,7 +16,7 @@
     <NuGetPackageImportStamp>13371b08</NuGetPackageImportStamp>
     <JSLintSkip>
     </JSLintSkip>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
@@ -107,7 +107,6 @@
     <Content Include="extensions\HTMLElementExtensions.js" />
     <Content Include="extensions\DateExtensions.js" />
     <Content Include="extensions\HTMLCollectionExtensions.js" />
-    <Content Include="extensions\HTMLElementExtensions.js" />
     <Content Include="extensions\NodeListExtensions.js" />
     <Content Include="index.html" />
     <Content Include="interaction\CommandOperation.js" />
