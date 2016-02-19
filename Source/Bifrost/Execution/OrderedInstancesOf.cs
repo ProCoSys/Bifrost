@@ -9,24 +9,27 @@ namespace Bifrost.Execution
     /// <summary>
     /// Represents an implementation of <see cref="IOrderedInstancesOf{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Base type to discover for - must be an abstract class or an interface</typeparam>
+    /// <typeparam name="T">Base type to discover for - must be an abstract class or an interface.</typeparam>
     public class OrderedInstancesOf<T> : IOrderedInstancesOf<T> where T : class
     {
-        readonly IInstancesOf<T> _instances;
+        readonly IEnumerable<Type> _types;
+        readonly IContainer _container;
 
         /// <summary>
-        /// Initalizes an instance of <see cref="OrderedInstancesOf{T}"/>
+        /// Initalizes an instance of <see cref="OrderedInstancesOf{T}"/>.
         /// </summary>
-        /// <param name="instances">The instances to order.</param>
-        public OrderedInstancesOf(IInstancesOf<T> instances)
+        /// <param name="typeDiscoverer"><see cref="ITypeDiscoverer"/> used for discovering types.</param>
+        /// <param name="container"><see cref="IContainer"/> used for managing instances of the types when needed.</param>
+        public OrderedInstancesOf(ITypeDiscoverer typeDiscoverer, IContainer container)
         {
-            _instances = instances;
+            _types = typeDiscoverer.FindMultiple<T>();
+            _container = container;
         }
 
 #pragma warning disable 1591 // Xml Comments
         public IEnumerator<T> GetEnumerator()
         {
-            IList<T> queue = _instances.OrderBy(Order).ToList();
+            IList<Type> queue = _types.OrderBy(Order).ToList();
             ISet<Type> initialized = new HashSet<Type>();
 
             while (queue.Count > 0)
@@ -34,23 +37,22 @@ namespace Bifrost.Execution
                 var progress = false;
                 var ready = queue
                     .Where(s => s
-                        .GetType()
                         .GetAttributes<AfterAttribute>()
                         .SelectMany(a => a.DependantTypes)
                         .All(initialized.Contains))
                     .ToList();
-                foreach (var instance in ready)
+                foreach (var type in ready)
                 {
-                    yield return instance;
-                    initialized.Add(instance.GetType());
-                    queue.Remove(instance);
+                    yield return _container.Get(type) as T;
+                    initialized.Add(type);
+                    queue.Remove(type);
                     progress = true;
                 }
 
                 if (!progress)
                 {
                     throw new CyclicDependencyException(
-                        "Circular dependency between these startup modules detected: " + string.Join(", ", queue));
+                        $"Circular dependency detected when ordering instances of {typeof(T)} between these types: {string.Join(", ", queue)}");
                 }
             }
         }
@@ -61,9 +63,9 @@ namespace Bifrost.Execution
         }
 #pragma warning restore 1591 // Xml Comments
 
-        static int Order(T arg)
+        static int Order(Type type)
         {
-            return arg.GetType().GetAttributes<OrderAttribute>().Select(a => a.Order).FirstOrDefault();
+            return type.GetAttributes<OrderAttribute>().Select(a => a.Order).FirstOrDefault();
         }
     }
 }

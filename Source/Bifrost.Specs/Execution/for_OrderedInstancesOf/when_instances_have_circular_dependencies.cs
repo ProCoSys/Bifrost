@@ -2,6 +2,8 @@
 using System.Linq;
 using Bifrost.Execution;
 using Machine.Specifications;
+using Moq;
+using It = Machine.Specifications.It;
 
 namespace Bifrost.Specs.Execution.for_OrderedInstancesOf
 {
@@ -24,5 +26,8 @@ namespace Bifrost.Specs.Execution.for_OrderedInstancesOf
         Because of = () => exception = Catch.Only<CyclicDependencyException>(() => ordered_instances_of.ToArray());
 
         It should_throw_exception = () => exception.Message.ShouldContain("circular");
+
+        It should_not_have_created_the_instances = () =>
+            GetMock<IContainer>().Verify(m => m.Get(Moq.It.IsAny<Type>()), Times.Never);
     }
 }

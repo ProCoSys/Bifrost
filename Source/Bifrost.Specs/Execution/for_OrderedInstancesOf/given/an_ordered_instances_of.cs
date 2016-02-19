@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Bifrost.Execution;
 using Bifrost.Testing;
-using Machine.Specifications;
 
 namespace Bifrost.Specs.Execution.for_OrderedInstancesOf.given
 {
@@ -13,13 +12,19 @@ namespace Bifrost.Specs.Execution.for_OrderedInstancesOf.given
 
         protected static IDummy[] result;
 
-        Establish context = () => ordered_instances_of = Get<OrderedInstancesOf<IDummy>>();
-
         protected static void Register(params IDummy[] instances)
         {
-            GetMock<IInstancesOf<IDummy>>()
-                .Setup(m => m.GetEnumerator())
-                .Returns(((IEnumerable<IDummy>) instances).GetEnumerator());
+            GetMock<ITypeDiscoverer>()
+                .Setup(m => m.FindMultiple<IDummy>())
+                .Returns(instances.Select(i => i.GetType()));
+            foreach (var instance in instances)
+            {
+                GetMock<IContainer>()
+                    .Setup(m => m.Get(instance.GetType()))
+                    .Returns(instance);
+            }
+
+            ordered_instances_of = Get<OrderedInstancesOf<IDummy>>();
         }
     }
 }
