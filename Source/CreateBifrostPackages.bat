@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 
 REM === Exctract version from version.txt ===
-for /f "tokens=* delims= " %%a in (..\version.txt) do set line=%%a
+for /f "tokens=* delims= " %%a in (version.txt) do set line=%%a
 for /f %%a in ("!line!") do set version=%%a
 echo Version is %version%.
 echo.
