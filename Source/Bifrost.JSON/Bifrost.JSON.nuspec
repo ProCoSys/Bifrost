@@ -19,7 +19,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\$configuration$\$id$.*" target="lib\net46"/>
+    <file src="bin\$configuration$\$id$.*" target="lib\net451"/>
     <file src="**\*.cs" exclude="bin\**\*.*;obj\**\*.*" target="src\" />
   </files>
 </package>

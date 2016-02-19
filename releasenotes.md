@@ -18,7 +18,6 @@ _Breaking changes_
 * Assembly specification is now opt-in (using `IncludeAssembliesStartingWith`) instead of opt-out (previously using `ExcludeAssembliesStartingWith`) [#6](https://github.com/ProCoSys/Bifrost/issues/6)
 
 _Other changes_
-* Projects upgraded to .NET 4.6
 * `AssetsManager` now provides an exclusion list [dolittle#668](https://github.com/dolittle/Bifrost/issues/668)
 * Fix serialization caching bug using JSON.net [dolittle#676](https://github.com/dolittle/Bifrost/issues/676)
 * Avoid `NullReferenceException` in `DefaultCallContext` [#7](https://github.com/ProCoSys/Bifrost/issues/7)
