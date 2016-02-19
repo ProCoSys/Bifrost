@@ -73,21 +73,23 @@ namespace Bifrost.Configuration
             IAssembliesConfiguration assembliesConfiguration = null,
             IEnumerable<ICanProvideAssemblies> additionalAssemblyProviders = null)
         {
-            assembliesConfiguration = assembliesConfiguration ?? new IncludeNone();
-            IContractToImplementorsMap contractToImplementorsMap = new ContractToImplementorsMap();
-            var executingAssembly = Assembly.GetExecutingAssembly();
-            contractToImplementorsMap.Feed(executingAssembly.GetTypes());
-            var assemblySpecifiers = new AssemblySpecifiers(contractToImplementorsMap, new TypeFinder(), assembliesConfiguration);
-            assemblySpecifiers.SpecifyUsingSpecifiersFrom(executingAssembly);
-
             var assemblyProviders = new List<ICanProvideAssemblies>
             {
                 new AppDomainAssemblyProvider(),
                 new FileSystemAssemblyProvider(new FileSystem())
             };
+            if (additionalAssemblyProviders != null)
+            {
+                assemblyProviders.AddRange(additionalAssemblyProviders);
+            }
 
-            if (additionalAssemblyProviders != null) assemblyProviders.AddRange(additionalAssemblyProviders);
+            assembliesConfiguration = assembliesConfiguration ?? new IncludeNone();
+            var assemblySpecifiers = new AssemblySpecifiers(assembliesConfiguration);
+            var executingAssembly = Assembly.GetExecutingAssembly();
 
+            IContractToImplementorsMap contractToImplementorsMap = new ContractToImplementorsMap();
+            contractToImplementorsMap.Feed(executingAssembly.GetTypes());
+            assemblySpecifiers.SpecifyUsingSpecifiersFrom(executingAssembly);
             var assemblyProvider = new AssemblyProvider(
                 assemblyProviders,
                 new AssemblyFilters(assembliesConfiguration),

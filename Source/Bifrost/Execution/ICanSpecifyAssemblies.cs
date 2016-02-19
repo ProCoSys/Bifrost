@@ -28,6 +28,7 @@ namespace Bifrost.Execution
     /// get the correct assemblies located for things like implementations of
     /// <see cref="ITypeDiscoverer"/> which relies on knowing about assemblies
     /// to be able to discover types.
+    /// Implementing classes must have a default constructor.
     /// </remarks>
     public interface ICanSpecifyAssemblies
     {

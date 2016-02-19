@@ -24,49 +24,55 @@ using System.Reflection;
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Represents an implementation of <see cref="ICanProvideAssemblies"/> that provides assemblies from the current <see cref="_AppDomain"/>
+    /// Represents an implementation of <see cref="ICanProvideAssemblies"/> that provides assemblies from the current <see cref="AppDomain"/>.
     /// </summary>
     public class AppDomainAssemblyProvider : ICanProvideAssemblies
     {
+        readonly IDictionary<AssemblyInfo, Assembly> _loadedAssemblies;
+
         /// <summary>
         /// Initializes a new instance of <see cref="AppDomainAssemblyProvider"/>
         /// </summary>
         public AppDomainAssemblyProvider()
         {
             AppDomain.CurrentDomain.AssemblyLoad += AssemblyLoaded;
-
+            _loadedAssemblies = BuildAssemblyMap();
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public event AssemblyAdded AssemblyAdded = (a) => { };
+        public event AssemblyAdded AssemblyAdded = a => { };
 
-        public IEnumerable<AssemblyInfo> AvailableAssemblies
-        {
-            get
-            {
-                return AppDomain.CurrentDomain.GetAssemblies()
-                    .Where(assembly => !assembly.IsDynamic)
-                    .Select(assembly =>
-                    {
-                        var name = assembly.GetName();
-                        var assemblyInfo = new AssemblyInfo(name.Name, assembly.Location);
-                        return assemblyInfo;
-                    });
-            }
-        }
+        public IEnumerable<AssemblyInfo> AvailableAssemblies => _loadedAssemblies.Keys;
 
         public Assembly Get(AssemblyInfo assemblyInfo)
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(assembly =>
-                    !assembly.IsDynamic &&
-                    assembly.GetName().Name == assemblyInfo.Name).SingleOrDefault();
+            Assembly assembly;
+            _loadedAssemblies.TryGetValue(assemblyInfo, out assembly);
+            return assembly;
         }
 #pragma warning restore 1591 // Xml Comments
 
         void AssemblyLoaded(object sender, AssemblyLoadEventArgs args)
         {
-            AssemblyAdded(args.LoadedAssembly);
+            var assembly = args.LoadedAssembly;
+            if (!assembly.IsDynamic)
+            {
+                _loadedAssemblies[AssemblyInfoFromAssembly(assembly)] = assembly;
+                AssemblyAdded(assembly);
+            }
+        }
+
+        static IDictionary<AssemblyInfo, Assembly> BuildAssemblyMap()
+        {
+            return AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(a => !a.IsDynamic)
+                .ToDictionary(AssemblyInfoFromAssembly, a => a);
+        }
+
+        static AssemblyInfo AssemblyInfoFromAssembly(Assembly assembly)
+        {
+            return new AssemblyInfo(assembly.GetName().Name, assembly.Location);
         }
     }
 }

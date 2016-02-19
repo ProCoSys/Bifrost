@@ -88,41 +88,54 @@ namespace Bifrost.Execution
                 return;
             }
 
-            var assemblyFile = new FileInfo(assembly.Location);
-            if (_assemblyFilters.ShouldInclude(assemblyFile.Name))
+            var newSpecifiers = _assemblySpecifiers.SpecifyUsingSpecifiersFrom(assembly);
+            AddAssembly(assembly);
+            if (newSpecifiers)
             {
-                AddAssembly(assembly);
+                RecalculateAssemblies();
             }
         }
 
         void Populate()
         {
-            foreach (var provider in _assemblyProviders)
-            {
-                provider.AvailableAssemblies
-                    .Where(a => _assemblyFilters.ShouldInclude(a.FileName))
-                    .Where(_assemblyUtility.IsAssembly)
-                    .Select(provider.Get)
-                    .ForEach(AddAssembly);
-            }
+            var assemblies = AvailableAssemblies();
+            assemblies.ForEach(a => _assemblySpecifiers.SpecifyUsingSpecifiersFrom(a));
+            assemblies.ForEach(AddAssembly);
         }
 
-        void SpecifyRules(Assembly assembly)
+        IList<Assembly> AvailableAssemblies()
         {
-            _assemblySpecifiers.SpecifyUsingSpecifiersFrom(assembly);
+            return _assemblyProviders
+                .SelectMany(p => p.AvailableAssemblies, (p, ai) => new {p, ai})
+                .GroupBy(d => d.ai.Name)
+                .Select(g => g.First())
+                .Where(d => _assemblyUtility.IsAssembly(d.ai))
+                .Select(d => d.p.Get(d.ai))
+                .Where(a => !a.IsDynamic)
+                .ToList();
+        }
+
+        bool ShouldInclude(Assembly assembly)
+        {
+            return _assemblyFilters.ShouldInclude(new FileInfo(assembly.Location).Name);
         }
 
         void AddAssembly(Assembly assembly)
         {
             lock (LockObject)
             {
-                if (!_assemblies.Contains(assembly, _comparer) && !assembly.IsDynamic)
+                if (!_assemblies.Contains(assembly, _comparer) && ShouldInclude(assembly))
                 {
                     _assemblies.Add(assembly);
                     _contractToImplementorsMap.Feed(assembly.GetTypes());
-                    SpecifyRules(assembly);
                 }
             }
+        }
+
+        void RecalculateAssemblies()
+        {
+            var assemblies = AvailableAssemblies();
+            assemblies.ForEach(AddAssembly);
         }
     }
 }

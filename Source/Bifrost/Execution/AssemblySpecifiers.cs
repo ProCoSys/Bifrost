@@ -17,6 +17,7 @@
 //
 #endregion
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Bifrost.Configuration.Assemblies;
@@ -29,39 +30,55 @@ namespace Bifrost.Execution
     /// </summary>
     public class AssemblySpecifiers : IAssemblySpecifiers
     {
-        readonly ITypeFinder _typeFinder;
-        readonly IContractToImplementorsMap _contractToImplementorsMap;
+        static readonly object LockObject = new object();
+
         readonly IAssembliesConfiguration _assembliesConfiguration;
+        readonly ISet<string> _specifiedAssemblies;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssemblySpecifiers"/>.
         /// </summary>
-        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of the
-        /// relationship between contracts and implementors</param>
-        /// <param name="typeFinder"><see cref="ITypeFinder"/> to use for finding types</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> for specifying the assemblies</param>
-        public AssemblySpecifiers(
-            IContractToImplementorsMap contractToImplementorsMap,
-            ITypeFinder typeFinder,
-            IAssembliesConfiguration assembliesConfiguration)
+        public AssemblySpecifiers(IAssembliesConfiguration assembliesConfiguration)
         {
-            _typeFinder = typeFinder;
             _assembliesConfiguration = assembliesConfiguration;
-            _contractToImplementorsMap = contractToImplementorsMap;
+            _specifiedAssemblies = new HashSet<string>();
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public void SpecifyUsingSpecifiersFrom(Assembly assembly)
+        public bool SpecifyUsingSpecifiersFrom(Assembly assembly)
         {
-            _typeFinder
-                .FindMultiple<ICanSpecifyAssemblies>(_contractToImplementorsMap)
-                .Where(t => t.Assembly.FullName == assembly.FullName)
-                .Where(type => type.HasDefaultConstructor())
-                .ForEach(type =>
+            lock (LockObject)
+            {
+                if (_specifiedAssemblies.Contains(assembly.FullName))
                 {
-                    var specifier = Activator.CreateInstance(type) as ICanSpecifyAssemblies;
-                    specifier.Specify(_assembliesConfiguration);
-                });
+                    return false;
+                }
+
+                _specifiedAssemblies.Add(assembly.FullName);
+
+                var specified = false;
+                if (MayReferenceICanSpecifyAssemblies(assembly))
+                {
+                    assembly
+                        .GetTypes()
+                        .Where(t => t.GetInterfaces().Contains(typeof(ICanSpecifyAssemblies)))
+                        .Where(type => type.HasDefaultConstructor())
+                        .ForEach(type =>
+                        {
+                            var specifier = Activator.CreateInstance(type) as ICanSpecifyAssemblies;
+                            specifier.Specify(_assembliesConfiguration);
+                            specified = true;
+                        });
+                }
+
+                return specified;
+            }
+        }
+
+        static bool MayReferenceICanSpecifyAssemblies(Assembly assembly)
+        {
+            return assembly.FullName.Contains("Bifrost") ||
+                   assembly.GetReferencedAssemblies().Any(a => a.FullName.Contains("Bifrost"));
         }
 #pragma warning restore 1591 // Xml Comments
     }

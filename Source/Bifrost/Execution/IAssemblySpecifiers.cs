@@ -22,14 +22,15 @@ using System.Reflection;
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Defines a system that knows about <see cref="ICanSpecifyAssembly"/>
+    /// Defines a system that knows about <see cref="ICanSpecifyAssembly"/>.
     /// </summary>
     public interface IAssemblySpecifiers
     {
         /// <summary>
-        /// Specifies using specifiers found in a specific <see cref="Assembly"/>
+        /// Specifies using specifiers found in a specific <see cref="Assembly"/>.
         /// </summary>
-        /// <param name="assembly"><see cref="Assembly"/> to find specifiers from</param>
-        void SpecifyUsingSpecifiersFrom(Assembly assembly);
+        /// <param name="assembly"><see cref="Assembly"/> to find specifiers from.</param>
+        /// <returns>Whether any new specifiers was found in the assembly.</returns>
+        bool SpecifyUsingSpecifiersFrom(Assembly assembly);
     }
 }
