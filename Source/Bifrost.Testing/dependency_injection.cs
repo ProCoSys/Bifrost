@@ -127,6 +127,20 @@ namespace Bifrost.Testing
             Kernel.Rebind<T>().ToConstant(value);
         }
 
+        /// <summary>
+        /// Removes any existing bindings for a service and declares a binding to multiple constants.
+        /// </summary>
+        /// <typeparam name="T">The service to bind.</typeparam>
+        /// <param name="values">The constants to bind this service to.</param>
+        protected static void RebindMultiple<T>(params T[] values)
+        {
+            Kernel.Unbind<T>();
+            foreach (var value in values)
+            {
+                Kernel.Bind<T>().ToConstant(value);
+            }
+        }
+
         // Helper class to hide dependency on Ninject.
         // Please add forwarded calls in this class instead of exposing Ninject to sub classes.
         protected class BindingWrapper<T>

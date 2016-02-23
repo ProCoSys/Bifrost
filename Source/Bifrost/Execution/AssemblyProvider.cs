@@ -83,7 +83,7 @@ namespace Bifrost.Execution
 
         void AssemblyLoaded(Assembly assembly)
         {
-            if (assembly.IsDynamic)
+            if (assembly.IsDynamic || _assemblies.Contains(assembly))
             {
                 return;
             }
