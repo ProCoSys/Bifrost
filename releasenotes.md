@@ -1,3 +1,6 @@
+## Version 2.0.1
+* Fixed problem with client side generating of dynamic validators [#14](https://github.com/ProCoSys/Bifrost/issues/14)
+
 ## Version 2.0.0
 _Breaking changes_
 
