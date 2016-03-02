@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bifrost.Extensions;
 
 namespace Bifrost.Execution
 {
@@ -43,9 +42,9 @@ namespace Bifrost.Execution
 
         public Type FindSingle(IContractToImplementorsMap types, Type type)
         {
-            var typesFound = types.GetImplementorsFor(type);
+            var typesFound = types.GetImplementorsFor(type).ToList();
             ThrowIfMultipleTypesFound(type, typesFound);
-            return typesFound.SingleOrDefault();
+            return typesFound.FirstOrDefault();
         }
 
         public IEnumerable<Type> FindMultiple(IContractToImplementorsMap types, Type type)
@@ -62,15 +61,21 @@ namespace Bifrost.Execution
         }
 #pragma warning restore 1591 // Xml Comments
 
-        void ThrowIfMultipleTypesFound(Type type, IEnumerable<Type> typesFound)
+        static void ThrowIfMultipleTypesFound(Type type, IList<Type> typesFound)
         {
-            if (typesFound.Count() > 1)
-                throw new MultipleTypesFoundException(string.Format("More than one type found for '{0}'", type.FullName));
+            if (typesFound.Count > 1)
+            {
+                throw new MultipleTypesFoundException(
+                    string.Format(ExceptionStrings.MultipleTypesFoundException, type.FullName));
+            }
         }
 
-        void ThrowIfTypeNotFound(string fullName, Type typeFound)
+        static void ThrowIfTypeNotFound(string fullName, Type typeFound)
         {
-            if (typeFound == null) throw new UnableToResolveTypeByName(fullName);
+            if (typeFound == null)
+            {
+                throw new UnableToResolveTypeByNameException(fullName);
+            }
         }
     }
 }

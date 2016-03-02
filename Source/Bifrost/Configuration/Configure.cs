@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Bifrost.Configuration.Assemblies;
@@ -96,15 +95,18 @@ namespace Bifrost.Configuration
                 new AssemblyUtility(),
                 assemblySpecifiers,
                 contractToImplementorsMap);
-            var assemblies = assemblyProvider.GetAll();
 
-            var canCreateContainerType = DiscoverCanCreateContainerType(assemblies);
-            ThrowIfCanCreateContainerNotFound(canCreateContainerType);
-            ThrowIfCanCreateContainerDoesNotHaveDefaultConstructor(canCreateContainerType);
-            var canCreateContainerInstance = Activator.CreateInstance(canCreateContainerType) as ICanCreateContainer;
+            var instanceCreator = new InstanceCreator(new TypeFinder(), contractToImplementorsMap);
+            var canCreateContainerInstance = instanceCreator.Create<ICanCreateContainer>();
+
             var container = canCreateContainerInstance.CreateContainer();
-            var configure = With(container, BindingLifecycle.Transient, assembliesConfiguration, assemblyProvider, contractToImplementorsMap);
-            configure.EntryAssembly = canCreateContainerType.Assembly;
+            var configure = With(
+                container,
+                BindingLifecycle.Transient,
+                assembliesConfiguration,
+                assemblyProvider,
+                contractToImplementorsMap);
+            configure.EntryAssembly = canCreateContainerInstance.GetType().Assembly;
             configure.Initialize();
             return configure;
         }
@@ -214,7 +216,7 @@ namespace Bifrost.Configuration
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public IContainer Container { get; private set; }
+        public IContainer Container { get; }
         public string SystemName { get; set; }
         public Assembly EntryAssembly { get; private set; }
         public IDefaultStorageConfiguration DefaultStorage { get; set; }
@@ -229,7 +231,7 @@ namespace Bifrost.Configuration
         public ICallContextConfiguration CallContext { get; private set; }
         public IExecutionContextConfiguration ExecutionContext { get; private set; }
         public ISecurityConfiguration Security { get; private set; }
-        public IAssembliesConfiguration Assemblies { get; private set; }
+        public IAssembliesConfiguration Assemblies { get; }
         public IQualityAssurance QualityAssurance { get; private set; }
         public CultureInfo Culture { get; set; }
         public CultureInfo UICulture { get; set; }
@@ -298,47 +300,6 @@ namespace Bifrost.Configuration
         {
             var callbacks = Container.Get<IInstancesOf<IWantToKnowWhenConfigurationIsDone>>();
             callbacks.ForEach(c => c.Configured(this));
-        }
-
-        static Type DiscoverCanCreateContainerType(IEnumerable<Assembly> assemblies)
-        {
-            Type createContainerType = null;
-            foreach (var assembly in assemblies.ToArray())
-            {
-                var types = assembly.GetTypes().Where(t => t.HasInterface(typeof(ICanCreateContainer)));
-                var type = types.SingleOrDefault();
-                if (type != null)
-                {
-                    ThrowIfAmbiguousMatchFoundForCanCreateContainer(createContainerType);
-
-                    createContainerType = type;
-                }
-            }
-            return createContainerType;
-        }
-
-        static void ThrowIfAmbiguousMatchFoundForCanCreateContainer(Type createContainerType)
-        {
-            if (createContainerType != null)
-            {
-                throw new AmbiguousContainerCreationException();
-            }
-        }
-
-        static void ThrowIfCanCreateContainerDoesNotHaveDefaultConstructor(Type createContainerType)
-        {
-            if (!createContainerType.HasDefaultConstructor())
-            {
-                throw new MissingDefaultConstructorException(createContainerType);
-            }
-        }
-
-        static void ThrowIfCanCreateContainerNotFound(Type createContainerType)
-        {
-            if (createContainerType == null)
-            {
-                throw new CanCreateContainerNotFoundException();
-            }
         }
     }
 }

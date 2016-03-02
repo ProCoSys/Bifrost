@@ -11,6 +11,6 @@ namespace Bifrost.Specs.Execution.for_TypeFinder
 
         Because of = () => exception = Catch.Exception(() => type_finder.FindTypeByFullName(Get<IContractToImplementorsMap>(), typeof(Single).FullName + "Blah"));
 
-        It should_be_throw_unable_to_resolve_type_by_name = () => exception.ShouldBeOfExactType<UnableToResolveTypeByName>();
+        It should_be_throw_unable_to_resolve_type_by_name = () => exception.ShouldBeOfExactType<UnableToResolveTypeByNameException>();
     }
 }

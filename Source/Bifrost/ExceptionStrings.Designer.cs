@@ -61,16 +61,16 @@ namespace Bifrost {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multiple implementations of ICanCreateContainer was found.
+        ///   Looks up a localized string similar to Multiple implementations of type &apos;{0}&apos; was found when exactly one was required..
         /// </summary>
-        internal static string AmbiguousContainerCreationException {
+        internal static string AmbiguousImplementationException {
             get {
-                return ResourceManager.GetString("AmbiguousContainerCreationException", resourceCulture);
+                return ResourceManager.GetString("AmbiguousImplementationException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t discover an implementation of &quot;ICanCreateContainer&quot;.
+        ///   Looks up a localized string similar to Couldn&apos;t discover an implementation of type &apos;{0}&apos; when exactly one was required..
         /// </summary>
         internal static string CanCreateContainerNotFoundException {
             get {
@@ -111,6 +111,24 @@ namespace Bifrost {
         internal static string MissingDefaultConstructorException {
             get {
                 return ResourceManager.GetString("MissingDefaultConstructorException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More than one type found for &apos;{0}&apos;..
+        /// </summary>
+        internal static string MultipleTypesFoundException {
+            get {
+                return ResourceManager.GetString("MultipleTypesFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to resolve type &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnableToResolveTypeException {
+            get {
+                return ResourceManager.GetString("UnableToResolveTypeException", resourceCulture);
             }
         }
         

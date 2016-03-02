@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AmbiguousContainerCreationException" xml:space="preserve">
-    <value>Multiple implementations of ICanCreateContainer was found</value>
+  <data name="AmbiguousImplementationException" xml:space="preserve">
+    <value>Multiple implementations of type '{0}' was found when exactly one was required.</value>
   </data>
   <data name="CanCreateContainerNotFoundException" xml:space="preserve">
-    <value>Couldn't discover an implementation of "ICanCreateContainer"</value>
+    <value>Couldn't discover an implementation of type '{0}' when exactly one was required.</value>
   </data>
   <data name="CannotFastForwardEventSourceThatIsNotInitialVersion" xml:space="preserve">
     <value>You cannot fast forward an event source that is not the initial version.</value>
@@ -134,6 +134,12 @@
   </data>
   <data name="MissingDefaultConstructorException" xml:space="preserve">
     <value>Type '{0}' is missing a default constructor and one is required</value>
+  </data>
+  <data name="MultipleTypesFoundException" xml:space="preserve">
+    <value>More than one type found for '{0}'.</value>
+  </data>
+  <data name="UnableToResolveTypeException" xml:space="preserve">
+    <value>Unable to resolve type '{0}'.</value>
   </data>
   <data name="UnhandledCommandException" xml:space="preserve">
     <value>Command of type '{0}' was not handled</value>

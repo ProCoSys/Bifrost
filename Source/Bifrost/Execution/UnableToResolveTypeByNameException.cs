@@ -18,16 +18,20 @@
 #endregion
 using System;
 
-namespace Bifrost.Configuration
+namespace Bifrost.Execution
 {
     /// <summary>
-    /// The exception that is thrown when a ambiguous match is found when discovering implementations of <see cref="ICanCreateContainer"/>
+    /// Exception that is thrown when a type is not possible to be resolved by its name
     /// </summary>
-    public class AmbiguousContainerCreationException : ArgumentException
+    public class UnableToResolveTypeByNameException : ArgumentException
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="AmbiguousContainerCreationException"/>
+        /// Initializes an instance of <see cref="UnableToResolveTypeByNameException"/>
         /// </summary>
-        public AmbiguousContainerCreationException() : base(ExceptionStrings.AmbiguousContainerCreationException) { }
+        /// <param name="typeName"></param>
+        public UnableToResolveTypeByNameException(string typeName)
+            : base(string.Format(ExceptionStrings.UnableToResolveTypeException, typeName))
+        {
+        }
     }
 }
