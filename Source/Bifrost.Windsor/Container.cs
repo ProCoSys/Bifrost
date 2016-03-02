@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bifrost.Execution;
-using Castle.MicroKernel.Context;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
@@ -30,7 +29,13 @@ namespace Bifrost.Windsor
     {
         internal static BindingLifecycle DefaultBindingLifecycle { get; private set; }
 
-        IWindsorContainer _windsorContainer;
+        public BindingLifecycle DefaultLifecycle
+        {
+            get { return DefaultBindingLifecycle; }
+            set { DefaultBindingLifecycle = value; }
+        }
+
+        readonly IWindsorContainer _windsorContainer;
 
         static Container()
         {
@@ -69,9 +74,10 @@ namespace Bifrost.Windsor
             catch (Exception ex)
             {
                 if (!optional)
+                {
                     throw ex;
-                else
-                    return null;
+                }
+                return null;
             }
         }
 
@@ -81,8 +87,8 @@ namespace Bifrost.Windsor
             var handlers = _windsorContainer.Kernel.GetHandlers(type);
 
             return _windsorContainer.Kernel.GetAssignableHandlers(typeof(object))
-                    .Where(h => h.ComponentModel.Service == type)
-                    .Any();
+                .Where(h => h.ComponentModel.Service == type)
+                .Any();
         }
 
         public bool HasBindingFor<T>()
@@ -106,7 +112,6 @@ namespace Bifrost.Windsor
                 .Select(h => h.ComponentModel.Service);
 
             return services;
-
         }
 
         public void Bind(Type service, Func<Type> resolveCallback)
@@ -131,12 +136,12 @@ namespace Bifrost.Windsor
 
         public void Bind<T>(Type type)
         {
-            Bind(typeof(T), type);
+            Bind(typeof(T), type, DefaultLifecycle);
         }
 
         public void Bind(Type service, Type type)
         {
-            _windsorContainer.Register(Component.For(service).Forward(type).ImplementedBy(type));
+            Bind(service, type, DefaultLifecycle);
         }
 
         public void Bind<T>(Type type, BindingLifecycle lifecycle)
@@ -146,7 +151,8 @@ namespace Bifrost.Windsor
 
         public void Bind(Type service, Type type, BindingLifecycle lifecycle)
         {
-            _windsorContainer.Register(Component.For(service).Forward(type).ImplementedBy(type).WithLifecycle(lifecycle));
+            _windsorContainer.Register(
+                Component.For(service).Forward(type).ImplementedBy(type).WithLifecycle(lifecycle));
         }
 
         public void Bind<T>(T instance)
@@ -162,29 +168,24 @@ namespace Bifrost.Windsor
 
         public void Bind<T>(Func<T> resolveCallback)
         {
-            _windsorContainer.Register(Component.For<T>().UsingFactoryMethod(t => resolveCallback()));
+            Bind(resolveCallback, DefaultLifecycle);
         }
 
         public void Bind(Type service, Func<Type, object> resolveCallback)
         {
-            _windsorContainer.Register(Component.For(service).UsingFactoryMethod((t,c) => resolveCallback(service)));
+            Bind(service, resolveCallback, DefaultLifecycle);
         }
 
         public void Bind<T>(Func<T> resolveCallback, BindingLifecycle lifecycle)
         {
-            _windsorContainer.Register(Component.For<T>().UsingFactoryMethod(t => resolveCallback()).WithLifecycle(lifecycle));
+            _windsorContainer.Register(
+                Component.For<T>().UsingFactoryMethod(t => resolveCallback()).WithLifecycle(lifecycle));
         }
 
         public void Bind(Type service, Func<Type, object> resolveCallback, BindingLifecycle lifecycle)
         {
-            _windsorContainer.Register(Component.For(service).UsingFactoryMethod(t => resolveCallback(service)).WithLifecycle(lifecycle));
-        }
-
-        public BindingLifecycle DefaultLifecycle
-        {
-            get { return DefaultBindingLifecycle; }
-            set { DefaultBindingLifecycle = value; }
+            _windsorContainer.Register(
+                Component.For(service).UsingFactoryMethod(t => resolveCallback(service)).WithLifecycle(lifecycle));
         }
     }
 }
-

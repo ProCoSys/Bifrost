@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Bifrost.Configuration.Assemblies;
@@ -45,16 +44,12 @@ namespace Bifrost.Configuration
 
         Configure(
             IContainer container,
-            BindingLifecycle defaultLifecycle,
             IDefaultConventions defaultConventions,
             IDefaultBindings defaultBindings,
             IAssembliesConfiguration assembliesConfiguration)
         {
             SystemName = "[Not Set]";
-
             Assemblies = assembliesConfiguration;
-
-            container.DefaultLifecycle = defaultLifecycle;
             container.Bind<IConfigure>(this);
 
             Container = container;
@@ -96,48 +91,25 @@ namespace Bifrost.Configuration
                 new AssemblyUtility(),
                 assemblySpecifiers,
                 contractToImplementorsMap);
-            var assemblies = assemblyProvider.GetAll();
 
-            var canCreateContainerType = DiscoverCanCreateContainerType(assemblies);
-            ThrowIfCanCreateContainerNotFound(canCreateContainerType);
-            ThrowIfCanCreateContainerDoesNotHaveDefaultConstructor(canCreateContainerType);
-            var canCreateContainerInstance = Activator.CreateInstance(canCreateContainerType) as ICanCreateContainer;
+            var instanceCreator = new InstanceCreator(new TypeFinder(), contractToImplementorsMap);
+            var canCreateContainerInstance = instanceCreator.Create<ICanCreateContainer>();
+
             var container = canCreateContainerInstance.CreateContainer();
-            var configure = With(container, BindingLifecycle.Transient, assembliesConfiguration, assemblyProvider, contractToImplementorsMap);
-            configure.EntryAssembly = canCreateContainerType.Assembly;
-            configure.Initialize();
-            return configure;
-        }
-
-        /// <summary>
-        /// Configure with a specific <see cref="IContainer"/> and the <see cref="BindingLifecycle">Lifecycle</see>
-        /// of objects set to none.
-        /// </summary>
-        /// <param name="container"><see cref="IContainer"/> to configure with.</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use.</param>
-        /// <param name="assemblyProvider"><see cref="IAssemblyProvider"/> to use for providing assemblies.</param>
-        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of the
-        /// relationship between contracts and implementors.</param>
-        /// <returns>Configuration object to continue configuration on.</returns>
-        public static Configure With(
-            IContainer container,
-            IAssembliesConfiguration assembliesConfiguration,
-            IAssemblyProvider assemblyProvider,
-            IContractToImplementorsMap contractToImplementorsMap)
-        {
-            return With(
+            var configure = With(
                 container,
-                BindingLifecycle.Transient,
                 assembliesConfiguration,
                 assemblyProvider,
                 contractToImplementorsMap);
+            configure.EntryAssembly = canCreateContainerInstance.GetType().Assembly;
+            configure.Initialize();
+            return configure;
         }
 
         /// <summary>
         /// Configure with a specific <see cref="IContainer"/>.
         /// </summary>
         /// <param name="container"><see cref="IContainer"/> to configure with.</param>
-        /// <param name="defaultObjectLifecycle">Default <see cref="BindingLifecycle"/> for object creation/management.</param>
         /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use.</param>
         /// <param name="assemblyProvider"><see cref="IAssemblyProvider"/> to use for providing assemblies.</param>
         /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of
@@ -145,14 +117,12 @@ namespace Bifrost.Configuration
         /// <returns>Configuration object to continue configuration on.</returns>
         public static Configure With(
             IContainer container,
-            BindingLifecycle defaultObjectLifecycle,
             IAssembliesConfiguration assembliesConfiguration,
             IAssemblyProvider assemblyProvider,
             IContractToImplementorsMap contractToImplementorsMap)
         {
             return With(
                 container,
-                defaultObjectLifecycle,
                 new DefaultConventions(container),
                 new DefaultBindings(assembliesConfiguration, assemblyProvider, contractToImplementorsMap),
                 assembliesConfiguration);
@@ -181,32 +151,11 @@ namespace Bifrost.Configuration
             IDefaultBindings defaultBindings,
             IAssembliesConfiguration assembliesConfiguration)
         {
-            return With(container, BindingLifecycle.Transient, defaultConventions, defaultBindings, assembliesConfiguration);
-        }
-
-
-        /// <summary>
-        /// Configure with a specific <see cref="IContainer"/>, <see cref="IDefaultConventions"/>
-        /// and <see cref="IDefaultBindings"/>.
-        /// </summary>
-        /// <param name="container"><see cref="IContainer"/> to configure with</param>
-        /// <param name="defaultObjectLifecycle">Default <see cref="BindingLifecycle"/> for object creation/management</param>
-        /// <param name="defaultConventions"><see cref="IDefaultConventions"/> to use</param>
-        /// <param name="defaultBindings"><see cref="IDefaultBindings"/> to use</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use</param>
-        /// <returns></returns>
-        public static Configure With(
-            IContainer container,
-            BindingLifecycle defaultObjectLifecycle,
-            IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings,
-            IAssembliesConfiguration assembliesConfiguration)
-        {
             if (Instance == null)
             {
                 lock (InstanceLock)
                 {
-                    Instance = new Configure(container, defaultObjectLifecycle, defaultConventions, defaultBindings, assembliesConfiguration);
+                    Instance = new Configure(container, defaultConventions, defaultBindings, assembliesConfiguration);
                 }
             }
 
@@ -214,7 +163,7 @@ namespace Bifrost.Configuration
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public IContainer Container { get; private set; }
+        public IContainer Container { get; }
         public string SystemName { get; set; }
         public Assembly EntryAssembly { get; private set; }
         public IDefaultStorageConfiguration DefaultStorage { get; set; }
@@ -229,16 +178,10 @@ namespace Bifrost.Configuration
         public ICallContextConfiguration CallContext { get; private set; }
         public IExecutionContextConfiguration ExecutionContext { get; private set; }
         public ISecurityConfiguration Security { get; private set; }
-        public IAssembliesConfiguration Assemblies { get; private set; }
+        public IAssembliesConfiguration Assemblies { get; }
         public IQualityAssurance QualityAssurance { get; private set; }
         public CultureInfo Culture { get; set; }
         public CultureInfo UICulture { get; set; }
-
-        public BindingLifecycle DefaultLifecycle
-        {
-            get { return Container.DefaultLifecycle; }
-            set { Container.DefaultLifecycle = value; }
-        }
 
         public void Initialize()
         {
@@ -298,47 +241,6 @@ namespace Bifrost.Configuration
         {
             var callbacks = Container.Get<IInstancesOf<IWantToKnowWhenConfigurationIsDone>>();
             callbacks.ForEach(c => c.Configured(this));
-        }
-
-        static Type DiscoverCanCreateContainerType(IEnumerable<Assembly> assemblies)
-        {
-            Type createContainerType = null;
-            foreach (var assembly in assemblies.ToArray())
-            {
-                var types = assembly.GetTypes().Where(t => t.HasInterface(typeof(ICanCreateContainer)));
-                var type = types.SingleOrDefault();
-                if (type != null)
-                {
-                    ThrowIfAmbiguousMatchFoundForCanCreateContainer(createContainerType);
-
-                    createContainerType = type;
-                }
-            }
-            return createContainerType;
-        }
-
-        static void ThrowIfAmbiguousMatchFoundForCanCreateContainer(Type createContainerType)
-        {
-            if (createContainerType != null)
-            {
-                throw new AmbiguousContainerCreationException();
-            }
-        }
-
-        static void ThrowIfCanCreateContainerDoesNotHaveDefaultConstructor(Type createContainerType)
-        {
-            if (!createContainerType.HasDefaultConstructor())
-            {
-                throw new MissingDefaultConstructorException(createContainerType);
-            }
-        }
-
-        static void ThrowIfCanCreateContainerNotFound(Type createContainerType)
-        {
-            if (createContainerType == null)
-            {
-                throw new CanCreateContainerNotFoundException();
-            }
         }
     }
 }

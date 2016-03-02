@@ -1,3 +1,8 @@
+## Version 2.1.0
+_Breaking changes_
+
+* `IContainer` does not expose a `DefaultLifecycle` anymore. The container implementation is responsible for selecting a default scope when services are bound without a specific scope [#16](https://github.com/ProCoSys/Bifrost/issues/16)
+
 ## Version 2.0.1
 * Fixed problem with client side generating of dynamic validators [#14](https://github.com/ProCoSys/Bifrost/issues/14)
 

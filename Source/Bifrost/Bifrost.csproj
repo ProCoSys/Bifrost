@@ -123,7 +123,8 @@
     <Compile Include="Concepts\Value.cs" />
     <Compile Include="Concurrency\IScheduler.cs" />
     <Compile Include="Concurrency\Scheduler.cs" />
-    <Compile Include="Configuration\AmbiguousContainerCreationException.cs" />
+    <Compile Include="Execution\IInstanceCreator.cs" />
+    <Compile Include="Execution\InstanceCreator.cs" />
     <Compile Include="Configuration\Assemblies\AssemblyConfigurationExtensions.cs" />
     <Compile Include="Configuration\Assemblies\AssembliesStartingWith.cs" />
     <Compile Include="Configuration\Assemblies\IAssembliesConfigurationBuilder.cs" />
@@ -141,7 +142,7 @@
     <Compile Include="Execution\AssemblySpecifiers.cs" />
     <Compile Include="Configuration\CallContextConfiguration.cs" />
     <Compile Include="Configuration\ConfigurationStorageElement.cs" />
-    <Compile Include="Configuration\CanCreateContainerNotFoundException.cs" />
+    <Compile Include="Execution\NoTypesFoundException.cs" />
     <Compile Include="Configuration\DefaultStorageConfiguration.cs" />
     <Compile Include="Configuration\ExecutionContextConfiguration.cs" />
     <Compile Include="Configuration\FrontendConfiguration.cs" />
@@ -271,7 +272,7 @@
     <Compile Include="Execution\SingletonAttribute.cs" />
     <Compile Include="Execution\TypeDiscoverer.cs" />
     <Compile Include="Execution\TypeImporter.cs" />
-    <Compile Include="Execution\UnableToResolveTypeByName.cs" />
+    <Compile Include="Execution\UnableToResolveTypeByNameException.cs" />
     <Compile Include="Execution\WriteOnceExpandoObject.cs" />
     <Compile Include="Extensions\CollectionsExtensions.cs" />
     <Compile Include="Extensions\ITypeInfo.cs" />
@@ -577,6 +578,7 @@
     <EmbeddedResource Include="ExceptionStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExceptionStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
