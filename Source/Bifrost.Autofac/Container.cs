@@ -16,9 +16,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 #endregion
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,11 +30,11 @@ using IContainer = Bifrost.Execution.IContainer;
 namespace Bifrost.Autofac
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IContainer"/> for AutoFac
+    /// Represents an implementation of <see cref="Execution.IContainer"/> for AutoFac
     /// </summary>
     public class Container : IContainer
     {
-        global::Autofac.IContainer _container;
+        readonly global::Autofac.IContainer _container;
 
         /// <summary>
         /// Initializes a new instance of <see cref="Container"/>
@@ -47,8 +45,9 @@ namespace Bifrost.Autofac
             _container = container;
         }
 
-
 #pragma warning disable 1591
+        public virtual BindingLifecycle DefaultLifecycle => BindingLifecycle.Transient;
+
         public T Get<T>()
         {
             return _container.Resolve<T>();
@@ -62,7 +61,10 @@ namespace Bifrost.Autofac
             }
             catch
             {
-                if (!optional) throw;
+                if (!optional)
+                {
+                    throw;
+                }
             }
 
             return default(T);
@@ -77,11 +79,7 @@ namespace Bifrost.Autofac
 
         public object Get(Type type, bool optional)
         {
-            if (optional)
-            {
-                return _container.ResolveOptional(type);
-            }
-            return _container.Resolve(type);
+            return optional ? _container.ResolveOptional(type) : _container.Resolve(type);
         }
 
         public IEnumerable<T> GetAll<T>()
@@ -101,9 +99,7 @@ namespace Bifrost.Autofac
 
         public IEnumerable<object> GetAll(Type type)
         {
-            List<object> list = ((IEnumerable) _container
-                                                   .Resolve(typeof (IEnumerable<>)
-                                                                .MakeGenericType(type)))
+            var list = ((IEnumerable)_container.Resolve(typeof(IEnumerable<>).MakeGenericType(type)))
                 .OfType<object>()
                 .ToList();
 
@@ -112,10 +108,12 @@ namespace Bifrost.Autofac
 
         public IEnumerable<Type> GetBoundServices()
         {
-            IEnumerable<Type> types = _container.ComponentRegistry.Registrations
-                                                .SelectMany(r => r.Services.OfType<IServiceWithType>(),
-                                                            (r, s) => new {r, s})
-                                                .Select(rs => rs.r.Activator.LimitType).ToList();
+            IEnumerable<Type> types = _container
+                .ComponentRegistry.Registrations
+                .SelectMany(
+                    r => r.Services.OfType<IServiceWithType>(),
+                    (r, s) => new { r, s })
+                .Select(rs => rs.r.Activator.LimitType).ToList();
             return types;
         }
 
@@ -126,7 +124,7 @@ namespace Bifrost.Autofac
 
         public void Bind<T>(Func<Type> resolveCallback)
         {
-            RegisterWithCallback(typeof (T), resolveCallback, DefaultLifecycle);
+            RegisterWithCallback(typeof(T), resolveCallback, DefaultLifecycle);
         }
 
 
@@ -137,12 +135,12 @@ namespace Bifrost.Autofac
 
         public void Bind<T>(Func<Type> resolveCallback, BindingLifecycle lifecycle)
         {
-            RegisterWithCallback(typeof (T), resolveCallback, lifecycle);
+            RegisterWithCallback(typeof(T), resolveCallback, lifecycle);
         }
 
         public void Bind<T>(Type type)
         {
-            RegisterService(typeof (T), type, DefaultLifecycle);
+            RegisterService(typeof(T), type, DefaultLifecycle);
         }
 
         public void Bind(Type service, Type type)
@@ -152,7 +150,7 @@ namespace Bifrost.Autofac
 
         public void Bind<T>(Type type, BindingLifecycle lifecycle)
         {
-            RegisterService(typeof (T), type, lifecycle);
+            RegisterService(typeof(T), type, lifecycle);
         }
 
         public void Bind(Type service, Type type, BindingLifecycle lifecycle)
@@ -162,7 +160,7 @@ namespace Bifrost.Autofac
 
         public void Bind<T>(T instance)
         {
-            RegisterInstance(typeof (T), instance);
+            RegisterInstance(typeof(T), instance);
         }
 
         public void Bind(Type service, object instance)
@@ -173,25 +171,23 @@ namespace Bifrost.Autofac
 
         public void Bind<T>(Func<T> resolveCallback)
         {
-            RegisterWithCallback(typeof (T), resolveCallback, DefaultLifecycle);
+            RegisterWithCallback(typeof(T), resolveCallback, DefaultLifecycle);
         }
 
-        public void Bind(Type service, Func<Type,object> resolveCallback)
+        public void Bind(Type service, Func<Type, object> resolveCallback)
         {
             RegisterWithCallback(service, resolveCallback, DefaultLifecycle);
         }
 
         public void Bind<T>(Func<T> resolveCallback, BindingLifecycle lifecycle)
         {
-            RegisterWithCallback(typeof (T), resolveCallback, DefaultLifecycle);
+            RegisterWithCallback(typeof(T), resolveCallback, DefaultLifecycle);
         }
 
         public void Bind(Type service, Func<Type, object> resolveCallback, BindingLifecycle lifecycle)
         {
             RegisterWithCallback(service, resolveCallback, DefaultLifecycle);
         }
-
-        public BindingLifecycle DefaultLifecycle { get; set; }
 
 #pragma warning restore 1591
 
@@ -207,7 +203,8 @@ namespace Bifrost.Autofac
 
         void RegisterService(Type service, Type type, BindingLifecycle lifecycle)
         {
-            Update(x =>
+            Update(
+                x =>
                 {
                     if (type.IsGenericType)
                     {
@@ -240,20 +237,26 @@ namespace Bifrost.Autofac
             {
                 try
                 {
-                    ParameterInfo[] parameters = constructor.GetParameters();
+                    var parameters = constructor.GetParameters();
                     var parameterInstances = new List<object>();
-                    foreach (ParameterInfo parameter in parameters)
+                    foreach (var parameter in parameters)
                     {
                         object service = _container.Resolve(parameter.ParameterType);
-                        if (service == null) throw new Exception("Unkown service");
+                        if (service == null)
+                        {
+                            throw new Exception("Unkown service");
+                        }
+
                         parameterInstances.Add(service);
                     }
+
                     return Activator.CreateInstance(type, parameterInstances.ToArray());
                 }
                 catch (Exception)
                 {
                 }
             }
+
             throw new MissingDefaultConstructorException(type);
         }
     }

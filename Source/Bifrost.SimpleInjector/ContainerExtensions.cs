@@ -23,6 +23,11 @@ namespace Bifrost.SimpleInjector
             var lifestyle = ResolveLifestyle(lifecycle);
             container.Register(service, resolveCallback, lifestyle);
         }
+        public static void Register(this global::SimpleInjector.Container container, Type service, Func<Type, object> resolveCallback, BindingLifecycle lifecycle)
+        {
+            var lifestyle = ResolveLifestyle(lifecycle);
+            container.Register(service, () => resolveCallback, lifestyle);
+        }
 
         private static Lifestyle ResolveLifestyle(BindingLifecycle lifecycle)
         {

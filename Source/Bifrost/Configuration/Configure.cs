@@ -44,16 +44,12 @@ namespace Bifrost.Configuration
 
         Configure(
             IContainer container,
-            BindingLifecycle defaultLifecycle,
             IDefaultConventions defaultConventions,
             IDefaultBindings defaultBindings,
             IAssembliesConfiguration assembliesConfiguration)
         {
             SystemName = "[Not Set]";
-
             Assemblies = assembliesConfiguration;
-
-            container.DefaultLifecycle = defaultLifecycle;
             container.Bind<IConfigure>(this);
 
             Container = container;
@@ -102,7 +98,6 @@ namespace Bifrost.Configuration
             var container = canCreateContainerInstance.CreateContainer();
             var configure = With(
                 container,
-                BindingLifecycle.Transient,
                 assembliesConfiguration,
                 assemblyProvider,
                 contractToImplementorsMap);
@@ -112,34 +107,9 @@ namespace Bifrost.Configuration
         }
 
         /// <summary>
-        /// Configure with a specific <see cref="IContainer"/> and the <see cref="BindingLifecycle">Lifecycle</see>
-        /// of objects set to none.
-        /// </summary>
-        /// <param name="container"><see cref="IContainer"/> to configure with.</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use.</param>
-        /// <param name="assemblyProvider"><see cref="IAssemblyProvider"/> to use for providing assemblies.</param>
-        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of the
-        /// relationship between contracts and implementors.</param>
-        /// <returns>Configuration object to continue configuration on.</returns>
-        public static Configure With(
-            IContainer container,
-            IAssembliesConfiguration assembliesConfiguration,
-            IAssemblyProvider assemblyProvider,
-            IContractToImplementorsMap contractToImplementorsMap)
-        {
-            return With(
-                container,
-                BindingLifecycle.Transient,
-                assembliesConfiguration,
-                assemblyProvider,
-                contractToImplementorsMap);
-        }
-
-        /// <summary>
         /// Configure with a specific <see cref="IContainer"/>.
         /// </summary>
         /// <param name="container"><see cref="IContainer"/> to configure with.</param>
-        /// <param name="defaultObjectLifecycle">Default <see cref="BindingLifecycle"/> for object creation/management.</param>
         /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use.</param>
         /// <param name="assemblyProvider"><see cref="IAssemblyProvider"/> to use for providing assemblies.</param>
         /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of
@@ -147,14 +117,12 @@ namespace Bifrost.Configuration
         /// <returns>Configuration object to continue configuration on.</returns>
         public static Configure With(
             IContainer container,
-            BindingLifecycle defaultObjectLifecycle,
             IAssembliesConfiguration assembliesConfiguration,
             IAssemblyProvider assemblyProvider,
             IContractToImplementorsMap contractToImplementorsMap)
         {
             return With(
                 container,
-                defaultObjectLifecycle,
                 new DefaultConventions(container),
                 new DefaultBindings(assembliesConfiguration, assemblyProvider, contractToImplementorsMap),
                 assembliesConfiguration);
@@ -183,32 +151,11 @@ namespace Bifrost.Configuration
             IDefaultBindings defaultBindings,
             IAssembliesConfiguration assembliesConfiguration)
         {
-            return With(container, BindingLifecycle.Transient, defaultConventions, defaultBindings, assembliesConfiguration);
-        }
-
-
-        /// <summary>
-        /// Configure with a specific <see cref="IContainer"/>, <see cref="IDefaultConventions"/>
-        /// and <see cref="IDefaultBindings"/>.
-        /// </summary>
-        /// <param name="container"><see cref="IContainer"/> to configure with</param>
-        /// <param name="defaultObjectLifecycle">Default <see cref="BindingLifecycle"/> for object creation/management</param>
-        /// <param name="defaultConventions"><see cref="IDefaultConventions"/> to use</param>
-        /// <param name="defaultBindings"><see cref="IDefaultBindings"/> to use</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use</param>
-        /// <returns></returns>
-        public static Configure With(
-            IContainer container,
-            BindingLifecycle defaultObjectLifecycle,
-            IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings,
-            IAssembliesConfiguration assembliesConfiguration)
-        {
             if (Instance == null)
             {
                 lock (InstanceLock)
                 {
-                    Instance = new Configure(container, defaultObjectLifecycle, defaultConventions, defaultBindings, assembliesConfiguration);
+                    Instance = new Configure(container, defaultConventions, defaultBindings, assembliesConfiguration);
                 }
             }
 
@@ -235,12 +182,6 @@ namespace Bifrost.Configuration
         public IQualityAssurance QualityAssurance { get; private set; }
         public CultureInfo Culture { get; set; }
         public CultureInfo UICulture { get; set; }
-
-        public BindingLifecycle DefaultLifecycle
-        {
-            get { return Container.DefaultLifecycle; }
-            set { Container.DefaultLifecycle = value; }
-        }
 
         public void Initialize()
         {

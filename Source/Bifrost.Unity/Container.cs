@@ -22,7 +22,6 @@ using System.Linq;
 using Bifrost.Execution;
 using Microsoft.Practices.Unity;
 
-
 namespace Bifrost.Unity
 {
     public class Container : IContainer
@@ -56,12 +55,14 @@ namespace Bifrost.Unity
             {
                 return _unityContainer.Resolve(type);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (!optional)
+                {
                     throw ex;
-                else
-                    return null;
+                }
+
+                return null;
             }
         }
 
@@ -87,9 +88,7 @@ namespace Bifrost.Unity
 
         public IEnumerable<Type> GetBoundServices()
         {
-            var query = from r in _unityContainer.Registrations
-                        select r.RegisteredType;
-            return query;
+            return _unityContainer.Registrations.Select(r => r.RegisteredType);
         }
 
         public void Bind(Type service, Func<Type> resolveCallback)
@@ -122,11 +121,13 @@ namespace Bifrost.Unity
             _unityContainer.RegisterType(service, type);
         }
 
+        // Note: The lifecycle parameter is ignored.
         public void Bind<T>(Type type, BindingLifecycle lifecycle)
         {
             _unityContainer.RegisterType(typeof(T), type);
         }
 
+        // Note: The lifecycle parameter is ignored.
         public void Bind(Type service, Type type, BindingLifecycle lifecycle)
         {
             _unityContainer.RegisterType(service, type);
@@ -134,29 +135,13 @@ namespace Bifrost.Unity
 
         public void Bind<T>(T instance)
         {
-            _unityContainer.RegisterInstance<T>(instance);
+            _unityContainer.RegisterInstance(instance);
         }
 
         public void Bind(Type service, object instance)
         {
             _unityContainer.RegisterInstance(service, instance);
         }
-
-        LifetimeManager GetLifetimeManagerFromBindingLifecycle(BindingLifecycle lifecycle)
-        {
-            switch (lifecycle)
-            {
-                case BindingLifecycle.Singleton:
-                    return new ContainerControlledLifetimeManager();
-                case BindingLifecycle.Thread :
-                    return new PerThreadLifetimeManager();
-                case BindingLifecycle.Transient:
-                    return new TransientLifetimeManager();
-            }
-
-            return new PerResolveLifetimeManager();
-        }
-
 
         public void Bind<T>(Func<T> resolveCallback)
         {
@@ -177,7 +162,5 @@ namespace Bifrost.Unity
         {
             throw new NotImplementedException();
         }
-
-        public BindingLifecycle DefaultLifecycle { get; set; }
     }
 }
