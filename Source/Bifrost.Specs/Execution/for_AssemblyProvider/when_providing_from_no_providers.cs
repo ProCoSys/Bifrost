@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using Bifrost.Collections;
 using Bifrost.Execution;
 using Machine.Specifications;
@@ -12,14 +13,18 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
     {
         static IObservableCollection<Assembly> result;
 
-        Establish context = () => provider = Get<AssemblyProvider>();
+        Establish context = () =>
+        {
+            provider = new AssemblyProvider(
+                Enumerable.Empty<ICanProvideAssemblies>(),
+                Get<IAssemblyFilters>(),
+                Get<IAssemblySpecifiers>(),
+                Get<IContractToImplementorsMap>());
+        };
 
         Because of = () => result = provider.GetAll();
 
         It should_return_no_assemblies = () => result.ShouldBeEmpty();
-
-        It should_not_check_anything = () =>
-            GetMock<IAssemblyUtility>().Verify(m => m.IsAssembly(Moq.It.IsAny<AssemblyInfo>()), Times.Never);
 
         It should_not_filter_anything = () =>
             GetMock<IAssemblyFilters>().Verify(m => m.ShouldInclude(Moq.It.IsAny<string>()), Times.Never);

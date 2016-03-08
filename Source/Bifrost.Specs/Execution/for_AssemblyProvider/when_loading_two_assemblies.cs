@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Bifrost.Collections;
 using Bifrost.Execution;
 using Machine.Specifications;
 using Moq;
@@ -21,15 +22,19 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
         static AssemblyInfo assembly_info2;
         static Type[] types2;
         static Assembly assembly2;
+        static IObservableCollection<AssemblyInfo> available_assemblies;
 
         Establish context = () =>
         {
-            assembly_info1 = new AssemblyInfo("x", "y");
             types1 = new[] { typeof(string) };
             assembly1 = new TestAssembly("x", "location1.dll", types1);
-            assembly_info2 = new AssemblyInfo("z", "t");
+            assembly_info1 = new AssemblyInfo("x", "y", new Lazy<Assembly>(() => assembly1));
             types2 = new[] { typeof(AssemblyProvider) };
             assembly2 = new TestAssembly("z", "location2.dll", types2);
+            assembly_info2 = new AssemblyInfo("z", "t", new Lazy<Assembly>(() => assembly2));
+
+            available_assemblies = new ObservableCollection<AssemblyInfo>();
+            GetMock<ICanProvideAssemblies>().Setup(m => m.AvailableAssemblies).Returns(available_assemblies);
 
             provider = Get<AssemblyProvider>();
         };
@@ -39,20 +44,15 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
             // Don't include the first time
             GetMock<IAssemblySpecifiers>().Setup(m => m.SpecifyUsingSpecifiersFrom(assembly1)).Returns(false);
             GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location1.dll")).Returns(false);
-            GetMock<ICanProvideAssemblies>().Raise(x => x.AssemblyAdded += null, assembly1);
+            available_assemblies.Add(assembly_info1);
             result1 = provider.GetAll().ToList();
 
             // Include the second time
             GetMock<IAssemblySpecifiers>().Setup(m => m.SpecifyUsingSpecifiersFrom(assembly2)).Returns(true);
-            GetMock<ICanProvideAssemblies>().Setup(m => m.AvailableAssemblies).Returns(new[] { assembly_info1, assembly_info2 });
-            GetMock<IAssemblyUtility>().Setup(m => m.IsAssembly(assembly_info1)).Returns(true);
-            GetMock<IAssemblyUtility>().Setup(m => m.IsAssembly(assembly_info2)).Returns(true);
-            GetMock<ICanProvideAssemblies>().Setup(m => m.Get(assembly_info1)).Returns(assembly1);
-            GetMock<ICanProvideAssemblies>().Setup(m => m.Get(assembly_info2)).Returns(assembly2);
             GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location2.dll")).Returns(true);
             GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location1.dll")).Returns(true);
-            GetMock<ICanProvideAssemblies>().Raise(x => x.AssemblyAdded += null, assembly2);
-
+            available_assemblies.Add(assembly_info1);
+            available_assemblies.Add(assembly_info2);
             result2 = provider.GetAll().ToList();
         };
 

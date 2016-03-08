@@ -17,9 +17,9 @@
 //
 #endregion
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Bifrost.Collections;
 
 namespace Bifrost.Execution
 {
@@ -28,28 +28,23 @@ namespace Bifrost.Execution
     /// </summary>
     public class AppDomainAssemblyProvider : ICanProvideAssemblies
     {
-        readonly IDictionary<AssemblyInfo, Assembly> _loadedAssemblies;
-
         /// <summary>
         /// Initializes a new instance of <see cref="AppDomainAssemblyProvider"/>
         /// </summary>
         public AppDomainAssemblyProvider()
         {
             AppDomain.CurrentDomain.AssemblyLoad += AssemblyLoaded;
-            _loadedAssemblies = BuildAssemblyMap();
+            AvailableAssemblies = new ObservableCollection<AssemblyInfo>(
+                AppDomain
+                    .CurrentDomain
+                    .GetAssemblies()
+                    .Where(a => !a.IsDynamic)
+                    .Select(AssemblyInfoFromAssembly));
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public event AssemblyAdded AssemblyAdded = a => { };
+        public IObservableCollection<AssemblyInfo> AvailableAssemblies { get; }
 
-        public IEnumerable<AssemblyInfo> AvailableAssemblies => _loadedAssemblies.Keys;
-
-        public Assembly Get(AssemblyInfo assemblyInfo)
-        {
-            Assembly assembly;
-            _loadedAssemblies.TryGetValue(assemblyInfo, out assembly);
-            return assembly;
-        }
 #pragma warning restore 1591 // Xml Comments
 
         void AssemblyLoaded(object sender, AssemblyLoadEventArgs args)
@@ -57,22 +52,13 @@ namespace Bifrost.Execution
             var assembly = args.LoadedAssembly;
             if (!assembly.IsDynamic)
             {
-                _loadedAssemblies[AssemblyInfoFromAssembly(assembly)] = assembly;
-                AssemblyAdded(assembly);
+                AvailableAssemblies.Add(AssemblyInfoFromAssembly(assembly));
             }
-        }
-
-        static IDictionary<AssemblyInfo, Assembly> BuildAssemblyMap()
-        {
-            return AppDomain.CurrentDomain
-                .GetAssemblies()
-                .Where(a => !a.IsDynamic)
-                .ToDictionary(AssemblyInfoFromAssembly, a => a);
         }
 
         static AssemblyInfo AssemblyInfoFromAssembly(Assembly assembly)
         {
-            return new AssemblyInfo(assembly.GetName().Name, assembly.Location);
+            return new AssemblyInfo(assembly.GetName().Name, assembly.Location, new Lazy<Assembly>(() => assembly));
         }
     }
 }

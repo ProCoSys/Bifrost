@@ -17,6 +17,8 @@
 //
 #endregion
 using System.Collections.Generic;
+using System.Linq;
+
 namespace Bifrost.Collections
 {
     /// <summary>
@@ -25,14 +27,31 @@ namespace Bifrost.Collections
     /// <typeparam name="T"></typeparam>
     public class ObservableCollection<T> : IObservableCollection<T>
     {
-        List<T> _internalList = new List<T>();
+        readonly IList<T> _internalList;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObservableCollection{T}"/> class.
+        /// </summary>
+        public ObservableCollection()
+        {
+            _internalList = new List<T>();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObservableCollection{T}"/> class.
+        /// </summary>
+        /// <param name="values">The initial contents of this collection.</param>
+        public ObservableCollection(IEnumerable<T> values)
+        {
+            _internalList = values.ToList();
+        }
 
 #pragma warning disable 1591 // Xml Comments
         public event ItemsAddedToCollection<T> Added = (s, e) => { };
 
         public event ItemsRemovedFromCollection<T> Removed = (s, e) => { };
 
-        public event CollectionCleared<T> Cleared = (s) => { };
+        public event CollectionCleared<T> Cleared = s => { };
 
         public void Add(T item)
         {
@@ -46,25 +65,13 @@ namespace Bifrost.Collections
             OnCleared();
         }
 
-        public bool Contains(T item)
-        {
-            return _internalList.Contains(item);
-        }
+        public bool Contains(T item) => _internalList.Contains(item);
 
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            _internalList.CopyTo(array, arrayIndex);
-        }
+        public void CopyTo(T[] array, int arrayIndex) => _internalList.CopyTo(array, arrayIndex);
 
-        public int Count
-        {
-            get { return _internalList.Count; }
-        }
+        public int Count => _internalList.Count;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         public bool Remove(T item)
         {
@@ -73,30 +80,15 @@ namespace Bifrost.Collections
             return result;
         }
 
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
-        {
-            return _internalList.GetEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => _internalList.GetEnumerator();
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return _internalList.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 #pragma warning restore 1591 // Xml Comments
 
-        void OnAdded(IEnumerable<T> items)
-        {
-            Added(this, items);
-        }
+        void OnAdded(IEnumerable<T> items) => Added(this, items);
 
-        void OnRemoved(IEnumerable<T> items)
-        {
-            Removed(this, items);
-        }
+        void OnRemoved(IEnumerable<T> items) => Removed(this, items);
 
-        void OnCleared()
-        {
-            Cleared(this);
-        }
+        void OnCleared() => Cleared(this);
     }
 }

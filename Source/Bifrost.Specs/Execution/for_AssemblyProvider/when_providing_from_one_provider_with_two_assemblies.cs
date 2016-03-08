@@ -22,19 +22,17 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
 
         Establish context = () =>
         {
-            assembly_info1 = new AssemblyInfo("x", "y");
-            types1 = new[] {typeof(string)};
+            types1 = new[] { typeof(string) };
             assembly1 = new TestAssembly("x", "location1.dll", types1);
-            assembly_info2 = new AssemblyInfo("z", "t");
+            assembly_info1 = new AssemblyInfo("x", "y", new Lazy<Assembly>(() => assembly1));
             types2 = new[] { typeof(AssemblyProvider) };
             assembly2 = new TestAssembly("z", "location2.dll", types2);
+            assembly_info2 = new AssemblyInfo("z", "t", new Lazy<Assembly>(() => assembly2));
             GetMock<ICanProvideAssemblies>()
                 .Setup(m => m.AvailableAssemblies)
-                .Returns(new[] {assembly_info1, assembly_info2});
-            GetMock<IAssemblyUtility>().Setup(m => m.IsAssembly(assembly_info1)).Returns(true);
-            GetMock<IAssemblyUtility>().Setup(m => m.IsAssembly(assembly_info2)).Returns(true);
-            GetMock<ICanProvideAssemblies>().Setup(m => m.Get(assembly_info1)).Returns(assembly1);
-            GetMock<ICanProvideAssemblies>().Setup(m => m.Get(assembly_info2)).Returns(assembly2);
+                .Returns(new ObservableCollection<AssemblyInfo> { assembly_info1, assembly_info2 });
+            GetMock<IAssemblySpecifiers>().Setup(m => m.SpecifyUsingSpecifiersFrom(assembly1)).Returns(true);
+            GetMock<IAssemblySpecifiers>().Setup(m => m.SpecifyUsingSpecifiersFrom(assembly2)).Returns(true);
             GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location1.dll")).Returns(true);
             GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location2.dll")).Returns(true);
 
@@ -43,11 +41,7 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
 
         Because of = () => result = provider.GetAll();
 
-        It should_specify_from_the_first_assembly = () =>
-            GetMock<IAssemblySpecifiers>().Verify(m => m.SpecifyUsingSpecifiersFrom(assembly1), Times.Once);
-
-        It should_specify_from_the_second_assembly = () =>
-            GetMock<IAssemblySpecifiers>().Verify(m => m.SpecifyUsingSpecifiersFrom(assembly2), Times.Once);
+        It should_specify_from_the_assemblies = () => GetMock<IAssemblySpecifiers>().VerifyAll();
 
         It should_return_the_assemblies = () => result.ShouldContainOnly(assembly1, assembly2);
 
