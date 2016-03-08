@@ -9,7 +9,8 @@ using It = Machine.Specifications.It;
 namespace Bifrost.Specs.Execution.for_AssemblyProvider
 {
     [Subject(typeof(AssemblyProvider))]
-    public class when_providing_from_one_provider_with_one_assembly_that_should_not_be_included : given.an_assembly_provider
+    public class when_providing_from_one_provider_with_one_assembly_that_should_not_be_included
+        : given.an_assembly_provider
     {
         static IObservableCollection<Assembly> result;
         static AssemblyInfo assembly_info;
@@ -18,12 +19,12 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
 
         Establish context = () =>
         {
-            assembly_info = new AssemblyInfo("x", "y");
             types = new Type[0];
             assembly = new TestAssembly("x", "location.dll", types);
-            GetMock<ICanProvideAssemblies>().Setup(m => m.AvailableAssemblies).Returns(new[] {assembly_info});
-            GetMock<IAssemblyUtility>().Setup(m => m.IsAssembly(assembly_info)).Returns(true);
-            GetMock<ICanProvideAssemblies>().Setup(m => m.Get(assembly_info)).Returns(assembly);
+            assembly_info = new AssemblyInfo("x", "y", new Lazy<Assembly>(() => assembly));
+            GetMock<ICanProvideAssemblies>()
+                .Setup(m => m.AvailableAssemblies)
+                .Returns(new ObservableCollection<AssemblyInfo> { assembly_info });
             GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location.dll")).Returns(false);
 
             provider = Get<AssemblyProvider>();

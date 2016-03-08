@@ -1,3 +1,8 @@
+## Version 2.2.0
+_Breaking changes_
+
+* The `IAssemblyProvider` and `ICanProvideAssemblies` interfaces have been simplified, and `AssemblyProvider` is loading assemblies in another way. This might result in loading exceptions instead of them being swallowed. [#18](https://github.com/ProCoSys/Bifrost/issues/18)
+
 ## Version 2.1.0
 _Breaking changes_
 

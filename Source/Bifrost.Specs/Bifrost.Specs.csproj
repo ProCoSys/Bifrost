@@ -211,6 +211,7 @@
     <Compile Include="Concepts\for_Value\when_getting_hashcode_for_values_with_identical_values.cs" />
     <Compile Include="Concepts\for_Value\when_getting_hashcode_for_values_with_transposed_values.cs" />
     <Compile Include="Concepts\given\concepts.cs" />
+    <Compile Include="Execution\for_AssemblyProvider\when_loading_an_assembly_triggers_another_assembly_load.cs" />
     <Compile Include="Execution\for_InstanceCreator\given\an_instance_creator.cs" />
     <Compile Include="Execution\for_InstanceCreator\when_implementing_type_does_not_have_default_constructor.cs" />
     <Compile Include="Execution\for_InstanceCreator\when_multiple_implementing_types_exist.cs" />
@@ -306,11 +307,9 @@
     <Compile Include="Execution\for_AssemblyProvider\when_loading_assembly.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_loading_two_assemblies.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_loading_assembly_again.cs" />
-    <Compile Include="Execution\for_AssemblyProvider\when_providing_from_one_provider_with_one_dynamic_assembly.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_providing_from_two_providers_with_same_assembly.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_providing_from_two_providers.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_providing_from_one_provider_with_two_assemblies.cs" />
-    <Compile Include="Execution\for_AssemblyProvider\when_providing_from_one_provider_with_one_fake_assembly.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_providing_from_one_provider_with_one_assembly_that_should_not_be_included.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_providing_from_one_provider_with_one_assembly_that_should_be_included.cs" />
     <Compile Include="Execution\for_AssemblyProvider\when_providing_from_no_providers.cs" />

@@ -12,6 +12,7 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
     public class when_loading_assembly : given.an_assembly_provider
     {
         static IObservableCollection<Assembly> result;
+        static IObservableCollection<AssemblyInfo> available_assemblies;
         static Type[] types;
         static Assembly assembly;
 
@@ -19,14 +20,17 @@ namespace Bifrost.Specs.Execution.for_AssemblyProvider
         {
             types = new Type[0];
             assembly = new TestAssembly("x", "location.dll", types);
+            available_assemblies = new ObservableCollection<AssemblyInfo>();
+            GetMock<ICanProvideAssemblies>().Setup(m => m.AvailableAssemblies).Returns(available_assemblies);
+
             provider = Get<AssemblyProvider>();
+            GetMock<IAssemblySpecifiers>().Setup(m => m.SpecifyUsingSpecifiersFrom(assembly)).Returns(true);
             GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location.dll")).Returns(true);
         };
 
-        Because of = () => GetMock<ICanProvideAssemblies>().Raise(x => x.AssemblyAdded += null, assembly);
+        Because of = () => available_assemblies.Add(new AssemblyInfo("x", "location.dll", new Lazy<Assembly>(() => assembly)));
 
-        It should_specify_from_the_assembly = () =>
-            GetMock<IAssemblySpecifiers>().Verify(m => m.SpecifyUsingSpecifiersFrom(assembly), Times.Once);
+        It should_specify_from_the_assembly = () => GetMock<IAssemblySpecifiers>().VerifyAll();
 
         It should_return_the_assembly = () => provider.GetAll().ShouldContainOnly(assembly);
 

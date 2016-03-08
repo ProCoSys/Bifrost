@@ -16,32 +16,20 @@
 // limitations under the License.
 //
 #endregion
-using System.Collections.Generic;
-using System.Reflection;
+using Bifrost.Collections;
 
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Defines a system that can provide assemblies
+    /// Defines a system that can provide assemblies.
     /// </summary>
     public interface ICanProvideAssemblies
     {
         /// <summary>
-        /// Gets triggered if an <see cref="Assembly"/> is added dynamically
-        /// </summary>
-        event AssemblyAdded AssemblyAdded;
-
-        /// <summary>
-        /// Get available assemblies that can be provided
+        /// Gets an observable collection of available assemblies that is provided.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<AssemblyInfo> AvailableAssemblies { get; }
-
-        /// <summary>
-        /// Get a specific assembly based on its <see cref="AssemblyInfo"/>
-        /// </summary>
-        /// <param name="assemblyInfo"><see cref="AssemblyInfo"/> for the assembly</param>
-        /// <returns>Loaded <see cref="Assembly"/></returns>
-        Assembly Get(AssemblyInfo assemblyInfo);
+        /// <remarks>No items should ever be removed from the collections, only new ones added.</remarks>
+        IObservableCollection<AssemblyInfo> AvailableAssemblies { get; }
     }
 }

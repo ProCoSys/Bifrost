@@ -238,7 +238,6 @@
     <Compile Include="Events\NullUncommittedEventStreamCoordinator.cs" />
     <Compile Include="Events\ProcessMethodInvoker.cs" />
     <Compile Include="Events\UncommittedEventStreamCoordinator.cs" />
-    <Compile Include="Execution\AssemblyComparer.cs" />
     <Compile Include="Execution\Assemblies.cs" />
     <Compile Include="Execution\BaseConvention.cs" />
     <Compile Include="Execution\BindingConventionManager.cs" />

@@ -17,16 +17,16 @@
 //
 #endregion
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Bifrost.Collections;
 
 namespace Bifrost.Execution
 {
     /// <summary>
     /// Represents an implementation of <see cref="ICanProvideAssemblies"/> that is capable of
-    /// discovering assembly files from the directory in which the application resides
+    /// discovering assembly files from the directory in which the application resides.
     /// </summary>
     public class FileSystemAssemblyProvider : ICanProvideAssemblies
     {
@@ -34,28 +34,31 @@ namespace Bifrost.Execution
         /// Initializes a new instance of <see cref="FileSystemAssemblyProvider"/>
         /// </summary>
         /// <param name="fileSystem"></param>
-        public FileSystemAssemblyProvider(IFileSystem fileSystem)
+        /// <param name="assemblyUtility"></param>
+        public FileSystemAssemblyProvider(IFileSystem fileSystem, IAssemblyUtility assemblyUtility)
         {
             var codeBase = typeof(FileSystemAssemblyProvider).Assembly.GetName().CodeBase;
             var uri = new Uri(codeBase);
-
             var assemblyFileInfo = new FileInfo(uri.LocalPath);
 
-            var assemblyFiles = fileSystem.GetFilesFrom(assemblyFileInfo.Directory.ToString(), "*.dll").ToList();
-            assemblyFiles.AddRange(fileSystem.GetFilesFrom(assemblyFileInfo.Directory.ToString(), "*.exe"));
-
-            AvailableAssemblies = assemblyFiles.Select(file => new AssemblyInfo(Path.GetFileNameWithoutExtension(file.FullName), file.FullName));
+            AvailableAssemblies = new ObservableCollection<AssemblyInfo>(
+                fileSystem.GetFilesFrom(assemblyFileInfo.Directory.ToString(), "*.dll")
+                    .Concat(fileSystem.GetFilesFrom(assemblyFileInfo.Directory.ToString(), "*.exe"))
+                    .Select(fi => fi.FullName)
+                    .Select(AssemblyInfoFromFileInfo)
+                    .Where(assemblyUtility.IsAssembly));
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public event AssemblyAdded AssemblyAdded = (a) => { };
-
-        public IEnumerable<AssemblyInfo> AvailableAssemblies { get; private set; }
-
-        public Assembly Get(AssemblyInfo assemblyInfo)
-        {
-            return Assembly.LoadFile(assemblyInfo.Path);
-        }
+        public IObservableCollection<AssemblyInfo> AvailableAssemblies { get; }
 #pragma warning restore 1591 // Xml Comments
+
+        static AssemblyInfo AssemblyInfoFromFileInfo(string path)
+        {
+            return new AssemblyInfo(
+                Path.GetFileNameWithoutExtension(path),
+                path,
+                new Lazy<Assembly>(() => Assembly.LoadFile(path)));
+        }
     }
 }

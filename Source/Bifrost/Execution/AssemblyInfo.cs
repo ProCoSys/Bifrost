@@ -16,39 +16,42 @@
 // limitations under the License.
 //
 #endregion
+using System;
+using System.Reflection;
 
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Represents the information about assemblies
+    /// Represents a lazy view of assemblies.
     /// </summary>
     public class AssemblyInfo
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="AssemblyInfo"/>
+        /// Initializes a new instance of <see cref="AssemblyInfo"/>.
         /// </summary>
-        /// <param name="name">Name of the assembly</param>
-        /// <param name="path">Path to the assembly</param>
-        public AssemblyInfo(string name, string path)
+        /// <param name="name">Name of the assembly.</param>
+        /// <param name="path">Path to the assembly.</param>
+        /// <param name="assembly">The assembly itself, lazily loaded.</param>
+        public AssemblyInfo(string name, string path, Lazy<Assembly> assembly)
         {
             Name = name;
             Path = path;
-            FileName = System.IO.Path.GetFileName(path);
+            Assembly = assembly;
         }
 
         /// <summary>
-        /// Gets the name of the assembly
+        /// Gets the name of the assembly.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
-        /// Gets the fileName of the assembly
+        /// Gets the full path to the assembly.
         /// </summary>
-        public string FileName { get; private set; }
+        public string Path { get; }
 
         /// <summary>
-        /// Gets the fullpath to the assembly
+        /// Gets the assembly.
         /// </summary>
-        public string Path { get; private set; }
+        public Lazy<Assembly> Assembly { get; }
     }
 }

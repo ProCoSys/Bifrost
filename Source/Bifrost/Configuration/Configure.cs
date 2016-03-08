@@ -71,7 +71,7 @@ namespace Bifrost.Configuration
             var assemblyProviders = new List<ICanProvideAssemblies>
             {
                 new AppDomainAssemblyProvider(),
-                new FileSystemAssemblyProvider(new FileSystem())
+                new FileSystemAssemblyProvider(new FileSystem(), new AssemblyUtility())
             };
             if (additionalAssemblyProviders != null)
             {
@@ -88,7 +88,6 @@ namespace Bifrost.Configuration
             var assemblyProvider = new AssemblyProvider(
                 assemblyProviders,
                 new AssemblyFilters(assembliesConfiguration),
-                new AssemblyUtility(),
                 assemblySpecifiers,
                 contractToImplementorsMap);
 
