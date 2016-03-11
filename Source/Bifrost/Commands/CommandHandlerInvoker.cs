@@ -38,6 +38,7 @@ namespace Bifrost.Commands
         readonly ITypeDiscoverer _discoverer;
         readonly IContainer _container;
         readonly Dictionary<Type, MethodInfo> _commandHandlers = new Dictionary<Type, MethodInfo>();
+        readonly object _initializationLock = new object();
         bool _initialized;
 
         /// <summary>
@@ -52,11 +53,27 @@ namespace Bifrost.Commands
             _initialized = false;
         }
 
-        private void Initialize()
+        void EnsureInitialized()
+        {
+            if (_initialized)
+            {
+                return;
+            }
+
+            lock (_initializationLock)
+            {
+                if (!_initialized)
+                {
+                    Initialize();
+                    _initialized = true;
+                }
+            }
+        }
+
+        void Initialize()
         {
             var handlers = _discoverer.FindMultiple<IHandleCommands>();
             handlers.ForEach(Register);
-            _initialized = true;
         }
 
         /// <summary>
@@ -69,23 +86,22 @@ namespace Bifrost.Commands
         /// </remarks>
         public void Register(Type handlerType)
         {
-            var allMethods = handlerType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
-            var query = from m in allMethods
-                        where m.Name.Equals(HandleMethodName) &&
-                              m.GetParameters().Length == 1 &&
-                              typeof(ICommand)
-                                .IsAssignableFrom(m.GetParameters()[0].ParameterType)
-                        select m;
+            var handleMethods = handlerType
+                .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                .Where(m => m.Name.Equals(HandleMethodName))
+                .Where(m => m.GetParameters().Length == 1)
+                .Where(m => typeof(ICommand).IsAssignableFrom(m.GetParameters()[0].ParameterType));
 
-            foreach (var method in query)
+            foreach (var method in handleMethods)
+            {
                 _commandHandlers[method.GetParameters()[0].ParameterType] = method;
+            }
         }
 
 #pragma warning disable 1591 // Xml Comments
         public bool TryHandle(ICommand command)
         {
-            if( !_initialized)
-                Initialize();
+            EnsureInitialized();
 
             var commandType = command.GetType();
             if (_commandHandlers.ContainsKey(commandType))
