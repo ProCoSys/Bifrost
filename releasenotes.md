@@ -1,3 +1,7 @@
+## Next version
+
+* Fix bug when `CommandHandlerInvoker` is initialized asynchronously [#20](https://github.com/ProCoSys/Bifrost/issues/20)
+
 ## Version 2.2.0
 _Breaking changes_
 

@@ -123,12 +123,12 @@
     <Compile Include="Commands\for_CommandCoordinator\when_handling_command_and_an_exception_occurs_during_handling.cs" />
     <Compile Include="Commands\for_CommandCoordinator\when_handling_command_and_an_exception_occurs_during_validation.cs" />
     <Compile Include="Commands\for_CommandCoordinator\when_handling_command_with_success.cs" />
-    <Compile Include="Commands\for_CommandHandlerInvoker\given\a_command_handler_invoker_with_no_command_handlers.cs" />
-    <Compile Include="Commands\for_CommandHandlerInvoker\given\a_command_handler_invoker_with_one_command_handler.cs" />
+    <Compile Include="Commands\for_CommandHandlerInvoker\given\a_command_handler_invoker.cs" />
     <Compile Include="Commands\for_CommandHandlerInvoker\Stubs.cs" />
     <Compile Include="Commands\for_CommandHandlerInvoker\Subjects.cs" />
     <Compile Include="Commands\for_CommandHandlerInvoker\when_handling_with_automatically_discovered_command_handlers.cs" />
     <Compile Include="Commands\for_CommandHandlerInvoker\when_handling_with_manually_registered_command_handlers.cs" />
+    <Compile Include="Commands\for_CommandHandlerInvoker\when_receiving_asynchronous_initialization.cs" />
     <Compile Include="Commands\for_CommandHandlerInvoker\when_handling_with_no_command_handlers.cs" />
     <Compile Include="Commands\for_CommandHandlerManager\given\a_command_handler_manager.cs" />
     <Compile Include="Commands\for_CommandHandlerManager\when_handling_a_command_without_a_command_handler.cs" />
