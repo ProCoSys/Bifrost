@@ -85,26 +85,6 @@ namespace Bifrost.Ninject
             return _boundServices;
         }
 
-        public void Bind(Type type, Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind(Type type, Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Bind<T>(Type type)
         {
             Bind<T>(type, DefaultLifecycle);

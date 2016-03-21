@@ -114,26 +114,6 @@ namespace Bifrost.Windsor
             return services;
         }
 
-        public void Bind(Type service, Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind(Type service, Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Bind<T>(Type type)
         {
             Bind(typeof(T), type, DefaultLifecycle);

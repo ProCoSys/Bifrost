@@ -92,37 +92,6 @@ namespace Bifrost.Execution
         IEnumerable<Type> GetBoundServices();
 
         /// <summary>
-        /// Bind a service type to a callback that can resolve it
-        /// </summary>
-        /// <param name="service">Service to bind</param>
-        /// <param name="resolveCallback">Callback that gets called to resolve it</param>
-        void Bind(Type service, Func<Type> resolveCallback);
-
-        /// <summary>
-        /// Bind a service type to a callback that can resolve it
-        /// </summary>
-        /// <typeparam name="T">Service to bind</typeparam>
-        /// <param name="resolveCallback">Callback that gets called to resolve it</param>
-        void Bind<T>(Func<Type> resolveCallback);
-
-        /// <summary>
-        /// Bind a service type to a callback that can resolve it with given lifecycle
-        /// </summary>
-        /// <param name="service">Service to bind</param>
-        /// <param name="resolveCallback">Callback that gets called to resolve it</param>
-        /// <param name="lifecycle">Lifecycle of the service</param>
-        void Bind(Type service, Func<Type> resolveCallback, BindingLifecycle lifecycle);
-
-        /// <summary>
-        /// Bind a service type to a callback that can resolve it with given lifecycle
-        /// </summary>
-        /// <typeparam name="T">Service to bind</typeparam>
-        /// <param name="resolveCallback">Callback that gets called to resolve it</param>
-        /// <param name="lifecycle">Lifecycle of the service</param>
-        void Bind<T>(Func<Type> resolveCallback, BindingLifecycle lifecycle);
-
-
-        /// <summary>
         /// Bind a service type to a callback that can resolve the instance
         /// </summary>
         /// <typeparam name="T">Service to bind</typeparam>

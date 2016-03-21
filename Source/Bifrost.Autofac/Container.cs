@@ -117,27 +117,6 @@ namespace Bifrost.Autofac
             return types;
         }
 
-        public void Bind(Type type, Func<Type> resolveCallback)
-        {
-            RegisterWithCallback(type, resolveCallback, DefaultLifecycle);
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback)
-        {
-            RegisterWithCallback(typeof(T), resolveCallback, DefaultLifecycle);
-        }
-
-
-        public void Bind(Type type, Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            RegisterWithCallback(type, resolveCallback, lifecycle);
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            RegisterWithCallback(typeof(T), resolveCallback, lifecycle);
-        }
-
         public void Bind<T>(Type type)
         {
             RegisterService(typeof(T), type, DefaultLifecycle);

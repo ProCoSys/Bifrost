@@ -1,5 +1,6 @@
 ## Next version
 _Breaking changes_
+* There are no more `Func<Type>` methods of `IContainer` [#22](https://github.com/ProCoSys/Bifrost/issues/22)
 * The `Bifrost.SimpleInjector` project has been deleted
 
 _Other changes_
