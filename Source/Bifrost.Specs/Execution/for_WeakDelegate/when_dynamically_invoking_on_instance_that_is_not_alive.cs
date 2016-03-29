@@ -9,7 +9,6 @@ namespace Bifrost.Specs.Execution.for_WeakDelegate
         static WeakDelegate setup()
         {
             var target = new ClassWithMethod();
-            target = new ClassWithMethod();
             Func<string, double, int> @delegate = target.SomeMethod;
             var weakDelegate = new WeakDelegate(@delegate);
             return weakDelegate;
@@ -22,7 +21,9 @@ namespace Bifrost.Specs.Execution.for_WeakDelegate
         {
             weak_delegate = setup();
             GC.Collect(0, GCCollectionMode.Forced, true);
+            GC.WaitForPendingFinalizers();
             GC.WaitForFullGCComplete();
+            GC.Collect();
         };
 
         Because of = () => exception = Catch.Exception(() => weak_delegate.DynamicInvoke("Something", 42.42));
