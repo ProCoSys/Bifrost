@@ -5,6 +5,7 @@ _Breaking changes_
 
 _Other changes_
 * Fixed bug when `CommandHandlerInvoker` is initialized asynchronously [#20](https://github.com/ProCoSys/Bifrost/issues/20)
+* `CommandValidatorProvider` will now return null instead of an empty validator of the wrong type if the supplied type is not an `ICommand` [#24](https://github.com/ProCoSys/Bifrost/issues/24)
 
 ## Version 2.2.0
 _Breaking changes_

@@ -45,9 +45,6 @@ namespace Bifrost.FluentValidation.Commands
         Dictionary<Type, List<Type>> _dynamicallyDiscoveredInputValidators = new Dictionary<Type, List<Type>>();
         Dictionary<Type, List<Type>> _dynamicallyDiscoveredBusinessValidators = new Dictionary<Type, List<Type>>();
 
-        NullCommandBusinessValidator _nullCommandBusinessValidator = new NullCommandBusinessValidator();
-        NullCommandInputValidator _nullCommandInputValidator = new NullCommandInputValidator();
-
         /// <summary>
         /// Initializes an instance of <see cref="CommandValidatorProvider"/> CommandValidatorProvider
         /// </summary>
@@ -79,7 +76,7 @@ namespace Bifrost.FluentValidation.Commands
         public ICommandBusinessValidator GetBusinessValidatorFor(Type commandType)
         {
             if (!typeof (ICommand).IsAssignableFrom(commandType))
-                return _nullCommandBusinessValidator;
+                return null;
 
             Type registeredBusinessValidatorType;
             _businessCommandValidators.TryGetValue(commandType, out registeredBusinessValidatorType);
@@ -95,7 +92,7 @@ namespace Bifrost.FluentValidation.Commands
         public ICommandInputValidator GetInputValidatorFor(Type commandType)
         {
             if (!typeof(ICommand).IsAssignableFrom(commandType))
-                return _nullCommandInputValidator;
+                return null;
 
             Type registeredInputValidatorType;
             _inputCommandValidators.TryGetValue(commandType, out registeredInputValidatorType);
