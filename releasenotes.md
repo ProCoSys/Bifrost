@@ -1,6 +1,10 @@
 ## Next version
+_Breaking changes_
+* There are no more `Func<Type>` methods of `IContainer` [#22](https://github.com/ProCoSys/Bifrost/issues/22)
+* The `Bifrost.SimpleInjector` project has been deleted
 
-* Fix bug when `CommandHandlerInvoker` is initialized asynchronously [#20](https://github.com/ProCoSys/Bifrost/issues/20)
+_Other changes_
+* Fixed bug when `CommandHandlerInvoker` is initialized asynchronously [#20](https://github.com/ProCoSys/Bifrost/issues/20)
 
 ## Version 2.2.0
 _Breaking changes_

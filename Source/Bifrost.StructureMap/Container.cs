@@ -105,26 +105,6 @@ namespace Bifrost.StructureMap
             return _container.Model.PluginTypes.Select(p => p.PluginType);
         }
 
-        public void Bind(Type service, Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind(Type service, Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Bind<T>(Type type)
         {
             Bind(type, DefaultLifecycle);

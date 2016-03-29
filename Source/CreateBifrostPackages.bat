@@ -33,7 +33,6 @@ REM %nuget% pack "%~dp0\Bifrost.Client\Bifrost.Client.csproj" -p Configuration=%
 %nuget% pack "%~dp0\Bifrost.JSON\Bifrost.JSON.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.AutoFac\Bifrost.AutoFac.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.Ninject\Bifrost.Ninject.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
-REM %nuget% pack "%~dp0\Bifrost.SimpleInjector\Bifrost.SimpleInjector.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.StructureMap\Bifrost.StructureMap.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.Unity\Bifrost.Unity.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.Windsor\Bifrost.Windsor.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive

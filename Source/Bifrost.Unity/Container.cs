@@ -91,26 +91,6 @@ namespace Bifrost.Unity
             return _unityContainer.Registrations.Select(r => r.RegisteredType);
         }
 
-        public void Bind(Type service, Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind(Type service, Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Bind<T>(Func<Type> resolveCallback, BindingLifecycle lifecycle)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Bind<T>(Type type)
         {
             _unityContainer.RegisterType(typeof(T), type);

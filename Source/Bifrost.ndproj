@@ -15,7 +15,6 @@
     <Name>Bifrost.Ninject</Name>
     <Name>Bifrost.Oracle</Name>
     <Name>Bifrost.RavenDB</Name>
-    <Name>Bifrost.SimpleInjector</Name>
     <Name>Bifrost.StructureMap</Name>
     <Name>Bifrost.Testing</Name>
     <Name>Bifrost.Unity</Name>
@@ -52,8 +51,6 @@
     <Name>System.Transactions</Name>
     <Name>Raven.Abstractions</Name>
     <Name>Raven.Client.Lightweight</Name>
-    <Name>SimpleInjector</Name>
-    <Name>SimpleInjector.Integration.Web</Name>
     <Name>StructureMap</Name>
     <Name>Moq</Name>
     <Name>Microsoft.Practices.Unity</Name>
