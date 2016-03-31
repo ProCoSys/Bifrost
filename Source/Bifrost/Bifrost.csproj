@@ -130,7 +130,6 @@
     <Compile Include="Configuration\Assemblies\AssembliesStartingWith.cs" />
     <Compile Include="Configuration\Assemblies\IAssembliesConfiguration.cs" />
     <Compile Include="Bootstrap\Assemblies\IncludeNone.cs" />
-    <Compile Include="Bootstrap\Assemblies\IncludeNoneRule.cs" />
     <Compile Include="Specifications\MatchAll.cs" />
     <Compile Include="Specifications\MatchNone.cs" />
     <Compile Include="Exceptions\ExceptionPublisher.cs" />

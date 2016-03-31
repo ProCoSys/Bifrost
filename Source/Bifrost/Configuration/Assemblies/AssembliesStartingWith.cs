@@ -4,7 +4,7 @@ using Bifrost.Specifications;
 namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
-    /// Rule representing an addition to <see cref="IncludeNoneRule"/>,
+    /// Rule representing an addition to <see cref="MatchNone{T}"/>,
     /// that includes assemblies in files starting with any of the given names.
     /// </summary>
     public class AssembliesStartingWith : Specification<string>

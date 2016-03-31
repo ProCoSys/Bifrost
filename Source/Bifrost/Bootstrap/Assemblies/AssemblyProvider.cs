@@ -12,7 +12,6 @@ namespace Bifrost.Bootstrap.Assemblies
     /// <summary>
     /// Represents an implementation of <see cref="IAssemblyProvider"/>.
     /// </summary>
-    [Singleton]
     public class AssemblyProvider : IAssemblyProvider
     {
         int _processing;

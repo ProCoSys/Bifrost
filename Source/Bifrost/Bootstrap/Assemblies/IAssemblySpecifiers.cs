@@ -21,7 +21,7 @@ using System.Reflection;
 namespace Bifrost.Bootstrap.Assemblies
 {
     /// <summary>
-    /// Defines a system that knows about <see cref="ICanSpecifyAssembly"/>.
+    /// Defines a system that can specify assemblies.
     /// </summary>
     public interface IAssemblySpecifiers
     {

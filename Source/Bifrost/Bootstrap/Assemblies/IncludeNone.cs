@@ -4,7 +4,7 @@ using Bifrost.Specifications;
 namespace Bifrost.Bootstrap.Assemblies
 {
     /// <summary>
-    /// Represents the <see cref="IAssembliesConfiguration"/> for building the <see cref="IncludeNoneRule"/>.
+    /// Represents the default <see cref="IAssembliesConfiguration"/>, which is to include no assemblies.
     /// </summary>
     public class IncludeNone : IAssembliesConfiguration
     {
@@ -13,11 +13,11 @@ namespace Bifrost.Bootstrap.Assemblies
         /// </summary>
         public IncludeNone()
         {
-            Specification = new IncludeNoneRule();
+            Specification = new MatchNone<string>();
         }
 
         /// <summary>
-        /// Gets the <see cref="IncludeNoneRule"/>.
+        /// Gets the current specification.
         /// </summary>
         public Specification<string> Specification { get; set; }
     }
