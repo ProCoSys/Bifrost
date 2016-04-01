@@ -73,7 +73,7 @@ namespace Bifrost.Specs.Configuration.for_Configure.given
                                     type_importer_mock = new Mock<ITypeImporter>();
                                     container_mock.Setup(c => c.Get<ITypeImporter>()).Returns(type_importer_mock.Object);
 
-                                    configure_instance = Configure.With(container_mock.Object, default_conventions_mock.Object, default_bindings_mock.Object, Mock.Of<IAssembliesConfiguration>());
+                                    configure_instance = Configure.With(container_mock.Object, default_conventions_mock.Object, default_bindings_mock.Object);
 
                                     configurators_mock = new Mock<IInstancesOf<ICanConfigure>>();
                                     configurators_mock.Setup(c => c.GetEnumerator()).Returns(new List<ICanConfigure>().GetEnumerator());

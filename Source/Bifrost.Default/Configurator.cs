@@ -41,7 +41,7 @@ namespace Web
                     .Web(w=> {
                         w.AsSinglePageApplication();
 
-                        var baseNamespace = global::Bifrost.Configuration.Configure.Instance.EntryAssembly.GetName().Name;
+                        var baseNamespace = Bifrost.Configuration.Configure.EntryAssembly.GetName().Name;
                         var @namespace = string.Format("{0}.**.", baseNamespace);
 
                         w.PathsToNamespaces.Add("**/", @namespace);

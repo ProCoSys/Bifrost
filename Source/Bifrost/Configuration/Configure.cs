@@ -17,7 +17,6 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -42,14 +41,17 @@ namespace Bifrost.Configuration
         /// </summary>
         public static Configure Instance { get; private set; }
 
+        /// <summary>
+        /// Gets the entry assembly for the application
+        /// </summary>
+        public static Assembly EntryAssembly => Instance.Container.Get<ICanCreateContainer>().GetType().Assembly;
+
         Configure(
             IContainer container,
             IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings,
-            IAssembliesConfiguration assembliesConfiguration)
+            IDefaultBindings defaultBindings)
         {
             SystemName = "[Not Set]";
-            Assemblies = assembliesConfiguration;
             container.Bind<IConfigure>(this);
 
             Container = container;
@@ -100,7 +102,6 @@ namespace Bifrost.Configuration
                 assembliesConfiguration,
                 assemblyProvider,
                 contractToImplementorsMap);
-            configure.EntryAssembly = canCreateContainerInstance.GetType().Assembly;
             configure.Initialize();
             return configure;
         }
@@ -123,8 +124,7 @@ namespace Bifrost.Configuration
             return With(
                 container,
                 new DefaultConventions(container),
-                new DefaultBindings(assembliesConfiguration, assemblyProvider, contractToImplementorsMap),
-                assembliesConfiguration);
+                new DefaultBindings(assembliesConfiguration, assemblyProvider, contractToImplementorsMap));
         }
 
         /// <summary>
@@ -142,19 +142,17 @@ namespace Bifrost.Configuration
         /// <param name="container"><see cref="IContainer"/> to configure with</param>
         /// <param name="defaultConventions"><see cref="IDefaultConventions"/> to use</param>
         /// <param name="defaultBindings"><see cref="IDefaultBindings"/> to use</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use</param>
         /// <returns></returns>
         public static Configure With(
             IContainer container,
             IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings,
-            IAssembliesConfiguration assembliesConfiguration)
+            IDefaultBindings defaultBindings)
         {
             if (Instance == null)
             {
                 lock (InstanceLock)
                 {
-                    Instance = new Configure(container, defaultConventions, defaultBindings, assembliesConfiguration);
+                    Instance = new Configure(container, defaultConventions, defaultBindings);
                 }
             }
 
@@ -164,7 +162,6 @@ namespace Bifrost.Configuration
 #pragma warning disable 1591 // Xml Comments
         public IContainer Container { get; }
         public string SystemName { get; set; }
-        public Assembly EntryAssembly { get; private set; }
         public IDefaultStorageConfiguration DefaultStorage { get; set; }
         public ICommandsConfiguration Commands { get; private set; }
         public IEventsConfiguration Events { get; private set; }
@@ -177,7 +174,6 @@ namespace Bifrost.Configuration
         public ICallContextConfiguration CallContext { get; private set; }
         public IExecutionContextConfiguration ExecutionContext { get; private set; }
         public ISecurityConfiguration Security { get; private set; }
-        public IAssembliesConfiguration Assemblies { get; }
         public IQualityAssurance QualityAssurance { get; private set; }
         public CultureInfo Culture { get; set; }
         public CultureInfo UICulture { get; set; }
@@ -187,21 +183,21 @@ namespace Bifrost.Configuration
             ConfigureFromCanConfigurables();
             InitializeCulture();
 
-            var initializers = new Action[] {
-                () => Serialization.Initialize(Container),
-                () => Commands.Initialize(Container),
-                () => Events.Initialize(Container),
-                () => Tasks.Initialize(Container),
-                () => Views.Initialize(Container),
-                () => Sagas.Initialize(Container),
-                () => Frontend.Initialize(Container),
-                () => CallContext.Initialize(Container),
-                () => ExecutionContext.Initialize(Container),
-                () => Security.Initialize(Container),
-                () => DefaultStorage.Initialize(Container)
+            var initializers = new IConfigurationElement[] {
+                Serialization,
+                Commands,
+                Events,
+                Tasks,
+                Views,
+                Sagas,
+                Frontend,
+                CallContext,
+                ExecutionContext,
+                Security,
+                DefaultStorage,
             };
 
-            Parallel.ForEach(initializers, initializator => initializator());
+            Parallel.ForEach(initializers, i => i.Initialize(Container));
             ConfigurationDone();
         }
 #pragma warning restore 1591 // Xml Comments
