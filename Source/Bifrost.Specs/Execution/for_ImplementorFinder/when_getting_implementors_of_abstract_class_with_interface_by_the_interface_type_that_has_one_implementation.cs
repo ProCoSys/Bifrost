@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Machine.Specifications;
 
-namespace Bifrost.Specs.Execution.for_ContractToImplementorsMap
+namespace Bifrost.Specs.Execution.for_ImplementorFinder
 {
     public class when_getting_implementors_of_abstract_class_with_interface_by_the_interface_type_that_has_one_implementation : given.an_empty_map
     {

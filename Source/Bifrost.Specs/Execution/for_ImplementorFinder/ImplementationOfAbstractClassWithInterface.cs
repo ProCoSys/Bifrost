@@ -1,5 +1,5 @@
 ﻿
-namespace Bifrost.Specs.Execution.for_ContractToImplementorsMap
+namespace Bifrost.Specs.Execution.for_ImplementorFinder
 {
     public class ImplementationOfAbstractClassWithInterface : AbstractClassWithInterface
     {

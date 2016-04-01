@@ -30,7 +30,7 @@ namespace Bifrost.Bootstrap.Assemblies
 
         readonly IAssemblyFilters _assemblyFilters;
         readonly IAssemblySpecifiers _assemblySpecifiers;
-        readonly IContractToImplementorsMap _contractToImplementorsMap;
+        readonly IImplementorFinder _implementorFinder;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssemblyProvider"/>
@@ -44,19 +44,19 @@ namespace Bifrost.Bootstrap.Assemblies
         /// <param name="assemblySpecifiers">
         /// <see cref="IAssemblySpecifiers"/> used for specifying what assemblies to include or not.
         /// </param>
-        /// <param name="contractToImplementorsMap">
-        /// <see cref="IContractToImplementorsMap"/> for keeping track of the relationship between contracts and implementors.
+        /// <param name="implementorFinder">
+        /// <see cref="IImplementorFinder"/> for keeping track of the relationship between contracts and implementors.
         /// </param>
         public AssemblyProvider(
             IEnumerable<ICanProvideAssemblies> assemblyProviders,
             IAssemblyFilters assemblyFilters,
             IAssemblySpecifiers assemblySpecifiers,
-            IContractToImplementorsMap contractToImplementorsMap)
+            IImplementorFinder implementorFinder)
         {
             var providers = assemblyProviders.ToList();
             _assemblyFilters = assemblyFilters;
             _assemblySpecifiers = assemblySpecifiers;
-            _contractToImplementorsMap = contractToImplementorsMap;
+            _implementorFinder = implementorFinder;
 
             foreach (var provider in providers)
             {
@@ -137,7 +137,7 @@ namespace Bifrost.Bootstrap.Assemblies
                 if (!_assemblies.Contains(assembly) &&
                     _assemblyFilters.ShouldInclude(new FileInfo(assembly.Location).Name))
                 {
-                    _contractToImplementorsMap.Feed(assembly.GetTypes());
+                    _implementorFinder.Feed(assembly.GetTypes());
                     _assemblies.Add(assembly);
                 }
             }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Machine.Specifications;
+﻿using Machine.Specifications;
 
-namespace Bifrost.Specs.Execution.for_ContractToImplementorsMap
+namespace Bifrost.Specs.Execution.for_ImplementorFinder
 {
     public class when_feeding_interface_type_first_and_implementations_two_subsequent_times : given.an_empty_map
     {

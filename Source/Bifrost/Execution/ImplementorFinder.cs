@@ -27,9 +27,9 @@ using Bifrost.Extensions;
 namespace Bifrost.Execution
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IContractToImplementorsMap"/>
+    /// Represents an implementation of <see cref="IImplementorFinder"/>
     /// </summary>
-    public class ContractToImplementorsMap : IContractToImplementorsMap
+    public class ImplementorFinder : IImplementorFinder
     {
         ConcurrentDictionary<Type, ConcurrentDictionary<string, Type>> _contractsAndImplementors = new ConcurrentDictionary<Type, ConcurrentDictionary<string, Type>>();
         ConcurrentDictionary<Type, Type> _allTypes = new ConcurrentDictionary<Type, Type>();

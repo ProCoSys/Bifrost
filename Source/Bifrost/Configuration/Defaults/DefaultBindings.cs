@@ -30,7 +30,7 @@ namespace Bifrost.Configuration.Defaults
     {
         readonly IAssembliesConfiguration _assembliesConfiguration;
         readonly IAssemblyProvider _assemblyProvider;
-        readonly IContractToImplementorsMap _contractToImplentorsMap;
+        readonly IImplementorFinder _contractToImplentorsMap;
 
         /// <summary>
         /// Initializes a new instance of <see cref="DefaultBindings"/>.
@@ -38,7 +38,7 @@ namespace Bifrost.Configuration.Defaults
         public DefaultBindings(
             IAssembliesConfiguration assembliesConfiguration,
             IAssemblyProvider assemblyProvider,
-            IContractToImplementorsMap contractToImplentorsMap)
+            IImplementorFinder contractToImplentorsMap)
         {
             _assembliesConfiguration = assembliesConfiguration;
             _assemblyProvider = assemblyProvider;

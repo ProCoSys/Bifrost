@@ -77,22 +77,22 @@ namespace Bifrost.Configuration
             var assemblySpecifiers = new AssemblySpecifiers(assembliesConfiguration);
             var executingAssembly = Assembly.GetExecutingAssembly();
 
-            IContractToImplementorsMap contractToImplementorsMap = new ContractToImplementorsMap();
-            contractToImplementorsMap.Feed(executingAssembly.GetTypes());
+            IImplementorFinder implementorFinder = new ImplementorFinder();
+            implementorFinder.Feed(executingAssembly.GetTypes());
             assemblySpecifiers.SpecifyUsingSpecifiersFrom(executingAssembly);
             var assemblyProvider = new AssemblyProvider(
                 assemblyProviders,
                 new AssemblyFilters(assembliesConfiguration),
                 assemblySpecifiers,
-                contractToImplementorsMap);
+                implementorFinder);
 
-            var instanceCreator = new InstanceCreator(new TypeFinder(), contractToImplementorsMap);
+            var instanceCreator = new InstanceCreator(new TypeFinder(), implementorFinder);
             var canCreateContainerInstance = instanceCreator.Create<ICanCreateContainer>();
 
             var container = canCreateContainerInstance.CreateContainer();
             container.Bind<ICanCreateContainer>(canCreateContainerInstance);
 
-            InitializeDefaults(container, assembliesConfiguration, assemblyProvider, contractToImplementorsMap);
+            InitializeDefaults(container, assembliesConfiguration, assemblyProvider, implementorFinder);
 
             var configure = With(container);
             configure.Initialize();
@@ -106,12 +106,12 @@ namespace Bifrost.Configuration
             IContainer container,
             IAssembliesConfiguration assembliesConfiguration,
             IAssemblyProvider assemblyProvider,
-            IContractToImplementorsMap contractToImplementorsMap)
+            IImplementorFinder implementorFinder)
         {
             var defaultBindings = new DefaultBindings(
                 assembliesConfiguration,
                 assemblyProvider,
-                contractToImplementorsMap);
+                implementorFinder);
             var defaultConventions = new DefaultConventions(container);
             defaultBindings.Initialize(container);
             defaultConventions.Initialize();

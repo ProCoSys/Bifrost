@@ -27,7 +27,7 @@ namespace Bifrost.Execution
     /// <remarks>
     /// A contract is considered an abstract type or an interface
     /// </remarks>
-    public interface IContractToImplementorsMap
+    public interface IImplementorFinder
     {
         /// <summary>
         /// Feed the map with types

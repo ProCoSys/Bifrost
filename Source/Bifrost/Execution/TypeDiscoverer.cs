@@ -34,19 +34,19 @@ namespace Bifrost.Execution
     {
         IAssemblies _assemblies;
         ITypeFinder _typeFinder;
-        IContractToImplementorsMap _contractToImplementorsMap;
+        IImplementorFinder _implementorFinder;
 
         /// <summary>
         /// Initializes a new instance of <see cref="TypeDiscoverer">TypeDiscoverer</see>
         /// </summary>
         /// <param name="assemblies"><see cref="IAssemblies"/> for getting assemblies</param>
         /// <param name="typeFinder"><see cref="ITypeFinder"/> for finding types from all collected types</param>
-        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of the relationship between contracts and implementors</param>
-        public TypeDiscoverer(IAssemblies assemblies, ITypeFinder typeFinder, IContractToImplementorsMap contractToImplementorsMap)
+        /// <param name="implementorFinder"><see cref="IImplementorFinder"/> for keeping track of the relationship between contracts and implementors</param>
+        public TypeDiscoverer(IAssemblies assemblies, ITypeFinder typeFinder, IImplementorFinder implementorFinder)
         {
             _assemblies = assemblies;
             _typeFinder = typeFinder;
-            _contractToImplementorsMap = contractToImplementorsMap;
+            _implementorFinder = implementorFinder;
 
             CollectTypes();
         }
@@ -54,32 +54,32 @@ namespace Bifrost.Execution
 #pragma warning disable 1591 // Xml Comments
         public IEnumerable<Type> GetAll()
         {
-            return _contractToImplementorsMap.All;
+            return _implementorFinder.All;
         }
 
         public Type FindSingle<T>()
         {
-            return _typeFinder.FindSingle<T>(_contractToImplementorsMap);
+            return _typeFinder.FindSingle<T>(_implementorFinder);
         }
 
         public IEnumerable<Type> FindMultiple<T>()
         {
-            return _typeFinder.FindMultiple<T>(_contractToImplementorsMap);
+            return _typeFinder.FindMultiple<T>(_implementorFinder);
         }
 
         public Type FindSingle(Type type)
         {
-            return _typeFinder.FindSingle(_contractToImplementorsMap, type);
+            return _typeFinder.FindSingle(_implementorFinder, type);
         }
 
         public IEnumerable<Type> FindMultiple(Type type)
         {
-            return _typeFinder.FindMultiple(_contractToImplementorsMap, type);
+            return _typeFinder.FindMultiple(_implementorFinder, type);
         }
 
         public Type FindTypeByFullName(string fullName)
         {
-            return _typeFinder.FindTypeByFullName(_contractToImplementorsMap, fullName);
+            return _typeFinder.FindTypeByFullName(_implementorFinder, fullName);
         }
 #pragma warning restore 1591 // Xml Comments
 
@@ -91,7 +91,7 @@ namespace Bifrost.Execution
             {
                 try
                 {
-                    _contractToImplementorsMap.Feed(assembly.GetTypes());
+                    _implementorFinder.Feed(assembly.GetTypes());
                 }
                 catch (ReflectionTypeLoadException ex)
                 {

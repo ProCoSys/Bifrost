@@ -20,7 +20,7 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
                 Enumerable.Empty<ICanProvideAssemblies>(),
                 Get<IAssemblyFilters>(),
                 Get<IAssemblySpecifiers>(),
-                Get<IContractToImplementorsMap>());
+                Get<IImplementorFinder>());
         };
 
         Because of = () => result = provider.GetAll();

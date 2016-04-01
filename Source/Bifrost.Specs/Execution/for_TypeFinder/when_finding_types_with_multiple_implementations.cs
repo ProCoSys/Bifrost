@@ -10,9 +10,9 @@ namespace Bifrost.Specs.Execution.for_TypeFinder
     {
         static IEnumerable<Type> types_found;
 
-        Establish context = () => GetMock<IContractToImplementorsMap>().Setup(c => c.GetImplementorsFor(typeof(IMultiple))).Returns(new[] { typeof(FirstMultiple), typeof(SecondMultiple) });
+        Establish context = () => GetMock<IImplementorFinder>().Setup(c => c.GetImplementorsFor(typeof(IMultiple))).Returns(new[] { typeof(FirstMultiple), typeof(SecondMultiple) });
 
-        Because of = () => types_found = type_finder.FindMultiple<IMultiple>(Get<IContractToImplementorsMap>());
+        Because of = () => types_found = type_finder.FindMultiple<IMultiple>(Get<IImplementorFinder>());
 
         It should_not_return_null = () => types_found.ShouldNotBeNull();
         It should_contain_the_expected_types = () => types_found.ShouldContain(typeof(FirstMultiple), typeof(SecondMultiple));

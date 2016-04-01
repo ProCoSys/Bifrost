@@ -37,7 +37,7 @@ namespace Bifrost.Execution
         /// If it is a class, it will find anyone inheriting from that class
         /// </remarks>
         /// <exception cref="ArgumentException">If there is more than one instance found</exception>
-        Type FindSingle<T>(IContractToImplementorsMap types);
+        Type FindSingle<T>(IImplementorFinder types);
 
         /// <summary>
         /// Find multiple implementations of a basetype
@@ -49,7 +49,7 @@ namespace Bifrost.Execution
         /// If the base type is an interface, it will look for any types implementing the interface.
         /// If it is a class, it will find anyone inheriting from that class
         /// </remarks>
-        IEnumerable<Type> FindMultiple<T>(IContractToImplementorsMap types);
+        IEnumerable<Type> FindMultiple<T>(IImplementorFinder types);
 
         /// <summary>
         /// Find a single implementation of a basetype
@@ -62,7 +62,7 @@ namespace Bifrost.Execution
         /// If it is a class, it will find anyone inheriting from that class
         /// </remarks>
         /// <exception cref="ArgumentException">If there is more than one instance found</exception>
-        Type FindSingle(IContractToImplementorsMap types, Type type);
+        Type FindSingle(IImplementorFinder types, Type type);
 
         /// <summary>
         /// Find multiple implementations of a basetype
@@ -74,7 +74,7 @@ namespace Bifrost.Execution
         /// If the base type is an interface, it will look for any types implementing the interface.
         /// If it is a class, it will find anyone inheriting from that class
         /// </remarks>
-        IEnumerable<Type> FindMultiple(IContractToImplementorsMap types, Type type);
+        IEnumerable<Type> FindMultiple(IImplementorFinder types, Type type);
 
         /// <summary>
         /// Find a single type using the full name, without assembly
@@ -82,6 +82,6 @@ namespace Bifrost.Execution
         /// <param name="types">Types to find from</param>
         /// <param name="fullName">full name of the type to find</param>
         /// <returns>The type is found, null otherwise</returns>
-        Type FindTypeByFullName(IContractToImplementorsMap types, string fullName);
+        Type FindTypeByFullName(IImplementorFinder types, string fullName);
     }
 }

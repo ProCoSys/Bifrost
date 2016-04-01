@@ -21,7 +21,7 @@ namespace Bifrost.Specs.Execution.for_TypeFinder.given
                 typeof(SecondMultiple)
             };
 
-            GetMock<IContractToImplementorsMap>().SetupGet(c => c.All).Returns(types);
+            GetMock<IImplementorFinder>().SetupGet(c => c.All).Returns(types);
 
             type_finder = new TypeFinder();
         };

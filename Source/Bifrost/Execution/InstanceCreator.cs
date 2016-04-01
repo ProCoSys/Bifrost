@@ -9,15 +9,15 @@ namespace Bifrost.Execution
     public class InstanceCreator : IInstanceCreator
     {
         readonly ITypeFinder _typeFinder;
-        readonly IContractToImplementorsMap _contractToImplementorsMap;
+        readonly IImplementorFinder _implementorFinder;
 
         /// <summary>
         /// Creates an instance of the <see cref="InstanceCreator"/> class.
         /// </summary>
-        public InstanceCreator(ITypeFinder typeFinder, IContractToImplementorsMap contractToImplementorsMap)
+        public InstanceCreator(ITypeFinder typeFinder, IImplementorFinder implementorFinder)
         {
             _typeFinder = typeFinder;
-            _contractToImplementorsMap = contractToImplementorsMap;
+            _implementorFinder = implementorFinder;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Bifrost.Execution
         /// </exception>
         public T Create<T>() where T : class
         {
-            var implementingType = _typeFinder.FindSingle<T>(_contractToImplementorsMap);
+            var implementingType = _typeFinder.FindSingle<T>(_implementorFinder);
             if (implementingType == null)
             {
                 throw new NoTypesFoundException(typeof(T));

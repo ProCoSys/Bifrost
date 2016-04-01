@@ -19,7 +19,7 @@ namespace Bifrost.Specs.Execution.for_InstanceCreator.given
 
         protected static void SetupImplementations(params Type[] types)
         {
-            GetMock<IContractToImplementorsMap>()
+            GetMock<IImplementorFinder>()
                 .Setup(m => m.GetImplementorsFor(typeof(ITestInterface)))
                 .Returns(types);
         }

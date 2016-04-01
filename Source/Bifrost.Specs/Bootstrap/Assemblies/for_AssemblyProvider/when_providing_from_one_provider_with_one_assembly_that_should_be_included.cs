@@ -37,6 +37,6 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
 
         It should_return_the_assembly = () => result.ShouldContainOnly(assembly);
 
-        It should_feed_the_types = () => GetMock<IContractToImplementorsMap>().Verify(m => m.Feed(types), Times.Once);
+        It should_feed_the_types = () => GetMock<IImplementorFinder>().Verify(m => m.Feed(types), Times.Once);
     }
 }

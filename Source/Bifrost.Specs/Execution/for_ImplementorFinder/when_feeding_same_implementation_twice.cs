@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Machine.Specifications;
 
-namespace Bifrost.Specs.Execution.for_ContractToImplementorsMap
+namespace Bifrost.Specs.Execution.for_ImplementorFinder
 {
     public class when_feeding_same_implementation_twice : given.an_empty_map
     {

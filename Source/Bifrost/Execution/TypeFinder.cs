@@ -28,32 +28,32 @@ namespace Bifrost.Execution
     public class TypeFinder : ITypeFinder
     {
 #pragma warning disable 1591 // Xml Comments
-        public Type FindSingle<T>(IContractToImplementorsMap types)
+        public Type FindSingle<T>(IImplementorFinder types)
         {
             var type = FindSingle(types, typeof(T));
             return type;
         }
 
-        public IEnumerable<Type> FindMultiple<T>(IContractToImplementorsMap types)
+        public IEnumerable<Type> FindMultiple<T>(IImplementorFinder types)
         {
             var typesFound = FindMultiple(types, typeof(T));
             return typesFound;
         }
 
-        public Type FindSingle(IContractToImplementorsMap types, Type type)
+        public Type FindSingle(IImplementorFinder types, Type type)
         {
             var typesFound = types.GetImplementorsFor(type).ToList();
             ThrowIfMultipleTypesFound(type, typesFound);
             return typesFound.FirstOrDefault();
         }
 
-        public IEnumerable<Type> FindMultiple(IContractToImplementorsMap types, Type type)
+        public IEnumerable<Type> FindMultiple(IImplementorFinder types, Type type)
         {
             var typesFound = types.GetImplementorsFor(type);
             return typesFound;
         }
 
-        public Type FindTypeByFullName(IContractToImplementorsMap types, string fullName)
+        public Type FindTypeByFullName(IImplementorFinder types, string fullName)
         {
             var typeFound = types.All.Where(t => t.FullName == fullName).SingleOrDefault();
             ThrowIfTypeNotFound(fullName, typeFound);

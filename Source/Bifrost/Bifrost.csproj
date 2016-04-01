@@ -147,7 +147,7 @@
     <Compile Include="Configuration\DefaultStorageConfiguration.cs" />
     <Compile Include="Configuration\ExecutionContextConfiguration.cs" />
     <Compile Include="Configuration\FrontendConfiguration.cs" />
-    <Compile Include="Execution\ContractToImplementorsMap.cs" />
+    <Compile Include="Execution\ImplementorFinder.cs" />
     <Compile Include="Bootstrap\Assemblies\FileSystemAssemblyProvider.cs" />
     <Compile Include="Bootstrap\Assemblies\IAssemblySpecifiers.cs" />
     <Compile Include="Configuration\ICallContextConfiguration.cs" />
@@ -181,7 +181,7 @@
     <Compile Include="Execution\InvalidSignatureException.cs" />
     <Compile Include="Execution\CannotInvokeMethodBecauseTargetIsNotAlive.cs" />
     <Compile Include="Execution\ITypeFinder.cs" />
-    <Compile Include="Execution\IContractToImplementorsMap.cs" />
+    <Compile Include="Execution\IImplementorFinder.cs" />
     <Compile Include="Execution\TypeFinder.cs" />
     <Compile Include="Execution\WeakDelegate.cs" />
     <Compile Include="Mapping\SourcePropertyMappingStrategy.cs" />

@@ -9,7 +9,7 @@ namespace Bifrost.Specs.Execution.for_TypeDiscoverer
     {
         static Type type_found;
 
-        Establish context = () => GetMock<ITypeFinder>().Setup(t => t.FindTypeByFullName(Get<IContractToImplementorsMap>(), Moq.It.IsAny<string>())).Returns(typeof(Single));
+        Establish context = () => GetMock<ITypeFinder>().Setup(t => t.FindTypeByFullName(Get<IImplementorFinder>(), Moq.It.IsAny<string>())).Returns(typeof(Single));
 
         Because of = () => type_found = type_discoverer.FindTypeByFullName(typeof(Single).FullName);
 

@@ -56,6 +56,6 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
         It should_only_return_the_first_assembly = () => result.ShouldContainOnly(assembly1);
 
         It should_feed_only_the_first_types = () =>
-            GetMock<IContractToImplementorsMap>().Verify(m => m.Feed(Moq.It.IsAny<Type[]>()), Times.Once);
+            GetMock<IImplementorFinder>().Verify(m => m.Feed(Moq.It.IsAny<Type[]>()), Times.Once);
     }
 }
