@@ -46,19 +46,12 @@ namespace Bifrost.Configuration
         /// </summary>
         public static Assembly EntryAssembly => Instance.Container.Get<ICanCreateContainer>().GetType().Assembly;
 
-        Configure(
-            IContainer container,
-            IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings)
+        Configure(IContainer container)
         {
             SystemName = "[Not Set]";
             container.Bind<IConfigure>(this);
 
             Container = container;
-
-            defaultBindings.Initialize(Container);
-            defaultConventions.Initialize();
-
             InitializeProperties();
         }
 
@@ -97,34 +90,48 @@ namespace Bifrost.Configuration
             var canCreateContainerInstance = instanceCreator.Create<ICanCreateContainer>();
 
             var container = canCreateContainerInstance.CreateContainer();
-            var configure = With(
-                container,
+
+            InitializeDefaults(container, assembliesConfiguration, assemblyProvider, contractToImplementorsMap);
+
+            var configure = With(container);
+            configure.Initialize();
+            return configure;
+        }
+
+        /// <summary>
+        /// Initialize default bindings and conventions from supplied parameters.
+        /// </summary>
+        public static void InitializeDefaults(
+            IContainer container,
+            IAssembliesConfiguration assembliesConfiguration,
+            IAssemblyProvider assemblyProvider,
+            IContractToImplementorsMap contractToImplementorsMap)
+        {
+            var defaultBindings = new DefaultBindings(
                 assembliesConfiguration,
                 assemblyProvider,
                 contractToImplementorsMap);
-            configure.Initialize();
-            return configure;
+            var defaultConventions = new DefaultConventions(container);
+            defaultBindings.Initialize(container);
+            defaultConventions.Initialize();
         }
 
         /// <summary>
         /// Configure with a specific <see cref="IContainer"/>.
         /// </summary>
         /// <param name="container"><see cref="IContainer"/> to configure with.</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use.</param>
-        /// <param name="assemblyProvider"><see cref="IAssemblyProvider"/> to use for providing assemblies.</param>
-        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of
-        /// the relationship between contracts and implementors.</param>
         /// <returns>Configuration object to continue configuration on.</returns>
-        public static Configure With(
-            IContainer container,
-            IAssembliesConfiguration assembliesConfiguration,
-            IAssemblyProvider assemblyProvider,
-            IContractToImplementorsMap contractToImplementorsMap)
+        public static Configure With(IContainer container)
         {
-            return With(
-                container,
-                new DefaultConventions(container),
-                new DefaultBindings(assembliesConfiguration, assemblyProvider, contractToImplementorsMap));
+            if (Instance == null)
+            {
+                lock (InstanceLock)
+                {
+                    Instance = new Configure(container);
+                }
+            }
+
+            return Instance;
         }
 
         /// <summary>
@@ -133,30 +140,6 @@ namespace Bifrost.Configuration
         public static void Reset()
         {
             lock (InstanceLock) Instance = null;
-        }
-
-        /// <summary>
-        /// Configure with a specific <see cref="IContainer"/>, <see cref="IDefaultConventions"/>
-        /// and <see cref="IDefaultBindings"/>.
-        /// </summary>
-        /// <param name="container"><see cref="IContainer"/> to configure with</param>
-        /// <param name="defaultConventions"><see cref="IDefaultConventions"/> to use</param>
-        /// <param name="defaultBindings"><see cref="IDefaultBindings"/> to use</param>
-        /// <returns></returns>
-        public static Configure With(
-            IContainer container,
-            IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings)
-        {
-            if (Instance == null)
-            {
-                lock (InstanceLock)
-                {
-                    Instance = new Configure(container, defaultConventions, defaultBindings);
-                }
-            }
-
-            return Instance;
         }
 
 #pragma warning disable 1591 // Xml Comments
