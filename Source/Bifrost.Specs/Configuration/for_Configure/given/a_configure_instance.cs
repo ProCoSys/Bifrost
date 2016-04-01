@@ -1,92 +1,41 @@
-﻿using System.Collections.Generic;
-using Bifrost.Configuration;
+﻿using Bifrost.Configuration;
 using Bifrost.Execution;
+using Bifrost.Testing;
 using Machine.Specifications;
 using Moq;
 
 namespace Bifrost.Specs.Configuration.for_Configure.given
 {
-    public class a_configure_instance
+    public class a_configure_instance : dependency_injection
     {
         protected static Configure configure_instance;
         protected static Mock<IContainer> container_mock;
-        protected static Mock<ICommandsConfiguration> commands_configuration_mock;
-        protected static Mock<IEventsConfiguration> events_configuration_mock;
-        protected static Mock<ITasksConfiguration> tasks_configuration_mock;
-        protected static Mock<ISagasConfiguration> sagas_configuration_mock;
-        protected static Mock<ISerializationConfiguration> serialization_configuration_mock;
-        protected static Mock<IViewsConfiguration> views_configuration_mock;
-        protected static Mock<IDefaultStorageConfiguration> default_storage_configuration_mock;
-        protected static Mock<IFrontendConfiguration> frontend_configuration_mock;
-        protected static Mock<ICallContextConfiguration> call_context_configuration_mock;
-        protected static Mock<IExecutionContextConfiguration> execution_context_configuration_mock;
-        protected static Mock<ISecurityConfiguration> security_configuration_mock;
-        protected static Mock<ITypeImporter> type_importer_mock;
-        protected static Mock<IInstancesOf<ICanConfigure>> configurators_mock;
-        protected static Mock<IInstancesOf<IWantToKnowWhenConfigurationIsDone>> after_configuration_callbacks_mock;
-
 
         Establish context = () =>
         {
             Configure.Reset();
             container_mock = new Mock<IContainer>();
 
-            commands_configuration_mock = new Mock<ICommandsConfiguration>();
-            container_mock.Setup(c => c.Get<ICommandsConfiguration>()).Returns(commands_configuration_mock.Object);
+            container_mock.Setup(c => c.Get<ICommandsConfiguration>()).Returns(Get<ICommandsConfiguration>());
+            container_mock.Setup(c => c.Get<IEventsConfiguration>()).Returns(Get<IEventsConfiguration>());
+            container_mock.Setup(c => c.Get<ITasksConfiguration>()).Returns(Get<ITasksConfiguration>());
+            container_mock.Setup(c => c.Get<IViewsConfiguration>()).Returns(Get<IViewsConfiguration>());
+            container_mock.Setup(c => c.Get<ISagasConfiguration>()).Returns(Get<ISagasConfiguration>());
+            container_mock.Setup(c => c.Get<ISerializationConfiguration>()).Returns(Get<ISerializationConfiguration>());
+            container_mock.Setup(c => c.Get<IDefaultStorageConfiguration>()).Returns(Get<IDefaultStorageConfiguration>());
+            container_mock.Setup(c => c.Get<IFrontendConfiguration>()).Returns(Get<IFrontendConfiguration>());
+            container_mock.Setup(c => c.Get<ICallContextConfiguration>()).Returns(Get<ICallContextConfiguration>());
+            container_mock.Setup(c => c.Get<IExecutionContextConfiguration>()).Returns(Get<IExecutionContextConfiguration>());
+            container_mock.Setup(c => c.Get<ISecurityConfiguration>()).Returns(Get<ISecurityConfiguration>());
 
-            events_configuration_mock = new Mock<IEventsConfiguration>();
-            container_mock.Setup(c => c.Get<IEventsConfiguration>()).Returns(events_configuration_mock.Object);
-
-            tasks_configuration_mock = new Mock<ITasksConfiguration>();
-            container_mock.Setup(c => c.Get<ITasksConfiguration>()).Returns(tasks_configuration_mock.Object);
-
-            views_configuration_mock = new Mock<IViewsConfiguration>();
-            container_mock.Setup(c => c.Get<IViewsConfiguration>()).Returns(views_configuration_mock.Object);
-
-            sagas_configuration_mock = new Mock<ISagasConfiguration>();
-            container_mock.Setup(c => c.Get<ISagasConfiguration>()).Returns(sagas_configuration_mock.Object);
-
-            serialization_configuration_mock = new Mock<ISerializationConfiguration>();
-            container_mock.Setup(c => c.Get<ISerializationConfiguration>())
-                .Returns(serialization_configuration_mock.Object);
-
-            default_storage_configuration_mock = new Mock<IDefaultStorageConfiguration>();
             container_mock
-                .Setup(c => c.Get<IDefaultStorageConfiguration>())
-                .Returns(default_storage_configuration_mock.Object);
-
-            frontend_configuration_mock = new Mock<IFrontendConfiguration>();
-            container_mock.Setup(c => c.Get<IFrontendConfiguration>()).Returns(frontend_configuration_mock.Object);
-
-            call_context_configuration_mock = new Mock<ICallContextConfiguration>();
-            container_mock
-                .Setup(c => c.Get<ICallContextConfiguration>())
-                .Returns(call_context_configuration_mock.Object);
-
-            execution_context_configuration_mock = new Mock<IExecutionContextConfiguration>();
-            container_mock
-                .Setup(c => c.Get<IExecutionContextConfiguration>())
-                .Returns(execution_context_configuration_mock.Object);
-
-            security_configuration_mock = new Mock<ISecurityConfiguration>();
-            container_mock.Setup(c => c.Get<ISecurityConfiguration>()).Returns(security_configuration_mock.Object);
-
-            type_importer_mock = new Mock<ITypeImporter>();
-            container_mock.Setup(c => c.Get<ITypeImporter>()).Returns(type_importer_mock.Object);
-
-            configure_instance = Configure.With(container_mock.Object);
-
-            configurators_mock = new Mock<IInstancesOf<ICanConfigure>>();
-            configurators_mock.Setup(c => c.GetEnumerator()).Returns(new List<ICanConfigure>().GetEnumerator());
-            container_mock.Setup(c => c.Get<IInstancesOf<ICanConfigure>>()).Returns(configurators_mock.Object);
-
-            after_configuration_callbacks_mock = new Mock<IInstancesOf<IWantToKnowWhenConfigurationIsDone>>();
-            after_configuration_callbacks_mock
-                .Setup(a => a.GetEnumerator())
-                .Returns(new List<IWantToKnowWhenConfigurationIsDone>().GetEnumerator());
+                .Setup(c => c.Get<IInstancesOf<ICanConfigure>>())
+                .Returns(new[] { Get<ICanConfigure>() }.AsInstancesOf());
             container_mock
                 .Setup(c => c.Get<IInstancesOf<IWantToKnowWhenConfigurationIsDone>>())
-                .Returns(after_configuration_callbacks_mock.Object);
+                .Returns(new[] { Get<IWantToKnowWhenConfigurationIsDone>() }.AsInstancesOf());
+
+            configure_instance = Configure.With(container_mock.Object);
         };
     }
 }
