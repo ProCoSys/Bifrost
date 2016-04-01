@@ -21,9 +21,10 @@ using System;
 namespace Bifrost.Commands
 {
     /// <summary>
-    /// Defines the basic command
+    /// Defines the basic command.
     /// </summary>
-    public partial interface ICommand
+    /// <remarks>Implementing classes must have a default constructor.</remarks>
+    public interface ICommand
     {
         /// <summary>
         /// Gets or sets the Id of the object the command will apply to
