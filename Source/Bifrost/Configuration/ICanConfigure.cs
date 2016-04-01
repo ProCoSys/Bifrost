@@ -16,12 +16,18 @@
 // limitations under the License.
 //
 #endregion
+using Bifrost.Conventions;
+
 namespace Bifrost.Configuration
 {
     /// <summary>
-    /// Represents an interface for configuring Bifrost
+    /// Represents an interface for configuring Bifrost.
     /// </summary>
-    public interface ICanConfigure
+    /// <remarks>
+    /// An application can implement any number of these conventions.
+    /// They will be called when the <see cref="IConfigure"/> object is initialized.
+    /// </remarks>
+    public interface ICanConfigure : IConvention
     {
         /// <summary>
         /// Gets called when the application can configure Bifrost

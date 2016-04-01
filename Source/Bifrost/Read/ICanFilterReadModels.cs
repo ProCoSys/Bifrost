@@ -17,16 +17,20 @@
 //
 #endregion
 using System.Collections.Generic;
+using Bifrost.Conventions;
 
 namespace Bifrost.Read
 {
     /// <summary>
-    /// Defines a filter that can be applied to a set of <see cref="IReadModel">ReadModels</see>
+    /// Defines a filter that can be applied to a set of <see cref="IReadModel">ReadModels</see>.
     /// </summary>
     /// <remarks>
-    /// Typically this is applied when getting both a single <see cref="IReadModel"/> and when executing a <see cref="IQueryFor">Query</see> for a <see cref="IReadModel"/>
+    /// Types inheriting from this interface will be automatically registered.
+    /// An application can implement any number of these conventions.
+    /// Typically this is applied both when getting a single <see cref="IReadModel"/>
+    /// and when executing a <see cref="IQueryFor{T}">Query</see> for a <see cref="IReadModel"/>.
     /// </remarks>
-    public interface ICanFilterReadModels
+    public interface ICanFilterReadModels : IConvention
     {
         /// <summary>
         /// Filters an incoming <see cref="IEnumerable{IReadModel}"/>

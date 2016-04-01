@@ -16,9 +16,17 @@
 // limitations under the License.
 //
 #endregion
+using Bifrost.Conventions;
+
 namespace Bifrost.Web.Proxies
 {
-    public interface IProxyGenerator
+    /// <summary>
+    /// Defines a system that can generate javascript proxies.
+    /// </summary>
+    /// <remarks>
+    /// Types implementing this interface will be automatically registered and invoked during proxy generation.
+    /// </remarks>
+    public interface IProxyGenerator : IConvention
     {
         string Generate();
     }

@@ -16,16 +16,17 @@
 // limitations under the License.
 //
 #endregion
-using FluentValidation.Validators;
 using System;
+using Bifrost.Conventions;
 using Bifrost.Validation.MetaData;
+using FluentValidation.Validators;
 
 namespace Bifrost.FluentValidation.MetaData
 {
     /// <summary>
-    /// Defines a system that can generate rule from a Fluent Validations property validator
+    /// Defines a system that can generate rule from a Fluent Validation property validator.
     /// </summary>
-    public interface ICanGenerateRule
+    public interface ICanGenerateRule : IConvention
     {
         /// <summary>
         /// Types that are supported by the generator

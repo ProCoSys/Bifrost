@@ -17,15 +17,18 @@
 //
 #endregion
 using System.Collections.Generic;
-using Bifrost.Rules;
+using Bifrost.Conventions;
 using Bifrost.Validation;
 
 namespace Bifrost.Read.Validation
 {
     /// <summary>
-    /// Defines a descriptor for describing the validation rules for a query
+    /// Defines a descriptor for describing the validation rules for a query.
     /// </summary>
-    public interface IQueryValidationDescriptor
+    /// <remarks>
+    /// Types inheriting from this interface and also <see cref="QueryValidationDescriptorFor{T}"/> will be automatically registered.
+    /// </remarks>
+    public interface IQueryValidationDescriptor : IConvention
     {
         /// <summary>
         /// Gets the argument rules

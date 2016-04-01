@@ -17,13 +17,18 @@
 //
 #endregion
 using System.Collections.Generic;
+using Bifrost.Conventions;
 
 namespace Bifrost.Security
 {
     /// <summary>
-    /// Defines a security descriptor
+    /// Defines a security descriptor.
     /// </summary>
-    public interface ISecurityDescriptor
+    /// <remarks>
+    /// Types inheriting from this interface will be automatically registered.
+    /// You most likely want to subclass <see cref="BaseSecurityDescriptor"/>.
+    /// </remarks>
+    public interface ISecurityDescriptor : IConvention
     {
         /// <summary>
         /// Get the entry point for builidng a <see cref="ISecurityDescriptor"/>
