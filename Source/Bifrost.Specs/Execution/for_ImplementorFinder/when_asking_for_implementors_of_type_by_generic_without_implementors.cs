@@ -8,7 +8,7 @@ namespace Bifrost.Specs.Execution.for_ImplementorFinder
     {
         static IEnumerable<Type> result;
 
-        Because of = () => result = map.GetImplementorsFor<IInterface>();
+        Because of = () => result = map.GetImplementorsFor(typeof(IInterface));
 
         It should_not_have_any_implementors = () => result.ShouldBeEmpty();
     }

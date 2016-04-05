@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Bifrost.Bootstrap.Assemblies;
 using Bifrost.Bootstrap.Types;
@@ -11,8 +12,7 @@ using It = Machine.Specifications.It;
 namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
 {
     [Subject(typeof(AssemblyProvider))]
-    public class when_providing_from_one_provider_with_one_assembly_that_should_not_be_included
-        : given.an_assembly_provider
+    public class when_providing_from_one_provider_with_one_assembly_that_has_excluded_types : given.an_assembly_provider
     {
         static IObservableCollection<Assembly> result;
         static AssemblyInfo assembly_info;
@@ -21,25 +21,27 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
 
         Establish context = () =>
         {
-            types = new Type[0];
+            types = new[] { typeof(string), typeof(int) };
             assembly = new TestAssembly("x", "location.dll", types);
             assembly_info = new AssemblyInfo("x", "y", new Lazy<Assembly>(() => assembly));
             GetMock<ICanProvideAssemblies>()
                 .Setup(m => m.AvailableAssemblies)
                 .Returns(new ObservableCollection<AssemblyInfo> { assembly_info });
-            GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location.dll")).Returns(false);
+            GetMock<IAssemblySpecifiers>().Setup(m => m.SpecifyUsingSpecifiersFrom(assembly)).Returns(true);
+            GetMock<IAssemblyFilters>().Setup(m => m.ShouldInclude("location.dll")).Returns(true);
+            GetMock<ITypeFilters>().Setup(m => m.ShouldInclude(typeof(string))).Returns(false);
 
             provider = Get<AssemblyProvider>();
         };
 
         Because of = () => result = provider.GetAll();
 
-        It should_specify_from_the_assembly = () =>
-            GetMock<IAssemblySpecifiers>().Verify(m => m.SpecifyUsingSpecifiersFrom(assembly), Times.Once);
+        It should_specify_from_the_assembly = () => GetMock<IAssemblySpecifiers>().VerifyAll();
 
-        It should_not_return_the_assembly = () => result.ShouldBeEmpty();
+        It should_return_the_assembly = () => result.ShouldContainOnly(assembly);
 
-        It should_not_feed_the_types = () =>
-            GetMock<ITypeCollector>().Verify(m => m.Feed(Moq.It.IsAny<ICollection<Type>>()), Times.Never);
+        It should_only_feed_one_type = () =>
+            GetMock<ITypeCollector>()
+                .Verify(m => m.Feed(Moq.It.Is<ICollection<Type>>(c => c.Single() == typeof(int))), Times.Once);
     }
 }

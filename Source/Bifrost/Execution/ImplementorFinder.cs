@@ -20,8 +20,9 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
+using Bifrost.Bootstrap;
+using Bifrost.Conventions;
 using Bifrost.Extensions;
 
 namespace Bifrost.Execution
@@ -29,62 +30,59 @@ namespace Bifrost.Execution
     /// <summary>
     /// Represents an implementation of <see cref="IImplementorFinder"/>
     /// </summary>
-    public class ImplementorFinder : IImplementorFinder
+    public class ImplementorFinder : IImplementorFinder, ICollectTypes
     {
-        ConcurrentDictionary<Type, ConcurrentDictionary<string, Type>> _contractsAndImplementors = new ConcurrentDictionary<Type, ConcurrentDictionary<string, Type>>();
-        ConcurrentDictionary<Type, Type> _allTypes = new ConcurrentDictionary<Type, Type>();
+        readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, Type>> _contractsAndImplementors =
+            new ConcurrentDictionary<Type, ConcurrentDictionary<string, Type>>();
 
 #pragma warning disable 1591 // Xml Comments
-        public IEnumerable<Type> All { get { return _allTypes.Keys; } }
-
-        public void Feed(IEnumerable<Type> types)
+        public void Feed(ICollection<Type> types)
         {
-            MapTypes(types);
-            AddTypesToAllTypes(types);
-        }
-
-        public IEnumerable<Type> GetImplementorsFor<T>()
-        {
-            return GetImplementorsFor(typeof(T));
+            FeedTypes(types);
         }
 
         public IEnumerable<Type> GetImplementorsFor(Type contract)
         {
-            var implementingTypes = GetImplementingTypesFor(contract);
-            return implementingTypes.Values;
+            return GetImplementingTypesFor(contract).Values;
+        }
+
+        public Type GetImplementorFor(Type contract)
+        {
+            var implementingTypes = GetImplementingTypesFor(contract).Values;
+            ThrowIfMultipleTypesFound(contract, implementingTypes);
+            return implementingTypes.FirstOrDefault();
         }
 #pragma warning restore 1591 // Xml Comments
 
-        void AddTypesToAllTypes(IEnumerable<Type> types)
+        void FeedTypes(IEnumerable<Type> types)
         {
-            types.ForEach(type => _allTypes[type] = type);
-        }
-
-        void MapTypes(IEnumerable<Type> types)
-        {
-            var implementors = types.Where(IsImplementation);
-            Parallel.ForEach(implementors, implementor =>
-            {
-                var baseAndImplementingTypes = implementor.AllBaseAndImplementingTypes();
-                baseAndImplementingTypes.ForEach(contract => GetImplementingTypesFor(contract)[GetKeyFor(implementor)] = implementor);
-            });
-        }
-
-        bool IsImplementation(Type type)
-        {
-            var typeInfo = type.GetTypeInfo();
-            return !typeInfo.IsInterface && !typeInfo.IsAbstract;
+            var implementors = types.Where(t => t.IsImplementation());
+            Parallel.ForEach(
+                implementors,
+                implementor =>
+                {
+                    var baseAndImplementingTypes = implementor.AllBaseAndImplementingTypes();
+                    baseAndImplementingTypes.ForEach(contract => GetImplementingTypesFor(contract)[GetKeyFor(implementor)] = implementor);
+                });
         }
 
         ConcurrentDictionary<string, Type> GetImplementingTypesFor(Type contract)
         {
-            var implementingTypes = _contractsAndImplementors.GetOrAdd(contract, (key) => new ConcurrentDictionary<string, Type>());
-            return implementingTypes;
+            return _contractsAndImplementors.GetOrAdd(contract, key => new ConcurrentDictionary<string, Type>());
         }
 
-        string GetKeyFor(Type type)
+        static string GetKeyFor(Type type)
         {
             return type.AssemblyQualifiedName;
+        }
+
+        static void ThrowIfMultipleTypesFound(Type type, ICollection<Type> typesFound)
+        {
+            if (typesFound.Count > 1)
+            {
+                throw new MultipleTypesFoundException(
+                    string.Format(ExceptionStrings.MultipleTypesFoundException, type.FullName));
+            }
         }
     }
 }

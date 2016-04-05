@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Bifrost.Bootstrap.Assemblies;
+using Bifrost.Bootstrap.Types;
 using Bifrost.Collections;
-using Bifrost.Execution;
 using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
@@ -24,9 +25,9 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
 
         Establish context = () =>
         {
+            types1 = new[] { typeof(string) };
             assembly1 = new TestAssembly("x", "location1.dll", types1);
             assembly_info1 = new AssemblyInfo("SameName", "y", new Lazy<Assembly>(() => assembly1));
-            types1 = new[] { typeof(string) };
             assembly_info2 = new AssemblyInfo("SameName", "t", new Lazy<Assembly>(() => null));
             provider1 = new Mock<ICanProvideAssemblies>();
             provider2 = new Mock<ICanProvideAssemblies>();
@@ -56,6 +57,6 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
         It should_only_return_the_first_assembly = () => result.ShouldContainOnly(assembly1);
 
         It should_feed_only_the_first_types = () =>
-            GetMock<IImplementorFinder>().Verify(m => m.Feed(Moq.It.IsAny<Type[]>()), Times.Once);
+            GetMock<ITypeCollector>().Verify(m => m.Feed(Moq.It.IsAny<IList<Type>>()), Times.Once);
     }
 }

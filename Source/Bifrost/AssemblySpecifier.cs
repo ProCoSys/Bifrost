@@ -21,7 +21,7 @@ using Bifrost.Configuration.Assemblies;
 namespace Bifrost
 {
     /// <summary>
-    /// Reperesents an <see cref="ICanSpecifyAssemblies">assembly specifier</see> for client aspects.
+    /// Represents an <see cref="ICanSpecifyAssemblies">assembly specifier</see> for client aspects.
     /// </summary>
     public class AssemblySpecifier : ICanSpecifyAssemblies
     {

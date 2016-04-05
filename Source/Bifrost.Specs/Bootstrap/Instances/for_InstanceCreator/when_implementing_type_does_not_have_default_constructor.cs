@@ -13,10 +13,16 @@ namespace Bifrost.Specs.Bootstrap.Instances.for_InstanceCreator
             }
         };
 
-        Establish context = () => SetupImplementations(typeof(ImplementingType));
+        Establish context = () => SetupImplementation(typeof(ImplementingType));
 
         Because of = () =>
-            exception = Catch.Only<MissingDefaultConstructorException>(() => instance_creator.Create<ITestInterface>());
+        {
+            can_create = instance_creator.CanCreate(typeof(ITestInterface));
+            exception =
+                Catch.Only<MissingDefaultConstructorException>(() => instance_creator.Create(typeof(ITestInterface)));
+        };
+
+        It should_not_be_able_to_create = () => can_create.ShouldBeFalse();
 
         It should_throw_exception = () => exception.ShouldNotBeNull();
     }

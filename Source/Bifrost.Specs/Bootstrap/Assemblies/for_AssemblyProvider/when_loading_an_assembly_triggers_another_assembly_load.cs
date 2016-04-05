@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using Bifrost.Bootstrap.Assemblies;
+using Bifrost.Bootstrap.Types;
 using Bifrost.Collections;
-using Bifrost.Execution;
 using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
@@ -48,8 +48,8 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
 
         It should_return_the_assembly = () => provider.GetAll().ShouldContain(assembly1, assembly2);
 
-        It should_feed_the_first_types = () => GetMock<IImplementorFinder>().Verify(m => m.Feed(types1), Times.Once);
+        It should_feed_the_first_types = () => GetMock<ITypeCollector>().Verify(m => m.Feed(types1), Times.Once);
 
-        It should_feed_the_second_types = () => GetMock<IImplementorFinder>().Verify(m => m.Feed(types2), Times.Once);
+        It should_feed_the_second_types = () => GetMock<ITypeCollector>().Verify(m => m.Feed(types2), Times.Once);
     }
 }

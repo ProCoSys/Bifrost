@@ -16,9 +16,6 @@
 // limitations under the License.
 //
 #endregion
-
-using System;
-using Bifrost.Configuration.Assemblies;
 using Bifrost.Execution;
 
 namespace Bifrost.Configuration.Defaults
@@ -28,34 +25,12 @@ namespace Bifrost.Configuration.Defaults
     /// </summary>
     public class DefaultBindings : IDefaultBindings
     {
-        readonly IAssembliesConfiguration _assembliesConfiguration;
-        readonly IAssemblyProvider _assemblyProvider;
-        readonly IImplementorFinder _contractToImplentorsMap;
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="DefaultBindings"/>.
-        /// </summary>
-        public DefaultBindings(
-            IAssembliesConfiguration assembliesConfiguration,
-            IAssemblyProvider assemblyProvider,
-            IImplementorFinder contractToImplentorsMap)
-        {
-            _assembliesConfiguration = assembliesConfiguration;
-            _assemblyProvider = assemblyProvider;
-            _contractToImplentorsMap = contractToImplentorsMap;
-        }
-
 #pragma warning disable 1591 // Xml Comments
         public void Initialize(IContainer container)
         {
-            container.Bind(container);
-            container.Bind<_AppDomain>(AppDomain.CurrentDomain);
-            container.Bind(_contractToImplentorsMap);
-            container.Bind(_assembliesConfiguration);
-            container.Bind(_assemblyProvider);
             container.Bind<IAssemblies>(typeof(Execution.Assemblies), BindingLifecycle.Singleton);
             container.Bind<ITypeDiscoverer>(typeof(TypeDiscoverer), BindingLifecycle.Singleton);
-            container.Bind<ITypeFinder>(typeof(TypeFinder), BindingLifecycle.Singleton);
+            container.Bind<IBindingConventionManager>(typeof(BindingConventionManager));
         }
 #pragma warning restore 1591 // Xml Comments
     }

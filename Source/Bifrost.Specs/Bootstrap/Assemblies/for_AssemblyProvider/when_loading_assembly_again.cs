@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using Bifrost.Bootstrap.Assemblies;
+using Bifrost.Bootstrap.Types;
 using Bifrost.Collections;
-using Bifrost.Execution;
 using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
@@ -37,6 +37,6 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
 
         It should_return_the_assembly_only_once = () => provider.GetAll().ShouldContainOnly(assembly);
 
-        It should_feed_the_types_only_once = () => GetMock<IImplementorFinder>().Verify(m => m.Feed(types), Times.Once);
+        It should_feed_the_types_only_once = () => GetMock<ITypeCollector>().Verify(m => m.Feed(types), Times.Once);
     }
 }

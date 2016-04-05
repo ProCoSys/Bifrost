@@ -1,4 +1,5 @@
-﻿using Bifrost.Execution;
+﻿using System;
+using Bifrost.Execution;
 
 namespace Bifrost.Bootstrap.Instances
 {
@@ -8,16 +9,25 @@ namespace Bifrost.Bootstrap.Instances
     public interface IInstanceCreator
     {
         /// <summary>
-        /// Creates an instance of the single implementation of an interface type.
+        /// Gets whether this creator can create an instance of a given type.
         /// </summary>
-        /// <typeparam name="T">The interface type to find a single implementation of.</typeparam>
-        /// <returns>An instance of the implementing type.</returns>
+        /// <param name="type">The type to check.</param>
+        bool CanCreate(Type type);
+
+        /// <summary>
+        /// Creates an instance of a type.
+        /// </summary>
+        /// <param name="type">The type to create.</param>
+        /// <returns>An instance or implementation of the type, or null if an instance cannot be created.</returns>
         /// <exception cref="NoTypesFoundException">
-        /// If no implementing types of <typeparamref name="T"/> was found.
+        /// If no implementing types of <paramref name="type"/> was found.
         /// </exception>
         /// <exception cref="MultipleTypesFoundException">
-        /// If multiple implementing types of <typeparamref name="T"/> were found.
+        /// If multiple implementing types of <paramref name="type"/> were found.
         /// </exception>
-        T Create<T>() where T : class;
+        /// <exception cref="MissingDefaultConstructorException">
+        /// If the found type does not have a default constructor.
+        /// </exception>
+        object Create(Type type);
     }
 }

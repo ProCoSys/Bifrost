@@ -73,13 +73,27 @@
     <Compile Include="..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bootstrap\Assemblies\for_AssemblyProvider\when_providing_from_one_provider_with_one_assembly_that_has_excluded_types.cs" />
     <Compile Include="Bootstrap\Defaults\for_DefaultBootstrapConfiguration\given\a_default_bootstrap_configuration.cs" />
     <Compile Include="Bootstrap\Defaults\for_DefaultBootstrapConfiguration\when_checking_types.cs" />
     <Compile Include="Bootstrap\Defaults\for_DefaultBootstrapConfiguration\when_checking_assemblies.cs" />
+    <Compile Include="Bootstrap\Instances\for_InstanceCreator\when_type_is_concrete.cs" />
     <Compile Include="Bootstrap\Types\for_AutoBinder\given\an_auto_binder.cs" />
     <Compile Include="Bootstrap\Types\for_AutoBinder\when_binding_an_object_in_a_type_hierarchy.cs" />
     <Compile Include="Bootstrap\Types\for_AutoBinder\when_initializing.cs" />
     <Compile Include="Bootstrap\Types\for_AutoBinder\when_binding_object.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\given\a_type_collector.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\KeepLastCreated.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\TestCollectTypes.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\TestImplementorFinder.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\TestContainerCreator.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\when_feeding_implementation_finder.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\when_feeding_i_collect_types.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\when_initialized.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\when_feeding_duplicate_types.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\when_feeding_types.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\when_bootstrapping_container_from_implementor_finder.cs" />
+    <Compile Include="Bootstrap\Types\for_TypeCollector\when_bootstrapping_container_with_no_types.cs" />
     <Compile Include="CodeGeneration\for_CodeGenerator\when_generating_from_a_language_element.cs" />
     <Compile Include="CodeGeneration\JavaScript\for_AssignmentExtensions\when_assigning_with_observable_with_callback.cs" />
     <Compile Include="CodeGeneration\JavaScript\for_AssignmentExtensions\given\an_assignment.cs" />
@@ -221,7 +235,6 @@
     <Compile Include="Bootstrap\Assemblies\for_AssemblyProvider\when_loading_an_assembly_triggers_another_assembly_load.cs" />
     <Compile Include="Bootstrap\Instances\for_InstanceCreator\given\an_instance_creator.cs" />
     <Compile Include="Bootstrap\Instances\for_InstanceCreator\when_implementing_type_does_not_have_default_constructor.cs" />
-    <Compile Include="Bootstrap\Instances\for_InstanceCreator\when_multiple_implementing_types_exist.cs" />
     <Compile Include="Bootstrap\Instances\for_InstanceCreator\when_single_implementing_type_exist.cs" />
     <Compile Include="Bootstrap\Instances\for_InstanceCreator\when_no_implementing_types_exist.cs" />
     <Compile Include="Bootstrap\Instances\for_InstanceCreator\ITestInterface.cs" />
@@ -385,15 +398,6 @@
     <Compile Include="Execution\for_OrderedInstancesOf\when_instances_have_circular_dependencies.cs" />
     <Compile Include="Execution\for_OrderedInstancesOf\when_instances_have_dependencies.cs" />
     <Compile Include="Execution\for_OrderedInstancesOf\when_there_are_no_instances.cs" />
-    <Compile Include="Execution\for_TypeDiscoverer\when_finding_type_by_name_that_does_not_exist.cs" />
-    <Compile Include="Execution\for_TypeDiscoverer\when_finding_type_by_name_that_exists.cs" />
-    <Compile Include="Execution\for_TypeFinder\given\a_type_finder.cs" />
-    <Compile Include="Execution\for_TypeFinder\Stubs.cs" />
-    <Compile Include="Execution\for_TypeFinder\when_finding_types_with_multiple_implementations.cs" />
-    <Compile Include="Execution\for_TypeFinder\when_finding_types_with_multiple_implementations_but_asking_for_a_single.cs" />
-    <Compile Include="Execution\for_TypeFinder\when_finding_types_with_only_one_implementation.cs" />
-    <Compile Include="Execution\for_TypeFinder\when_finding_type_by_name_that_does_not_exist.cs" />
-    <Compile Include="Execution\for_TypeFinder\when_finding_type_by_name_that_exists.cs" />
     <Compile Include="Execution\for_WeakDelegate\ClassWithMethod.cs" />
     <Compile Include="Execution\for_WeakDelegate\DerivedImplementation.cs" />
     <Compile Include="Execution\for_WeakDelegate\Implementation.cs" />
@@ -788,10 +792,6 @@
     <Compile Include="Events\for_EventMigrationManager\when_migrating_a_second_generation_event_that_has_a_single_migrator_registered.cs" />
     <Compile Include="Events\for_EventMigrationManager\when_migrating_a_third_generation_event_with_two_migrators_registered.cs" />
     <Compile Include="Events\for_EventSource\Subjects.cs" />
-    <Compile Include="Execution\for_TypeDiscoverer\given\a_type_discoverer.cs" />
-    <Compile Include="Execution\for_TypeDiscoverer\Stubs.cs" />
-    <Compile Include="Execution\for_TypeDiscoverer\when_finding_types_with_multiple_implementations.cs" />
-    <Compile Include="Execution\for_TypeDiscoverer\when_finding_types_with_only_one_implementation.cs" />
     <Compile Include="Execution\for_TypeImporter\given\a_type_importer.cs" />
     <Compile Include="Execution\for_TypeImporter\Stubs.cs" />
     <Compile Include="Execution\for_TypeImporter\when_importing_single_types.cs" />

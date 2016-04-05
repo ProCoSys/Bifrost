@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Bifrost.Bootstrap.Assemblies;
+using Bifrost.Bootstrap.Types;
 using Bifrost.Collections;
-using Bifrost.Execution;
 using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
@@ -18,9 +18,10 @@ namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblyProvider
         {
             provider = new AssemblyProvider(
                 Enumerable.Empty<ICanProvideAssemblies>(),
-                Get<IAssemblyFilters>(),
                 Get<IAssemblySpecifiers>(),
-                Get<IImplementorFinder>());
+                Get<IAssemblyFilters>(),
+                Get<ITypeFilters>(),
+                Get<ITypeCollector>());
         };
 
         Because of = () => result = provider.GetAll();

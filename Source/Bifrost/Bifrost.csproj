@@ -54,8 +54,9 @@
     <Compile Include="..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Conventions\IConvention.cs" />
     <Compile Include="AssemblySpecifier.cs" />
+    <Compile Include="Conventions\IConvention.cs" />
+    <Compile Include="Bootstrap\Bootstrapper.cs" />
     <Compile Include="Bootstrap\Defaults\DefaultBootstrapConfiguration.cs" />
     <Compile Include="Bootstrap\IBootstrapConfiguration.cs" />
     <Compile Include="Bootstrap\IBootstrapContainer.cs" />
@@ -133,6 +134,11 @@
     <Compile Include="Configuration\Assemblies\AssembliesStartingWith.cs" />
     <Compile Include="Bootstrap\Types\IAutoBinder.cs" />
     <Compile Include="Bootstrap\Types\AutoBinder.cs" />
+    <Compile Include="Bootstrap\Instances\DefaultInstanceCreator.cs" />
+    <Compile Include="Bootstrap\Types\TypeCollector.cs" />
+    <Compile Include="Bootstrap\IImplementorFinder.cs" />
+    <Compile Include="Bootstrap\Types\ITypeCollector.cs" />
+    <Compile Include="Execution\ICollectTypes.cs" />
     <Compile Include="Bootstrap\Instances\IInstanceCreator.cs" />
     <Compile Include="Bootstrap\Instances\InstanceCreator.cs" />
     <Compile Include="Configuration\Assemblies\IAssembliesConfiguration.cs" />
@@ -189,9 +195,6 @@
     <Compile Include="Execution\IOrderedInstancesOf.cs" />
     <Compile Include="Execution\InvalidSignatureException.cs" />
     <Compile Include="Execution\CannotInvokeMethodBecauseTargetIsNotAlive.cs" />
-    <Compile Include="Execution\ITypeFinder.cs" />
-    <Compile Include="Execution\IImplementorFinder.cs" />
-    <Compile Include="Execution\TypeFinder.cs" />
     <Compile Include="Execution\WeakDelegate.cs" />
     <Compile Include="Mapping\SourcePropertyMappingStrategy.cs" />
     <Compile Include="MissingDefaultConstructorException.cs" />

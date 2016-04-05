@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using Bifrost.Bootstrap.Types;
 using Bifrost.Collections;
 using Bifrost.Execution;
 
@@ -28,9 +29,10 @@ namespace Bifrost.Bootstrap.Assemblies
 
         readonly AssemblyInfoComparer _comparer = new AssemblyInfoComparer();
 
-        readonly IAssemblyFilters _assemblyFilters;
         readonly IAssemblySpecifiers _assemblySpecifiers;
-        readonly IImplementorFinder _implementorFinder;
+        readonly IAssemblyFilters _assemblyFilters;
+        readonly ITypeFilters _typeFilters;
+        readonly ITypeCollector _typeCollector;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssemblyProvider"/>
@@ -38,25 +40,29 @@ namespace Bifrost.Bootstrap.Assemblies
         /// <param name="assemblyProviders">
         /// <see cref="IEnumerable{ICanProvideAssemblies}">Providers</see> to provide assemblies.
         /// </param>
-        /// <param name="assemblyFilters">
-        /// <see cref="IAssemblyFilters"/> to use for filtering assemblies through.
-        /// </param>
         /// <param name="assemblySpecifiers">
         /// <see cref="IAssemblySpecifiers"/> used for specifying what assemblies to include or not.
         /// </param>
-        /// <param name="implementorFinder">
-        /// <see cref="IImplementorFinder"/> for keeping track of the relationship between contracts and implementors.
+        /// <param name="assemblyFilters">
+        /// <see cref="IAssemblyFilters"/> to use for filtering assemblies through.
+        /// </param>
+        /// <param name="typeFilters">
+        /// <see cref="ITypeFilters"/> to use for filtering types through.</param>
+        /// <param name="typeCollector">
+        /// <see cref="ITypeCollector"/> to feed discovered types to.
         /// </param>
         public AssemblyProvider(
             IEnumerable<ICanProvideAssemblies> assemblyProviders,
-            IAssemblyFilters assemblyFilters,
             IAssemblySpecifiers assemblySpecifiers,
-            IImplementorFinder implementorFinder)
+            IAssemblyFilters assemblyFilters,
+            ITypeFilters typeFilters,
+            ITypeCollector typeCollector)
         {
             var providers = assemblyProviders.ToList();
-            _assemblyFilters = assemblyFilters;
             _assemblySpecifiers = assemblySpecifiers;
-            _implementorFinder = implementorFinder;
+            _assemblyFilters = assemblyFilters;
+            _typeFilters = typeFilters;
+            _typeCollector = typeCollector;
 
             foreach (var provider in providers)
             {
@@ -137,7 +143,7 @@ namespace Bifrost.Bootstrap.Assemblies
                 if (!_assemblies.Contains(assembly) &&
                     _assemblyFilters.ShouldInclude(new FileInfo(assembly.Location).Name))
                 {
-                    _implementorFinder.Feed(assembly.GetTypes());
+                    _typeCollector.Feed(assembly.GetTypes().Where(_typeFilters.ShouldInclude).ToList().AsReadOnly());
                     _assemblies.Add(assembly);
                 }
             }

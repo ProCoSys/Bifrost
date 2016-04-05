@@ -1,6 +1,6 @@
 ﻿using System;
+using Bifrost.Bootstrap;
 using Bifrost.Bootstrap.Instances;
-using Bifrost.Execution;
 using Bifrost.Testing;
 using Machine.Specifications;
 
@@ -10,19 +10,20 @@ namespace Bifrost.Specs.Bootstrap.Instances.for_InstanceCreator.given
     {
         protected static Exception exception;
 
+        protected static bool can_create;
+
         protected static InstanceCreator instance_creator;
 
         Establish context = () =>
         {
-            Rebind<ITypeFinder>().To<TypeFinder>();
             instance_creator = Get<InstanceCreator>();
         };
 
-        protected static void SetupImplementations(params Type[] types)
+        protected static void SetupImplementation(Type type)
         {
             GetMock<IImplementorFinder>()
-                .Setup(m => m.GetImplementorsFor(typeof(ITestInterface)))
-                .Returns(types);
+                .Setup(m => m.GetImplementorFor(typeof(ITestInterface)))
+                .Returns(type);
         }
     }
 }
