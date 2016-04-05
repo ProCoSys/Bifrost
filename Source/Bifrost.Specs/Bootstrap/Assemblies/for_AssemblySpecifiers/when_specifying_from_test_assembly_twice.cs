@@ -1,6 +1,5 @@
 using Bifrost.Bootstrap.Assemblies;
 using Bifrost.Configuration.Assemblies;
-using Bifrost.Execution;
 using Machine.Specifications;
 
 namespace Bifrost.Specs.Bootstrap.Assemblies.for_AssemblySpecifiers

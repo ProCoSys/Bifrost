@@ -16,10 +16,9 @@
 // limitations under the License.
 //
 #endregion
-using Bifrost.Configuration.Assemblies;
 using Bifrost.Conventions;
 
-namespace Bifrost.Execution
+namespace Bifrost.Configuration.Assemblies
 {
     /// <summary>
     /// Specifies what assemblies to include or not.

@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Bifrost.Configuration.Assemblies;
-using Bifrost.Execution;
 using Bifrost.Extensions;
 
 namespace Bifrost.Bootstrap.Assemblies

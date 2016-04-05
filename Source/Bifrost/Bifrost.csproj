@@ -171,7 +171,7 @@
     <Compile Include="Bootstrap\Assemblies\AssemblyUtility.cs" />
     <Compile Include="Execution\FileSystem.cs" />
     <Compile Include="Execution\IAssemblyProvider.cs" />
-    <Compile Include="Execution\ICanSpecifyAssemblies.cs" />
+    <Compile Include="Configuration\Assemblies\ICanSpecifyAssemblies.cs" />
     <Compile Include="Bootstrap\Assemblies\IAssemblyUtility.cs" />
     <Compile Include="Bootstrap\Assemblies\ICanProvideAssemblies.cs" />
     <Compile Include="Bootstrap\Assemblies\IAssemblyFilters.cs" />
