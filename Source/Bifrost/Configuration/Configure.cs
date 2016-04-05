@@ -21,6 +21,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using Bifrost.Bootstrap.Assemblies;
+using Bifrost.Bootstrap.Instances;
 using Bifrost.Configuration.Assemblies;
 using Bifrost.Configuration.Defaults;
 using Bifrost.Diagnostics;

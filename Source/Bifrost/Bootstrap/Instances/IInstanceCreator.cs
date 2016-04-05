@@ -1,4 +1,6 @@
-﻿namespace Bifrost.Execution
+﻿using Bifrost.Execution;
+
+namespace Bifrost.Bootstrap.Instances
 {
     /// <summary>
     /// Defines an interface for creating instances of types.

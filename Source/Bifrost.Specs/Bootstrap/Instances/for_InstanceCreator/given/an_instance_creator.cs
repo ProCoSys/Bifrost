@@ -1,9 +1,10 @@
 ﻿using System;
+using Bifrost.Bootstrap.Instances;
 using Bifrost.Execution;
 using Bifrost.Testing;
 using Machine.Specifications;
 
-namespace Bifrost.Specs.Execution.for_InstanceCreator.given
+namespace Bifrost.Specs.Bootstrap.Instances.for_InstanceCreator.given
 {
     public class an_instance_creator : dependency_injection
     {

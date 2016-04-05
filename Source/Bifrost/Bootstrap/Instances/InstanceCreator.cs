@@ -1,7 +1,8 @@
 ﻿using System;
+using Bifrost.Execution;
 using Bifrost.Extensions;
 
-namespace Bifrost.Execution
+namespace Bifrost.Bootstrap.Instances
 {
     /// <summary>
     /// Implementation of an instance creator which creates instances using the default constructor.

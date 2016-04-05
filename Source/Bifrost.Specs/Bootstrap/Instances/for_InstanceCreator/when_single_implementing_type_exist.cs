@@ -1,7 +1,7 @@
-﻿using Bifrost.Execution;
+﻿using Bifrost.Bootstrap.Instances;
 using Machine.Specifications;
 
-namespace Bifrost.Specs.Execution.for_InstanceCreator
+namespace Bifrost.Specs.Bootstrap.Instances.for_InstanceCreator
 {
     [Subject(typeof(InstanceCreator))]
     public class when_single_implementing_type_exist : given.an_instance_creator
