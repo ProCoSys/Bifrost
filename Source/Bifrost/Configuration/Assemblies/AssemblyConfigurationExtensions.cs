@@ -1,4 +1,5 @@
-﻿using Bifrost.Specifications;
+﻿using Bifrost.Bootstrap.Assemblies;
+using Bifrost.Specifications;
 
 namespace Bifrost.Configuration.Assemblies
 {

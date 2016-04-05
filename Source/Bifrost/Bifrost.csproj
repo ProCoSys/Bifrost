@@ -56,6 +56,11 @@
     </Compile>
     <Compile Include="Conventions\IConvention.cs" />
     <Compile Include="AssemblySpecifier.cs" />
+    <Compile Include="Bootstrap\Defaults\DefaultBootstrapConfiguration.cs" />
+    <Compile Include="Bootstrap\IBootstrapConfiguration.cs" />
+    <Compile Include="Bootstrap\IBootstrapContainer.cs" />
+    <Compile Include="Bootstrap\Types\ITypesConfiguration.cs" />
+    <Compile Include="Bootstrap\Types\ExcludeNone.cs" />
     <Compile Include="CodeGeneration\CodeGenerator.cs" />
     <Compile Include="CodeGeneration\CodeWriter.cs" />
     <Compile Include="CodeGeneration\ICodeGenerator.cs" />
@@ -126,6 +131,8 @@
     <Compile Include="Concurrency\Scheduler.cs" />
     <Compile Include="Configuration\Assemblies\AssemblyConfigurationExtensions.cs" />
     <Compile Include="Configuration\Assemblies\AssembliesStartingWith.cs" />
+    <Compile Include="Bootstrap\Types\IAutoBinder.cs" />
+    <Compile Include="Bootstrap\Types\AutoBinder.cs" />
     <Compile Include="Bootstrap\Instances\IInstanceCreator.cs" />
     <Compile Include="Bootstrap\Instances\InstanceCreator.cs" />
     <Compile Include="Configuration\Assemblies\IAssembliesConfiguration.cs" />
@@ -166,6 +173,7 @@
     <Compile Include="Entities\Files\Mapping\DocumentMapFor.cs" />
     <Compile Include="Entities\Files\Mapping\KeyStrategy.cs" />
     <Compile Include="Entities\Files\Mapping\PropertyMapExtensions.cs" />
+    <Compile Include="Bootstrap\Types\TypeFilters.cs" />
     <Compile Include="Bootstrap\Assemblies\AssemblyFilters.cs" />
     <Compile Include="Bootstrap\Assemblies\AssemblyProvider.cs" />
     <Compile Include="Bootstrap\Assemblies\AssemblyUtility.cs" />
@@ -174,6 +182,7 @@
     <Compile Include="Configuration\Assemblies\ICanSpecifyAssemblies.cs" />
     <Compile Include="Bootstrap\Assemblies\IAssemblyUtility.cs" />
     <Compile Include="Bootstrap\Assemblies\ICanProvideAssemblies.cs" />
+    <Compile Include="Bootstrap\Types\ITypeFilters.cs" />
     <Compile Include="Bootstrap\Assemblies\IAssemblyFilters.cs" />
     <Compile Include="Execution\IFileSystem.cs" />
     <Compile Include="Execution\OrderedInstancesOf.cs" />
