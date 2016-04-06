@@ -16,16 +16,20 @@
 // limitations under the License.
 //
 #endregion
-
+using Bifrost.Conventions;
 using Bifrost.Validation;
 using FluentValidation;
 
 namespace Bifrost.FluentValidation.Commands
 {
     /// <summary>
-    /// Marker interface for business validators
+    /// Marker interface for business validators.
     /// </summary>
-    public interface ICommandBusinessValidator : ICanValidate, IValidator
+    /// <remarks>
+    /// Types inheriting from this interface and also <see cref="ICanValidate{T}"/> will be automatically registered.
+    /// You most likely want to subclass <see cref="CommandBusinessValidator{T}"/>.
+    /// </remarks>
+    public interface ICommandBusinessValidator : ICanValidate, IValidator, IConvention
     {
     }
 }

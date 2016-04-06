@@ -16,12 +16,18 @@
 // limitations under the License.
 //
 #endregion
+using Bifrost.Conventions;
+
 namespace Bifrost.Events
 {
     /// <summary>
-    /// Defines an event subscriber
+    /// Defines an event subscriber.
     /// </summary>
-    public interface IProcessEvents
+    /// <remarks>
+    /// An implementation must then implement a Process method that takes the
+    /// specific <see cref="IEvent">event</see> you want to be processed.
+    /// </remarks>
+    public interface IProcessEvents : IConvention
     {
     }
 }

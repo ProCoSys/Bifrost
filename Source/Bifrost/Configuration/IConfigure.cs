@@ -18,8 +18,6 @@
 #endregion
 
 using System.Globalization;
-using System.Reflection;
-using Bifrost.Configuration.Assemblies;
 using Bifrost.Execution;
 
 namespace Bifrost.Configuration
@@ -38,11 +36,6 @@ namespace Bifrost.Configuration
         /// Gets or sets the name of the currently running system
         /// </summary>
         string SystemName { get; set; }
-
-        /// <summary>
-        /// Gets the entry assembly for the application
-        /// </summary>
-        Assembly EntryAssembly { get; }
 
         /// <summary>
         /// Gets the configuration for commands
@@ -106,11 +99,6 @@ namespace Bifrost.Configuration
         /// Gets the configuration for security
         /// </summary>
         ISecurityConfiguration Security { get; }
-
-        /// <summary>
-        /// Gets the configuration for assemblies and how they are treated
-        /// </summary>
-        IAssembliesConfiguration Assemblies { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="CultureInfo">culture</see> to use in Bifrost

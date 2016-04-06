@@ -17,7 +17,6 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -42,21 +41,17 @@ namespace Bifrost.Configuration
         /// </summary>
         public static Configure Instance { get; private set; }
 
-        Configure(
-            IContainer container,
-            IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings,
-            IAssembliesConfiguration assembliesConfiguration)
+        /// <summary>
+        /// Gets the entry assembly for the application
+        /// </summary>
+        public static Assembly EntryAssembly => Instance.Container.Get<ICanCreateContainer>().GetType().Assembly;
+
+        Configure(IContainer container)
         {
             SystemName = "[Not Set]";
-            Assemblies = assembliesConfiguration;
             container.Bind<IConfigure>(this);
 
             Container = container;
-
-            defaultBindings.Initialize(Container);
-            defaultConventions.Initialize();
-
             InitializeProperties();
         }
 
@@ -95,36 +90,48 @@ namespace Bifrost.Configuration
             var canCreateContainerInstance = instanceCreator.Create<ICanCreateContainer>();
 
             var container = canCreateContainerInstance.CreateContainer();
-            var configure = With(
-                container,
+
+            InitializeDefaults(container, assembliesConfiguration, assemblyProvider, contractToImplementorsMap);
+
+            var configure = With(container);
+            configure.Initialize();
+            return configure;
+        }
+
+        /// <summary>
+        /// Initialize default bindings and conventions from supplied parameters.
+        /// </summary>
+        public static void InitializeDefaults(
+            IContainer container,
+            IAssembliesConfiguration assembliesConfiguration,
+            IAssemblyProvider assemblyProvider,
+            IContractToImplementorsMap contractToImplementorsMap)
+        {
+            var defaultBindings = new DefaultBindings(
                 assembliesConfiguration,
                 assemblyProvider,
                 contractToImplementorsMap);
-            configure.EntryAssembly = canCreateContainerInstance.GetType().Assembly;
-            configure.Initialize();
-            return configure;
+            var defaultConventions = new DefaultConventions(container);
+            defaultBindings.Initialize(container);
+            defaultConventions.Initialize();
         }
 
         /// <summary>
         /// Configure with a specific <see cref="IContainer"/>.
         /// </summary>
         /// <param name="container"><see cref="IContainer"/> to configure with.</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use.</param>
-        /// <param name="assemblyProvider"><see cref="IAssemblyProvider"/> to use for providing assemblies.</param>
-        /// <param name="contractToImplementorsMap"><see cref="IContractToImplementorsMap"/> for keeping track of
-        /// the relationship between contracts and implementors.</param>
         /// <returns>Configuration object to continue configuration on.</returns>
-        public static Configure With(
-            IContainer container,
-            IAssembliesConfiguration assembliesConfiguration,
-            IAssemblyProvider assemblyProvider,
-            IContractToImplementorsMap contractToImplementorsMap)
+        public static Configure With(IContainer container)
         {
-            return With(
-                container,
-                new DefaultConventions(container),
-                new DefaultBindings(assembliesConfiguration, assemblyProvider, contractToImplementorsMap),
-                assembliesConfiguration);
+            if (Instance == null)
+            {
+                lock (InstanceLock)
+                {
+                    Instance = new Configure(container);
+                }
+            }
+
+            return Instance;
         }
 
         /// <summary>
@@ -135,36 +142,9 @@ namespace Bifrost.Configuration
             lock (InstanceLock) Instance = null;
         }
 
-        /// <summary>
-        /// Configure with a specific <see cref="IContainer"/>, <see cref="IDefaultConventions"/>
-        /// and <see cref="IDefaultBindings"/>.
-        /// </summary>
-        /// <param name="container"><see cref="IContainer"/> to configure with</param>
-        /// <param name="defaultConventions"><see cref="IDefaultConventions"/> to use</param>
-        /// <param name="defaultBindings"><see cref="IDefaultBindings"/> to use</param>
-        /// <param name="assembliesConfiguration"><see cref="IAssembliesConfiguration"/> to use</param>
-        /// <returns></returns>
-        public static Configure With(
-            IContainer container,
-            IDefaultConventions defaultConventions,
-            IDefaultBindings defaultBindings,
-            IAssembliesConfiguration assembliesConfiguration)
-        {
-            if (Instance == null)
-            {
-                lock (InstanceLock)
-                {
-                    Instance = new Configure(container, defaultConventions, defaultBindings, assembliesConfiguration);
-                }
-            }
-
-            return Instance;
-        }
-
 #pragma warning disable 1591 // Xml Comments
         public IContainer Container { get; }
         public string SystemName { get; set; }
-        public Assembly EntryAssembly { get; private set; }
         public IDefaultStorageConfiguration DefaultStorage { get; set; }
         public ICommandsConfiguration Commands { get; private set; }
         public IEventsConfiguration Events { get; private set; }
@@ -177,7 +157,6 @@ namespace Bifrost.Configuration
         public ICallContextConfiguration CallContext { get; private set; }
         public IExecutionContextConfiguration ExecutionContext { get; private set; }
         public ISecurityConfiguration Security { get; private set; }
-        public IAssembliesConfiguration Assemblies { get; }
         public IQualityAssurance QualityAssurance { get; private set; }
         public CultureInfo Culture { get; set; }
         public CultureInfo UICulture { get; set; }
@@ -187,21 +166,21 @@ namespace Bifrost.Configuration
             ConfigureFromCanConfigurables();
             InitializeCulture();
 
-            var initializers = new Action[] {
-                () => Serialization.Initialize(Container),
-                () => Commands.Initialize(Container),
-                () => Events.Initialize(Container),
-                () => Tasks.Initialize(Container),
-                () => Views.Initialize(Container),
-                () => Sagas.Initialize(Container),
-                () => Frontend.Initialize(Container),
-                () => CallContext.Initialize(Container),
-                () => ExecutionContext.Initialize(Container),
-                () => Security.Initialize(Container),
-                () => DefaultStorage.Initialize(Container)
+            var initializers = new IConfigurationElement[] {
+                Serialization,
+                Commands,
+                Events,
+                Tasks,
+                Views,
+                Sagas,
+                Frontend,
+                CallContext,
+                ExecutionContext,
+                Security,
+                DefaultStorage,
             };
 
-            Parallel.ForEach(initializers, initializator => initializator());
+            Parallel.ForEach(initializers, i => i.Initialize(Container));
             ConfigurationDone();
         }
 #pragma warning restore 1591 // Xml Comments

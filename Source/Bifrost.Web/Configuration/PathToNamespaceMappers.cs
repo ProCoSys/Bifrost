@@ -16,11 +16,7 @@
 // limitations under the License.
 //
 #endregion
-using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Web;
-using System.Web.Compilation;
 using Bifrost.Configuration;
 
 namespace Bifrost.Web.Configuration
@@ -43,7 +39,7 @@ namespace Bifrost.Web.Configuration
 
         public void AddDefaults()
         {
-            var baseNamespace = Configure.Instance.EntryAssembly.GetName().Name;
+            var baseNamespace = Configure.EntryAssembly.GetName().Name;
             var @namespace = string.Format("{0}.**.",baseNamespace);
             Add("**/", @namespace);
             Add("/**/", @namespace);

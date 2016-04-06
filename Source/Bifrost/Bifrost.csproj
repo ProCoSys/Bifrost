@@ -54,6 +54,7 @@
     <Compile Include="..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Conventions\IConvention.cs" />
     <Compile Include="AssemblySpecifier.cs" />
     <Compile Include="CodeGeneration\CodeGenerator.cs" />
     <Compile Include="CodeGeneration\CodeWriter.cs" />
@@ -137,7 +138,6 @@
     <Compile Include="Execution\OrderAttribute.cs" />
     <Compile Include="Execution\AppDomainAssemblyProvider.cs" />
     <Compile Include="Execution\AfterAttribute.cs" />
-    <Compile Include="Execution\AssemblyAdded.cs" />
     <Compile Include="Execution\AssemblyInfo.cs" />
     <Compile Include="Execution\AssemblySpecifiers.cs" />
     <Compile Include="Configuration\CallContextConfiguration.cs" />

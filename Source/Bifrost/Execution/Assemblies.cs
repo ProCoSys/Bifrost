@@ -28,43 +28,28 @@ namespace Bifrost.Execution
     [Singleton]
     public class Assemblies : IAssemblies
     {
-        IAssemblyProvider _assemblyProvider;
-        IEnumerable<Assembly> _assemblies;
+        readonly IEnumerable<Assembly> _assemblies;
 
         /// <summary>
         /// Initializes a new instance of <see cref="Assemblies"/>
         /// </summary>
         public Assemblies(IAssemblyProvider assemblyProvider)
         {
-            _assemblyProvider = assemblyProvider;
             _assemblies = assemblyProvider.GetAll();
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public IEnumerable<Assembly> GetAll()
-        {
-            return _assemblies;
-        }
+        public IEnumerable<Assembly> GetAll() => _assemblies;
 
         public Assembly GetWithFullName(string fullName)
-        {
-            var query = from a in _assemblies
-                        where a.FullName == fullName
-                        select a;
-
-            var assembly = query.SingleOrDefault();
-            return assembly;
-        }
+            => _assemblies
+                .Where(a => a.FullName == fullName)
+                .SingleOrDefault();
 
         public Assembly GetWithName(string name)
-        {
-            var query = from a in _assemblies
-                        where a.FullName.Contains(name)
-                        select a;
-
-            var assembly = query.SingleOrDefault();
-            return assembly;
-        }
+            => _assemblies
+                .Where(a => a.FullName.Contains(name))
+                .SingleOrDefault();
 #pragma warning restore 1591 // Xml Comments
     }
 }

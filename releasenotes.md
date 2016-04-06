@@ -1,3 +1,14 @@
+## Next version
+_Breaking changes_
+* `Configure` has been clean up [#31](https://github.com/ProCoSys/Bifrost/issues/31)
+  * The `Assemblies` property has been removed from `IConfigure`. Take a dependency on `IAssemblies` instead.
+  * The `EntryAssembly` property has been removed from `IConfigure`. Use the static property on `Configure` instead.
+  * `Configure.With` only takes an `IContainer`. To initialize default bindings and conventions, call `Configure.InitializeDefaults` or initialize them manually before calling `Configure.With`.
+* For performance reasons, `CommandSecurityProxies` now uses the Activator instead of the container to create command instances. This means all commands must have a default constructor. [#28](https://github.com/ProCoSys/Bifrost/issues/28)
+
+_Other changes_
+* An `IConvention` interface has been created to increase discoverability of Convention over Configuration [#29](https://github.com/ProCoSys/Bifrost/issues/29)
+
 ## Version 2.3.0
 _Breaking changes_
 * There are no more `Func<Type>` methods of `IContainer` [#22](https://github.com/ProCoSys/Bifrost/issues/22)

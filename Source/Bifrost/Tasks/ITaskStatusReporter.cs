@@ -16,13 +16,14 @@
 // limitations under the License.
 //
 #endregion
+using Bifrost.Conventions;
 
 namespace Bifrost.Tasks
 {
     /// <summary>
     /// Defines a interface for receiving status reports for tasks
     /// </summary>
-    public interface ITaskStatusReporter
+    public interface ITaskStatusReporter : IConvention
     {
         /// <summary>
         /// Gets called when a task has been started
