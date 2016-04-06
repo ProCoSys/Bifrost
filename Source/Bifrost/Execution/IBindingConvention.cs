@@ -16,16 +16,21 @@
 // limitations under the License.
 //
 #endregion
-
 using System;
+using Bifrost.Conventions;
 
 namespace Bifrost.Execution
 {
     /// <summary>
     /// Defines the basic functionality for a convention that can be applied
-    /// to bindings for a <see cref="IContainer"/>
+    /// to bindings for a <see cref="IContainer"/>.
     /// </summary>
-    public interface IBindingConvention
+    /// <remarks>
+    /// Types inheriting from this interface will be automatically registered.
+    /// An application can implement any number of these conventions, in addition to
+    /// the <see cref="DefaultConvention"/> supplied by Bifrost.
+    /// </remarks>
+    public interface IBindingConvention : IConvention
     {
         /// <summary>
         /// Checks wether or not a given <see cref="Type">Service</see> can be resolved by the convention

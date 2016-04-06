@@ -23,7 +23,7 @@ namespace Bifrost.Commands
     /// <summary>
     /// Represents a <see cref="ICommand"/>
     /// </summary>
-    public partial class Command : ICommand
+    public class Command : ICommand
     {
         /// <summary>
         /// Initializes a new instance of <see cref="Command"/>

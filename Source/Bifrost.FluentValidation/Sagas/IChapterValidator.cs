@@ -16,16 +16,19 @@
 // limitations under the License.
 //
 #endregion
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Bifrost.Sagas;
+using Bifrost.Conventions;
+using Bifrost.Validation;
 
 namespace Bifrost.FluentValidation.Sagas
 {
     /// <summary>
-    /// Marker interface for a Saga <see href="IChapter">Chapter</see> validator
+    /// Marker interface for a Saga <see href="IChapter">Chapter</see> validator.
     /// </summary>
-    public interface IChapterValidator
+    /// <remarks>
+    /// Types inheriting from this interface and also <see cref="ICanValidate{T}"/> will be automatically registered.
+    /// You most likely want to subclass <see cref="ChapterValidator{T}"/>.
+    /// </remarks>
+    public interface IChapterValidator : IConvention
     {
     }
 }

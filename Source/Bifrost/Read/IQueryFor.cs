@@ -16,16 +16,19 @@
 // limitations under the License.
 //
 #endregion
-using System.Linq;
+using Bifrost.Conventions;
 
 namespace Bifrost.Read
 {
     /// <summary>
-    /// Defines a query for a specified type, typically a ReadModel
+    /// Defines a query for a specified type of <see cref="IReadModel"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IQueryFor<T> : IQuery
-        where T:IReadModel
+    /// <typeparam name="T">The type to query.</typeparam>
+    /// <remarks>
+    /// Types inheriting from this interface will be picked up proxy generation, deserialized and dispatched to the
+    /// correct instance of <see cref="IQueryProviderFor{T}"/>.
+    /// </remarks>
+    public interface IQueryFor<T> : IQuery, IConvention where T : IReadModel
     {
     }
 }
