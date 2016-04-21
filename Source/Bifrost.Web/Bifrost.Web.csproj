@@ -105,6 +105,7 @@
     <Compile Include="Applications\RouteExtensions.cs" />
     <Compile Include="Assets\AssetsManager.cs" />
     <Compile Include="Assets\IAssetsManager.cs" />
+    <Compile Include="AssemblySpecifier.cs" />
     <Compile Include="Commands\CommandContextConnectionManager.cs" />
     <Compile Include="Commands\CommandCoordinator.cs" />
     <Compile Include="Commands\CommandCoordinatorService.cs" />

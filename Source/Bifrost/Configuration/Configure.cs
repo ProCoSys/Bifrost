@@ -90,6 +90,7 @@ namespace Bifrost.Configuration
             var canCreateContainerInstance = instanceCreator.Create<ICanCreateContainer>();
 
             var container = canCreateContainerInstance.CreateContainer();
+            container.Bind<ICanCreateContainer>(canCreateContainerInstance);
 
             InitializeDefaults(container, assembliesConfiguration, assemblyProvider, contractToImplementorsMap);
 
