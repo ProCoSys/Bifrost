@@ -326,7 +326,6 @@ $(ProjectDir)..\..\tools\hlin\hlin /d=Bifrost.js /t=Bifrost.debug.js</PreBuildEv
   <ItemGroup>
     <None Include="Bifrost.JS.nuspec" />
     <None Include="jshint.conf" />
-    <None Include="merge.cmd" />
   </ItemGroup>
   <UsingTask AssemblyFile="$(SolutionDir)..\..\Tools\JsLintNet\JsLintNet.dll" TaskName="JSLintTask" />
   <Target Name="BeforeBuild">
