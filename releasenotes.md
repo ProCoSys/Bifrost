@@ -8,6 +8,7 @@ _Breaking changes_
 
 _Other changes_
 * An `IConvention` interface has been created to increase discoverability of Convention over Configuration [#29](https://github.com/ProCoSys/Bifrost/issues/29)
+* Fixed bug where `assetsManager` could initialize namespaces twice [#38](https://github.com/ProCoSys/Bifrost/issues/38)
 
 ## Version 2.3.0
 _Breaking changes_
