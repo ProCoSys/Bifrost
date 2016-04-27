@@ -1,4 +1,4 @@
-﻿using Bifrost.Configuration;
+using Bifrost.Configuration;
 using Bifrost.Execution;
 using Bifrost.Testing;
 using Machine.Specifications;

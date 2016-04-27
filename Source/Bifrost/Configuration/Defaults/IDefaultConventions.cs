@@ -16,6 +16,9 @@
 // limitations under the License.
 //
 #endregion
+
+using Bifrost.Execution;
+
 namespace Bifrost.Configuration.Defaults
 {
     /// <summary>
@@ -26,6 +29,6 @@ namespace Bifrost.Configuration.Defaults
         /// <summary>
         /// Initialize the default conventions
         /// </summary>
-        void Initialize();
+        void Initialize(IContainer container);
     }
 }

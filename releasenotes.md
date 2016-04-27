@@ -1,12 +1,27 @@
 ## Next version
-_Breaking changes_
-* `Configure` has been clean up [#31](https://github.com/ProCoSys/Bifrost/issues/31)
-  * The `Assemblies` property has been removed from `IConfigure`. Take a dependency on `IAssemblies` instead.
-  * The `EntryAssembly` property has been removed from `IConfigure`. Use the static property on `Configure` instead.
-  * `Configure.With` only takes an `IContainer`. To initialize default bindings and conventions, call `Configure.InitializeDefaults` or initialize them manually before calling `Configure.With`.
-* For performance reasons, `CommandSecurityProxies` now uses the Activator instead of the container to create command instances. This means all commands must have a default constructor. [#28](https://github.com/ProCoSys/Bifrost/issues/28)
+
+### New procedure for bootstrapping the application [#30](https://github.com/ProCoSys/Bifrost/issues/30)
+* Bootstrapping the application has been refactored out of the `Configure.DiscoverAndConfigure` method to the `Bifrost.Bootstrapping` namespace:
+  * If you are using `DiscoverAndConfigure` without any parameters, there should be no changes.
+  * If you are using `DiscoverAndConfigure` with parameters, you must wrap the parameters in an `IBootstrapConfiguration` object.
+  * If you are using `Configure.With`, you must bind `IContainer`, `IImplementorFinder` and `IAssemblyProvider` and then manually initialize and bind the default bindings and conventions before calling `.With`.
+  * In addition to specifying assemblies to include with `IAssembliesConfiguration`, you can also specify types to exclude with `ITypesConfiguration`. This could be useful if you want to override the defaults of some Bifrost classes.
+* `ICollectTypes` has been added as a convention. Any class implementing this interface will be automatically instantiated and get notified of all types known by the application.
+* An `IAutoBinder` service has been added. It can be used to all interfaces of an object to the object instance.
+* The `IContractToImplementorsMap` interface has been cleaned up and moved to `Bifrost.Bootstrap.IImplementorFinder`.
+* `ICanSpecifyAssemblies` was moved from `Bifrost.Execution` to `Bifrost.Configuration.Assemblies`.
+* These less used interfaces were moved from `Bifrost.Execution` to `Bifrost.Bootstrap.Assemblies`:
+  * `IAssemblyFilters`
+  * `IAssemblySpecifiers`
+  * `IAssemblyUtility`
+  * `ICanProvideAssemblies`
+* The `ITypeFinder` has been removed, as it was mostly a duplication of `ITypeDiscoverer`.
 
 _Other changes_
+* `Configure` has been cleaned up [#31](https://github.com/ProCoSys/Bifrost/issues/31)
+  * The `Assemblies` property has been removed from `IConfigure`. Take a dependency on `IAssemblies` instead.
+  * The `EntryAssembly` property has been removed from `IConfigure`. Use the static property on `Configure` instead.
+* For performance reasons, `CommandSecurityProxies` now uses the Activator instead of the container to create command instances. This means all commands must have a default constructor. [#28](https://github.com/ProCoSys/Bifrost/issues/28)
 * An `IConvention` interface has been created to increase discoverability of Convention over Configuration [#29](https://github.com/ProCoSys/Bifrost/issues/29)
 
 ## Version 2.3.0

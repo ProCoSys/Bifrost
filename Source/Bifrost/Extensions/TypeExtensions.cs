@@ -258,6 +258,7 @@ namespace Bifrost.Extensions
                 .Where(i => i.GetGenericTypeDefinition() == openGenericTypeInfo)
                 .Any();
         }
+
         /// <summary>
         /// Check if a type is a "primitve" type.  This is not just dot net primitives but basic types like string, decimal, datetime,
         /// that are not classified as primitive types.
@@ -267,6 +268,16 @@ namespace Bifrost.Extensions
         public static bool IsAPrimitiveType(this Type type)
         {
             return type.IsPrimitive || type.IsNullable() || AdditionalPrimitiveTypes.Contains(type) || type == typeof(decimal);
+        }
+
+        /// <summary>
+        /// Checks if a type is an implementation. A type is an implementation if it is not an interface an not abstract.
+        /// </summary>
+        /// <param name="type">Type to check.</param>
+        /// <returns>True if the type is an implementation</returns>
+        public static bool IsImplementation(this Type type)
+        {
+            return !type.IsInterface && !type.IsAbstract;
         }
 
 

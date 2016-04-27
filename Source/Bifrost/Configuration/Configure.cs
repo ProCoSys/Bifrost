@@ -16,12 +16,11 @@
 // limitations under the License.
 //
 #endregion
-
-using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
-using Bifrost.Configuration.Assemblies;
+using Bifrost.Bootstrap;
+using Bifrost.Bootstrap.Defaults;
 using Bifrost.Configuration.Defaults;
 using Bifrost.Diagnostics;
 using Bifrost.Execution;
@@ -50,7 +49,6 @@ namespace Bifrost.Configuration
         {
             SystemName = "[Not Set]";
             container.Bind<IConfigure>(this);
-
             Container = container;
             InitializeProperties();
         }
@@ -58,63 +56,31 @@ namespace Bifrost.Configuration
         /// <summary>
         /// Configure by letting Bifrost discover anything that implements the discoverable configuration interfaces.
         /// </summary>
+        /// <remarks>
+        /// The discoverable interfaces are found in <see cref="Bifrost.Conventions"/>.
+        /// </remarks>
         /// <returns>Configuration object to continue configuration on.</returns>
-        public static Configure DiscoverAndConfigure(
-            IAssembliesConfiguration assembliesConfiguration = null,
-            IEnumerable<ICanProvideAssemblies> additionalAssemblyProviders = null)
+        public static Configure DiscoverAndConfigure()
         {
-            var assemblyProviders = new List<ICanProvideAssemblies>
-            {
-                new AppDomainAssemblyProvider(),
-                new FileSystemAssemblyProvider(new FileSystem(), new AssemblyUtility())
-            };
-            if (additionalAssemblyProviders != null)
-            {
-                assemblyProviders.AddRange(additionalAssemblyProviders);
-            }
+            return DiscoverAndConfigure(new DefaultBootstrapConfiguration());
+        }
 
-            assembliesConfiguration = assembliesConfiguration ?? new IncludeNone();
-            var assemblySpecifiers = new AssemblySpecifiers(assembliesConfiguration);
-            var executingAssembly = Assembly.GetExecutingAssembly();
+        /// <summary>
+        /// Configure by letting Bifrost discover anything that implements the discoverable configuration interfaces.
+        /// </summary>
+        /// <returns>Configuration object to continue configuration on.</returns>
+        public static Configure DiscoverAndConfigure(IBootstrapConfiguration bootstrapConfiguration)
+        {
+            var bootstrapper = new Bootstrapper();
+            var bootstrapContainer = bootstrapper.BootstrapTypes(bootstrapConfiguration);
+            var container = bootstrapContainer.BootstrapContainer();
 
-            IContractToImplementorsMap contractToImplementorsMap = new ContractToImplementorsMap();
-            contractToImplementorsMap.Feed(executingAssembly.GetTypes());
-            assemblySpecifiers.SpecifyUsingSpecifiersFrom(executingAssembly);
-            var assemblyProvider = new AssemblyProvider(
-                assemblyProviders,
-                new AssemblyFilters(assembliesConfiguration),
-                assemblySpecifiers,
-                contractToImplementorsMap);
-
-            var instanceCreator = new InstanceCreator(new TypeFinder(), contractToImplementorsMap);
-            var canCreateContainerInstance = instanceCreator.Create<ICanCreateContainer>();
-
-            var container = canCreateContainerInstance.CreateContainer();
-            container.Bind<ICanCreateContainer>(canCreateContainerInstance);
-
-            InitializeDefaults(container, assembliesConfiguration, assemblyProvider, contractToImplementorsMap);
+            bootstrapContainer.Get<IDefaultBindings>().Initialize(container);
+            bootstrapContainer.Get<IDefaultConventions>().Initialize(container);
 
             var configure = With(container);
             configure.Initialize();
             return configure;
-        }
-
-        /// <summary>
-        /// Initialize default bindings and conventions from supplied parameters.
-        /// </summary>
-        public static void InitializeDefaults(
-            IContainer container,
-            IAssembliesConfiguration assembliesConfiguration,
-            IAssemblyProvider assemblyProvider,
-            IContractToImplementorsMap contractToImplementorsMap)
-        {
-            var defaultBindings = new DefaultBindings(
-                assembliesConfiguration,
-                assemblyProvider,
-                contractToImplementorsMap);
-            var defaultConventions = new DefaultConventions(container);
-            defaultBindings.Initialize(container);
-            defaultConventions.Initialize();
         }
 
         /// <summary>
