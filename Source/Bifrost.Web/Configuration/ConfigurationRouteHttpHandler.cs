@@ -103,10 +103,10 @@ namespace Bifrost.Web.Configuration
             var builder = new StringBuilder();
 
             if (_webConfiguration.ScriptsToInclude.JQuery)
-                builder.Append(GetResource("Bifrost.Web.Scripts.jquery-2.1.3.min.js"));
+                builder.Append(GetResource("Bifrost.Web.Scripts.jquery-2.2.3.min.js"));
 
             if (_webConfiguration.ScriptsToInclude.Knockout)
-                builder.Append(GetResource("Bifrost.Web.Scripts.knockout-3.2.0.debug.js"));
+                builder.Append(GetResource("Bifrost.Web.Scripts.knockout-3.4.0.debug.js"));
 
             if (_webConfiguration.ScriptsToInclude.SignalR)
                 builder.Append(GetResource("Bifrost.Web.Scripts.jquery.signalR-2.2.0.js"));

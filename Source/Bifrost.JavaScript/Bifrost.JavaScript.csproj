@@ -120,8 +120,6 @@
     <Content Include="io\fileFactory.js" />
     <Content Include="io\fileManager.js" />
     <Content Include="io\fileType.js" />
-    <Content Include="Libraries\knockout-3.1.0.debug.js" />
-    <Content Include="Libraries\knockout-3.1.0.js" />
     <Content Include="linked.js" />
     <Content Include="polyfills\classList.js" />
     <Content Include="read\readModelSystemEvents.js" />
@@ -236,8 +234,6 @@
     <Content Include="read\readModelService.js" />
     <Content Include="utils\configure.js" />
     <Content Include="execution\Promise.js" />
-    <Content Include="Libraries\jquery-1.7.1.min.js" />
-    <Content Include="Libraries\jquery.history.js" />
     <Content Include="Libraries\require.js" />
     <Content Include="Libraries\text.js" />
     <Content Include="messaging\observableMessage.js" />

@@ -3,8 +3,8 @@
   "RootReferencePathMode": "SettingsFileDirectory",
   "TestHarnessLocationMode": "SettingsFileAdjacent",
   "References": [
-    { "Path": "../Bifrost.JavaScript/Libraries/jquery-1.7.1.min.js" },
-    { "Path": "../Bifrost.JavaScript/Libraries/knockout-3.1.0.js" },
+    { "Path": "../Bifrost.Web/Scripts/jquery-2.2.3.min.js" },
+    { "Path": "../Bifrost.Web/Scripts/knockout-3.4.0.js" },
     { "Path": "../Bifrost.JavaScript.Specs/sinon-1.17.3.js" },
     { "Path": "../Bifrost.JavaScript/Libraries/require.js" },
     { "Path": "../Bifrost.JavaScript/extensions/ArrayExtensions.js" },
