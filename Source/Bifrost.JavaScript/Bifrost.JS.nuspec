@@ -23,9 +23,7 @@
   <files>
     <file src="Bifrost.debug.js" target="Content\Scripts\Bifrost.js"/>
     <file src="Libraries\require.js" target="Content\Scripts\require.js"/>
-    <file src="Libraries\order.js" target="Content\Scripts\order.js"/>
     <file src="Libraries\text.js" target="Content\Scripts\textx.js"/>
-    <file src="Libraries\domReady.js" target="Content\Scripts\domReady.js"/>
     <file src="Libraries\jquery.history.js" target="Content\Scripts\jquery.history.js"/>
   </files>
 </package>

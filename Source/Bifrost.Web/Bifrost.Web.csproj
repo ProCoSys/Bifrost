@@ -266,9 +266,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="home.html" />
-    <EmbeddedResource Include="Scripts\domReady.js" />
     <EmbeddedResource Include="Scripts\jquery.history.js" />
-    <EmbeddedResource Include="Scripts\order.js" />
     <EmbeddedResource Include="Scripts\require.js" />
     <EmbeddedResource Include="Scripts\text.js" />
     <EmbeddedResource Include="index.html" />

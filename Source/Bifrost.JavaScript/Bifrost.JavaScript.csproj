@@ -236,10 +236,8 @@
     <Content Include="read\readModelService.js" />
     <Content Include="utils\configure.js" />
     <Content Include="execution\Promise.js" />
-    <Content Include="Libraries\domReady.js" />
     <Content Include="Libraries\jquery-1.7.1.min.js" />
     <Content Include="Libraries\jquery.history.js" />
-    <Content Include="Libraries\order.js" />
     <Content Include="Libraries\require.js" />
     <Content Include="Libraries\text.js" />
     <Content Include="messaging\observableMessage.js" />
