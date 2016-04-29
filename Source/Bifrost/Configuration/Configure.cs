@@ -31,6 +31,7 @@ namespace Bifrost.Configuration
     /// <summary>
     /// Represents the default <see cref="IConfigure"/> type.
     /// </summary>
+    [IgnoreDefaultConvention]
     public class Configure : IConfigure
     {
         static readonly object InstanceLock = new object();
