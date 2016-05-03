@@ -6,7 +6,6 @@ using It = Machine.Specifications.It;
 
 namespace Bifrost.Web.Mvc.Specs.Validation.for_ValidatorPropertyValidator
 {
-    [Ignore("Fails with TypeAccessExceptionAttempt")]
     public class when_creating_with_validator_with_dynamic_state
     {
         const string expected = "42";

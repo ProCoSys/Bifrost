@@ -18,7 +18,7 @@
 * The `ITypeFinder` has been removed, as it was mostly a duplication of `ITypeDiscoverer`.
 
 ### ASP.NET MVC 5
-Support for ASP.NET MVC 5 has been added with the new project `Bifrost.Web.Mvc5`. It contains the same code as `Bifrost.Web.Mvc`, but references MVC 5 assemblies instead of MVC 3. For compatibility reasons, the `FluentValidation` dependency had to be updated in all projects.
+`Bifrost.Web.Mvc` has been upgraded to ASP.NET MVC 5. For compatibility reasons, the `FluentValidation` dependency had to be updated in all projects.
 
 _Other changes_
 * `Configure` has been cleaned up [#31](https://github.com/ProCoSys/Bifrost/issues/31)

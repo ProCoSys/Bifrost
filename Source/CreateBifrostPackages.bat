@@ -38,7 +38,6 @@ REM %nuget% pack "%~dp0\Bifrost.Unity\Bifrost.Unity.csproj" -p Configuration=%co
 REM %nuget% pack "%~dp0\Bifrost.Windsor\Bifrost.Windsor.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 %nuget% pack "%~dp0\Bifrost.Web\Bifrost.Web.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 %nuget% pack "%~dp0\Bifrost.Web.Mvc\Bifrost.Web.Mvc.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
-%nuget% pack "%~dp0\Bifrost.Web.Mvc5\Bifrost.Web.Mvc5.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.RavenDB\Bifrost.RavenDB.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.MongoDB\Bifrost.MongoDB.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
 REM %nuget% pack "%~dp0\Bifrost.DocumentDB\Bifrost.DocumentDB.csproj" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -IncludeReferencedProjects -NonInteractive
