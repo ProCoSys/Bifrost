@@ -18,12 +18,14 @@
 * The `ITypeFinder` has been removed, as it was mostly a duplication of `ITypeDiscoverer`.
 
 _Other changes_
-* `Configure` has been cleaned up [#31](https://github.com/ProCoSys/Bifrost/issues/31)
+* `Configure` has been cleaned up. [#31](https://github.com/ProCoSys/Bifrost/issues/31)
   * The `Assemblies` property has been removed from `IConfigure`. Take a dependency on `IAssemblies` instead.
   * The `EntryAssembly` property has been removed from `IConfigure`. Use the static property on `Configure` instead.
-* For performance reasons, `CommandSecurityProxies` now uses the Activator instead of the container to create command instances. This means all commands must have a default constructor. [#28](https://github.com/ProCoSys/Bifrost/issues/28)
-* An `IConvention` interface has been created to increase discoverability of Convention over Configuration [#29](https://github.com/ProCoSys/Bifrost/issues/29)
-* Fixed bug where `assetsManager` could initialize namespaces twice [#38](https://github.com/ProCoSys/Bifrost/issues/38)
+* `CommandSecurityProxies` is no longer included in `Bifrost/Application`. You must now reference `Bifrost/Security` to get command security proxies. [#45](https://github.com/ProCoSys/Bifrost/issues/45)
+  * `StringMapper.Resolve` now returns `null` instead of the empty string if no match is found.
+  * For performance reasons, `CommandSecurityProxies` now uses the Activator instead of the container to create command instances. This means all commands must have a default constructor. [#28](https://github.com/ProCoSys/Bifrost/issues/28)
+* An `IConvention` interface has been created to increase discoverability of Convention over Configuration. [#29](https://github.com/ProCoSys/Bifrost/issues/29)
+* Fixed bug where `assetsManager` could initialize namespaces twice. [#38](https://github.com/ProCoSys/Bifrost/issues/38)
 
 ## Version 2.3.0
 _Breaking changes_
