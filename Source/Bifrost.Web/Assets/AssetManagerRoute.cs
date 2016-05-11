@@ -16,7 +16,6 @@
 // limitations under the License.
 //
 #endregion
-using System.Reflection;
 using System.Web.Routing;
 
 namespace Bifrost.Web.Assets
@@ -24,7 +23,7 @@ namespace Bifrost.Web.Assets
     public class AssetManagerRoute : Route
     {
         public AssetManagerRoute(string url)
-            : base(url, new AssetManagerRouteHandler(url))
+            : base(url, new AssetManagerRouteHandler())
         {
         }
 

@@ -24,8 +24,8 @@ namespace Bifrost.Web.Services
 {
     public class RestServiceRouteHandler : IRouteHandler
     {
-        Type _type;
-        string _url;
+        readonly Type _type;
+        readonly string _url;
         IHttpHandler _httpHandler;
 
         public RestServiceRouteHandler(Type type, string url)
@@ -36,10 +36,7 @@ namespace Bifrost.Web.Services
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            if (_httpHandler == null)
-                _httpHandler = new RestServiceRouteHttpHandler(_type, _url);
-
-            return _httpHandler;
+            return _httpHandler ?? (_httpHandler = new RestServiceRouteHttpHandler(_type, _url));
         }
     }
 }

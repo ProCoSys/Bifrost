@@ -30,9 +30,10 @@ namespace Bifrost.Web.Proxies
     [Singleton]
     public class GeneratedProxies
     {
+        public string All { get; }
+
         public GeneratedProxies(
             CommandProxies commandProxies,
-            CommandSecurityProxies commandSecurityProxies,
             QueryProxies queryProxies,
             ReadModelProxies readModelProxies,
             ServiceProxies serviceProxies,
@@ -43,7 +44,6 @@ namespace Bifrost.Web.Proxies
         {
             var builder = new StringBuilder();
             builder.Append(commandProxies.Generate());
-            builder.Append(commandSecurityProxies.Generate());
             builder.Append(readModelProxies.Generate());
             builder.Append(queryProxies.Generate());
             builder.Append(serviceProxies.Generate());
@@ -59,7 +59,5 @@ namespace Bifrost.Web.Proxies
 
             All = builder.ToString();
         }
-
-        public string All { get; private set; }
     }
 }
