@@ -209,7 +209,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Visualizer\SegoeUI.ttf" />
     <DotLess Include="Styles\bifrost.less" />
-    <EmbeddedResource Include="Scripts\jquery-2.1.3.min.map" />
+    <EmbeddedResource Include="Scripts\jquery-2.2.3.min.map" />
     <None Include="Styles\bootstrap\accordion.less" />
     <None Include="Styles\bootstrap\alerts.less" />
     <None Include="Styles\bootstrap\bootstrap.less" />
@@ -266,9 +266,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="home.html" />
-    <EmbeddedResource Include="Scripts\domReady.js" />
     <EmbeddedResource Include="Scripts\jquery.history.js" />
-    <EmbeddedResource Include="Scripts\order.js" />
     <EmbeddedResource Include="Scripts\require.js" />
     <EmbeddedResource Include="Scripts\text.js" />
     <EmbeddedResource Include="index.html" />
@@ -303,13 +301,15 @@
     <EmbeddedResource Include="Visualizer\Tasks\index.js" />
     <EmbeddedResource Include="Visualizer\Tasks\icon.png" />
     <EmbeddedResource Include="img\taskRunning.gif" />
-    <EmbeddedResource Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <EmbeddedResource Include="Scripts\jquery-2.1.3.js" />
-    <EmbeddedResource Include="Scripts\jquery-2.1.3.min.js" />
     <EmbeddedResource Include="Scripts\jquery.signalR-2.2.0.js" />
     <EmbeddedResource Include="Scripts\jquery.signalR-2.2.0.min.js" />
-    <EmbeddedResource Include="Scripts\knockout-3.2.0.debug.js" />
-    <EmbeddedResource Include="Scripts\knockout-3.2.0.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\jquery-2.2.3-vsdoc.js" />
+    <EmbeddedResource Include="Scripts\jquery-2.2.3.js" />
+    <EmbeddedResource Include="Scripts\jquery-2.2.3.min.js" />
+    <EmbeddedResource Include="Scripts\knockout-3.4.0.debug.js" />
+    <EmbeddedResource Include="Scripts\knockout-3.4.0.js" />
   </ItemGroup>
   <Import Project="..\Solutions\packages\LessMsbuildTasks.1.0.7\tools\LessCompiler.targets" Condition="Exists('..\Solutions\packages\LessMsbuildTasks.1.0.7\tools\LessCompiler.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

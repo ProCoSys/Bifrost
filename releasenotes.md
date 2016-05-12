@@ -24,6 +24,7 @@ _Other changes_
 * For performance reasons, `CommandSecurityProxies` now uses the Activator instead of the container to create command instances. This means all commands must have a default constructor. [#28](https://github.com/ProCoSys/Bifrost/issues/28)
 * An `IConvention` interface has been created to increase discoverability of Convention over Configuration [#29](https://github.com/ProCoSys/Bifrost/issues/29)
 * Fixed bug where `assetsManager` could initialize namespaces twice [#38](https://github.com/ProCoSys/Bifrost/issues/38)
+* Removed `order.js` and `domReady.js` from Bifrost, as it was not used [#39](https://github.com/ProCoSys/Bifrost/issues/39)
 
 ## Version 2.3.0
 _Breaking changes_
