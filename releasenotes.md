@@ -17,6 +17,9 @@
   * `ICanProvideAssemblies`
 * The `ITypeFinder` has been removed, as it was mostly a duplication of `ITypeDiscoverer`.
 
+### ASP.NET MVC 5
+`Bifrost.Web.Mvc` has been upgraded to ASP.NET MVC 5. For compatibility reasons, the `FluentValidation` dependency had to be updated in all projects.
+
 _Other changes_
 * `Configure` has been cleaned up. [#31](https://github.com/ProCoSys/Bifrost/issues/31)
   * The `Assemblies` property has been removed from `IConfigure`. Take a dependency on `IAssemblies` instead.
@@ -26,6 +29,7 @@ _Other changes_
   * For performance reasons, `CommandSecurityProxies` now uses the Activator instead of the container to create command instances. This means all commands must have a default constructor. [#28](https://github.com/ProCoSys/Bifrost/issues/28)
 * An `IConvention` interface has been created to increase discoverability of Convention over Configuration. [#29](https://github.com/ProCoSys/Bifrost/issues/29)
 * Fixed bug where `assetsManager` could initialize namespaces twice. [#38](https://github.com/ProCoSys/Bifrost/issues/38)
+* Removed `order.js` and `domReady.js` from Bifrost, as it was not used [#39](https://github.com/ProCoSys/Bifrost/issues/39)
 
 ## Version 2.3.0
 _Breaking changes_

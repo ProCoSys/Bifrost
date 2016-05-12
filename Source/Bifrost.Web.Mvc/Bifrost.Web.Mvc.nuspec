@@ -15,11 +15,11 @@
     <copyright>Copyright 2008 - 2016</copyright>
     <tags>MVVM LOB CQRS</tags>
     <dependencies>
-      <dependency id="FluentValidation.MVC3-Signed" version="3.4.6.0" />
-      <dependency id="FluentValidation-Signed" version="3.4.6.0" />
-      <dependency id="Microsoft.AspNet.Mvc" version="3.0.50813.1" />
-      <dependency id="Microsoft.AspNet.Razor" version="1.0.20105.408" />
-      <dependency id="Microsoft.AspNet.WebPages" version="1.0.20105.408" />
+      <dependency id="FluentValidation.MVC5-Signed" version="6.2.1.0" />
+      <dependency id="FluentValidation-Signed" version="6.2.1.0" />
+      <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
+      <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
+      <dependency id="Microsoft.AspNet.WebPages" version="3.2.3" />
       <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
       <dependency id="WebActivator" version="1.5.1" />
     </dependencies>

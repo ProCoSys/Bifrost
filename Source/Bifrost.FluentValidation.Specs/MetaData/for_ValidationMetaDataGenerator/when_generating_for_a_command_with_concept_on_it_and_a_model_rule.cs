@@ -2,6 +2,7 @@
 using Bifrost.Extensions;
 using Bifrost.FluentValidation.MetaData;
 using Bifrost.Validation.MetaData;
+using FluentValidation;
 using Machine.Specifications;
 
 namespace Bifrost.FluentValidation.Specs.MetaData.for_ValidationMetaDataGenerator
@@ -13,6 +14,9 @@ namespace Bifrost.FluentValidation.Specs.MetaData.for_ValidationMetaDataGenerato
 
         Establish context = () =>
         {
+            ValidatorOptions.PropertyNameResolver = NameResolvers.PropertyNameResolver;
+            ValidatorOptions.DisplayNameResolver = NameResolvers.DisplayNameResolver;
+
             command_validator_provider_mock
                 .Setup(m => m.GetInputValidatorFor(typeof (CommandWithConcept)))
                 .Returns(new CommandWithConceptValidator());

@@ -1,6 +1,6 @@
-﻿using Bifrost.Web.Mvc.Validation;
+﻿using System.Web.Mvc;
+using Bifrost.Web.Mvc.Validation;
 using Machine.Specifications;
-using System.Web.Mvc;
 using Moq;
 using It = Machine.Specifications.It;
 

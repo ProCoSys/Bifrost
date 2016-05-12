@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Bifrost.Concepts;
 using Bifrost.Execution;
 using Bifrost.Extensions;
@@ -35,15 +34,20 @@ namespace Bifrost.FluentValidation.MetaData
     /// </summary>
     public class ValidationMetaDataGenerator : ICanGenerateValidationMetaData
     {
-        ICommandValidatorProvider _validatorProvider;
-        Dictionary<Type, ICanGenerateRule> _generatorsByType;
+        static readonly PropertyValidatorContext NullContext =
+            new PropertyValidatorContext(new ValidationContext(null), null, null);
+
+        readonly ICommandValidatorProvider _validatorProvider;
+        readonly Dictionary<Type, ICanGenerateRule> _generatorsByType;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ValidationMetaDataGenerator"/>
         /// </summary>
         /// <param name="ruleGenerators">The known instances of generators.</param>
         /// <param name="validatorProvider">The provider of command input validators.</param>
-        public ValidationMetaDataGenerator(IInstancesOf<ICanGenerateRule> ruleGenerators, ICommandValidatorProvider validatorProvider)
+        public ValidationMetaDataGenerator(
+            IInstancesOf<ICanGenerateRule> ruleGenerators,
+            ICommandValidatorProvider validatorProvider)
         {
             _validatorProvider = validatorProvider;
             _generatorsByType = Generators(ruleGenerators);
@@ -61,8 +65,11 @@ namespace Bifrost.FluentValidation.MetaData
             return metaData;
         }
 
-
-        void GenerateForValidator(IValidator inputValidator, TypeMetaData metaData, string parentKey, bool isParentConcept = false, bool isParentModelRule = false)
+        void GenerateForValidator(
+            IValidator inputValidator,
+            TypeMetaData metaData,
+            string parentKey,
+            bool shouldUseParentKey = false)
         {
             var inputValidatorType = inputValidator.GetType();
             var genericArguments = inputValidatorType.BaseType.GetGenericArguments();
@@ -72,19 +79,21 @@ namespace Bifrost.FluentValidation.MetaData
 
             foreach (var member in members)
             {
-                var rules = descriptor.GetRulesForMember(member.Key);
-                foreach (var rule in rules)
+                var isModelRule = member.Key == ModelRule<string>.ModelRulePropertyName || member.Key == string.Empty;
+                var currentKey = (shouldUseParentKey || isModelRule) ? parentKey : GetKeyForMember(parentKey, member);
+                var isConcept = new Lazy<bool>(() => IsConcept(genericArguments, isModelRule, member));
+
+                foreach (var rule in descriptor.GetRulesForMember(member.Key))
                 {
                     foreach (var validator in rule.Validators)
                     {
-                        var isModelRule = member.Key == ModelRule<string>.ModelRulePropertyName;
-                        var currentKey = GetKeyForMember(parentKey, isParentConcept, isParentModelRule, member, isModelRule);
-
-                        if (validator is ChildValidatorAdaptor)
+                        var childValidatorAdaptor = validator as ChildValidatorAdaptor;
+                        if (childValidatorAdaptor != null)
                         {
-                            GenerateForChildValidator(metaData, genericArguments, member, validator, isModelRule, currentKey);
+                            var childValidator = childValidatorAdaptor.GetValidator(NullContext);
+                            GenerateForValidator(childValidator, metaData, currentKey, isModelRule || isConcept.Value);
                         }
-                        else if (validator is IPropertyValidator)
+                        else
                         {
                             GenerateFor(metaData, currentKey, validator);
                         }
@@ -93,30 +102,23 @@ namespace Bifrost.FluentValidation.MetaData
             }
         }
 
-
-#pragma warning restore 1591 // Xml Comments
-        string GetKeyForMember(string parentKey, bool isParentConcept, bool isParentModelRule, IGrouping<string, IPropertyValidator> member, bool isModelRule)
+        static bool IsConcept(Type[] genericArguments, bool isModelRule, IGrouping<string, IPropertyValidator> member)
         {
-            var currentKey = string.Empty;
-            if (isParentConcept || isParentModelRule || isModelRule)
-                currentKey = parentKey;
-            else
-                currentKey = string.IsNullOrEmpty(parentKey) ? member.Key : string.Format("{0}.{1}", parentKey, member.Key.ToCamelCase());
-            return currentKey;
-        }
-
-        void GenerateForChildValidator(TypeMetaData metaData, Type[] genericArguments, IGrouping<string, IPropertyValidator> member, IPropertyValidator validator, bool isModelRule, string currentKey)
-        {
-            var isConcept = false;
-
             if (genericArguments.Length == 1)
             {
-                var type = isModelRule ? genericArguments[0] : GetPropertyInfo(genericArguments[0], member.Key).PropertyType;
-                isConcept = type.IsConcept();
+                var type = isModelRule ? genericArguments[0] : genericArguments[0].GetProperty(member.Key).PropertyType;
+                return type.IsConcept();
             }
 
-            var childValidator = (validator as ChildValidatorAdaptor).Validator;
-            GenerateForValidator(childValidator, metaData, currentKey, isConcept, isModelRule);
+            return false;
+        }
+
+#pragma warning restore 1591 // Xml Comments
+        static string GetKeyForMember(string parentKey, IGrouping<string, IPropertyValidator> member)
+        {
+            return string.IsNullOrEmpty(parentKey)
+                ? member.Key
+                : $"{parentKey}.{member.Key.ToCamelCase()}";
         }
 
         void GenerateFor(TypeMetaData metaData, string property, IPropertyValidator validator)
@@ -137,18 +139,11 @@ namespace Bifrost.FluentValidation.MetaData
             }
         }
 
-        Dictionary<Type, ICanGenerateRule> Generators(IInstancesOf<ICanGenerateRule> ruleGenerators)
+        static Dictionary<Type, ICanGenerateRule> Generators(IInstancesOf<ICanGenerateRule> ruleGenerators)
         {
-            return (
-                from generator in ruleGenerators
-                from type in generator.From
-                select new {generator, type})
+            return ruleGenerators
+                .SelectMany(generator => generator.From, (generator, type) => new { generator, type })
                 .ToDictionary(d => d.type, d => d.generator);
-        }
-
-        PropertyInfo GetPropertyInfo(Type type, string name)
-        {
-            return type.GetProperty(name);
         }
     }
 }
