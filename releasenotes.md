@@ -17,6 +17,9 @@
   * `ICanProvideAssemblies`
 * The `ITypeFinder` has been removed, as it was mostly a duplication of `ITypeDiscoverer`.
 
+### ASP.NET MVC 5
+`Bifrost.Web.Mvc` has been upgraded to ASP.NET MVC 5. For compatibility reasons, the `FluentValidation` dependency had to be updated in all projects.
+
 _Other changes_
 * `Configure` has been cleaned up [#31](https://github.com/ProCoSys/Bifrost/issues/31)
   * The `Assemblies` property has been removed from `IConfigure`. Take a dependency on `IAssemblies` instead.
