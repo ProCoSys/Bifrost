@@ -16,8 +16,8 @@
 // limitations under the License.
 //
 #endregion
-using System.Web.Routing;
 using System.Web;
+using System.Web.Routing;
 
 namespace Bifrost.Web.Configuration
 {
@@ -27,10 +27,7 @@ namespace Bifrost.Web.Configuration
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            if (_httpHandler == null)
-                _httpHandler = new ConfigurationRouteHttpHandler();
-
-            return _httpHandler;
+            return _httpHandler ?? (_httpHandler = new ConfigurationRouteHttpHandler());
         }
     }
 }
