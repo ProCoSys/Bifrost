@@ -1,4 +1,4 @@
-## Next version
+## Version 3.0.0
 
 ### New procedure for bootstrapping the application [#30](https://github.com/ProCoSys/Bifrost/issues/30)
 * Bootstrapping the application has been refactored out of the `Configure.DiscoverAndConfigure` method to the `Bifrost.Bootstrapping` namespace:
