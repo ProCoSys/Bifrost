@@ -17,7 +17,7 @@ namespace Bifrost.FluentValidation
         /// <returns></returns>
         public static IRuleBuilderOptions<T, TProperty> DynamicValidationRule<T, TProperty>(
             this IRuleBuilder<T, TProperty> ruleBuilder,
-            IValidator validator,
+            IValidator<TProperty> validator,
             string name)
         {
 #pragma warning disable 0618
