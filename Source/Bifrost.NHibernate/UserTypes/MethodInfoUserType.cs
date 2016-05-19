@@ -17,48 +17,29 @@
 //
 #endregion
 using System;
-using NHibernate.UserTypes;
 using System.Data;
-using NHibernate.SqlTypes;
-using NHibernate;
 using System.Reflection;
 using Bifrost.Events;
+using NHibernate;
+using NHibernate.SqlTypes;
+using NHibernate.UserTypes;
 
 namespace Bifrost.NHibernate.UserTypes
 {
+    [Serializable]
     public class MethodInfoUserType : IUserType
     {
-        public object Assemble(object cached, object owner)
-        {
-            return cached;
-        }
+        public object Assemble(object cached, object owner) => cached;
 
-        public object Disassemble(object value)
-        {
-            return value;
-        }
+        public object Disassemble(object value) => value;
 
-        public object DeepCopy(object value)
-        {
-            if (value == null) return null;
-            return value;
-        }
+        public object DeepCopy(object value) => value;
 
+        public new bool Equals(object x, object y) => x != null && x.Equals(y);
 
-        public new bool Equals(object x, object y)
-        {
-            if (x == null)
-                return false;
-            else
-                return x.Equals(y);
-        }
+        public int GetHashCode(object x) => x.GetHashCode();
 
-        public int GetHashCode(object x)
-        {
-            return x.GetHashCode();
-        }
-
-        public bool IsMutable { get { return false; } }
+        public bool IsMutable => false;
 
         public object NullSafeGet(IDataReader rs, string[] names, object owner)
         {
@@ -73,16 +54,17 @@ namespace Bifrost.NHibernate.UserTypes
         public void NullSafeSet(IDbCommand cmd, object value, int index)
         {
             var method = (MethodInfo)value;
-            var methodString = string.Format("{0};{1}", method.DeclaringType.AssemblyQualifiedName, method.GetParameters()[0].ParameterType.AssemblyQualifiedName);
+            var methodString = string.Format(
+                "{0};{1}",
+                method.DeclaringType.AssemblyQualifiedName,
+                method.GetParameters()[0].ParameterType.AssemblyQualifiedName);
             NHibernateUtil.String.NullSafeSet(cmd, methodString, index);
         }
 
-        public object Replace(object original, object target, object owner)
-        {
-            return original;
-        }
+        public object Replace(object original, object target, object owner) => original;
 
-        public Type ReturnedType { get { return typeof(MethodInfo); } }
-        public global::NHibernate.SqlTypes.SqlType[] SqlTypes { get { return new[] { new SqlType(DbType.String) }; } }
+        public Type ReturnedType => typeof(MethodInfo);
+
+        public SqlType[] SqlTypes => new[] { new SqlType(DbType.String) };
     }
 }

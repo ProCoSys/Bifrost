@@ -37,6 +37,7 @@ namespace Bifrost.NHibernate.UserTypes
     /// which was relased under the Apache 2.0 license
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [Serializable]
     public abstract class UserTypeBase<T> : ICompositeUserType
     {
         static NullSafeMapping defaultMapping = new InferredMapping();

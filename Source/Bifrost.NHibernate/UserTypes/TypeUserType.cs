@@ -17,44 +17,27 @@
 //
 #endregion
 using System;
-using NHibernate.UserTypes;
 using System.Data;
-using NHibernate.SqlTypes;
 using NHibernate;
+using NHibernate.SqlTypes;
+using NHibernate.UserTypes;
 
 namespace Bifrost.NHibernate.UserTypes
 {
+    [Serializable]
     public class TypeUserType : IUserType
     {
-        public object Assemble(object cached, object owner)
-        {
-            return cached;
-        }
+        public object Assemble(object cached, object owner) => cached;
 
-        public object Disassemble(object value)
-        {
-            return value;
-        }
+        public object Disassemble(object value) => value;
 
-        public object DeepCopy(object value)
-        {
-            return value;
-        }
+        public object DeepCopy(object value) => value;
 
-        public new bool Equals(object x, object y)
-        {
-            if (x == null)
-                return false;
-            else
-                return x.Equals(y);
-        }
+        public new bool Equals(object x, object y) => x != null && x.Equals(y);
 
-        public int GetHashCode(object x)
-        {
-            return x.GetHashCode();
-        }
+        public int GetHashCode(object x) => x.GetHashCode();
 
-        public bool IsMutable { get { return false; } }
+        public bool IsMutable => false;
 
         public object NullSafeGet(IDataReader rs, string[] names, object owner)
         {
@@ -68,12 +51,10 @@ namespace Bifrost.NHibernate.UserTypes
             NHibernateUtil.String.NullSafeSet(cmd, type.AssemblyQualifiedName, index);
         }
 
-        public object Replace(object original, object target, object owner)
-        {
-            return original;
-        }
+        public object Replace(object original, object target, object owner) => original;
 
-        public Type ReturnedType { get { return typeof(Type); } }
-        public global::NHibernate.SqlTypes.SqlType[] SqlTypes { get { return new[] { new SqlType(DbType.String) }; } }
+        public Type ReturnedType => typeof(Type);
+
+        public SqlType[] SqlTypes => new[] { new SqlType(DbType.String) };
     }
 }

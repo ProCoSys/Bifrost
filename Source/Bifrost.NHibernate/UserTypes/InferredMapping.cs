@@ -16,7 +16,6 @@
 // limitations under the License.
 //
 #endregion
-
 using System;
 using System.Data;
 using System.Reflection;
@@ -28,17 +27,29 @@ using NHibernate.Type;
 namespace Bifrost.NHibernate.UserTypes
 {
     /// <summary>
-    /// Represents a <see cref="NullSafeMapping">property mapping strategy</see> that uses the inbuilt type inference within NHibernate
+    /// Represents a <see cref="NullSafeMapping">property mapping strategy</see> that uses the inbuilt type inference
+    /// within NHibernate.
     /// </summary>
+    [Serializable]
     public class InferredMapping : NullSafeMapping
     {
 #pragma warning disable 1591
-        public override object Get(PropertyInfo property, IDataReader dr, string propertyName, ISessionImplementor session, object owner)
+        public override object Get(
+            PropertyInfo property,
+            IDataReader dr,
+            string propertyName,
+            ISessionImplementor session,
+            object owner)
         {
-            return GuessType(property.PropertyType).NullSafeGet(dr, propertyName, session, owner); ;
+            return GuessType(property.PropertyType).NullSafeGet(dr, propertyName, session, owner);
         }
 
-        public override void Set(PropertyInfo property, object value, IDbCommand cmd, int index, ISessionImplementor session)
+        public override void Set(
+            PropertyInfo property,
+            object value,
+            IDbCommand cmd,
+            int index,
+            ISessionImplementor session)
         {
             var propValue = property.GetValue(value, null);
             GuessType(property.PropertyType).NullSafeSet(cmd, propValue, index, session);

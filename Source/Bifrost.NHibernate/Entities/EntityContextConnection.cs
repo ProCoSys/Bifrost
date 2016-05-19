@@ -16,57 +16,93 @@
 // limitations under the License.
 //
 #endregion
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using Bifrost.Bootstrap;
 using Bifrost.Entities;
 using Bifrost.Execution;
+using Bifrost.Extensions;
 using FluentNHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
+using NHConfig = NHibernate.Cfg.Configuration;
 
 namespace Bifrost.NHibernate.Entities
 {
     public class EntityContextConnection : IEntityContextConnection, IConnection
     {
+        public string ConfigCacheFile { get; set; }
         public ISessionFactory SessionFactory { get; private set; }
         public FluentConfiguration FluentConfiguration { get; }
-        public global::NHibernate.Cfg.Configuration Configuration { get; private set; }
+        public NHConfig Configuration { get; private set; }
 
         public EntityContextConnection()
         {
             FluentConfiguration = Fluently.Configure();
         }
 
-        static void DiscoverClassMapsAndAddAssemblies(
-            IAssemblies assemblies,
-            ITypeDiscoverer typeDiscoverer,
+        static IList<Assembly> DiscoverAssembliesWithFluentMappings(IContainer container)
+        {
+            return container
+                .Get<IImplementorFinder>()
+                .GetImplementorsFor(typeof(IMappingProvider))
+                .Select(t => t.Assembly)
+                .Distinct()
+                .ToList();
+        }
+
+        static IList<Assembly> DiscoverAssembliesWithHbmMappings(IContainer container)
+        {
+            return container
+                .Get<IAssemblies>()
+                .GetAll()
+                .Where(a => a.GetManifestResourceNames().Any(s => s.EndsWith(".hbm.xml")))
+                .ToList();
+        }
+
+        static void AddAssemblies(
+            IEnumerable<Assembly> assembliesWithFluentMappings,
+            IEnumerable<Assembly> assembliesWithHbmMappings,
             MappingConfiguration mappings)
         {
-            var assembliesWithFluentMappings = typeDiscoverer
-                .FindMultiple(typeof(IMappingProvider))
-                .Select(t => t.Assembly)
-                .Distinct();
-            foreach (var assembly in assembliesWithFluentMappings)
-            {
-                mappings.FluentMappings.AddFromAssembly(assembly).Conventions.Add(DefaultLazy.Never(), AutoImport.Never());
-            }
-
-            var assembliesWithHbmMappings = assemblies
-                .GetAll()
-                .Where(a => a.GetManifestResourceNames().Any(s => s.EndsWith(".hbm.xml")));
-            foreach (var assembly in assembliesWithHbmMappings)
-            {
-                mappings.HbmMappings.AddFromAssembly(assembly);
-            }
+            assembliesWithFluentMappings.ForEach(
+                a => mappings.FluentMappings.AddFromAssembly(a).Conventions.Add(DefaultLazy.Never(), AutoImport.Never()));
+            assembliesWithHbmMappings.ForEach(
+                a => mappings.HbmMappings.AddFromAssembly(a));
         }
 
         public void Initialize(IContainer container)
         {
-            var assemblies = container.Get<IAssemblies>();
-            var typeDiscoverer = container.Get<ITypeDiscoverer>();
-            FluentConfiguration.Mappings(m => DiscoverClassMapsAndAddAssemblies(assemblies, typeDiscoverer, m));
-            Configuration = FluentConfiguration.BuildConfiguration();
+            var assembliesWithFluentMappings = DiscoverAssembliesWithFluentMappings(container);
+            var assembliesWithHbmMappings = DiscoverAssembliesWithHbmMappings(container);
+            if (ConfigCacheFile == null)
+            {
+                Configuration = BuildConfiguration(assembliesWithFluentMappings, assembliesWithHbmMappings);
+            }
+            else
+            {
+                var newestAssemblyTime = assembliesWithFluentMappings
+                    .Concat(assembliesWithHbmMappings)
+                    .Max(a => new FileInfo(a.Location).LastWriteTimeUtc);
+
+                var cache = container.Get<IConfigFileCache>();
+                cache.CacheFile = ConfigCacheFile;
+                Configuration = cache.LoadConfiguration<NHConfig>(newestAssemblyTime) ??
+                    cache.SaveConfiguration(BuildConfiguration(assembliesWithFluentMappings, assembliesWithHbmMappings));
+            }
+
             SessionFactory = Configuration.BuildSessionFactory();
+        }
+
+        NHConfig BuildConfiguration(
+            IEnumerable<Assembly> assembliesWithFluentMappings,
+            IEnumerable<Assembly> assembliesWithHbmMappings)
+        {
+            FluentConfiguration.Mappings(m => AddAssemblies(assembliesWithFluentMappings, assembliesWithHbmMappings, m));
+            return FluentConfiguration.BuildConfiguration();
         }
     }
 }

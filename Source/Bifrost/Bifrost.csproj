@@ -138,6 +138,8 @@
     <Compile Include="Bootstrap\Types\TypeCollector.cs" />
     <Compile Include="Bootstrap\IImplementorFinder.cs" />
     <Compile Include="Bootstrap\Types\ITypeCollector.cs" />
+    <Compile Include="Entities\ConfigFileCache.cs" />
+    <Compile Include="Entities\IConfigFileCache.cs" />
     <Compile Include="Execution\ICollectTypes.cs" />
     <Compile Include="Bootstrap\Instances\IInstanceCreator.cs" />
     <Compile Include="Bootstrap\Instances\InstanceCreator.cs" />
