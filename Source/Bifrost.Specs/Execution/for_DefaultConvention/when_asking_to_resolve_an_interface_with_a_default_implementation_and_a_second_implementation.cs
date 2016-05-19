@@ -1,25 +1,16 @@
-﻿using Machine.Specifications;
-using Moq;
-using It = Machine.Specifications.It;
-using Bifrost.Execution;
+﻿using Bifrost.Execution;
+using Machine.Specifications;
 
 namespace Bifrost.Specs.Execution.for_DefaultConvention
 {
     [Subject(typeof(DefaultConvention))]
     public class when_asking_to_resolve_an_interface_with_a_default_implementation_and_a_second_implementation
+        : given.a_default_convention
     {
-        static Mock<IContainer>  container_mock = new Mock<IContainer>();
-        static DefaultConvention convention = new DefaultConvention();
-        static bool result = true;
+        static bool result;
 
-        Establish context = () =>
-        {
-            container_mock.Setup(c => c.HasBindingFor(typeof(ISomethingWithMultipleImplementations))).Returns(false);
-            container_mock.Setup(c => c.HasBindingFor(typeof(SomethingWithMultipleImplementations))).Returns(false);
-            container_mock.Setup(c => c.HasBindingFor(typeof(SomethingWithMultipleImplementationsSecond))).Returns(false);
-        };
-
-        Because of = () => result = convention.CanResolve(container_mock.Object, typeof(ISomethingWithMultipleImplementations));
+        Because of = () =>
+            result = convention.CanResolve(Get<IContainer>(), typeof(ISomethingWithMultipleImplementations));
 
         It should_return_false = () => result.ShouldBeFalse();
     }
