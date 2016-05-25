@@ -1,3 +1,7 @@
+## Next version
+_Other changes_
+* Increased performance during startup in `DefaultConvention`. [#47](https://github.com/ProCoSys/Bifrost/issues/47)
+
 ## Version 3.0.0
 
 ### New procedure for bootstrapping the application [#30](https://github.com/ProCoSys/Bifrost/issues/30)

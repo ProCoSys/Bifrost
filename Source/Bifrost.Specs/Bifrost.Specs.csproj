@@ -351,6 +351,7 @@
     <Compile Include="Execution\for_BindingConventionManager\when_initializing_with_one_convention_and_one_type.cs" />
     <Compile Include="Execution\for_BindingConventionManager\when_initializing_with_two_conventions_and_one_type_and_first_convention_can_resolve.cs" />
     <Compile Include="Execution\for_BindingConventionManager\when_initializing_with_two_conventions_and_one_type_and_second_convention_can_resolve_but_not_the_first.cs" />
+    <Compile Include="Execution\for_DefaultConvention\given\a_default_convention.cs" />
     <Compile Include="Execution\for_ImplementorFinder\AbstractClassWithInterface.cs" />
     <Compile Include="Execution\for_ImplementorFinder\AbstractClass.cs" />
     <Compile Include="Execution\for_ImplementorFinder\given\an_empty_map.cs" />
