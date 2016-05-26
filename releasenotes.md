@@ -1,17 +1,14 @@
 ## Next version
 _Other changes_
-<<<<<<< HEAD
 * The NHibernate `EntityContextConnection` has been extended with an option to cache the generated configuration object. [#49](https://github.com/ProCoSys/Bifrost/issues/49)
   * This will improve startup performance when there are no changes to assemblies with NHibernate mappings since the last startup.
   * To enable this feature, set the `EntityContextConnection.ConfigCacheFile` property to the location of the cache file.
   * If you want to use this feature, all custom event listeners, interceptors and user types must be serializable.
-=======
 * Increased performance during startup in `DefaultConvention`. [#47](https://github.com/ProCoSys/Bifrost/issues/47)
->>>>>>> 2ccc5ad7f78d540e6dbfb8f236882194b3d0567c
 
 ## Version 3.0.0
 
-### New procedure for bootstrapping the application [#30](https://github.com/ProCoSys/Bifrost/issues/30)
+#### New procedure for bootstrapping the application [#30](https://github.com/ProCoSys/Bifrost/issues/30)
 * Bootstrapping the application has been refactored out of the `Configure.DiscoverAndConfigure` method to the `Bifrost.Bootstrapping` namespace:
   * If you are using `DiscoverAndConfigure` without any parameters, there should be no changes.
   * If you are using `DiscoverAndConfigure` with parameters, you must wrap the parameters in an `IBootstrapConfiguration` object.
@@ -28,7 +25,7 @@ _Other changes_
   * `ICanProvideAssemblies`
 * The `ITypeFinder` has been removed, as it was mostly a duplication of `ITypeDiscoverer`.
 
-### ASP.NET MVC 5
+#### ASP.NET MVC 5
 `Bifrost.Web.Mvc` has been upgraded to ASP.NET MVC 5. For compatibility reasons, the `FluentValidation` dependency had to be updated in all projects.
 
 _Other changes_
