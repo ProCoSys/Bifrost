@@ -25,49 +25,35 @@ using NHibernate.UserTypes;
 namespace Bifrost.NHibernate.UserTypes
 {
     /// <summary>
-    /// A User type that wraps up transforming between a .NET type of Guid and the RAW(16) data type in Oracle
+    /// A User type that wraps up transforming between a .NET type of Guid and the RAW(16) data type in Oracle.
     /// </summary>
+    [Serializable]
     public class OracleGuidUserType : IUserType
     {
-        static SqlType[] _types = new [] { new SqlType(DbType.Binary) };
-        static Type _type = typeof (Guid);
-#pragma warning disable 1591
-        public object Assemble(object cached, object owner)
-        {
-            return DeepCopy(cached);
-        }
+        static readonly SqlType[] _types = { new SqlType(DbType.Binary) };
+        static readonly Type _type = typeof(Guid);
 
-        public new bool Equals(object x, object y)
-        {
-            return (x != null && x.Equals(y));
-        }
+        #pragma warning disable 1591
+        public object Assemble(object cached, object owner) => DeepCopy(cached);
 
-        public object DeepCopy(object value)
-        {
-            return value;
-        }
+        public new bool Equals(object x, object y) => x != null && x.Equals(y);
 
-        public object Disassemble(object value)
-        {
-            return DeepCopy(value);
-        }
+        public object DeepCopy(object value) => value;
 
-        public int GetHashCode(object x)
-        {
-            return x.GetHashCode();
-        }
+        public object Disassemble(object value) => DeepCopy(value);
 
-        public bool IsMutable
-        {
-            get { return true; }
-        }
+        public int GetHashCode(object x) => x.GetHashCode();
+
+        public bool IsMutable => true;
 
         public object NullSafeGet(IDataReader rs, string[] names, object owner)
         {
             var result = Guid.Empty;
             var buffer = (byte[])NHibernateUtil.Binary.NullSafeGet(rs, names[0]);
             if (buffer == null)
+            {
                 return result;
+            }
 
             result = new Guid(buffer);
             return result;
@@ -76,27 +62,20 @@ namespace Bifrost.NHibernate.UserTypes
         public void NullSafeSet(IDbCommand cmd, object value, int index)
         {
             if (null == value)
+            {
                 return;
+            }
 
             var guidValue = (Guid)value;
             var buffer = guidValue.ToByteArray();
             NHibernateUtil.Binary.NullSafeSet(cmd, buffer, index);
         }
 
-        public object Replace(object original, object target, object owner)
-        {
-            return original;
-        }
+        public object Replace(object original, object target, object owner) => original;
 
-        public Type ReturnedType
-        {
-            get { return _type; }
-        }
+        public Type ReturnedType => _type;
 
-        public SqlType[] SqlTypes
-        {
-            get { return _types; }
-        }
+        public SqlType[] SqlTypes => _types;
 #pragma warning restore 1591
     }
 }

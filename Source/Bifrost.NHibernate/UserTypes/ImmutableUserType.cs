@@ -16,17 +16,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 #endregion
-
 using System;
 
 namespace Bifrost.NHibernate.UserTypes
 {
     /// <summary>
-    /// Helps create NHibernate Custom Mappings for Types
+    /// Helps create NHibernate Custom Mappings for Types.
     /// </summary>
-    /// <typeparam name="T">Type that this user type maps</typeparam>
+    /// <typeparam name="T">Type that this user type maps.</typeparam>
+    [Serializable]
     public abstract class ImmutableUserType<T> : UserTypeBase<T>
     {
 #pragma warning disable 1591 // Xml Comments
@@ -42,15 +41,9 @@ namespace Bifrost.NHibernate.UserTypes
             return instance;
         }
 
-        public override bool IsMutable
-        {
-            get { return false; }
-        }
+        public override bool IsMutable => false;
 
-        protected override T PerformDeepCopy(T source)
-        {
-            return source;
-        }
+        protected override T PerformDeepCopy(T source) => source;
     }
 #pragma warning restore // Xml Comments
 }

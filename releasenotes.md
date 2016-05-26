@@ -1,6 +1,13 @@
 ## Next version
 _Other changes_
+<<<<<<< HEAD
+* The NHibernate `EntityContextConnection` has been extended with an option to cache the generated configuration object. [#49](https://github.com/ProCoSys/Bifrost/issues/49)
+  * This will improve startup performance when there are no changes to assemblies with NHibernate mappings since the last startup.
+  * To enable this feature, set the `EntityContextConnection.ConfigCacheFile` property to the location of the cache file.
+  * If you want to use this feature, all custom event listeners, interceptors and user types must be serializable.
+=======
 * Increased performance during startup in `DefaultConvention`. [#47](https://github.com/ProCoSys/Bifrost/issues/47)
+>>>>>>> 2ccc5ad7f78d540e6dbfb8f236882194b3d0567c
 
 ## Version 3.0.0
 
