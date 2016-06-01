@@ -9,11 +9,6 @@
         defaultUriMapper.addMapping("{view}", "{view}.html");
         Bifrost.uriMappers.default = defaultUriMapper;
 
-        var bifrostVisualizerUriMapper = Bifrost.StringMapper.create();
-        bifrostVisualizerUriMapper.addMapping("Visualizer/{module}/{view}", "/Bifrost/Visualizer/{module}/{view}.html");
-        bifrostVisualizerUriMapper.addMapping("Visualizer/{view}", "/Bifrost/Visualizer/{view}.html");
-        Bifrost.uriMappers.bifrostVisualizer = bifrostVisualizerUriMapper;
-
         this.isReady = false;
         this.readyCallbacks = [];
 
