@@ -1,3 +1,6 @@
+## Next version
+* Unneeded assets, including `Visualizer` has been removed from the Bifrost.Web project. [#51](https://github.com/ProCoSys/Bifrost/issues/51)
+
 ## Version 3.0.1
 * The NHibernate `EntityContextConnection` has been extended with an option to cache the generated configuration object. [#49](https://github.com/ProCoSys/Bifrost/issues/49)
   * This will improve startup performance when there are no changes to assemblies with NHibernate mappings since the last startup.
