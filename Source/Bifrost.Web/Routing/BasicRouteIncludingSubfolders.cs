@@ -1,4 +1,5 @@
 ﻿#region License
+
 //
 // Copyright (c) 2008-2015, Dolittle (http://www.dolittle.com)
 //
@@ -15,17 +16,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+
 #endregion
+
+using System.Web;
 using System.Web.Routing;
 
-namespace Bifrost.Web.Configuration
+namespace Bifrost.Web.Routing
 {
-    public class ConfigurationRoute : Route
+    public class BasicRouteIncludingSubfolders : Route
     {
-        const string ConfigurationUrl = "Bifrost/Application";
+        private const string UnmatchedPathSegment = "{*pathInfo}";
 
-        public ConfigurationRoute()
-            : base(ConfigurationUrl, new ConfigurationRouteHandler())
+        public BasicRouteIncludingSubfolders(IHttpHandler httpHandler, string url)
+            : base($"{url}/{UnmatchedPathSegment}", new BasicRouteHandler(httpHandler))
         {
         }
 

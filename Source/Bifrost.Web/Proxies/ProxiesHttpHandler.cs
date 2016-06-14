@@ -17,17 +17,26 @@
 //
 #endregion
 using System.Web;
-using System.Web.Routing;
+using Bifrost.Configuration;
+using Bifrost.Web.Routing;
 
-namespace Bifrost.Web.Configuration
+namespace Bifrost.Web.Proxies
 {
-    public class ConfigurationRouteHandler : IRouteHandler
+    public class ProxiesHttpHandler : IBifrostHttpHandler
     {
-        IHttpHandler _httpHandler;
+        GeneratedProxies _proxies;
 
-        public IHttpHandler GetHttpHandler(RequestContext requestContext)
+        public bool IsReusable => true;
+
+        public void ProcessRequest(HttpContext context)
         {
-            return _httpHandler ?? (_httpHandler = new ConfigurationRouteHttpHandler());
+            if (_proxies == null)
+            {
+                _proxies = Configure.Instance.Container.Get<GeneratedProxies>();
+            }
+
+            context.Response.ContentType = "text/javascript";
+            context.Response.Write(_proxies.All);
         }
     }
 }

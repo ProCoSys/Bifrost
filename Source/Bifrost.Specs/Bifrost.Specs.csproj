@@ -430,6 +430,14 @@
     <Compile Include="Extensions\for_StringExtensions\when_converting_a_string_representation_of_a_long_to_a_long.cs" />
     <Compile Include="Extensions\for_StringExtensions\when_converting_a_string_representation_of_a_long_to_a_long_concept.cs" />
     <Compile Include="Extensions\for_StringExtensions\when_converting_a_string_with_camel_casing_to_pascal_casing.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_empty_prefix.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_existing_prefix.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_nonexistent_prefix.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_nonexistent_postfix.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_existing_postfix.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_empty_postfix.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_prefix_from_empty_string.cs" />
+    <Compile Include="Extensions\for_StringExtensions\when_removing_postfix_from_empty_string.cs" />
     <Compile Include="Extensions\for_StringExtensions\when_converting_a_string_with_pascal_casing_to_camel_casing.cs" />
     <Compile Include="Extensions\for_TypeExtensions\ConceptType.cs" />
     <Compile Include="Extensions\for_TypeExtensions\Custom1Attribute.cs" />

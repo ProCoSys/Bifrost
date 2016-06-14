@@ -20,10 +20,11 @@ using System;
 using Bifrost.Commands;
 using Bifrost.Execution;
 using Bifrost.Security;
+using Bifrost.Web.Services;
 
 namespace Bifrost.Web.Commands
 {
-    public class CommandSecurityService
+    public class CommandSecurityService : IBifrostService
     {
         readonly ICommandSecurityManager _commandSecurityManager;
         readonly ITypeDiscoverer _typeDiscoverer;

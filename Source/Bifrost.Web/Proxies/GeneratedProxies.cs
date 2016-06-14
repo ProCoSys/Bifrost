@@ -51,9 +51,8 @@ namespace Bifrost.Web.Proxies
             builder.Append(hubProxies.Generate());
 
             var generatorTypes = typeDiscoverer.FindMultiple<IProxyGenerator>().Where(t => !t.Namespace.StartsWith("Bifrost"));
-            foreach (var generatorType in generatorTypes)
+            foreach (var generator in generatorTypes.Select(container.Get).Cast<IProxyGenerator>())
             {
-                var generator = container.Get(generatorType) as IProxyGenerator;
                 builder.Append(generator.Generate());
             }
 

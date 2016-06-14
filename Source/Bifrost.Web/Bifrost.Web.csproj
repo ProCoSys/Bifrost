@@ -96,13 +96,8 @@
     <Compile Include="..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Applications\ApplicationRoute.cs" />
-    <Compile Include="Applications\ApplicationRouteHandler.cs" />
-    <Compile Include="Applications\ApplicationRouteHttpHandler.cs" />
-    <Compile Include="Assets\AssetManagerRoute.cs" />
-    <Compile Include="Assets\AssetManagerRouteHandler.cs" />
-    <Compile Include="Assets\AssetManagerRouteHttpHandler.cs" />
-    <Compile Include="Applications\RouteExtensions.cs" />
+    <Compile Include="Resources\ResourcesHttpHandler.cs" />
+    <Compile Include="Assets\AssetsManagerHttpHandler.cs" />
     <Compile Include="Assets\AssetsManager.cs" />
     <Compile Include="Assets\IAssetsManager.cs" />
     <Compile Include="AssemblySpecifier.cs" />
@@ -115,9 +110,7 @@
     <Compile Include="Commands\TypePropertyExtender.cs" />
     <Compile Include="Commands\UnknownCommandContextException.cs" />
     <Compile Include="Configuration\AssetsConfiguration.cs" />
-    <Compile Include="Configuration\ConfigurationRoute.cs" />
-    <Compile Include="Configuration\ConfigurationRouteHandler.cs" />
-    <Compile Include="Configuration\ConfigurationRouteHttpHandler.cs" />
+    <Compile Include="Application\ApplicationHttpHandler.cs" />
     <Compile Include="Configuration\NamespaceMapper.cs" />
     <Compile Include="Configuration\PathToNamespaceMappers.cs" />
     <Compile Include="Configuration\ScriptsToInclude.cs" />
@@ -128,9 +121,12 @@
     <Compile Include="Events\ICommandCoordinatorEvents.cs" />
     <Compile Include="Hubs\HubCodeGenerationExtensions.cs" />
     <Compile Include="Hubs\HubProxies.cs" />
-    <Compile Include="Security\SecurityRoute.cs" />
-    <Compile Include="Security\SecurityRouteHandler.cs" />
-    <Compile Include="Security\SecurityRouteHttpHandler.cs" />
+    <Compile Include="Resources\RouteExtensions.cs" />
+    <Compile Include="Routing\BasicRouteHandler.cs" />
+    <Compile Include="Routing\BasicRouteIncludingSubfolders.cs" />
+    <Compile Include="Security\SecurityHttpHandler.cs" />
+    <Compile Include="Routing\IBifrostHttpHandler.cs" />
+    <Compile Include="Services\IBifrostService.cs" />
     <Compile Include="Services\ICanInterceptValue.cs" />
     <Compile Include="Services\IJsonInterceptor.cs" />
     <Compile Include="Services\JsonInterceptor.cs" />
@@ -143,7 +139,6 @@
     <Compile Include="Configuration\NamespaceConfigurationProxies.cs" />
     <Compile Include="Configuration\NamespaceExtensions.cs" />
     <Compile Include="Configuration\Namespaces.cs" />
-    <Compile Include="Proxies\ProxyRoute.cs" />
     <Compile Include="Read\QueryProxies.cs" />
     <Compile Include="Read\ReadModelProxyExtensions.cs" />
     <Compile Include="Services\ServiceProxies.cs" />
@@ -153,8 +148,7 @@
     <Compile Include="Read\QueryService.cs" />
     <Compile Include="Read\ReadModelQueryDescriptor.cs" />
     <Compile Include="Read\ReadModelService.cs" />
-    <Compile Include="Proxies\ProxyRouteHandler.cs" />
-    <Compile Include="Proxies\ProxyRouteHttpHandler.cs" />
+    <Compile Include="Proxies\ProxiesHttpHandler.cs" />
     <Compile Include="Commands\CommandProxies.cs" />
     <Compile Include="Sagas\SagaLibrarian.cs" />
     <Compile Include="BootStrapper.cs" />
@@ -176,10 +170,8 @@
     <Compile Include="Services\RequestParams.cs" />
     <Compile Include="Services\RequestParamsFactory.cs" />
     <Compile Include="Services\RestServiceMethodInvoker.cs" />
-    <Compile Include="Services\RestServiceRoute.cs" />
-    <Compile Include="Services\RestServiceRouteHandler.cs" />
     <Compile Include="Services\RestServiceRouteHttpHandler.cs" />
-    <Compile Include="Services\ServiceRoutingExtensions.cs" />
+    <Compile Include="Services\RouteExtensions.cs" />
     <Compile Include="Configuration\WebConfiguration.cs" />
     <Compile Include="WebCallContext.cs" />
     <Compile Include="WebContext.cs" />

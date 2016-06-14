@@ -16,21 +16,34 @@
 // limitations under the License.
 //
 #endregion
+using System.Collections.Generic;
 using System.Web;
 using Bifrost.Configuration;
-using Bifrost.Web.Commands;
+using Bifrost.Web.Routing;
+using Newtonsoft.Json;
 
-namespace Bifrost.Web.Security
+namespace Bifrost.Web.Assets
 {
-    public class SecurityRouteHttpHandler : IHttpHandler
+    public class AssetsManagerHttpHandler : IBifrostHttpHandler
     {
         public bool IsReusable => true;
 
         public void ProcessRequest(HttpContext context)
         {
-            var proxies = Configure.Instance.Container.Get<CommandSecurityProxies>();
-            context.Response.ContentType = "text/javascript";
-            context.Response.Write(proxies.Generate());
+            var assetsManager = Configure.Instance.Container.Get<IAssetsManager>();
+            IEnumerable<string> assets = new string[0];
+            var extension = context.Request.Params["extension"];
+            if (extension != null)
+            {
+                assets = assetsManager.GetFilesForExtension(extension);
+                if (context.Request.Params["structure"] != null)
+                {
+                    assets = assetsManager.GetStructureForExtension(extension);
+                }
+            }
+
+            var serialized = JsonConvert.SerializeObject(assets);
+            context.Response.Write(serialized);
         }
     }
 }

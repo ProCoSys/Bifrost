@@ -17,8 +17,7 @@
 //
 #endregion
 using System.IO;
-using System.Web;
-using System.Web.Routing;
+using Bifrost.Extensions;
 
 namespace Bifrost.Web.Pipeline
 {
@@ -57,21 +56,9 @@ namespace Bifrost.Web.Pipeline
             return false;
         }
 
-        string GetPathTillPlaceholdersStartIfAny(string path)
+        static string StripLeadingSlashIfAny(string path)
         {
-            var index = path.IndexOf('{');
-            if (index > 0)
-                return path.Substring(0, index);
-
-            return path;
-        }
-
-        string StripLeadingSlashIfAny(string path)
-        {
-            if( path.Length > 0 && path.StartsWith("/") )
-                path = path.Substring(1);
-
-            return path;
+            return path.RemovePrefix("/");
         }
     }
 }

@@ -22,10 +22,11 @@ using Bifrost.Commands;
 using Bifrost.Execution;
 using Bifrost.Sagas;
 using Bifrost.Serialization;
+using Bifrost.Web.Services;
 
 namespace Bifrost.Web.Commands
 {
-    public class CommandCoordinatorService
+    public class CommandCoordinatorService : IBifrostService
     {
         readonly ICommandCoordinator _commandCoordinator;
         readonly ISerializer _serializer;

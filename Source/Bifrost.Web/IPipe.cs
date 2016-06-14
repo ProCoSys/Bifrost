@@ -16,8 +16,6 @@
 // limitations under the License.
 //
 #endregion
-using System;
-
 namespace Bifrost.Web
 {
     public interface IPipe
@@ -26,4 +24,3 @@ namespace Bifrost.Web
         void After(IWebContext webContext);
     }
 }
-

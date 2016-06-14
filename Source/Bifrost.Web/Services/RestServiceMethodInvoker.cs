@@ -30,8 +30,8 @@ namespace Bifrost.Web.Services
 {
     public class RestServiceMethodInvoker : IRestServiceMethodInvoker
     {
-        private readonly ISerializer _serializer;
-        private readonly IJsonInterceptor _jsonInterceptor;
+        readonly ISerializer _serializer;
+        readonly IJsonInterceptor _jsonInterceptor;
 
         public RestServiceMethodInvoker(ISerializer serializer, IJsonInterceptor jsonInterceptor)
         {
@@ -62,7 +62,7 @@ namespace Bifrost.Web.Services
             return serializedResult;
         }
 
-        void FilterInputParameters(NameValueCollection inputParameters)
+        static void FilterInputParameters(NameValueCollection inputParameters)
         {
             inputParameters.Remove("_");
             inputParameters.Remove("_q");
@@ -79,30 +79,29 @@ namespace Bifrost.Web.Services
                 var parameterAsString = inputParameters[parameter.Name];
                 values.Add(HandleValue(parameter, parameterAsString));
             }
+
             return values.ToArray();
         }
 
         string Unescape(string value)
         {
-            if (value.StartsWith("\"")) value = value.Substring(1);
-            if (value.EndsWith("\"")) value = value.Substring(0, value.Length - 1);
-
-            return value;
+            return value.RemovePrefix("\"").RemovePostfix("\"");
         }
-
-
 
         object HandleValue(ParameterInfo parameter, string input)
         {
             if (parameter.ParameterType == typeof(string))
+            {
                 return input;
+            }
 
             input = Unescape(input);
-
             if (parameter.ParameterType.IsValueType)
+            {
                 return TypeDescriptor.GetConverter(parameter.ParameterType).ConvertFromInvariantString(input);
+            }
 
-            if(parameter.ParameterType.IsConcept())
+            if (parameter.ParameterType.IsConcept())
             {
                 var genericArgumentType = parameter.ParameterType.BaseType.GetGenericArguments()[0];
                 var value = input.ParseTo(genericArgumentType);
@@ -113,45 +112,60 @@ namespace Bifrost.Web.Services
             return _serializer.FromJson(parameter.ParameterType, input);
         }
 
-        string GetMethodNameFromUri(string baseUrl, Uri uri)
+        static string GetMethodNameFromUri(string baseUrl, Uri uri)
         {
             var path = uri.AbsolutePath;
-            if (path.StartsWith("/"))
-                path = path.Substring(1);
+            path = path.RemovePrefix("/");
 
             var segments = path.Split('/');
             if (segments.Length > 1)
-                return segments[segments.Length-1];
+            {
+                return segments[segments.Length - 1];
+            }
 
             return string.Empty;
         }
 
-        void ThrowIfParameterMissing(MethodInfo methodInfo, Type type, Uri uri, NameValueCollection inputParameters)
+        static void ThrowIfParameterMissing(MethodInfo methodInfo, Type type, Uri uri, NameValueCollection inputParameters)
         {
             var parameters = methodInfo.GetParameters();
             foreach (var parameter in parameters)
+            {
                 if (!inputParameters.AllKeys.Contains(parameter.Name))
+                {
                     throw new MissingParameterException(parameter.Name, type.Name, uri);
+                }
+            }
         }
 
-        void ThrowIfParameterCountMismatches(MethodInfo methodInfo, Type type, Uri uri, NameValueCollection inputParameters)
+        static void ThrowIfParameterCountMismatches(
+            MethodInfo methodInfo,
+            Type type,
+            Uri uri,
+            NameValueCollection inputParameters)
         {
             var parameters = methodInfo.GetParameters();
-            if( inputParameters.Count != parameters.Length )
+            if (inputParameters.Count != parameters.Length)
+            {
                 throw new ParameterCountMismatchException(uri, type.Name, inputParameters.Count, parameters.Length);
+            }
         }
 
-        void ThrowIfMethodNameNotSpecified(string methodName, object instance, Uri uri)
+        static void ThrowIfMethodNameNotSpecified(string methodName, object instance, Uri uri)
         {
             if (string.IsNullOrEmpty(methodName))
+            {
                 throw new MethodNotSpecifiedException(instance.GetType(), uri);
+            }
         }
 
-        void ThrowIfMethodMissing(string methodName, object instance, Uri uri)
+        static void ThrowIfMethodMissing(string methodName, object instance, Uri uri)
         {
             var method = instance.GetType().GetMethod(methodName);
             if (method == null)
-                throw new MissingMethodException(string.Format("Missing method '{0}' for Uri '{1}'", methodName, uri));
+            {
+                throw new MissingMethodException($"Missing method '{methodName}' for Uri '{uri}'");
+            }
         }
     }
 }

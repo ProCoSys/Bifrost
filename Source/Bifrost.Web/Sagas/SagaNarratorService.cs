@@ -18,10 +18,11 @@
 #endregion
 using System;
 using Bifrost.Sagas;
+using Bifrost.Web.Services;
 
 namespace Bifrost.Web.Sagas
 {
-    public class SagaNarratorService
+    public class SagaNarratorService : IBifrostService
     {
         ISagaLibrarian _sagaLibrarian;
         ISagaNarrator _sagaNarrator;

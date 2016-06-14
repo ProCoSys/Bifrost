@@ -23,17 +23,22 @@ using Bifrost.Execution;
 using Bifrost.Extensions;
 using Bifrost.Read;
 using Bifrost.Web.Configuration;
+using Bifrost.Web.Services;
 
 namespace Bifrost.Web.Read
 {
-    public class QueryService
+    public class QueryService : IBifrostService
     {
-        ITypeDiscoverer _typeDiscoverer;
-        IContainer _container;
-        IQueryCoordinator _queryCoordinator;
-        WebConfiguration _configuration;
+        readonly ITypeDiscoverer _typeDiscoverer;
+        readonly IContainer _container;
+        readonly IQueryCoordinator _queryCoordinator;
+        readonly WebConfiguration _configuration;
 
-        public QueryService(ITypeDiscoverer typeDiscoverer, IContainer container, IQueryCoordinator queryCoordinator, WebConfiguration configuration)
+        public QueryService(
+            ITypeDiscoverer typeDiscoverer,
+            IContainer container,
+            IQueryCoordinator queryCoordinator,
+            WebConfiguration configuration)
         {
             _typeDiscoverer = typeDiscoverer;
             _container = container;
@@ -46,10 +51,14 @@ namespace Bifrost.Web.Read
             var queryType = _typeDiscoverer.GetQueryTypeByName(descriptor.GeneratedFrom);
             var query = _container.Get(queryType) as IQuery;
 
-            PopulateProperties (descriptor, queryType, query);
+            PopulateProperties(descriptor, queryType, query);
 
             var result = _queryCoordinator.Execute(query, paging);
-            if( result.Success ) AddClientTypeInformation(result);
+            if (result.Success)
+            {
+                AddClientTypeInformation(result);
+            }
+
             return result;
         }
 
@@ -62,21 +71,28 @@ namespace Bifrost.Web.Read
                 var type = item.GetType();
 
                 if (_configuration.NamespaceMapper.CanResolveToClient(type.Namespace))
-                    dynamicItem._sourceType = string.Format("{0}.{1}", _configuration.NamespaceMapper.GetClientNamespaceFrom(type.Namespace), type.Name.ToCamelCase());
+                {
+                    dynamicItem._sourceType = string.Format(
+                        "{0}.{1}",
+                        _configuration.NamespaceMapper.GetClientNamespaceFrom(type.Namespace),
+                        type.Name.ToCamelCase());
+                }
 
                 items.Add(dynamicItem);
             }
             result.Items = items;
         }
 
-        void PopulateProperties (QueryDescriptor descriptor, Type queryType, object instance)
+        static void PopulateProperties(QueryDescriptor descriptor, Type queryType, object instance)
         {
-            foreach (var key in descriptor.Parameters.Keys) {
-                var propertyName = key.ToPascalCase ();
-                var property = queryType.GetProperty (propertyName);
-                if (property != null) {
+            foreach (var key in descriptor.Parameters.Keys)
+            {
+                var propertyName = key.ToPascalCase();
+                var property = queryType.GetProperty(propertyName);
+                if (property != null)
+                {
                     var value = descriptor.Parameters[key].ToString().ParseTo(property.PropertyType);
-                    property.SetValue (instance, value, null);
+                    property.SetValue(instance, value, null);
                 }
             }
         }

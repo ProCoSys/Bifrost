@@ -19,69 +19,83 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using Bifrost.Concepts;
 using Bifrost.Execution;
 using Bifrost.Extensions;
 using Bifrost.Read;
-using Bifrost.Concepts;
-using System.Reflection;
 using Bifrost.Security;
+using Bifrost.Web.Services;
 
 namespace Bifrost.Web.Read
 {
-    public class ReadModelService
+    public class ReadModelService : IBifrostService
     {
-        ITypeDiscoverer _typeDiscoverer;
-        IContainer _container;
-        IReadModelFilters _readModelFilters;
-        IFetchingSecurityManager _fetchingSecurityManager;
-        MethodInfo _authorizeMethod;
+        readonly ITypeDiscoverer _typeDiscoverer;
+        readonly IContainer _container;
+        readonly IReadModelFilters _readModelFilters;
+        readonly IFetchingSecurityManager _fetchingSecurityManager;
+        readonly MethodInfo _authorizeMethod;
 
-        public ReadModelService(ITypeDiscoverer typeDiscoverer, IContainer container, IFetchingSecurityManager fetchingSecurityManager, IReadModelFilters readModelFilters)
+        public ReadModelService(
+            ITypeDiscoverer typeDiscoverer,
+            IContainer container,
+            IFetchingSecurityManager fetchingSecurityManager,
+            IReadModelFilters readModelFilters)
         {
             _typeDiscoverer = typeDiscoverer;
             _container = container;
             _fetchingSecurityManager = fetchingSecurityManager;
             _readModelFilters = readModelFilters;
 
-            _authorizeMethod = fetchingSecurityManager.GetType().GetMethods()
-                .Where(m =>
-                    m.Name == "Authorize" &&
-                    m.GetParameters()[0].ParameterType.Name.StartsWith("IReadModelOf")).Single();
+            _authorizeMethod = fetchingSecurityManager
+                .GetType()
+                .GetMethods()
+                .Where(m => m.Name == "Authorize")
+                .Where(m => m.GetParameters()[0].ParameterType.Name.StartsWith("IReadModelOf"))
+                .Single();
         }
 
 
         public object InstanceMatching(ReadModelQueryDescriptor descriptor)
         {
             var readModelType = _typeDiscoverer.FindTypeByFullName(descriptor.GeneratedFrom);
-            if (readModelType != null)
+            if (readModelType == null)
             {
-                var readModelOfType = typeof(IReadModelOf<>).MakeGenericType(readModelType);
-                var readModelOf = _container.Get(readModelOfType);
-                var instanceMatchingMethod = readModelOfType.GetMethod("InstanceMatching");
-
-                var genericAuthorizeMethod = _authorizeMethod.MakeGenericMethod(readModelType);
-                var authorizationResult = genericAuthorizeMethod.Invoke(_fetchingSecurityManager, new[] { readModelOf }) as AuthorizationResult;
-                if (!authorizationResult.IsAuthorized) return null;
-
-                var funcType = typeof(Func<,>).MakeGenericType(readModelType, typeof(bool));
-                var expressionType = typeof(Expression<>).MakeGenericType(funcType);
-                var expressions = Array.CreateInstance(expressionType, descriptor.PropertyFilters.Count);
-                var index=0;
-                foreach (var key in descriptor.PropertyFilters.Keys)
-                {
-                    var expression = GetPropertyEqualsExpression(readModelType, key.ToPascalCase(), descriptor.PropertyFilters[key]);
-                    expressions.SetValue(expression, index);
-                    index++;
-                }
-
-                var result = instanceMatchingMethod.Invoke(readModelOf, new[] { expressions });
-                var filtered = _readModelFilters.Filter(new[] { result as IReadModel });
-                if (filtered.Count() == 1) return filtered.First();
+                return null;
             }
-            return null;
+
+            var readModelOfType = typeof(IReadModelOf<>).MakeGenericType(readModelType);
+            var readModelOf = _container.Get(readModelOfType);
+            var instanceMatchingMethod = readModelOfType.GetMethod("InstanceMatching");
+
+            var genericAuthorizeMethod = _authorizeMethod.MakeGenericMethod(readModelType);
+            var authorizationResult = genericAuthorizeMethod.Invoke(_fetchingSecurityManager, new[] { readModelOf }) as AuthorizationResult;
+            if (!authorizationResult.IsAuthorized)
+            {
+                return null;
+            }
+
+            var funcType = typeof(Func<,>).MakeGenericType(readModelType, typeof(bool));
+            var expressionType = typeof(Expression<>).MakeGenericType(funcType);
+            var expressions = Array.CreateInstance(expressionType, descriptor.PropertyFilters.Count);
+            var index = 0;
+            foreach (var key in descriptor.PropertyFilters.Keys)
+            {
+                var expression = GetPropertyEqualsExpression(
+                    readModelType,
+                    key.ToPascalCase(),
+                    descriptor.PropertyFilters[key]);
+                expressions.SetValue(expression, index);
+                index++;
+            }
+
+            var result = instanceMatchingMethod.Invoke(readModelOf, new[] { expressions });
+            var filtered = _readModelFilters.Filter(new[] { result as IReadModel });
+            return filtered.SingleOrDefault();
         }
 
-        Expression GetPropertyEqualsExpression(Type type, string propertyName, object value)
+        static Expression GetPropertyEqualsExpression(Type type, string propertyName, object value)
         {
             var parameter = Expression.Parameter(type, "o");
             MemberExpression propertyExpression;
@@ -93,7 +107,6 @@ namespace Bifrost.Web.Read
             {
                 var outerMemberAccess = Expression.MakeMemberAccess(parameter, property);
                 propertyExpression = Expression.Property(outerMemberAccess, "Value");
-
                 targetValueType = property.PropertyType.GetConceptValueType();
             }
             else
@@ -108,23 +121,26 @@ namespace Bifrost.Web.Read
                 {
                     value = Activator.CreateInstance(targetValueType);
                 }
-                catch { };
+                catch
+                {
+                }
             }
             else
             {
                 if (value.GetType() != targetValueType)
                 {
                     if (targetValueType == typeof(Guid))
+                    {
                         value = Guid.Parse(value.ToString());
+                    }
                     else
+                    {
                         value = Convert.ChangeType(value, targetValueType);
+                    }
                 }
             }
 
-            var body = Expression.Equal(
-                            propertyExpression,
-                            Expression.Constant(value)
-                       );
+            var body = Expression.Equal(propertyExpression, Expression.Constant(value));
             var lambda = Expression.Lambda(body, parameter);
             return lambda;
         }

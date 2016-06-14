@@ -18,42 +18,41 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
-using Bifrost.Web.Pipeline;
 
 namespace Bifrost.Web
 {
     public class HttpModule : IHttpModule
     {
-        static List<IPipe>    _pipeline = new List<IPipe>();
+        static readonly List<IPipe> Pipeline = new List<IPipe>();
 
         public static void AddPipe(IPipe pipe)
         {
-            foreach( var existingPipe in _pipeline )
+            if (Pipeline.Any(existingPipe => existingPipe.GetType() == pipe.GetType()))
             {
-                if( existingPipe.GetType () == pipe.GetType () )
-                    return;
+                return;
             }
-            _pipeline.Add (pipe);
+
+            Pipeline.Add(pipe);
         }
 
-
-
-        public void Init (HttpApplication context)
+        public void Init(HttpApplication context)
         {
             context.AuthorizeRequest += AuthorizeRequest;
         }
 
-        void AuthorizeRequest (object sender, EventArgs e)
+        static void AuthorizeRequest(object sender, EventArgs e)
         {
             var context = new WebContext(HttpContext.Current);
-            foreach( var pipe in _pipeline )
-                pipe.Before (context);
+            foreach (var pipe in Pipeline)
+            {
+                pipe.Before(context);
+            }
         }
 
-        public void Dispose ()
+        public void Dispose()
         {
         }
     }
 }
-

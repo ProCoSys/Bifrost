@@ -17,6 +17,8 @@
 //
 #endregion
 using System.Collections.Generic;
+using System.Reflection;
+
 namespace Bifrost.Web.Assets
 {
     public interface IAssetsManager
@@ -24,5 +26,6 @@ namespace Bifrost.Web.Assets
         IEnumerable<string> GetFilesForExtension(string extension);
         IEnumerable<string> GetStructureForExtension(string extension);
         void AddAsset(string relativePath);
+        void AddAssetsFromAssembly(Assembly assembly, string path);
     }
 }
