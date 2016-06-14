@@ -1,5 +1,6 @@
 ## Next version
-* Bifrost.Web.Mvc does not depend on the deprecated WebActivator 1.5.1 anymore. (Bifrost.Web still correctly depends on WebActivatorEx 2.0.6.)
+* Unneeded assets, including `Visualizer` has been removed from the Bifrost.Web project. [#51](https://github.com/ProCoSys/Bifrost/issues/51)
+* Bifrost.Web.Mvc does not depend on the deprecated WebActivator 1.5.1 anymore. (Bifrost.Web still correctly depends on WebActivatorEx 2.0.6.) [#53](https://github.com/ProCoSys/Bifrost/issues/53)
 
 ## Version 3.0.1
 * The NHibernate `EntityContextConnection` has been extended with an option to cache the generated configuration object. [#49](https://github.com/ProCoSys/Bifrost/issues/49)

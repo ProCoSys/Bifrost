@@ -67,20 +67,6 @@ namespace Web
                         w.AsSinglePageApplication();
                         w.PathsToNamespaces.Clear();
 
-                        #region Temporary Configuration for the Bifrost Visualizer - work in progress
-                        w.PathsToNamespaces.Add("Visualizer/**/", "Bifrost.Visualizer.**.");
-                        w.PathsToNamespaces.Add("/Visualizer/**/", "Bifrost.Visualizer.**.");
-                        w.PathsToNamespaces.Add("Bifrost/Visualizer/**/", "Bifrost.Visualizer.**.");
-                        w.PathsToNamespaces.Add("/Bifrost/Visualizer/**/", "Bifrost.Visualizer.**.");
-
-                        w.PathsToNamespaces.Add("Visualizer", "Bifrost.Visualizer");
-                        w.PathsToNamespaces.Add("/Visualizer", "Bifrost.Visualizer");
-                        w.PathsToNamespaces.Add("Bifrost/Visualizer", "Bifrost.Visualizer");
-                        w.PathsToNamespaces.Add("/Bifrost/Visualizer", "Bifrost.Visualizer");
-
-                        w.NamespaceMapper.Add("Bifrost.Visualizer.**.", "Bifrost.Web.Visualizer.**.");
-                        #endregion
-
                         var baseNamespace = Bifrost.Configuration.Configure.EntryAssembly.GetName().Name;
                         var @namespace = string.Format("{0}.**.", baseNamespace);
 
