@@ -1,4 +1,4 @@
-## Next version
+## Version 3.0.2
 * Unneeded assets, including `Visualizer` has been removed from the Bifrost.Web project. [#51](https://github.com/ProCoSys/Bifrost/issues/51)
 * Bifrost.Web.Mvc does not depend on the deprecated WebActivator 1.5.1 anymore. (Bifrost.Web still correctly depends on WebActivatorEx 2.0.6.) [#53](https://github.com/ProCoSys/Bifrost/issues/53)
 * Some renaming of classes and namespaces in Bifrost.Web project [#55](https://github.com/ProCoSys/Bifrost/issues/55)

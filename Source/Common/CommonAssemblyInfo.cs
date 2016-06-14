@@ -8,8 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © 2008-2015 Dolittle")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("3.0.1")]
-[assembly: AssemblyInformationalVersion("3.0.1")]
+[assembly: AssemblyVersion("3.0.2")]
+[assembly: AssemblyInformationalVersion("3.0.2")]
 
 [assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
