@@ -16,7 +16,6 @@
 // limitations under the License.
 //
 #endregion
-
 using System;
 using System.Web;
 using System.Web.SessionState;
@@ -31,36 +30,28 @@ namespace Bifrost.Web.Services
     // Todo : add async support - performance gain!
     public class RestServiceRouteHttpHandler : IHttpHandler, IRequiresSessionState // IHttpAsyncHandler
     {
-        readonly Type _type;
         readonly string _url;
-        readonly IRequestParamsFactory _factory;
-        readonly IRestServiceMethodInvoker _invoker;
+        readonly Type _type;
         readonly IContainer _container;
-        readonly ISecurityManager _securityManager;
-        readonly IExceptionPublisher _exceptionPublisher;
+        readonly Lazy<IRequestParamsFactory> _factory;
+        readonly Lazy<IRestServiceMethodInvoker> _invoker;
+        readonly Lazy<ISecurityManager> _securityManager;
+        readonly Lazy<IExceptionPublisher> _exceptionPublisher;
 
-        public RestServiceRouteHttpHandler(Type type, string url)
-            : this(
-                type,
-                url,
-                Configure.Instance.Container.Get<IRequestParamsFactory>(),
-                Configure.Instance.Container.Get<IRestServiceMethodInvoker>(),
-                Configure.Instance.Container,
-                Configure.Instance.Container.Get<ISecurityManager>(),
-                Configure.Instance.Container.Get<IExceptionPublisher>())
-        {}
+        public RestServiceRouteHttpHandler(Type type, string url) : this(type, url, Configure.Instance.Container)
+        {
+        }
 
-        public RestServiceRouteHttpHandler(Type type, string url, IRequestParamsFactory factory,
-            IRestServiceMethodInvoker invoker, IContainer container, ISecurityManager securityManager,
-            IExceptionPublisher exceptionPublisher)
+        public RestServiceRouteHttpHandler(Type type, string url, IContainer container)
         {
             _type = type;
             _url = url;
-            _factory = factory;
-            _invoker = invoker;
             _container = container;
-            _securityManager = securityManager;
-            _exceptionPublisher = exceptionPublisher;
+
+            _factory = new Lazy<IRequestParamsFactory>(_container.Get<IRequestParamsFactory>);
+            _invoker = new Lazy<IRestServiceMethodInvoker>(_container.Get<IRestServiceMethodInvoker>);
+            _securityManager = new Lazy<ISecurityManager>(_container.Get<ISecurityManager>);
+            _exceptionPublisher = new Lazy<IExceptionPublisher>(_container.Get<IExceptionPublisher>);
         }
 
         public bool IsReusable => true;
@@ -69,22 +60,22 @@ namespace Bifrost.Web.Services
         {
             try
             {
-                var form = _factory.BuildParamsCollectionFrom(new HttpRequestWrapper(HttpContext.Current.Request));
+                var form = _factory.Value.BuildParamsCollectionFrom(new HttpRequestWrapper(HttpContext.Current.Request));
                 var serviceInstance = _container.Get(_type);
 
-                var authorizationResult = _securityManager.Authorize<InvokeService>(serviceInstance);
+                var authorizationResult = _securityManager.Value.Authorize<InvokeService>(serviceInstance);
 
                 if (!authorizationResult.IsAuthorized)
                 {
                     throw new HttpStatus.HttpStatusException(404, "Forbidden");
                 }
 
-                var result = _invoker.Invoke(_url, serviceInstance, context.Request.Url, form);
+                var result = _invoker.Value.Invoke(_url, serviceInstance, context.Request.Url, form);
                 context.Response.Write(result);
             }
             catch (Exception e)
             {
-                _exceptionPublisher.Publish(e);
+                _exceptionPublisher.Value.Publish(e);
                 if (e.InnerException is HttpStatus.HttpStatusException)
                 {
                     var ex = e.InnerException as HttpStatus.HttpStatusException;

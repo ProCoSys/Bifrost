@@ -20,61 +20,54 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Web;
+using Bifrost.Extensions;
 
-namespace Bifrost.Web.Applications
+namespace Bifrost.Web.Resources
 {
-    public class ApplicationRouteHttpHandler : IHttpHandler
+    public class ResourcesHttpHandler : IHttpHandler
     {
-        string _url;
-        Assembly _assembly;
-        Dictionary<string, byte[]> _resources;
+        readonly string _url;
+        readonly Assembly _assembly;
+        readonly Dictionary<string, byte[]> _resources = new Dictionary<string, byte[]>();
 
-        public ApplicationRouteHttpHandler(string url, Assembly assembly)
+        public ResourcesHttpHandler(string url, Assembly assembly)
         {
             _url = url;
             _assembly = assembly;
-            var resources = _assembly.GetManifestResourceNames();
-            _resources = new Dictionary<string,byte[]>();
-            foreach (var resource in resources)
+            foreach (var resource in _assembly.GetManifestResourceNames())
             {
                 var stream = _assembly.GetManifestResourceStream(resource);
                 var bytes = new byte[stream.Length];
-                stream.Read(bytes,0,bytes.Length);
+                stream.Read(bytes, 0, bytes.Length);
 
-                if (resource.ToLower().Contains(".html"))
+                if (resource.ToLower().EndsWith(".html"))
+                {
                     bytes = PrepareHtml(bytes);
+                }
 
                 var resourceName = GetRelativePathFromResourceName(resource);
                 _resources[resourceName] = bytes;
             }
         }
 
-        string GetRelativePathFromResourceName(string resourceName)
-        {
-            resourceName = resourceName.Replace(_assembly.GetName().Name + ".", string.Empty);
-            resourceName = resourceName.Replace("-", "_");
-            resourceName = resourceName.ToLowerInvariant();
-            return resourceName;
-        }
-
-        public bool IsReusable { get { return false; } }
+        public bool IsReusable => false;
 
         public void ProcessRequest(HttpContext context)
         {
-            var route = "/"+_url;
+            var route = "/" + _url;
             var url = context.Request.Url.AbsolutePath;
-            if (url.StartsWith(route))
-                url = url.Substring(route.Length);
-            url.Replace("/"+_url,string.Empty);
-            if (string.IsNullOrEmpty(url) || url == "/" )
+            url = url.RemovePrefix(route);
+
+            if (string.IsNullOrEmpty(url) || url == "/")
+            {
                 url = "index.html";
+            }
 
-            if (url.StartsWith("/"))
-                url = url.Substring(1);
-
-            url = url.Replace("/", ".");
-            url = url.Replace("-", "_");
-            url = url.ToLowerInvariant();
+            url = url
+                .RemovePrefix("/")
+                .Replace("/", ".")
+                .Replace("-", "_")
+                .ToLowerInvariant();
 
             if (!_resources.ContainsKey(url))
             {
@@ -82,26 +75,33 @@ namespace Bifrost.Web.Applications
                 return;
             }
 
-            if (url.Contains(".png"))
-                context.Response.ContentType = "image/png";
-            if (url.Contains(".jpg"))
-                context.Response.ContentType = "image/jpg";
-            if (url.Contains(".js"))
-                context.Response.ContentType = "text/javascript";
-            if (url.Contains(".css"))
-                context.Response.ContentType = "text/css";
+            if (url.EndsWith(".js"))
+            {
+                // Avoid application/x-javascript used by MimeMapping
+                context.Response.ContentType = "application/javascript";
+            }
+            else
+            {
+                context.Response.ContentType = MimeMapping.GetMimeMapping(url) ?? "application/unknown";
+            }
 
             context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-
 
             var bytes = _resources[url];
             context.Response.OutputStream.Write(bytes, 0, bytes.Length);
         }
 
+        string GetRelativePathFromResourceName(string resourceName)
+        {
+            return resourceName
+                .Replace(_assembly.GetName().Name + ".", string.Empty)
+                .Replace("-", "_")
+                .ToLowerInvariant();
+        }
 
         byte[] PrepareHtml(byte[] bytes)
         {
-            var html = UTF8Encoding.UTF8.GetString(bytes);
+            var html = Encoding.UTF8.GetString(bytes);
             var lines = html.Split('\n');
 
             var actualLines = new StringBuilder();
@@ -109,15 +109,19 @@ namespace Bifrost.Web.Applications
             {
                 var actualLine = line;
                 if (!line.Contains("href=\"#\"") && !line.Contains("href='#'"))
+                {
                     actualLine = Replace("href", line, actualLine);
+                }
 
-                if( line.Contains("src=") )
+                if (line.Contains("src="))
+                {
                     actualLine = Replace("src", line, actualLine);
+                }
 
                 actualLines.Append(actualLine);
             }
 
-            return UTF8Encoding.UTF8.GetBytes(actualLines.ToString());
+            return Encoding.UTF8.GetBytes(actualLines.ToString());
         }
 
         string Replace(string attribute, string line, string actualLine)
@@ -145,6 +149,7 @@ namespace Bifrost.Web.Applications
                     }
                 }
             }
+
             return actualLine;
         }
     }

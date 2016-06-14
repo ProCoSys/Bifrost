@@ -22,14 +22,13 @@ namespace Bifrost.Web
 {
     public class Request : IWebRequest
     {
-        HttpRequest    _actualRequest;
+        readonly HttpRequest _actualRequest;
 
         public Request(HttpRequest actualRequest)
         {
             _actualRequest = actualRequest;
         }
 
-        public string Path { get { return _actualRequest.Path; } }
+        public string Path => _actualRequest.Path;
     }
 }
-

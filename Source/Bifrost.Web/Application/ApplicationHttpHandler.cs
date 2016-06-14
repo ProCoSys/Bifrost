@@ -21,24 +21,26 @@ using System.Text;
 using System.Web;
 using Bifrost.Configuration;
 using Bifrost.Web.Assets;
+using Bifrost.Web.Configuration;
 using Bifrost.Web.Proxies;
+using Bifrost.Web.Routing;
 using Newtonsoft.Json;
 
-namespace Bifrost.Web.Configuration
+namespace Bifrost.Web.Application
 {
-    public class ConfigurationRouteHttpHandler : IHttpHandler
+    public class ApplicationHttpHandler : IBifrostHttpHandler
     {
         string _configurationAsString;
 
-        public bool IsReusable { get { return true; } }
+        public bool IsReusable => true;
 
-        WebConfiguration _webConfiguration;
+        readonly WebConfiguration _webConfiguration;
 
-        public ConfigurationRouteHttpHandler() : this(Configure.Instance.Container.Get<WebConfiguration>())
+        public ApplicationHttpHandler() : this(Configure.Instance.Container.Get<WebConfiguration>())
         {
         }
 
-        public ConfigurationRouteHttpHandler(WebConfiguration webConfiguration)
+        public ApplicationHttpHandler(WebConfiguration webConfiguration)
         {
             _webConfiguration = webConfiguration;
         }
@@ -82,37 +84,45 @@ namespace Bifrost.Web.Configuration
             context.Response.Write(_configurationAsString);
         }
 
-
-        string GetResource(string name)
+        static string GetResource(string name)
         {
-            var stream = typeof(ConfigurationRouteHttpHandler).Assembly.GetManifestResourceStream(name);
+            var stream = typeof(ApplicationHttpHandler).Assembly.GetManifestResourceStream(name);
             var bytes = new byte[stream.Length];
             stream.Read(bytes, 0, bytes.Length);
-            var content = UTF8Encoding.UTF8.GetString(bytes);
+            var content = Encoding.UTF8.GetString(bytes);
             return content;
         }
 
         void InitializeIfNotInitialized()
         {
-            if (!string.IsNullOrEmpty(_configurationAsString)) return;
+            if (!string.IsNullOrEmpty(_configurationAsString))
+            {
+                return;
+            }
 
             var proxies = Configure.Instance.Container.Get<GeneratedProxies>();
-
             var assetsManager = Configure.Instance.Container.Get<IAssetsManager>();
-
             var builder = new StringBuilder();
 
             if (_webConfiguration.ScriptsToInclude.JQuery)
+            {
                 builder.Append(GetResource("Bifrost.Web.Scripts.jquery-2.2.3.min.js"));
+            }
 
             if (_webConfiguration.ScriptsToInclude.Knockout)
+            {
                 builder.Append(GetResource("Bifrost.Web.Scripts.knockout-3.4.0.debug.js"));
+            }
 
             if (_webConfiguration.ScriptsToInclude.SignalR)
+            {
                 builder.Append(GetResource("Bifrost.Web.Scripts.jquery.signalR-2.2.0.js"));
+            }
 
             if (_webConfiguration.ScriptsToInclude.JQueryHistory)
+            {
                 builder.Append(GetResource("Bifrost.Web.Scripts.jquery.history.js"));
+            }
 
             if (_webConfiguration.ScriptsToInclude.Require)
             {
@@ -122,7 +132,9 @@ namespace Bifrost.Web.Configuration
             }
 
             if (_webConfiguration.ScriptsToInclude.Bifrost)
+            {
                 builder.Append(GetResource("Bifrost.Web.Scripts.Bifrost.debug.js"));
+            }
 
             builder.Append(proxies.All);
 

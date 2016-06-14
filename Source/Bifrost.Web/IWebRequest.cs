@@ -16,8 +16,6 @@
 // limitations under the License.
 //
 #endregion
-using System;
-
 namespace Bifrost.Web
 {
     public interface IWebRequest
@@ -25,4 +23,3 @@ namespace Bifrost.Web
         string Path { get; }
     }
 }
-

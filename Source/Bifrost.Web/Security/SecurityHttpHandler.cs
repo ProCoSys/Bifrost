@@ -16,27 +16,22 @@
 // limitations under the License.
 //
 #endregion
-using System;
 using System.Web;
-using System.Web.Routing;
+using Bifrost.Configuration;
+using Bifrost.Web.Commands;
+using Bifrost.Web.Routing;
 
-namespace Bifrost.Web.Services
+namespace Bifrost.Web.Security
 {
-    public class RestServiceRouteHandler : IRouteHandler
+    public class SecurityHttpHandler : IBifrostHttpHandler
     {
-        readonly Type _type;
-        readonly string _url;
-        IHttpHandler _httpHandler;
+        public bool IsReusable => true;
 
-        public RestServiceRouteHandler(Type type, string url)
+        public void ProcessRequest(HttpContext context)
         {
-            _type = type;
-            _url = url;
-        }
-
-        public IHttpHandler GetHttpHandler(RequestContext requestContext)
-        {
-            return _httpHandler ?? (_httpHandler = new RestServiceRouteHttpHandler(_type, _url));
+            var proxies = Configure.Instance.Container.Get<CommandSecurityProxies>();
+            context.Response.ContentType = "text/javascript";
+            context.Response.Write(proxies.Generate());
         }
     }
 }

@@ -17,6 +17,7 @@
 //
 #endregion
 using System.Web.Routing;
+
 namespace Bifrost.Web
 {
     public interface IWebContext
@@ -27,4 +28,3 @@ namespace Bifrost.Web
         bool HasRouteForCurrentRequest { get; }
     }
 }
-

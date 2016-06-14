@@ -16,12 +16,11 @@
 // limitations under the License.
 //
 #endregion
-
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web.Hosting;
-using Bifrost.Configuration;
 using Bifrost.Execution;
 using Bifrost.Web.Configuration;
 
@@ -30,8 +29,8 @@ namespace Bifrost.Web.Assets
     [Singleton]
     public class AssetsManager : IAssetsManager
     {
-        Dictionary<string, List<string>> _assetsByExtension = new Dictionary<string, List<string>>();
-        private WebConfiguration _webConfiguration;
+        readonly WebConfiguration _webConfiguration;
+        readonly Dictionary<string, IList<string>> _assetsByExtension = new Dictionary<string, IList<string>>();
 
         public AssetsManager(WebConfiguration webConfiguration)
         {
@@ -42,32 +41,34 @@ namespace Bifrost.Web.Assets
         public IEnumerable<string> GetFilesForExtension(string extension)
         {
             extension = MakeSureExtensionIsPrefixedWithADot(extension);
-            if (!_assetsByExtension.ContainsKey(extension)) return new string[0];
-            var assets = _assetsByExtension[extension];
-            return assets;
+            IList<string> files;
+            return !_assetsByExtension.TryGetValue(extension, out files) ? Enumerable.Empty<string>() : files;
         }
 
         public IEnumerable<string> GetStructureForExtension(string extension)
         {
             extension = MakeSureExtensionIsPrefixedWithADot(extension);
-            if (!_assetsByExtension.ContainsKey(extension)) return new string[0];
-            var assets = _assetsByExtension[extension];
-            return assets.Select(a => FormatPath(Path.GetDirectoryName(a))).Distinct().ToArray();
+            IList<string> files;
+            if (!_assetsByExtension.TryGetValue(extension, out files))
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return files
+                .Select(Path.GetDirectoryName)
+                .Select(FormatPath)
+                .Distinct();
         }
 
-        string MakeSureExtensionIsPrefixedWithADot(string extension)
+        static string MakeSureExtensionIsPrefixedWithADot(string extension)
         {
-            if (!extension.StartsWith("."))
-                return "." + extension;
-
-            return extension;
+            return !extension.StartsWith(".") ? "." + extension : extension;
         }
 
-        string FormatPath(string input)
+        static string FormatPath(string input)
         {
             return input.Replace("\\", "/");
         }
-
 
         void Initialize()
         {
@@ -76,28 +77,41 @@ namespace Bifrost.Web.Assets
             foreach (var file in files)
             {
                 var relativePath = FormatPath(file.Replace(root, string.Empty));
-
-                if (!_webConfiguration.Assets.PathsToExclude.Any(relativePath.StartsWith)) {
+                if (!_webConfiguration.Assets.PathsToExclude.Any(relativePath.StartsWith))
+                {
                     AddAsset(relativePath);
                 }
             }
-
         }
 
         public void AddAsset(string relativePath)
         {
             var extension = Path.GetExtension(relativePath);
 
-            List<string> assets;
-            if (!_assetsByExtension.ContainsKey(extension))
+            IList<string> assets;
+            if (!_assetsByExtension.TryGetValue(extension, out assets))
             {
                 assets = new List<string>();
                 _assetsByExtension[extension] = assets;
             }
-            else
-                assets = _assetsByExtension[extension];
 
             assets.Add(relativePath);
+        }
+
+        public void AddAssetsFromAssembly(Assembly assembly, string path)
+        {
+            var rootNamespace = assembly.GetName().Name;
+            var resources = assembly.GetManifestResourceNames();
+            foreach (var resource in resources)
+            {
+                var resourceName = resource.Replace(rootNamespace + ".", string.Empty);
+                resourceName = resourceName.Replace(".", "/");
+                resourceName = $"{path}/{resourceName}";
+
+                var lastSlash = resourceName.LastIndexOf("/");
+                var formatted = $"{resourceName.Substring(0, lastSlash)}.{resourceName.Substring(lastSlash + 1)}";
+                AddAsset(formatted);
+            }
         }
     }
 }

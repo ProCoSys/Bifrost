@@ -16,20 +16,18 @@
 // limitations under the License.
 //
 #endregion
-
+using System;
+using System.Collections.Generic;
 using System.Web.Routing;
+using Bifrost.Bootstrap;
 using Bifrost.Configuration;
-using Bifrost.Web.Assets;
-using Bifrost.Web.Commands;
-using Bifrost.Web.Configuration;
-using Bifrost.Web.Proxies;
-using Bifrost.Web.Read;
-using Bifrost.Web.Sagas;
-using Bifrost.Web.Security;
+using Bifrost.Execution;
+using Bifrost.Web.Resources;
+using Bifrost.Web.Routing;
 using Bifrost.Web.Services;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Bifrost.Web.BootStrapper),"PreApplicationStart")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Bifrost.Web.BootStrapper), "PreApplicationStart")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(Bifrost.Web.BootStrapper), "Start")]
 
 namespace Bifrost.Web
@@ -39,55 +37,50 @@ namespace Bifrost.Web
         static volatile object _lockObject = new object();
         static bool _isInitialized;
 
-        static void PreApplicationStart()
+        public static void PreApplicationStart()
         {
             DynamicModuleUtility.RegisterModule(typeof(HttpModule));
-            RouteTable.Routes.Add(new ProxyRoute());
-            RouteTable.Routes.Add(new SecurityRoute());
-            RouteTable.Routes.Add(new ConfigurationRoute());
-            RouteTable.Routes.Add(new AssetManagerRoute("Bifrost/AssetsManager"));
-            RouteTable.Routes.AddService<CommandCoordinatorService>("Bifrost/CommandCoordinator");
-            RouteTable.Routes.AddService<CommandSecurityService>("Bifrost/CommandSecurity");
-            RouteTable.Routes.AddService<SagaNarratorService>("Bifrost/SagaNarrator");
-            RouteTable.Routes.AddService<QueryService>("Bifrost/Query");
-            RouteTable.Routes.AddService<ReadModelService>("Bifrost/ReadModel");
-            RouteTable.Routes.AddApplicationFromAssembly("Bifrost", typeof(BootStrapper).Assembly);
         }
 
         public static void Start()
         {
             lock (_lockObject)
             {
-                if (_isInitialized) return;
+                if (_isInitialized)
+                {
+                    return;
+                }
 
-                Configure.DiscoverAndConfigure();
-                AddAllAssetsForThisAssembly();
+                var configure = Configure.DiscoverAndConfigure();
+                var container = configure.Container;
+
+                RegisterBifrostAssets();
+                RegisterBifrostServices(container.Get<IImplementorFinder>().GetImplementorsFor(typeof(IBifrostService)));
+                RegisterBifrostHttpHandlers(container.Get<IInstancesOf<IBifrostHttpHandler>>());
 
                 _isInitialized = true;
             }
         }
 
-        // TODO: this is just a temporary solution for this particular Web Application - we need to revisit this whole thing so that any applications added from an assembly gets their assets relative to their route registered!
-        // it probably needs formalizing the AssetsManager a bit more!
-        static void AddAllAssetsForThisAssembly()
+        static void RegisterBifrostAssets()
         {
-            var assetsManager = Configure.Instance.Container.Get<IAssetsManager>();
+            RouteTable.Routes.AddResourcesFromAssembly("Bifrost", typeof(BootStrapper).Assembly);
+        }
 
-            var rootNamespace = typeof(BootStrapper).Namespace;
-            var resources = typeof(BootStrapper).Assembly.GetManifestResourceNames();
-            foreach (var resource in resources)
+        static void RegisterBifrostServices(IEnumerable<Type> bifrostServices)
+        {
+            foreach (var service in bifrostServices)
             {
-                var resourceName = resource.Replace(rootNamespace + ".", string.Empty);
-                resourceName = resourceName.Replace(".", "/");
-                resourceName = "Bifrost/" + resourceName;
-                var formatted = string.Format("{0}.{1}",
-                    resourceName.Substring(0, resourceName.LastIndexOf("/")),
-                    resourceName.Substring(resourceName.LastIndexOf("/") + 1)
-                    );
+                RouteTable.Routes.AddService(service, "Bifrost");
+            }
+        }
 
-                assetsManager.AddAsset(formatted);
+        static void RegisterBifrostHttpHandlers(IEnumerable<IBifrostHttpHandler> bifrostHttpHandlers)
+        {
+            foreach (var httpHandler in bifrostHttpHandlers)
+            {
+                RouteTable.Routes.AddHttpHandler(httpHandler, "Bifrost");
             }
         }
     }
 }
-
