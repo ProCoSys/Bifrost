@@ -191,6 +191,10 @@
     <Content Include="Utils\for_isObject\when_asking_if_string_is_object.js" />
     <Content Include="Utils\for_isObject\when_asking_if_number_is_object.js" />
     <Content Include="Utils\for_isObject\when_asking_if_null_is_object.js" />
+    <Content Include="Utils\for_server\when_getting_data_from_a_url_using_overridden_default_parameter.js" />
+    <Content Include="Utils\for_server\when_getting_data_from_a_url_using_default_parameters.js" />
+    <Content Include="Utils\for_server\when_posting_data_to_a_url_using_overridden_default_parameter.js" />
+    <Content Include="Utils\for_server\when_posting_data_to_a_url_using_default_parameters.js" />
     <Content Include="Utils\for_StringMapper\when_reverse_resolving_a_string_that_should_match_a_string_with_expansion.js" />
     <Content Include="Utils\for_StringMapper\when_reverse_resolving_a_string_without_any_expansion.js" />
     <Content Include="Utils\for_StringMapper\when_reverse.resolving_an_empty_string.js" />
