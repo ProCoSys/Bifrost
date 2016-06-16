@@ -40,7 +40,7 @@ namespace Bifrost.Web.Services
 
         public string Invoke(string baseUrl, object instance, Uri uri, IDictionary<string, string> inputParameters)
         {
-            FilterInputParameters(inputParameters);
+            inputParameters = FilterInputParameters(inputParameters);
 
             var type = instance.GetType();
             var methodName = GetMethodNameFromUri(uri);
@@ -61,12 +61,9 @@ namespace Bifrost.Web.Services
             return serializedResult;
         }
 
-        static void FilterInputParameters(IDictionary<string, string> inputParameters)
+        static IDictionary<string, string> FilterInputParameters(IDictionary<string, string> inputParameters)
         {
-            inputParameters.Remove("_");
-            inputParameters.Remove("_q");
-            inputParameters.Remove("_rm");
-            inputParameters.Remove("_cmd");
+            return inputParameters.Where(kv => !kv.Key.StartsWith("_")).ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
         object[] GetParameterValues(IDictionary<string, string> inputParameters, MethodInfo method)

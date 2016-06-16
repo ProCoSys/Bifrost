@@ -151,6 +151,7 @@
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_int_as_a_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_method_with_no_in_or_output.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_string_as_a_parameter.cs" />
+    <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_many_underscore_parameters_and_target_method_has_no_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_underscore_parameter_and_target_method_has_no_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_wrong_parameter_name.cs" />
   </ItemGroup>
