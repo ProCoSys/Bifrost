@@ -1,3 +1,6 @@
+## Next version
+* `RestServiceMethodInvoker` will now ignore any properties starting with '_'. And on the client side, you can set default query parameters used for `server.get` and `server.post`. You can use the combination of these features to have a fixed set of parameters sent from the client to any rest like service. [#57](https://github.com/ProCoSys/Bifrost/issues/57)
+
 ## Version 3.0.2
 * Unneeded assets, including `Visualizer` has been removed from the Bifrost.Web project. [#51](https://github.com/ProCoSys/Bifrost/issues/51)
 * Bifrost.Web.Mvc does not depend on the deprecated WebActivator 1.5.1 anymore. (Bifrost.Web still correctly depends on WebActivatorEx 2.0.6.) [#53](https://github.com/ProCoSys/Bifrost/issues/53)
