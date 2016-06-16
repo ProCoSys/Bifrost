@@ -18,7 +18,6 @@
 #endregion
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -39,12 +38,12 @@ namespace Bifrost.Web.Services
             _jsonInterceptor = jsonInterceptor;
         }
 
-        public string Invoke(string baseUrl, object instance, Uri uri, NameValueCollection inputParameters)
+        public string Invoke(string baseUrl, object instance, Uri uri, IDictionary<string, string> inputParameters)
         {
             FilterInputParameters(inputParameters);
 
             var type = instance.GetType();
-            var methodName = GetMethodNameFromUri(baseUrl, uri);
+            var methodName = GetMethodNameFromUri(uri);
             ThrowIfMethodNameNotSpecified(methodName, instance, uri);
             ThrowIfMethodMissing(methodName, instance, uri);
 
@@ -62,7 +61,7 @@ namespace Bifrost.Web.Services
             return serializedResult;
         }
 
-        static void FilterInputParameters(NameValueCollection inputParameters)
+        static void FilterInputParameters(IDictionary<string, string> inputParameters)
         {
             inputParameters.Remove("_");
             inputParameters.Remove("_q");
@@ -70,71 +69,60 @@ namespace Bifrost.Web.Services
             inputParameters.Remove("_cmd");
         }
 
-        object[] GetParameterValues(NameValueCollection inputParameters, MethodInfo method)
+        object[] GetParameterValues(IDictionary<string, string> inputParameters, MethodInfo method)
         {
-            var values = new List<object>();
-            var parameters = method.GetParameters();
-            foreach (var parameter in parameters)
-            {
-                var parameterAsString = inputParameters[parameter.Name];
-                values.Add(HandleValue(parameter, parameterAsString));
-            }
-
-            return values.ToArray();
+            return method
+                .GetParameters()
+                .Select(p => new { Type = p.ParameterType, AsString = inputParameters[p.Name]})
+                .Select(p => HandleValue(p.Type, p.AsString))
+                .ToArray();
         }
 
-        string Unescape(string value)
+        static string Unescape(string value)
         {
             return value.RemovePrefix("\"").RemovePostfix("\"");
         }
 
-        object HandleValue(ParameterInfo parameter, string input)
+        object HandleValue(Type parameterType, string input)
         {
-            if (parameter.ParameterType == typeof(string))
+            if (parameterType == typeof(string))
             {
                 return input;
             }
 
             input = Unescape(input);
-            if (parameter.ParameterType.IsValueType)
+            if (parameterType.IsValueType)
             {
-                return TypeDescriptor.GetConverter(parameter.ParameterType).ConvertFromInvariantString(input);
+                return TypeDescriptor.GetConverter(parameterType).ConvertFromInvariantString(input);
             }
-
-            if (parameter.ParameterType.IsConcept())
+            else if (parameterType.IsConcept())
             {
-                var genericArgumentType = parameter.ParameterType.BaseType.GetGenericArguments()[0];
-                var value = input.ParseTo(genericArgumentType);
-                return ConceptFactory.CreateConceptInstance(parameter.ParameterType, value);
+                return input.ParseTo(parameterType.GetConceptValueType());
             }
 
             input = _jsonInterceptor.Intercept(input);
-            return _serializer.FromJson(parameter.ParameterType, input);
+            return _serializer.FromJson(parameterType, input);
         }
 
-        static string GetMethodNameFromUri(string baseUrl, Uri uri)
+        static string GetMethodNameFromUri(Uri uri)
         {
-            var path = uri.AbsolutePath;
-            path = path.RemovePrefix("/");
-
-            var segments = path.Split('/');
-            if (segments.Length > 1)
-            {
-                return segments[segments.Length - 1];
-            }
-
-            return string.Empty;
+            var segments = uri.AbsolutePath.RemovePrefix("/").Split('/');
+            return segments.Length > 1 ? segments[segments.Length - 1] : string.Empty;
         }
 
-        static void ThrowIfParameterMissing(MethodInfo methodInfo, Type type, Uri uri, NameValueCollection inputParameters)
+        static void ThrowIfParameterMissing(
+            MethodInfo methodInfo,
+            Type type,
+            Uri uri,
+            IDictionary<string, string> inputParameters)
         {
-            var parameters = methodInfo.GetParameters();
-            foreach (var parameter in parameters)
+            var missingParameter = methodInfo
+                .GetParameters()
+                .Select(p => p.Name)
+                .FirstOrDefault(n => !inputParameters.ContainsKey(n));
+            if (missingParameter != null)
             {
-                if (!inputParameters.AllKeys.Contains(parameter.Name))
-                {
-                    throw new MissingParameterException(parameter.Name, type.Name, uri);
-                }
+                throw new MissingParameterException(missingParameter, type.Name, uri);
             }
         }
 
@@ -142,7 +130,7 @@ namespace Bifrost.Web.Services
             MethodInfo methodInfo,
             Type type,
             Uri uri,
-            NameValueCollection inputParameters)
+            IDictionary<string, string> inputParameters)
         {
             var parameters = methodInfo.GetParameters();
             if (inputParameters.Count != parameters.Length)
@@ -161,8 +149,7 @@ namespace Bifrost.Web.Services
 
         static void ThrowIfMethodMissing(string methodName, object instance, Uri uri)
         {
-            var method = instance.GetType().GetMethod(methodName);
-            if (method == null)
+            if (instance.GetType().GetMethod(methodName) == null)
             {
                 throw new MissingMethodException($"Missing method '{methodName}' for Uri '{uri}'");
             }

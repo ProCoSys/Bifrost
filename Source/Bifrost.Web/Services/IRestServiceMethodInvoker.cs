@@ -17,12 +17,12 @@
 //
 #endregion
 using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Bifrost.Web.Services
 {
     public interface IRestServiceMethodInvoker
     {
-        string Invoke(string baseUrl, object instance, Uri uri, NameValueCollection form);
+        string Invoke(string baseUrl, object instance, Uri uri, IDictionary<string, string> form);
     }
 }

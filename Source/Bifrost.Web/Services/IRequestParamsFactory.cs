@@ -16,24 +16,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 #endregion
-
-using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Bifrost.Web.Services
 {
     /// <summary>
-    /// Defines a factory for building a <see cref="RequestParams">Request Parameters collection </see>
+    /// Defines a factory for building a Request Parameters collection, represented as a dictionary.
     /// </summary>
     public interface IRequestParamsFactory
     {
         /// <summary>
-        /// Builds an instance of <see cref="RequestParams">RequestParams</see> that encapsulates request parameters
+        /// Builds an instance of a request params dictionary that encapsulates request parameters.
         /// </summary>
         /// <param name="request">An HttpRequestBase instance</param>
         /// <returns></returns>
-        RequestParams BuildParamsCollectionFrom(HttpRequestBase request);
+        IDictionary<string, string> BuildParamsCollectionFrom(HttpRequestBase request);
     }
 }
