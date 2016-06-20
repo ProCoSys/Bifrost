@@ -16,15 +16,7 @@
 // limitations under the License.
 //
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Web.Routing;
-using Bifrost.Bootstrap;
 using Bifrost.Configuration;
-using Bifrost.Execution;
-using Bifrost.Web.Resources;
-using Bifrost.Web.Routing;
-using Bifrost.Web.Services;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Bifrost.Web.BootStrapper), "PreApplicationStart")]
@@ -46,40 +38,11 @@ namespace Bifrost.Web
         {
             lock (_lockObject)
             {
-                if (_isInitialized)
+                if (!_isInitialized)
                 {
-                    return;
+                    Configure.DiscoverAndConfigure();
+                    _isInitialized = true;
                 }
-
-                var configure = Configure.DiscoverAndConfigure();
-                var container = configure.Container;
-
-                RegisterBifrostAssets();
-                RegisterBifrostServices(container.Get<IImplementorFinder>().GetImplementorsFor(typeof(IBifrostService)));
-                RegisterBifrostHttpHandlers(container.Get<IInstancesOf<IBifrostHttpHandler>>());
-
-                _isInitialized = true;
-            }
-        }
-
-        static void RegisterBifrostAssets()
-        {
-            RouteTable.Routes.AddResourcesFromAssembly("Bifrost", typeof(BootStrapper).Assembly);
-        }
-
-        static void RegisterBifrostServices(IEnumerable<Type> bifrostServices)
-        {
-            foreach (var service in bifrostServices)
-            {
-                RouteTable.Routes.AddService(service, "Bifrost");
-            }
-        }
-
-        static void RegisterBifrostHttpHandlers(IEnumerable<IBifrostHttpHandler> bifrostHttpHandlers)
-        {
-            foreach (var httpHandler in bifrostHttpHandlers)
-            {
-                RouteTable.Routes.AddHttpHandler(httpHandler, "Bifrost");
             }
         }
     }
