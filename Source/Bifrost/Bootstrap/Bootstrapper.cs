@@ -19,7 +19,7 @@ namespace Bifrost.Bootstrap
         /// and finally initialize the real container.</returns>
         public IBootstrapContainer BootstrapTypes(IBootstrapConfiguration bootstrapConfiguration)
         {
-            var assembliesConfiguration = new IncludeNone();
+            var assembliesConfiguration = bootstrapConfiguration.AssembliesConfiguration;
             var assemblySpecifiers = new AssemblySpecifiers(assembliesConfiguration);
             var typeCollector = new TypeCollector();
 
