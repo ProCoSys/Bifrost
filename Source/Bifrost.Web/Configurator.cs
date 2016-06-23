@@ -16,10 +16,16 @@
 // limitations under the License.
 //
 #endregion
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
+using Bifrost.Bootstrap;
 using Bifrost.Configuration;
+using Bifrost.Execution;
 using Bifrost.JSON.Concepts;
+using Bifrost.Web.Resources;
+using Bifrost.Web.Routing;
 using Bifrost.Web.Services;
 using Bifrost.Web.SignalR;
 using Microsoft.AspNet.SignalR;
@@ -33,12 +39,18 @@ namespace Bifrost.Web
         public void Configure(IConfigure configure)
         {
             configure.CallContext.WithCallContextTypeOf<WebCallContext>();
-            ConfigureSignalR(configure);
+            var container = configure.Container;
+
+            ConfigureSignalR(configure.Container);
+
+            RegisterBifrostAssets();
+            RegisterBifrostServices(container.Get<IImplementorFinder>().GetImplementorsFor(typeof(IBifrostService)));
+            RegisterBifrostHttpHandlers(container.Get<IInstancesOf<IBifrostHttpHandler>>());
         }
 
-        void ConfigureSignalR(IConfigure configure)
+        void ConfigureSignalR(IContainer container)
         {
-            var resolver = new BifrostDependencyResolver(configure.Container);
+            var resolver = new BifrostDependencyResolver(container);
 
             var serializerSettings = new JsonSerializerSettings
             {
@@ -56,6 +68,27 @@ namespace Bifrost.Web
             var route = RouteTable.Routes.Last();
             RouteTable.Routes.Remove(route);
             RouteTable.Routes.AddFirst(route);
+        }
+
+        static void RegisterBifrostAssets()
+        {
+            RouteTable.Routes.AddResourcesFromAssembly("Bifrost", typeof(BootStrapper).Assembly);
+        }
+
+        static void RegisterBifrostServices(IEnumerable<Type> bifrostServices)
+        {
+            foreach (var service in bifrostServices)
+            {
+                RouteTable.Routes.AddService(service, "Bifrost");
+            }
+        }
+
+        static void RegisterBifrostHttpHandlers(IEnumerable<IBifrostHttpHandler> bifrostHttpHandlers)
+        {
+            foreach (var httpHandler in bifrostHttpHandlers)
+            {
+                RouteTable.Routes.AddHttpHandler(httpHandler, "Bifrost");
+            }
         }
     }
 }

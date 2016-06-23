@@ -17,9 +17,11 @@
 //
 #endregion
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Web;
+using Bifrost.Extensions;
 using Bifrost.Serialization;
 
 namespace Bifrost.Web.Services
@@ -37,34 +39,28 @@ namespace Bifrost.Web.Services
         }
 
 #pragma warning disable 1591 // Xml Comments
-        public RequestParams BuildParamsCollectionFrom(HttpRequestBase request)
+        public IDictionary<string, string> BuildParamsCollectionFrom(HttpRequestBase request)
         {
-            var queystring = request.QueryString;
-            var form = request.Form;
-            var requestBody = BuildFormFromInputStream(request.InputStream);
-
-            var requestParams = new RequestParams {queystring, form, requestBody };
-
-            return requestParams;
+            // If there are duplicate keys, select from the first available dictionary.
+            return new[]
+            {
+                request.QueryString.ToDictionary(),
+                request.Form.ToDictionary(),
+                BuildFormFromInputStream(request.InputStream),
+            }
+                .SelectMany(d => d)
+                .ToLookup(kv => kv.Key)
+                .ToDictionary(kv => kv.Key, kv => kv.First().Value);
         }
 #pragma warning restore 1591 // Xml Comments
 
-        NameValueCollection BuildFormFromInputStream(Stream stream)
+        IDictionary<string, string> BuildFormFromInputStream(Stream stream)
         {
-            var input = new byte[stream.Length];
-            stream.Read(input, 0, input.Length);
-            var inputAsString = System.Text.Encoding.UTF8.GetString(input);
-            var inputDictionary = _serializer.FromJson(typeof(Dictionary<string, string>), inputAsString, null) as Dictionary<string,string>;
-
-            var inputStreamParams = new NameValueCollection();
-
-            if (inputDictionary != null)
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
-                foreach (var key in inputDictionary.Keys)
-                    inputStreamParams[key] = inputDictionary[key];
+                var inputAsString = reader.ReadToEnd();
+                return _serializer.FromJson<Dictionary<string, string>>(inputAsString) ?? new Dictionary<string, string>();
             }
-
-            return inputStreamParams;
         }
     }
 }

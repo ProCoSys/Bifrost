@@ -167,7 +167,6 @@
     <Compile Include="Services\MissingParameterException.cs" />
     <Compile Include="Services\ParameterCountMismatchException.cs" />
     <Compile Include="Services\RegisteredServices.cs" />
-    <Compile Include="Services\RequestParams.cs" />
     <Compile Include="Services\RequestParamsFactory.cs" />
     <Compile Include="Services\RestServiceMethodInvoker.cs" />
     <Compile Include="Services\RestServiceRouteHttpHandler.cs" />

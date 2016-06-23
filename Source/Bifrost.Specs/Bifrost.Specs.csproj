@@ -423,6 +423,9 @@
     <Compile Include="Execution\for_WriteOnceExpandoObject\when_setting_values_through_indexer_after_creation.cs" />
     <Compile Include="Execution\for_WriteOnceExpandoObject\when_setting_values_to_the_dictionary_after_creation.cs" />
     <Compile Include="Dynamic\for_DynamicHelpers\when_populating_from_anonymous_object.cs" />
+    <Compile Include="Extensions\for_NameValueCollectionExtensions\when_converting_empty_collection.cs" />
+    <Compile Include="Extensions\for_NameValueCollectionExtensions\when_converting_collection_with_two_values.cs" />
+    <Compile Include="Extensions\for_NameValueCollectionExtensions\when_converting_collection_with_duplicate_keys.cs" />
     <Compile Include="Extensions\for_CollectionExtensions\when_combining_many_lookups.cs" />
     <Compile Include="Extensions\for_CollectionExtensions\when_combining_one_lookup.cs" />
     <Compile Include="Extensions\for_CollectionExtensions\when_combining_no_lookups.cs" />

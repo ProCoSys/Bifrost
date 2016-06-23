@@ -2303,6 +2303,8 @@ Bifrost.namespace("Bifrost", {
 
         this.target = "";
 
+        this.defaultParameters = {};
+
         function deserialize(data) {
             if (Bifrost.isArray(data)) {
                 var items = [];
@@ -2337,6 +2339,7 @@ Bifrost.namespace("Bifrost", {
             }
 
             var actualParameters = {};
+            Bifrost.extend(actualParameters, self.defaultParameters);
 
             for (var property in parameters) {
                 actualParameters[property] = JSON.stringify(parameters[property]);
@@ -2368,10 +2371,15 @@ Bifrost.namespace("Bifrost", {
                 url = self.target + url;
             }
 
+            var actualParameters = {};
+            Bifrost.extend(actualParameters, self.defaultParameters);
+
             if (Bifrost.isObject(parameters)) {
                 for (var parameterName in parameters) {
                     if (Bifrost.isArray(parameters[parameterName])) {
-                        parameters[parameterName] = JSON.stringify(parameters[parameterName]);
+                        actualParameters[parameterName] = JSON.stringify(parameters[parameterName]);
+                    } else {
+                        actualParameters[parameterName] = parameters[parameterName];
                     }
                 }
             }
@@ -2380,7 +2388,7 @@ Bifrost.namespace("Bifrost", {
                 url: url,
                 type: "GET",
                 dataType: 'json',
-                data: parameters,
+                data: actualParameters,
                 contentType: 'application/json; charset=utf-8',
                 complete: function (result, textStatus) {
                     var data = $.parseJSON(result.responseText);

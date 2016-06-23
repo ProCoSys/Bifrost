@@ -1,5 +1,4 @@
 ﻿#region License
-
 //
 // Copyright (c) 2008-2015, Dolittle (http://www.dolittle.com)
 //
@@ -18,20 +17,24 @@
 //
 #endregion
 using System.Collections.Generic;
-using System.Web;
+using System.Collections.Specialized;
+using System.Linq;
 
-namespace Bifrost.Web.Services
+namespace Bifrost.Extensions
 {
     /// <summary>
-    /// Defines a factory for building a Request Parameters collection, represented as a dictionary.
+    /// Provides a set of methods for working with <see cref="NameValueCollection">types</see>.
     /// </summary>
-    public interface IRequestParamsFactory
+    public static class NameValueCollectionExtensions
     {
         /// <summary>
-        /// Builds an instance of a request params dictionary that encapsulates request parameters.
+        /// Converts a collection to a dictionary.
         /// </summary>
-        /// <param name="request">An HttpRequestBase instance</param>
-        /// <returns></returns>
-        IDictionary<string, string> BuildParamsCollectionFrom(HttpRequestBase request);
+        /// <param name="collection">The collection to convert.</param>
+        /// <returns>A dictionary where the duplicate keys of the collection are converted to comma separated values.</returns>
+        public static IDictionary<string, string> ToDictionary(this NameValueCollection collection)
+        {
+            return collection.AllKeys.ToDictionary(k => k, k => collection[k]);
+        }
     }
 }

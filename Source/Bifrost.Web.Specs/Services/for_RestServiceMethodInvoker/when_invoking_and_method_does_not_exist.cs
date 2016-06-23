@@ -1,6 +1,6 @@
-﻿using Machine.Specifications;
-using System;
-using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
+using Machine.Specifications;
 
 namespace Bifrost.Web.Specs.Services.for_RestServiceMethodInvoker
 {
@@ -10,17 +10,19 @@ namespace Bifrost.Web.Specs.Services.for_RestServiceMethodInvoker
         const string method_name = "SomeMethod";
         static ServiceWithoutMethods service_instance;
         static Uri uri;
-        static NameValueCollection  parameters;
+        static IDictionary<string, string> parameters;
 
         static Exception exception;
 
-        Establish context = () => {
+        Establish context = () =>
+        {
             service_instance = new ServiceWithoutMethods();
-            uri = new Uri(string.Format("http://localhost/{0}/{1}", base_url, method_name));
-            parameters = new NameValueCollection();
+            uri = new Uri($"http://localhost/{base_url}/{method_name}");
+            parameters = new Dictionary<string, string>();
         };
 
-        Because of = () => exception = Catch.Exception(() => invoker.Invoke(base_url, service_instance, uri, parameters));
+        Because of = () =>
+            exception = Catch.Exception(() => invoker.Invoke(base_url, service_instance, uri, parameters));
 
         It should_throw_missing_method_exception = () => exception.ShouldBeOfExactType<MissingMethodException>();
     }

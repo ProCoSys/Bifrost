@@ -132,7 +132,6 @@
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_int_as_an_escaped_string_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_guid_concept_as_escaped_string_as_a_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_guid_concept_as_string_as_a_parameter.cs" />
-    <Compile Include="Services\for_RestServiceMethodInvoker\given\a_rest_service_method_invoker_and_a_service_call_for_guid_concept_input_and_no_output.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\GuidConcept.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_guid_as_escaped_string_as_a_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\given\a_rest_service_method_invoker_and_a_service_call_for_guid_input_and_no_output.cs" />
@@ -152,6 +151,7 @@
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_int_as_a_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_method_with_no_in_or_output.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_string_as_a_parameter.cs" />
+    <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_many_underscore_parameters_and_target_method_has_no_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_underscore_parameter_and_target_method_has_no_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_wrong_parameter_name.cs" />
   </ItemGroup>
