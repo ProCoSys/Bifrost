@@ -74,6 +74,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Bootstrap\Assemblies\for_AssemblyProvider\when_providing_from_one_provider_with_one_assembly_that_has_excluded_types.cs" />
+    <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\when_specifying_throws_exception.cs" />
     <Compile Include="Bootstrap\Defaults\for_DefaultBootstrapConfiguration\given\a_default_bootstrap_configuration.cs" />
     <Compile Include="Bootstrap\Defaults\for_DefaultBootstrapConfiguration\when_checking_types.cs" />
     <Compile Include="Bootstrap\Defaults\for_DefaultBootstrapConfiguration\when_checking_assemblies.cs" />
@@ -336,7 +337,7 @@
     <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\given\an_assembly_specifiers.cs" />
     <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\AnotherTestSpecifier.cs" />
     <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\TestSpecifier.cs" />
-    <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\when_specifying_from_empty_assembly.cs" />
+    <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\when_specifying_from_framework_assembly.cs" />
     <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\when_specifying_from_test_assembly_twice.cs" />
     <Compile Include="Bootstrap\Assemblies\for_AssemblySpecifiers\when_specifying_from_test_assembly.cs" />
     <Compile Include="Execution\for_BindingConventionManager\FakeBindingConvention.cs" />

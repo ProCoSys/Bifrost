@@ -146,6 +146,7 @@
     <Compile Include="Configuration\Assemblies\IAssembliesConfiguration.cs" />
     <Compile Include="Bootstrap\Assemblies\IncludeNone.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
+    <Compile Include="Execution\AssemblySpecificationException.cs" />
     <Compile Include="Specifications\MatchAll.cs" />
     <Compile Include="Specifications\MatchNone.cs" />
     <Compile Include="Exceptions\ExceptionPublisher.cs" />
