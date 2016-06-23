@@ -1,5 +1,6 @@
 ## Next version
 * Fixed bug where `AssembliesConfiguration` was never read from `IBootstrapConfiguration`. [#61](https://github.com/ProCoSys/Bifrost/issues/61)
+* More friendly error messages from specifying assemblies. [#59](https://github.com/ProCoSys/Bifrost/issues/59)
 
 ## Version 3.0.2
 * Unneeded assets, including `Visualizer` has been removed from the Bifrost.Web project. [#51](https://github.com/ProCoSys/Bifrost/issues/51)
