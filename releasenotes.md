@@ -1,4 +1,4 @@
-## Next version
+## Version 3.0.3
 * Fixed bug where `AssembliesConfiguration` was never read from `IBootstrapConfiguration`. [#61](https://github.com/ProCoSys/Bifrost/issues/61)
 * More friendly error messages from specifying assemblies. [#59](https://github.com/ProCoSys/Bifrost/issues/59)
 * `RestServiceMethodInvoker` will now ignore any properties starting with '_'. And on the client side, you can set default query parameters used for `server.get` and `server.post`. You can use the combination of these features to have a fixed set of parameters sent from the client to any rest like service. [#57](https://github.com/ProCoSys/Bifrost/issues/57)
