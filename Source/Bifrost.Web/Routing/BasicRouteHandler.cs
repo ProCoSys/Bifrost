@@ -1,20 +1,21 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Routing;
 
 namespace Bifrost.Web.Routing
 {
     public class BasicRouteHandler : IRouteHandler
     {
-        private readonly IHttpHandler _httpHandler;
+        private readonly Lazy<IHttpHandler> _httpHandler;
 
-        public BasicRouteHandler(IHttpHandler httpHandler)
+        public BasicRouteHandler(Lazy<IHttpHandler> httpHandler)
         {
             _httpHandler = httpHandler;
         }
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            return _httpHandler;
+            return _httpHandler.Value;
         }
     }
 }
