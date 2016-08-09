@@ -1,3 +1,6 @@
+## Version 3.0.4
+* Fixed regression from 3.0.3 in `RestServiceMethodInvoker`. [#63](https://github.com/ProCoSys/Bifrost/issues/63)
+
 ## Version 3.0.3
 * Fixed bug where `AssembliesConfiguration` was never read from `IBootstrapConfiguration`. [#61](https://github.com/ProCoSys/Bifrost/issues/61)
 * More friendly error messages from specifying assemblies. [#59](https://github.com/ProCoSys/Bifrost/issues/59)
