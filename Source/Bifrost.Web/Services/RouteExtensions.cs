@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.Routing;
 using Bifrost.Extensions;
-using Bifrost.Serialization;
 using Bifrost.Web.Routing;
 
 namespace Bifrost.Web.Services
@@ -21,7 +20,7 @@ namespace Bifrost.Web.Services
         /// <remarks>
         /// Bifrost will use a <see cref="RestServiceRouteHttpHandler"/> and a <see cref="RestServiceMethodInvoker"/>
         /// to convert the http request into a method call on the service. The returned value will be serialized to an
-        /// http response using the registered <see cref="ISerializer"/>.
+        /// http response using the registered <see cref="Serialization.ISerializer"/>.
         /// </remarks>
         /// <example>
         /// <c>RouteTable.Routes.AddService&lt;FooService&gt;("Folder");</c> will route all calls to paths under
@@ -41,7 +40,7 @@ namespace Bifrost.Web.Services
         /// <remarks>
         /// Bifrost will use a <see cref="RestServiceRouteHttpHandler"/> and a <see cref="RestServiceMethodInvoker"/>
         /// to convert the http request into a method call on the service. The returned value will be serialized to an
-        /// http response using the registered <see cref="ISerializer"/>.
+        /// http response using the registered <see cref="Serialization.ISerializer"/>.
         /// </remarks>
         /// <example>
         /// <c>RouteTable.Routes.AddService(typeof(FooService), "Folder");</c> will route all calls to paths under
@@ -75,6 +74,33 @@ namespace Bifrost.Web.Services
             string path = null,
             bool ignoreHandlerName = false)
         {
+            var url = ComposeUrl(httpHandler.GetType(), path, ignoreHandlerName);
+            routes.AddFirst(new BasicRouteIncludingSubfolders(httpHandler, url));
+        }
+
+        /// <summary>
+        /// Registers a custom http handler.
+        /// </summary>
+        /// <param name="routes">The route collection to register the service at.</param>
+        /// <param name="httpHandler">The type of the http handler to register.</param>
+        /// <param name="path">An optional path to the service.</param>
+        /// <param name="ignoreHandlerName">Whether to ignore the name of the handler.</param>
+        /// <example>
+        /// If <c>handler</c> is of type FooHttpHandler, <c>RouteTable.Routes.AddHttpHandler(handler, "Folder");</c>
+        /// will route all calls to paths under <c>/Folder/Foo/</c> to the <c>handler</c>.
+        /// </example>
+        public static void AddHttpHandler(
+            this RouteCollection routes,
+            Type httpHandler,
+            string path = null,
+            bool ignoreHandlerName = false)
+        {
+            var url = ComposeUrl(httpHandler, path, ignoreHandlerName);
+            routes.AddFirst(new BasicRouteIncludingSubfolders(httpHandler, url));
+        }
+
+        static string ComposeUrl(Type httpHandler, string path, bool ignoreHandlerName)
+        {
             string url;
             if (ignoreHandlerName)
             {
@@ -82,14 +108,14 @@ namespace Bifrost.Web.Services
             }
             else
             {
-                url = httpHandler.GetType().Name.RemovePostfix(HttpHandlerPostfix);
+                url = httpHandler.Name.RemovePostfix(HttpHandlerPostfix);
                 if (path != null)
                 {
                     url = path.RemovePostfix("/") + "/" + url;
                 }
             }
 
-            routes.AddFirst(new BasicRouteIncludingSubfolders(httpHandler, url));
+            return url;
         }
 
         public static void AddFirst(this RouteCollection routeCollection, RouteBase item)

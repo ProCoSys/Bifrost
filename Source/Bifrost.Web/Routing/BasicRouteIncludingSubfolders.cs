@@ -18,9 +18,10 @@
 //
 
 #endregion
-
+using System;
 using System.Web;
 using System.Web.Routing;
+using Bifrost.Configuration;
 
 namespace Bifrost.Web.Routing
 {
@@ -28,14 +29,24 @@ namespace Bifrost.Web.Routing
     {
         private const string UnmatchedPathSegment = "{*pathInfo}";
 
+        public BasicRouteIncludingSubfolders(Type httpHandler, string url)
+            : base($"{url}/{UnmatchedPathSegment}", new BasicRouteHandler(InitializeFromContainer(httpHandler)))
+        {
+        }
+
         public BasicRouteIncludingSubfolders(IHttpHandler httpHandler, string url)
-            : base($"{url}/{UnmatchedPathSegment}", new BasicRouteHandler(httpHandler))
+            : base($"{url}/{UnmatchedPathSegment}", new BasicRouteHandler(new Lazy<IHttpHandler>(() => httpHandler)))
         {
         }
 
         public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
         {
             return null;
+        }
+
+        private static Lazy<IHttpHandler> InitializeFromContainer(Type httpHandler)
+        {
+            return new Lazy<IHttpHandler>(() => (IHttpHandler)Configure.Instance.Container.Get(httpHandler));
         }
     }
 }

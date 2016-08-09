@@ -44,8 +44,9 @@ namespace Bifrost.Web
             ConfigureSignalR(configure.Container);
 
             RegisterBifrostAssets();
-            RegisterBifrostServices(container.Get<IImplementorFinder>().GetImplementorsFor(typeof(IBifrostService)));
-            RegisterBifrostHttpHandlers(container.Get<IInstancesOf<IBifrostHttpHandler>>());
+            var implementorFinder = container.Get<IImplementorFinder>();
+            RegisterBifrostServices(implementorFinder.GetImplementorsFor(typeof(IBifrostService)));
+            RegisterBifrostHttpHandlers(implementorFinder.GetImplementorsFor(typeof(IBifrostHttpHandler)));
         }
 
         void ConfigureSignalR(IContainer container)
@@ -83,7 +84,7 @@ namespace Bifrost.Web
             }
         }
 
-        static void RegisterBifrostHttpHandlers(IEnumerable<IBifrostHttpHandler> bifrostHttpHandlers)
+        static void RegisterBifrostHttpHandlers(IEnumerable<Type> bifrostHttpHandlers)
         {
             foreach (var httpHandler in bifrostHttpHandlers)
             {
