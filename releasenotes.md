@@ -1,3 +1,6 @@
+## Version 3.0.5
+* Removed `CurrentPrincipal` and moved all usages of it to `ICanResolvePrincipal`. [#65](https://github.com/ProCoSys/Bifrost/issues/65)
+
 ## Version 3.0.4
 * Fixed regression from 3.0.3 in `RestServiceMethodInvoker`. [#63](https://github.com/ProCoSys/Bifrost/issues/63)
 
