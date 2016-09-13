@@ -147,6 +147,7 @@
     <Compile Include="Bootstrap\Assemblies\IncludeNone.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Execution\AssemblySpecificationException.cs" />
+    <Compile Include="Security\IUserSecurityActor.cs" />
     <Compile Include="Specifications\MatchAll.cs" />
     <Compile Include="Specifications\MatchNone.cs" />
     <Compile Include="Exceptions\ExceptionPublisher.cs" />
@@ -313,7 +314,6 @@
     <Compile Include="Mapping\IPropertyMappingStrategy.cs" />
     <Compile Include="Mapping\Map.cs" />
     <Compile Include="Mapping\PropertyMap.cs" />
-    <Compile Include="Principal\CurrentPrincipal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Read\Fetching.cs" />
     <Compile Include="Read\FetchingSecurityManager.cs" />

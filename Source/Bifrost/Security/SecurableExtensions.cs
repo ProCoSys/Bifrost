@@ -16,7 +16,7 @@
 // limitations under the License.
 //
 #endregion
-using System;
+using Bifrost.Configuration;
 
 namespace Bifrost.Security
 {
@@ -32,7 +32,7 @@ namespace Bifrost.Security
         /// <returns>The <see cref="UserSecurityActor"/></returns>
         public static UserSecurityActor User(this ISecurable securable)
         {
-            var actor = new UserSecurityActor();
+            var actor = new UserSecurityActor(Configure.Instance.Container.Get<ICanResolvePrincipal>());
             securable.AddActor(actor);
             return actor;
         }

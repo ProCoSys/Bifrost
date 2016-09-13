@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Threading;
 using Bifrost.Security;
 using Machine.Specifications;
+using It = Machine.Specifications.It;
 
 namespace Bifrost.Specs.Security.for_SecurityDescriptor
 {
@@ -15,7 +15,8 @@ namespace Bifrost.Specs.Security.for_SecurityDescriptor
 
         Establish context = () =>
         {
-            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(""), new string[0]);
+            resolve_principal_mock.Setup(m => m.Resolve())
+                .Returns(new GenericPrincipal(new GenericIdentity(""), new string[0]));
         };
 
         Because of = () =>

@@ -1,7 +1,7 @@
 ﻿using System.Security.Principal;
-using System.Threading;
 using Bifrost.Security;
 using Machine.Specifications;
+using It = Machine.Specifications.It;
 
 namespace Bifrost.Specs.Security.for_SecurityDescriptor
 {
@@ -11,13 +11,16 @@ namespace Bifrost.Specs.Security.for_SecurityDescriptor
         static AuthorizeDescriptorResult authorize_descriptor_result;
 
         Establish context = () =>
-            {
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(""), new[]
+        {
+            resolve_principal_mock.Setup(m => m.Resolve()).Returns(
+                new GenericPrincipal(
+                    new GenericIdentity(""),
+                    new[]
                     {
                         Testing.Fakes.Security.SecurityDescriptor.NAMESPACE_ROLE,
                         Testing.Fakes.Security.SecurityDescriptor.SIMPLE_COMMAND_ROLE
-                    });
-            };
+                    }));
+        };
 
         Because of = () => authorize_descriptor_result = security_descriptor.Authorize(command_that_has_namespace_and_type_rule);
 

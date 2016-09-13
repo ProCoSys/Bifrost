@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Threading;
 using Bifrost.Security;
 using Bifrost.Testing.Fakes.Commands;
 using Machine.Specifications;
+using It = Machine.Specifications.It;
 
 namespace Bifrost.Specs.Security.for_SecurityDescriptor
 {
@@ -15,12 +15,15 @@ namespace Bifrost.Specs.Security.for_SecurityDescriptor
         static IEnumerable<string> authorization_messages;
 
         Establish context = () =>
-            {
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(""), new[]
+        {
+            resolve_principal_mock.Setup(m => m.Resolve()).Returns(
+                new GenericPrincipal(
+                    new GenericIdentity(""),
+                    new[]
                     {
                         Testing.Fakes.Security.SecurityDescriptor.NAMESPACE_ROLE
-                    });
-            };
+                    }));
+        };
 
         Because of = () =>
             {

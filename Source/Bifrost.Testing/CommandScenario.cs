@@ -25,7 +25,6 @@ using Bifrost.Events;
 using Bifrost.Exceptions;
 using Bifrost.Execution;
 using Bifrost.Globalization;
-using Bifrost.Principal;
 using Bifrost.Sagas;
 using Bifrost.Security;
 using Bifrost.Testing.Exceptions;
@@ -38,7 +37,7 @@ namespace Bifrost.Testing
     /// Wraps up the Bifrost infrastructure for testing the simple processing of a command, including validation, handing and event generation
     /// </summary>
     /// <typeparam name="T">Type of the Command which the Scenario Tests</typeparam>
-    public class CommandScenario<T> where T : class, ICommand
+    public class CommandScenario<T> : dependency_injection where T : class, ICommand
     {
         Mock<ICommandValidators> command_validators_mock;
         ICommandCoordinator command_coordinator;
@@ -55,9 +54,10 @@ namespace Bifrost.Testing
         Mock<ICallContext> call_context_mock;
         IExecutionContextManager execution_context_manager;
         Mock<ICanValidate<T>> null_validator_mock;
-        ICanValidate<T> null_validator;
+        Mock<ICanResolvePrincipal> resolve_principal_mock;
 
         dynamic command_handler;
+        ICanValidate<T> null_validator;
         ICanValidate<T> input_validator;
         ICanValidate<T> business_validator;
         IPrincipal principal;
@@ -102,6 +102,10 @@ namespace Bifrost.Testing
             null_validator = null_validator_mock.Object;
             input_validator = null_validator;
             business_validator = null_validator;
+
+            resolve_principal_mock = new Mock<ICanResolvePrincipal>();
+            resolve_principal_mock.Setup(m => m.Resolve()).Returns(principal);
+            Rebind<ICanResolvePrincipal>().ToConstant(resolve_principal_mock.Object);
 
             uncommitted_event_stream_coordinator.Setup(es => es.Commit(It.IsAny<UncommittedEventStream>()))
                 .Callback((UncommittedEventStream ues) => RecordGeneratedEvents(ues));
@@ -162,13 +166,12 @@ namespace Bifrost.Testing
         public CommandResult IsHandled(ICommand command)
         {
             if (command_handler == null)
-                throw new Exception("You must specify a command handler before calling CommandIsHandled");
-
-            using(var currentPrincipal = CurrentPrincipal.SetPrincipalTo(principal))
             {
-                result_of_scenario = command_coordinator.Handle(command);
-                return result_of_scenario;
+                throw new Exception("You must specify a command handler before calling CommandIsHandled");
             }
+
+            result_of_scenario = command_coordinator.Handle(command);
+            return result_of_scenario;
         }
 
         void RecordGeneratedEvents(UncommittedEventStream ues)
