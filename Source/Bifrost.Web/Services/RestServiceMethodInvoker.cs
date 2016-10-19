@@ -95,8 +95,15 @@ namespace Bifrost.Web.Services
             else if (parameterType.IsConcept())
             {
                 var genericArgumentType = parameterType.BaseType.GetGenericArguments()[0];
-                var value = input.ParseTo(genericArgumentType);
-                return ConceptFactory.CreateConceptInstance(parameterType, value);
+                try
+                {
+                    var value = input.ParseTo(genericArgumentType);
+                    return ConceptFactory.CreateConceptInstance(parameterType, value);
+                }
+                catch (ConvertException e)
+                {
+                    throw new HttpStatus.HttpStatusException(400, e.Message);
+                }
             }
 
             input = _jsonInterceptor.Intercept(input);

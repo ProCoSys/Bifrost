@@ -138,6 +138,9 @@
   <data name="MultipleTypesFoundException" xml:space="preserve">
     <value>More than one type found for '{0}'.</value>
   </data>
+  <data name="ConvertException" xml:space="preserve">
+    <value>Could not convert '{0}' into type '{1}'.</value>
+  </data>
   <data name="UnableToResolveTypeException" xml:space="preserve">
     <value>Unable to resolve type '{0}'.</value>
   </data>

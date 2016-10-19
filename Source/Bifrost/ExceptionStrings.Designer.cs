@@ -106,6 +106,15 @@ namespace Bifrost {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not convert &apos;{0}&apos; into type &apos;{1}&apos;..
+        /// </summary>
+        internal static string ConvertException {
+            get {
+                return ResourceManager.GetString("ConvertException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type &apos;{0}&apos; is missing a default constructor and one is required.
         /// </summary>
         internal static string MissingDefaultConstructorException {

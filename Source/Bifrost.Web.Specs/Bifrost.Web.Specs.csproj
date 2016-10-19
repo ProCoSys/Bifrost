@@ -127,6 +127,8 @@
     <Compile Include="Services\for_RequestParamsFactory\when_building_a_request_params_object.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\ComplexType.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\given\a_rest_service_method_invoker_and_a_service_call_for_guid_concept_input_and_no_output.cs" />
+    <Compile Include="Services\for_RestServiceMethodInvoker\given\a_rest_service_method_invoker_and_a_service_call_for_int_concept_input_and_no_output.cs" />
+    <Compile Include="Services\for_RestServiceMethodInvoker\IntConcept.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_float_as_an_escaped_string_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\given\a_rest_service_method_invoker_and_a_service_call_for_float_input_and_no_output.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_float_as_a_parameter.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_without_a_method.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_without_parameter_and_target_method_expects_a_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_complex_type_as_a_parameter.cs" />
+    <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_an_invalid_concept_int_as_a_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_int_as_a_parameter.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_method_with_no_in_or_output.cs" />
     <Compile Include="Services\for_RestServiceMethodInvoker\when_invoking_with_a_string_as_a_parameter.cs" />
