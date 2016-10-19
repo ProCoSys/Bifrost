@@ -1,3 +1,6 @@
+## Version 3.0.6
+* Better error messages when parsing url parameters. [#67](https://github.com/ProCoSys/Bifrost/issues/67) [#68](https://github.com/ProCoSys/Bifrost/issues/68)
+
 ## Version 3.0.5
 * Removed `CurrentPrincipal` and moved all usages of it to `ICanResolvePrincipal`. [#65](https://github.com/ProCoSys/Bifrost/issues/65)
 
