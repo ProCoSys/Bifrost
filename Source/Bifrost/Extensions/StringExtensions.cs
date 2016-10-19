@@ -83,7 +83,14 @@ namespace Bifrost.Extensions
                 return ConceptFactory.CreateConceptInstance(type, primitive);
             }
 
-            return Convert.ChangeType(input, type, null);
+            try
+            {
+                return Convert.ChangeType(input, type, null);
+            }
+            catch (Exception e) when (e is FormatException || e is OverflowException || e is InvalidCastException)
+            {
+                throw new ConvertException(input, type, e);
+            }
         }
 
         /// <summary>

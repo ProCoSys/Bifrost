@@ -129,13 +129,13 @@ namespace Bifrost.Web.Read
             {
                 if (value.GetType() != targetValueType)
                 {
-                    if (targetValueType == typeof(Guid))
+                    try
                     {
-                        value = Guid.Parse(value.ToString());
+                        value = value.ToString().ParseTo(targetValueType);
                     }
-                    else
+                    catch (ConvertException e)
                     {
-                        value = Convert.ChangeType(value, targetValueType);
+                        throw new HttpStatus.HttpStatusException(400, e.Message + " Property name: " + propertyName);
                     }
                 }
             }

@@ -91,8 +91,16 @@ namespace Bifrost.Web.Read
                 var property = queryType.GetProperty(propertyName);
                 if (property != null)
                 {
-                    var value = descriptor.Parameters[key].ToString().ParseTo(property.PropertyType);
-                    property.SetValue(instance, value, null);
+                    var stringValue = descriptor.Parameters[key].ToString();
+                    try
+                    {
+                        var parsedValue = stringValue.ParseTo(property.PropertyType);
+                        property.SetValue(instance, parsedValue, null);
+                    }
+                    catch (ConvertException e)
+                    {
+                        throw new HttpStatus.HttpStatusException(400, e.Message + " Parameter name: " + key);
+                    }
                 }
             }
         }

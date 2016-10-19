@@ -53,6 +53,15 @@ namespace Bifrost.Web.Specs.Services.for_RestServiceMethodInvoker
             IntInputNoOutputInput = input;
         }
 
+        public const string IntConceptInputNoOutputMethod = "IntConceptInputNoOutput";
+        public bool IntConceptInputNoOutputCalled = false;
+        public int IntConceptInputNoOutputInput;
+        public void IntConceptInputNoOutput(IntConcept input)
+        {
+            IntConceptInputNoOutputCalled = true;
+            IntConceptInputNoOutputInput = input;
+        }
+
         public const string FloatInputNoOutputMethod = "FloatInputNoOutput";
         public bool FloatInputNoOutputCalled = false;
         public float FloatInputNoOutputInput;
