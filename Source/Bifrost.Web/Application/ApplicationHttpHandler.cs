@@ -30,11 +30,11 @@ namespace Bifrost.Web.Application
 {
     public class ApplicationHttpHandler : IBifrostHttpHandler
     {
-        string _configurationAsString;
+        private string _configurationAsString;
 
         public bool IsReusable => true;
 
-        readonly WebConfiguration _webConfiguration;
+        private readonly WebConfiguration _webConfiguration;
 
         public ApplicationHttpHandler() : this(Configure.Instance.Container.Get<WebConfiguration>())
         {
@@ -116,7 +116,7 @@ namespace Bifrost.Web.Application
 
             if (_webConfiguration.ScriptsToInclude.SignalR)
             {
-                builder.Append(GetResource("Bifrost.Web.Scripts.jquery.signalR-2.2.0.js"));
+                builder.Append(GetResource("Bifrost.Web.Scripts.jquery.signalR-2.2.1.js"));
             }
 
             if (_webConfiguration.ScriptsToInclude.JQueryHistory)
@@ -140,7 +140,7 @@ namespace Bifrost.Web.Application
 
             var files = assetsManager.GetFilesForExtension("js");
             var serialized = JsonConvert.SerializeObject(files);
-            builder.AppendFormat("Bifrost.assetsManager.initializeFromAssets({0});", serialized);
+            builder.Append($"Bifrost.assetsManager.initializeFromAssets({serialized});");
             _configurationAsString = builder.ToString();
         }
     }
