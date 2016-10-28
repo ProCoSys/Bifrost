@@ -1,3 +1,6 @@
+## Version 3.0.7
+* Upgraded Nuget-packages within minor versions
+
 ## Version 3.0.6
 * Better error messages when parsing url parameters. [#67](https://github.com/ProCoSys/Bifrost/issues/67) [#68](https://github.com/ProCoSys/Bifrost/issues/68)
 
