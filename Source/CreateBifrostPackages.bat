@@ -48,7 +48,7 @@ REM === Creating other packages ===
 
 REM === Copy to package source ===
 if "%1"=="Publish" (
-  copy "%~dp0\%outputDirectory%\*%version%*.nupkg" \\st-w761\nuget\%configuration%
+  %nuget% push -Source "ProCoSysOfficial" -ApiKey VSTS "%~dp0\%outputDirectory%\*%version%*.nupkg"
 )
 
 echo.
