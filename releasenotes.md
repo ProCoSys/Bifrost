@@ -108,8 +108,7 @@ _Other changes_
 
 
 # Fork
-Originally developed by [dolittle](http://bifrost.dolittle.com), the project was forked after
-[development stopped](http://www.ingebrigtsen.info/2016/02/11/bifrost-end-of-the-line/) in February 2016.
+Originally developed by [dolittle](http://bifrost.dolittle.com), the project was forked in February 2016.
 The release notes below are adapted from http://bifrost.dolittle.com/ReleaseNotes.
 
 ## Version 1.0.0.31
