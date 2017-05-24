@@ -4,8 +4,7 @@ The backend development is focused on CQRS (Command Query Responsibility Segrega
 
 The fronted development is focused on MVVM (Model View ViewModel) for promoting better separation.
 
-Originally developed by [dolittle](http://bifrost.dolittle.com), the project was forked after
-[development stopped](http://www.ingebrigtsen.info/2016/02/11/bifrost-end-of-the-line/) in February 2016.
+Originally developed by [dolittle](http://bifrost.dolittle.com), the project was forked in February 2016.
 
 To get an idea of how the framework will help you get up and running fast, have a look here : http://vimeo.com/30971308
 
