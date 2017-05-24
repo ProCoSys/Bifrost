@@ -17,9 +17,6 @@
 //
 #endregion
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Bifrost.Web.Services
 {
@@ -27,19 +24,17 @@ namespace Bifrost.Web.Services
     {
         public class HttpStatusException : Exception
         {
-            public HttpStatusException(int code, string description)
+            public HttpStatusException(int code, string message) : base(message)
             {
                 Code = code;
-                Description = description;
             }
 
             public int Code { get; private set; }
-            public string Description { get; private set; }
         }
 
-        public static void NotFound(string description = "Not found")
+        public static void NotFound(string message = "Not found")
         {
-            throw new HttpStatusException(404, description);
+            throw new HttpStatusException(404, message);
         }
     }
 }

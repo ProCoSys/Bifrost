@@ -80,7 +80,7 @@ namespace Bifrost.Web.Services
                 {
                     var ex = e.InnerException as HttpStatus.HttpStatusException;
                     context.Response.StatusCode = ex.Code;
-                    context.Response.StatusDescription = ex.Description;
+                    context.Response.StatusDescription = ex.Message;
                 }
                 else
                 {
