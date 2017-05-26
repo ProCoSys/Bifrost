@@ -29,7 +29,7 @@ namespace Bifrost.Specs.Configuration.for_Configure.given
             container_mock.Setup(c => c.Get<ISecurityConfiguration>()).Returns(Get<ISecurityConfiguration>());
 
             container_mock
-                .Setup(c => c.Get<IInstancesOf<ICanConfigure>>())
+                .Setup(c => c.Get<IOrderedInstancesOf<ICanConfigure>>())
                 .Returns(new[] { Get<ICanConfigure>() }.AsInstancesOf());
             container_mock
                 .Setup(c => c.Get<IInstancesOf<IWantToKnowWhenConfigurationIsDone>>())
