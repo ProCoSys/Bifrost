@@ -179,7 +179,7 @@ namespace Bifrost.Configuration
 
         void ConfigureFromCanConfigurables()
         {
-            var callbacks = Container.Get<IInstancesOf<ICanConfigure>>();
+            var callbacks = Container.Get<IOrderedInstancesOf<ICanConfigure>>();
             callbacks.ForEach(c => c.Configure(this));
         }
 
