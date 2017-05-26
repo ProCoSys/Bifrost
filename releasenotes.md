@@ -1,3 +1,6 @@
+## Version 3.0.8
+* Use IOrderedInstancesOf instead of IInstancesOf when configuring Bifrost
+
 ## Version 3.0.7
 * Upgraded Nuget-packages within minor versions
 
