@@ -1,6 +1,6 @@
 ﻿Bifrost.namespace("Bifrost.values", {
     NumberTypeConverter: Bifrost.values.TypeConverter.extend(function () {
-        var allowedCharacters = "0123456789.,";
+        var allowedCharacters = "0123456789.,-";
 
         this.supportedType = Number;
 
