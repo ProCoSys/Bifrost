@@ -18,6 +18,7 @@
 #endregion
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Text.RegularExpressions;
 namespace Bifrost.Utils
 {
@@ -26,17 +27,16 @@ namespace Bifrost.Utils
     /// </summary>
     public class StringMapping : IStringMapping
     {
-        const string PlaceholderExpression = "\\{[a-zA-Z]+\\}";
-        const string WildcardExpression = "\\*{2}[//||\\.]";
-        const string CombinedExpression = "(" + PlaceholderExpression + ")*(" + WildcardExpression + ")*";
+        private const string PlaceholderExpression = "\\{[a-zA-Z]+\\}";
+        private const string WildcardExpression = "\\*{2}[//||\\.]";
+        private const string CombinedExpression = "(" + PlaceholderExpression + ")*(" + WildcardExpression + ")*";
 
-        //static Regex PlaceholderRegex = new Regex(PlaceholderExpression);
-        static Regex WildcardRegex = new Regex(WildcardExpression);
-        static Regex CombinedRegex = new Regex(CombinedExpression);
+        private static readonly Regex WildcardRegex = new Regex(WildcardExpression);
+        private static readonly Regex CombinedRegex = new Regex(CombinedExpression);
 
-        MatchCollection _mappedFormatWildcardMatch;
-        Regex _formatRegex;
-        string[] _components;
+        private List<string> _mappedFormatWildcardMatch;
+        private Regex _formatRegex;
+        private string[] _components;
 
         /// <summary>
         /// Initializes a new instance of <see cref="StringMapping"/>
@@ -63,7 +63,10 @@ namespace Bifrost.Utils
             });
             _components = components.ToArray();
 
-            _mappedFormatWildcardMatch = WildcardRegex.Matches(MappedFormat);
+            _mappedFormatWildcardMatch = WildcardRegex.Matches(MappedFormat)
+                .Cast<Match>()
+                .Select(m => m.Value)
+                .ToList();
             _formatRegex = new Regex(resolveExpression);
         }
 
@@ -105,8 +108,8 @@ namespace Bifrost.Utils
                 if (component.StartsWith("**"))
                 {
                     var wildcard = _mappedFormatWildcardMatch[wildcardOffset];
-                    value = value.Replace(component[2], wildcard.Value[2]);
-                    result = result.Replace(wildcard.Value, value);
+                    value = value.Replace(component[2], wildcard[2]);
+                    result = result.Replace(wildcard, value);
                     wildcardOffset++;
                 }
                 else
