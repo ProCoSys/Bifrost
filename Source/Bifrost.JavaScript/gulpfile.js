@@ -29,4 +29,5 @@ gulp.task('concat-with-sourcemaps', function () {
         .pipe(gulp.dest(''));
 });
 
-gulp.task('default', ['concat', 'concat-with-sourcemaps']);
+gulp.task('default', ['lint', 'concat', 'concat-with-sourcemaps']);
+gulp.task('build', ['concat', 'concat-with-sourcemaps']);

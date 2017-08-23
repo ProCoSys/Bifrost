@@ -9,5 +9,8 @@
     "gulp-jshint": "1.5.5",
     "gulp-sourcemaps": "2.5.0",
     "gulp-uglify": "2.0.0"
+  },
+  "scripts": {
+    "build": "gulp build"
   }
 }
