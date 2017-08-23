@@ -45,6 +45,7 @@ REM %nuget% pack "%~dp0\Bifrost.DocumentDB\Bifrost.DocumentDB.csproj" -p Configu
 
 REM === Creating other packages ===
 %nuget% pack "%~dp0\Bifrost.JavaScript\Bifrost.JS.nuspec" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -Version %version% -NonInteractive
+%nuget% pack "%~dp0\Bifrost.JavaScript\Bifrost.JavaScript.nuspec" -p Configuration=%configuration% -OutputDirectory "%~dp0\%outputDirectory%" -Version %version% -NonInteractive
 
 REM === Copy to package source ===
 if "%1"=="Publish" (
