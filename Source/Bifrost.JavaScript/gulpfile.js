@@ -248,7 +248,7 @@ gulp.task('concat', function () {
 });
 
 gulp.task('concat-with-sourcemaps', function () {
-    return gulp.src(src)
+    return gulp.src(src, {base: '../'})
         .pipe(sourcemaps.init())
         .pipe(concat('Bifrost.dev.js'))
         .pipe(sourcemaps.write())

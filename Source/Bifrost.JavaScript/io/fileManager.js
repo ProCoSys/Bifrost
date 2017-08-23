@@ -43,9 +43,6 @@
                 var path = getActualFilename(file.path.fullPath);
                 if (file.fileType === Bifrost.io.fileType.html) {
                     path = "text!" + path + "!strip";
-                    if (!file.path.hasExtension()) {
-                        path = "noext!" + path;
-                    }
                 }
 
                 filesToLoad.push(path);
