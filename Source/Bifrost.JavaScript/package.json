@@ -1,0 +1,13 @@
+{
+  "name": "bifrost",
+  "description": "Bifrost is an application development framework promoting good development practices.",
+  "main": "index.js",
+  "author": "",
+  "dependencies": {
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
+    "gulp-jshint": "1.5.5",
+    "gulp-sourcemaps": "2.5.0",
+    "gulp-uglify": "2.0.0"
+  }
+}

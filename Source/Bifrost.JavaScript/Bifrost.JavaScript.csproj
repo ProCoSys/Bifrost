@@ -14,8 +14,6 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Solutions\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>13371b08</NuGetPackageImportStamp>
-    <JSLintSkip>
-    </JSLintSkip>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -58,12 +56,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Bifrost.dev.js" />
+    <Content Include="Bifrost.min.js" />
     <Content Include="commands\commandEvents.js" />
     <Content Include="commands\CommandSecurityContext.js" />
     <Content Include="commands\commandSecurityService.js" />
     <Content Include="commands\HandleCommandsTask.js" />
     <Content Include="commands\HandleCommandTask.js" />
     <Content Include="commands\hasChanges.js" />
+    <Content Include="debug.html" />
+    <Content Include="gulpfile.js" />
     <Content Include="hubs\Hub.js" />
     <Content Include="hubs\hubConnection.js" />
     <Content Include="hubs\hubDependencyResolver.js" />
@@ -345,11 +347,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bifrost.JS.nuspec" />
+    <None Include="Bifrost.JavaScript.nuspec" />
     <None Include="jshint.conf" />
+    <None Include="package.json" />
   </ItemGroup>
-  <UsingTask AssemblyFile="$(SolutionDir)..\..\Tools\JsLintNet\JsLintNet.dll" TaskName="JSLintTask" />
-  <Target Name="BeforeBuild">
-    <JSLintTask SourceDirectory="$(ProjectDir)" SettingsFile="$(ProjectDir)jshint.conf" UseHint="true" />
-  </Target>
 </Project>
