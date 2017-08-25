@@ -16,7 +16,7 @@
     <tags>MVVM LOB CQRS</tags>
     <dependencies>
       <dependency id="jQuery" version="2.2.3" />
-      <dependency id="knockoutjs" version="3.4.0" />
+      <dependency id="knockoutjs" version="3.2.0" />
 	  <dependency id="RequireJS" version="2.1.11" />
     </dependencies>
   </metadata>
