@@ -3,7 +3,7 @@
 var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
+    minify = require('gulp-minify'),
     sourcemaps = require('gulp-sourcemaps');
 
 var src = ['extensions/ArrayExtensions.js',
@@ -242,8 +242,13 @@ gulp.task('lint', function () {
 
 gulp.task('concat', function () {
     return gulp.src(src)
-        .pipe(concat('Bifrost.min.js'))
-        .pipe(uglify())
+        .pipe(concat('Bifrost.js'))
+        .pipe(minify({
+			ext: {
+				min:'.min.js'
+			},
+			mangle: false
+		}))
         .pipe(gulp.dest(''));
 });
 
