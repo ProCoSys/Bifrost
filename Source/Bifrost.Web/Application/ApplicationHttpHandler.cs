@@ -30,11 +30,13 @@ namespace Bifrost.Web.Application
 {
     public class ApplicationHttpHandler : IBifrostHttpHandler
     {
-        private string _configurationAsString;
+        private string _output;
 
         public bool IsReusable => true;
-
+        
         private readonly WebConfiguration _webConfiguration;
+        private readonly string _proxies;
+        private readonly string _assets;
 
         public ApplicationHttpHandler() : this(Configure.Instance.Container.Get<WebConfiguration>())
         {
@@ -43,6 +45,13 @@ namespace Bifrost.Web.Application
         public ApplicationHttpHandler(WebConfiguration webConfiguration)
         {
             _webConfiguration = webConfiguration;
+            _proxies = Configure.Instance.Container.Get<GeneratedProxies>().All;
+
+            var assetsManager = Configure.Instance.Container.Get<IAssetsManager>();
+            var files = assetsManager.GetFilesForExtension("js");
+            var serializedAssets = JsonConvert.SerializeObject(files);
+
+            _assets = $"Bifrost.assetsManager.initializeFromAssets({serializedAssets});";
         }
 
         public void ProcessRequest(HttpContext context)
@@ -79,69 +88,16 @@ namespace Bifrost.Web.Application
 
         void OutputContent(HttpContext context)
         {
-            InitializeIfNotInitialized();
+            if (string.IsNullOrEmpty(_output))
+            {
+                var sb = new StringBuilder();
+                sb.Append(_proxies);
+                sb.Append(_assets);
+                _output = sb.ToString();
+            }
+            
             context.Response.ContentType = "text/javascript";
-            context.Response.Write(_configurationAsString);
-        }
-
-        static string GetResource(string name)
-        {
-            var stream = typeof(ApplicationHttpHandler).Assembly.GetManifestResourceStream(name);
-            var bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
-            var content = Encoding.UTF8.GetString(bytes);
-            return content;
-        }
-
-        void InitializeIfNotInitialized()
-        {
-            if (!string.IsNullOrEmpty(_configurationAsString))
-            {
-                return;
-            }
-
-            var proxies = Configure.Instance.Container.Get<GeneratedProxies>();
-            var assetsManager = Configure.Instance.Container.Get<IAssetsManager>();
-            var builder = new StringBuilder();
-
-            if (_webConfiguration.ScriptsToInclude.JQuery)
-            {
-                builder.Append(GetResource("Bifrost.Web.Scripts.jquery-2.2.3.min.js"));
-            }
-
-            if (_webConfiguration.ScriptsToInclude.Knockout)
-            {
-                builder.Append(GetResource("Bifrost.Web.Scripts.knockout-3.4.0.debug.js"));
-            }
-
-            if (_webConfiguration.ScriptsToInclude.SignalR)
-            {
-                builder.Append(GetResource("Bifrost.Web.Scripts.jquery.signalR-2.2.1.js"));
-            }
-
-            if (_webConfiguration.ScriptsToInclude.JQueryHistory)
-            {
-                builder.Append(GetResource("Bifrost.Web.Scripts.jquery.history.js"));
-            }
-
-            if (_webConfiguration.ScriptsToInclude.Require)
-            {
-                builder.Append(GetResource("Bifrost.Web.Scripts.require.js"));
-                builder.Append(GetResource("Bifrost.Web.Scripts.text.js"));
-                builder.Append(GetResource("Bifrost.Web.Scripts.noext.js"));
-            }
-
-            if (_webConfiguration.ScriptsToInclude.Bifrost)
-            {
-                builder.Append(GetResource("Bifrost.Web.Scripts.Bifrost.debug.js"));
-            }
-
-            builder.Append(proxies.All);
-
-            var files = assetsManager.GetFilesForExtension("js");
-            var serialized = JsonConvert.SerializeObject(files);
-            builder.Append($"Bifrost.assetsManager.initializeFromAssets({serialized});");
-            _configurationAsString = builder.ToString();
-        }
+            context.Response.Write(_output);
+        }       
     }
 }

@@ -154,6 +154,7 @@
     <Content Include="index.html" />
     <Content Include="readme.txt" />
     <None Include="Scripts\jquery-2.2.3-vsdoc.js" />
+    <Content Include="Scripts\Bifrost.dev.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
@@ -161,6 +162,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <EmbeddedResource Include="Scripts\jquery.signalR-2.2.1.js" />
     <EmbeddedResource Include="Scripts\jquery.signalR-2.2.1.min.js" />
+    <Content Include="Scripts\jquery.history.js" />
+    <Content Include="Scripts\knockout-3.4.0.debug.js" />
+    <Content Include="Scripts\knockout-3.4.0.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\text.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

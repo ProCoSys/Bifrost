@@ -21,7 +21,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="**\*.js" target="Content\Scripts\bifrost\" exclude="Bifrost.js;Bifrost.Debug.js;gulpfile.js;Libraries\**\*.*;node_modules\**\*.*"/>
+    <file src="bifrost.dev.js" target="Content\Scripts\bifrost\"/>
+    <file src="bifrost.min.js" target="Content\Scripts\bifrost\"/>
     <file src="debug.html" target="Content\Scripts\bifrost\" />
   </files>
 </package>
